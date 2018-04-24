@@ -172,36 +172,36 @@ export class ResourceService {
         return Observable.from([ret]);
     }
 
-    getVisitsForProvider(provider: string) {
-        return this.get("provider/visits", provider);
+    getVisitsForProvider(provider: string, type?: string) {
+        return this.get(`stats/provider/${type || "visits"}`, provider);
     }
 
-        return this.get("provider/favourites", provider);
     getFavouritesForProvider(provider: string) {
+        return this.get("stats/provider/favourites", provider);
     }
 
     getRatingsForProvider(provider: string) {
-        return this.get("provider/ratings", provider);
+        return this.get("stats/provider/ratings", provider);
     }
 
     getVisitationPercentageForProvider(provider: string) {
-        return this.get("provider/visitation", provider);
+        return this.get("stats/provider/visitation", provider);
     }
 
     getPlacesForProvider(provider: string) {
         return this.getServicesOfferedByProvider(provider);
     }
 
-    getVisitsForService(service: string) {
-        return this.get("service/visits", service);
+    getVisitsForService(service: string, type?: string) {
+        return this.get(`stats/service/${type || "visits"}`, service);
     }
 
-        return this.get("service/favourites", service);
     getFavouritesForService(service: string) {
+        return this.get("stats/service/favourites", service);
     }
 
     getRatingsForService(service: string) {
-        return this.get("service/ratings", service);
+        return this.get("stats/service/ratings", service);
     }
 
     private randomInt(from: number, to: number) {
@@ -230,6 +230,22 @@ export class ResourceService {
 
     getEU() {
         return this.http.get("/vocabulary/getEU");
+    }
+
+    getExternalsForProvider(provider: string) {
+        return this.getVisitsForProvider(provider, "external");
+    }
+
+    getExernalsForService(service: string, type?: string) {
+        return this.getVisitsForService(service, "external");
+    }
+
+    getInternalsForService(service: string, type?: string) {
+        return this.getVisitsForService(service, "internal");
+    }
+
+    getInternalsForProvider(provider: string) {
+        return this.getVisitsForProvider(provider, "internal");
     }
 
     activateUserAccount(id: any) {
