@@ -25,7 +25,7 @@ export class ServiceDashboardComponent implements OnInit {
 
     serviceVisitsOptions : any = null;
     serviceRatingsOptions: any = null;
-    serviceFavoritesOptions: any = null;
+    serviceFavouritesOptions: any = null;
     serviceMapOptions: any = null;
 
     constructor(private route: ActivatedRoute, private router: NavigationService, private resourceService: ResourceService,
@@ -64,15 +64,15 @@ export class ServiceDashboardComponent implements OnInit {
             // error => this.handleError(<any>error)
         );
 
-        this.resourceService.getFavoritesForService(this.service.id).map(data => {
+        this.resourceService.getFavouritesForService(this.service.id).map(data => {
 
-            console.log('Favorites' , data);
+            console.log('Favourites' , data);
             //THESE 3 weird lines should be deleted when pgl makes everything ok :)
             return Object.entries(data).map((d) => {
                 return [new Date(d[0]).getTime(),d[1]];
             }).sort((l,r)=>{return l[0] - r[0]});
         }).subscribe(
-            data => this.setFavoritesForService(data),
+            data => this.setFavouritesForService(data),
             // error => this.handleError(<any>error)
         );
 
@@ -117,9 +117,9 @@ export class ServiceDashboardComponent implements OnInit {
         };
     }
 
-    setFavoritesForService(data : any) {
+    setFavouritesForService(data : any) {
 
-        this.serviceFavoritesOptions = {
+        this.serviceFavouritesOptions = {
             title:{
                 text:''
             },
@@ -135,11 +135,11 @@ export class ServiceDashboardComponent implements OnInit {
             },
             yAxis: {
                 title: {
-                    text: 'Number of favorites'
+                    text: 'Number of favourites'
                 }
             },
             series: [{
-                name: 'Favorites over time',
+                name: 'Favourites over time',
                 color: '#C36000',
                 data: data
             }]

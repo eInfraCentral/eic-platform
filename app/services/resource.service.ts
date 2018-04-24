@@ -176,8 +176,8 @@ export class ResourceService {
         return this.get("provider/visits", provider);
     }
 
-    getFavoritesForProvider(provider: string) {
         return this.get("provider/favourites", provider);
+    getFavouritesForProvider(provider: string) {
     }
 
     getRatingsForProvider(provider: string) {
@@ -196,8 +196,8 @@ export class ResourceService {
         return this.get("service/visits", service);
     }
 
-    getFavoritesForService(service: string) {
         return this.get("service/favourites", service);
+    getFavouritesForService(service: string) {
     }
 
     getRatingsForService(service: string) {

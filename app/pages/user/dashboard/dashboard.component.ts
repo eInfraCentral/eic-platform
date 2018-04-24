@@ -26,7 +26,7 @@ export class DashboardComponent implements OnInit {
 
     providerVisitsOptions : any = null;
     providerRatingsOptions: any = null;
-    providerFavoritesOptions: any = null;
+    providerFavouritesOptions: any = null;
     providerVisitationPercentageOptions: any = null;
     providerMapOptions: any = null;
 
@@ -78,13 +78,13 @@ export class DashboardComponent implements OnInit {
             // error => this.handleError(<any>error)
         );
 
-        this.resourceService.getFavoritesForProvider(this.provider).map(data => {
+        this.resourceService.getFavouritesForProvider(this.provider).map(data => {
             //THESE 3 weird lines should be deleted when pgl makes everything ok :)
             return Object.entries(data).map((d) => {
                 return [new Date(d[0]).getTime(),d[1]];
             }).sort((l,r)=>{return l[0] - r[0]});
         }).subscribe(
-            data => this.setFavoritesForProvider(data),
+            data => this.setFavouritesForProvider(data),
             // error => this.handleError(<any>error)
         );
 
@@ -158,9 +158,9 @@ export class DashboardComponent implements OnInit {
         };
     }
 
-    setFavoritesForProvider(data : any) {
+    setFavouritesForProvider(data : any) {
 
-        this.providerFavoritesOptions = {
+        this.providerFavouritesOptions = {
             title:{
                 text:''
             },
@@ -176,11 +176,11 @@ export class DashboardComponent implements OnInit {
             },
             yAxis: {
                 title: {
-                    text: 'Number of favorites'
+                    text: 'Number of favourites'
                 }
             },
             series: [{
-                name: 'Favorites over time',
+                name: 'Favourites over time',
                 color: '#C72B28',
                 data: data
             }]
