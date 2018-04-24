@@ -81,13 +81,6 @@ export class ResourceService {
         return acc;
     }
 
-    uniq(acc, v) {
-        if (!acc.includes(v)) {
-            acc.push(v);
-        }
-        return acc;
-    }
-
     getServices() {
         return this.getBy("service", "service_id");
     }
@@ -106,70 +99,6 @@ export class ResourceService {
 
     getServicesOfferedByProvider(id: string): Observable<Service[]> {
         return this.search([{key: "quantity", values: ["100"]}, {key: "provider", values: [id]}]).map(res => Object.values(res.results));
-    }
-
-    randID() {
-        let s4 = () => Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-        return s4() + s4() + "-" + s4() + "-" + s4() + "-" + s4() + "-" + s4() + s4() + s4();
-    }
-
-    randInt(from, to) {
-        return Math.floor(Math.random() * (to - from + 1)) + from;
-    }
-
-    randEl(arr: any[]) {
-        return arr[this.randInt(0, arr.length)];
-    }
-
-    getAddenda(service: string): Observable<Addenda[]> {
-        let ret: Addenda[] = [];
-        let users = ["pgl", "stefania"];
-        let registeredAt = 1500000000;
-        let registeredBy = this.randEl(users);
-        for (let id = 1, modifiedAt = registeredAt; modifiedAt < 1520000000; id++, modifiedAt += 200000) {
-            ret[id] = {
-                service,
-                registeredAt,
-                registeredBy,
-                modifiedAt,
-                modifiedBy: this.randEl(users),
-                performanceData: null,
-                published: false,
-                id: "" + id,
-                featured: Math.random() > 0.99
-            };
-        }
-        ret[ret.length - 1].published = true;
-        return Observable.from([ret]);
-    }
-
-    getFavourites(service: string): Observable<Event[]> {
-        return this.getEvents(service, "favourite");
-    }
-
-    getInternalHits(service: string): Observable<Event[]> {
-        return this.getEvents(service, "internal");
-    }
-
-    getExternalHits(service: string): Observable<Event[]> {
-        return this.getEvents(service, "external");
-    }
-
-    getRatings(service: string): Observable<Event[]> {
-        return this.getEvents(service, "rating");
-    }
-
-    getEvents(service: string, type: string): Observable<Event[]> {
-        let valuables = {rating: [0, 5], favourite: [0, 1]};
-        let ret: Event[] = [];
-        for (let i = 0; i < this.randInt(0, 10); i++) {
-            let ac: Event = {id: this.randID(), instant: this.randInt(1500000000, 1520000000), service, user: "pgl", type, value: null};
-            if (Object.keys(valuables).indexOf(type) > 0) {
-                ac.value = "" + this.randInt(valuables[type][0], valuables[type][1]);
-            }
-            ret.push(ac);
-        }
-        return Observable.from([ret]);
     }
 
     getVisitsForProvider(provider: string, type?: string) {
@@ -202,10 +131,6 @@ export class ResourceService {
 
     getRatingsForService(service: string) {
         return this.get("stats/service/ratings", service);
-    }
-
-    private randomInt(from: number, to: number) {
-        return Math.floor(Math.random() * (to - from) + from);
     }
 
     groupServicesOfProviderPerPlace(id: string) {
