@@ -387,9 +387,9 @@
                             <!--<li> Average rating <star-rating-comp [starType]="'svg'" [rating]="4.5" [step]="0.5"-->
                                                                   <!--[showHalfStars]="true" [readOnly]=!this.authenticationService.isLoggedIn() [size]="'small'"-->
                                                                   <!--[staticColor]="'ok'"></star-rating-comp></li>-->
-                            <li> Visited at eInfraCentral: <strong> {{service.addenda ? service.addenda.internalHits : Math.floor(getDeterminedInt(service.id) / 7)}} </strong> times</li>
-                            <li> Visited at providers' site: <strong> {{service.addenda ? service.addenda.externalHits : Math.floor(getDeterminedInt(service.id) / 13)}} </strong> times</li>
-                            <li> Favored by <strong> {{service.addenda ? service.addenda.favouriteCount : Math.floor(getDeterminedInt(service.id) / 37)}} </strong> users</li>
+                            <li> Visited at eInfraCentral: <strong> {{stats.visits || 0}} </strong> times</li>
+                            <li> Visited at providers' site: <strong> {{stats.external || 0}} </strong> times</li>
+                            <li> Favored by <strong> {{stats.favourite|| 0}} </strong> users</li>
                         </ul>
                         <!--<a style="font-size: 15px">View more ></a>-->
                     </div>

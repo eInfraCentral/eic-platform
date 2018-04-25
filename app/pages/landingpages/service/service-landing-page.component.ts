@@ -1,14 +1,12 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { Observable } from "rxjs/Observable";
-import { Subscription } from "rxjs/Subscription";
-import { Service } from "../../../domain/eic-model";
-import { AuthenticationService } from "../../../services/authentication.service";
-import { NavigationService } from "../../../services/navigation.service";
-import { ResourceService } from "../../../services/resource.service";
-import { UserService } from "../../../services/user.service";
-
-declare var require: any;
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {ActivatedRoute} from "@angular/router";
+import {Observable} from "rxjs/Observable";
+import {Subscription} from "rxjs/Subscription";
+import {Service} from "../../../domain/eic-model";
+import {AuthenticationService} from "../../../services/authentication.service";
+import {NavigationService} from "../../../services/navigation.service";
+import {ResourceService} from "../../../services/resource.service";
+import {UserService} from "../../../services/user.service";
 
 @Component({
     selector: "service-landing-page",
@@ -21,15 +19,14 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
     public service: Service;
     public errorMessage: string;
     public EU: string[];
-    private Math: Math;
     private sub: Subscription;
     private providers: any = {};
+    public stats: any = {visits: 0, favourites: 0, externals: 0};
 
     serviceMapOptions: any = null;
 
     constructor(public route: ActivatedRoute, public router: NavigationService, public resourceService: ResourceService,
                 public authenticationService: AuthenticationService, public userService: UserService) {
-        this.Math = Math;
     }
 
     ngOnInit() {
@@ -37,12 +34,18 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
             Observable.zip(
                 this.resourceService.getEU(),
                 this.resourceService.getService(params["id"]),
-                this.resourceService.getProviders()
+                this.resourceService.getProviders(),
+                this.resourceService.getVisitsForService(params["id"]),
+                this.resourceService.getFavouritesForService(params["id"]),
+                this.resourceService.getExternalsForService(params["id"]),
                 this.resourceService.recordHit(params["id"], "INTERNAL")
             ).subscribe(suc => {
                 this.EU = suc[0];
                 this.providers = suc[2];
                 this.service = suc[1];
+                this.stats.visits = Object.values(suc[3]).reduce((acc, v) => acc + v);
+                this.stats.favourites = Object.values(suc[4]).reduce((acc, v) => acc + v);
+                this.stats.externals = Object.values(suc[5]).reduce((acc, v) => acc + v);
 
                 this.setCountriesForService(this.service.places);
 
@@ -60,7 +63,7 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
         this.sub.unsubscribe();
     }
 
-    setCountriesForService(data : any) {
+    setCountriesForService(data: any) {
 
         let places = JSON.parse(JSON.stringify(data || []));
         let iEU = places.indexOf("EU");
@@ -113,16 +116,10 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
     }
 
     visit() {
-        // this.resourceService.recordHit(this.service.id, "external").subscribe(console.log);
+        this.resourceService.recordHit(this.service.id, "EXTERNAL").subscribe(console.log);
     }
 
     handleError(error) {
         this.errorMessage = "System error loading service (Server responded: " + error + ")";
-    }
-
-    getDeterminedInt(id) {
-        let parts = id.split(".");
-        let num = 100 * parseInt(parts[0]) + parseInt(parts[1]);
-        return Math.floor(1371 + Math.abs(Math.sin(num) * 100000));
     }
 }
