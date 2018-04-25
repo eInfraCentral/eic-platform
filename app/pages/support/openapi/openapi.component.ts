@@ -1,6 +1,3 @@
-/**
- * Created by pgl on 15/02/18.
- */
 
 import {Component} from "@angular/core";
 

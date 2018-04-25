@@ -1,6 +1,3 @@
-/**
- * Created by pgl on 15/11/17.
- */
 import {Component, Injector} from "@angular/core";
 import {Validators} from "@angular/forms";
 import {AuthenticationService} from "../../../services/authentication.service";

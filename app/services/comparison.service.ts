@@ -1,6 +1,3 @@
-/**
- * Created by pgl on 27/11/17.
- */
 
 import {Injectable} from "@angular/core";
 import {NavigationService} from "./navigation.service";

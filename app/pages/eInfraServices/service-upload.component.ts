@@ -1,6 +1,3 @@
-/**
- * Created by pgl on 21/08/17.
- */
 import {Component, Injector, OnInit} from "@angular/core";
 import {Subscription} from "rxjs/Subscription";
 import {Service} from "../../domain/eic-model";

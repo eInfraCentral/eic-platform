@@ -1,6 +1,3 @@
-/**
- * Created by pgl on 12/12/17.
- */
 
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";

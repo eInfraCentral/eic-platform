@@ -1,6 +1,3 @@
-/**
- * Created by pgl on 21/08/17.
- */
 import {Component, Injector, Type} from "@angular/core";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Observable} from "rxjs/Observable";

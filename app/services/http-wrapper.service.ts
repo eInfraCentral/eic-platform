@@ -1,6 +1,3 @@
-/**
- * Created by pgl on 27/10/17.
- */
 import {Injectable} from "@angular/core";
 import {Headers, Http, RequestOptions, RequestOptionsArgs, Response, XHRBackend} from "@angular/http";
 import {Observable} from "rxjs/Rx";

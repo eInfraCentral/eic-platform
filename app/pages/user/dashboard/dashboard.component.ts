@@ -1,6 +1,3 @@
-/**
- * Created by pgl on 28/08/17.
- */
 import { Component, OnInit } from "@angular/core";
 import { Service } from "../../../domain/eic-model";
 import { AuthenticationService } from "../../../services/authentication.service";

@@ -1,6 +1,3 @@
-/**
- * Created by pgl on 11/12/17.
- */
 import {Injectable} from "@angular/core";
 import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot} from "@angular/router";
 import {AuthenticationService} from "./authentication.service";

@@ -1,6 +1,3 @@
-/**
- * Created by pgl on 21/08/17.
- */
 
 import {Location} from "@angular/common";
 import {Component, Injector, OnInit} from "@angular/core";

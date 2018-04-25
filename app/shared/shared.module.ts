@@ -1,6 +1,3 @@
-/**
- * Created by pgl on 29/09/17.
- */
 
 import {NgModule} from "@angular/core";
 import {JoinPipe} from "./pipes/join.pipe";
