@@ -5,7 +5,7 @@ import {Injectable} from "@angular/core";
 import {URLSearchParams} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import {BrowseResults} from "../domain/browse-results";
-import {Addenda, Event, Service} from "../domain/eic-model";
+import {Event, Service} from "../domain/eic-model";
 import {SearchResults} from "../domain/search-results";
 import {URLParameter} from "../domain/url-parameter";
 import {AuthenticationService} from "./authentication.service";
@@ -181,7 +181,7 @@ export class ResourceService {
         return this.http[shouldPut ? "put" : "post"]("/service", service).map(res => <Service> <any> res);
     }
 
-    recordHit(id: any, type: any, value: any) {
+    recordHit(id: any, type: any, value?: any) {
         let hit = new Event();
         hit.service = id;
         hit.instant = Date.now();
