@@ -158,19 +158,19 @@ export class ResourceService {
     }
 
     getExternalsForProvider(provider: string) {
-        return this.getVisitsForProvider(provider, "external");
+        return this.getVisitsForProvider(provider, "externals");
     }
 
-    getExernalsForService(service: string, type?: string) {
-        return this.getVisitsForService(service, "external");
+    getExternalsForService(service: string, type?: string) {
+        return this.getVisitsForService(service, "externals");
     }
 
     getInternalsForService(service: string, type?: string) {
-        return this.getVisitsForService(service, "internal");
+        return this.getVisitsForService(service, "internals");
     }
 
     getInternalsForProvider(provider: string) {
-        return this.getVisitsForProvider(provider, "internal");
+        return this.getVisitsForProvider(provider, "internals");
     }
 
     activateUserAccount(id: any) {
