@@ -38,7 +38,7 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
                 this.resourceService.getEU(),
                 this.resourceService.getService(params["id"]),
                 this.resourceService.getProviders()
-                //this.resourceService.recordHit(id, "internal")
+                this.resourceService.recordHit(params["id"], "INTERNAL")
             ).subscribe(suc => {
                 this.EU = suc[0];
                 this.providers = suc[2];
