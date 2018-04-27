@@ -4,8 +4,8 @@
 
 import {Component, OnInit} from "@angular/core";
 import {NavigationEnd, Router} from "@angular/router";
+import {Angulartics2Piwik} from "angulartics2/dist/providers";
 import {AuthenticationService} from "./services/authentication.service";
-
 @Component({
     selector: "einfracentral-platform",
     templateUrl: "./app.component.html"
@@ -13,7 +13,7 @@ import {AuthenticationService} from "./services/authentication.service";
 export class AppComponent implements OnInit {
     isLoginOrRegister: boolean = false;
 
-    constructor(public router: Router, public oauthService: AuthenticationService) {
+    constructor(public router: Router, public oauthService: AuthenticationService, private angulartics2Piwik: Angulartics2Piwik) {
         // // URL of the SPA to redirect the user to after login
         // this.oauthService.redirectUri = window.location.origin + "/home";
         //

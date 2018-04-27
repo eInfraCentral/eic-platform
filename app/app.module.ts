@@ -54,6 +54,8 @@ import { TopMenuComponent } from "./shared/topmenu/topmenu.component";
 import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService';
 import { ChartModule } from "angular2-highcharts";
 import { ServiceLandingPageComponent } from "./pages/landingpages/service/service-landing-page.component";
+import { Angulartics2Module } from 'angulartics2';
+import { Angulartics2Piwik } from 'angulartics2/dist/providers/';
 
 const eicForms = [
     ProvidersComponent, PlacesComponent, LanguagesComponent, TagsComponent,
@@ -92,6 +94,7 @@ export function highchartsFactory() {
         SupportModule,
         TabsModule,
         UserModule,
+        Angulartics2Module.forRoot([Angulartics2Piwik]),
         CKEditorModule,
         ChartModule
     ],
