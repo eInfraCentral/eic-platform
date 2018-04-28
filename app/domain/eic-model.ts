@@ -1,4 +1,4 @@
-// Generated using typescript-generator version 1.27.339 on 2018-03-15 13:50:10.
+// Generated using typescript-generator version 1.27.339 on 2018-04-28 13:14:08.
 
 export class Addenda implements Identifiable {
     featured: boolean;
@@ -61,11 +61,12 @@ export class Provider implements Identifiable {
     contactInformation: string;
     id: string;
     name: string;
-    service: User[];
+    service: Service[];
     user: User[];
 }
 
 export class Service implements Identifiable {
+    availability: string;
     category: string;
     changeLog: string;
     description: string;
@@ -74,18 +75,23 @@ export class Service implements Identifiable {
     helpdesk: URL;
     id: string;
     languages: string[];
+    language: string[];
     lastUpdate: XMLGregorianCalendar;
     lifeCycleStatus: string;
     multimediaURL: URL;
     name: string;
     options: string;
     places: string[];
+    order: URL;
     price: URL;
     providers: string[];
     relatedServices: string[];
+    providerName: string;
+    reliability: string;
     request: URL;
     requiredServices: string[];
     serviceLevelAgreement: URL;
+    serviceability: string;
     subcategory: string;
     symbol: URL;
     tags: string[];
