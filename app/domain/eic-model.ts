@@ -75,7 +75,6 @@ export class Service implements Identifiable {
     helpdesk: URL;
     id: string;
     languages: string[];
-    language: string[];
     lastUpdate: XMLGregorianCalendar;
     lifeCycleStatus: string;
     multimediaURL: URL;
