@@ -181,7 +181,6 @@ export class ResourceService {
         return this.http[shouldPut ? "put" : "post"]("/service", service).map(res => <Service> <any> res);
     }
 
-    recordHit(id: any, type: any, value?: any) {
         let hit = new Event();
         hit.service = id;
         hit.instant = Date.now();
@@ -191,6 +190,7 @@ export class ResourceService {
         if (( isVisit && sessionStorage.getItem(type + "-" + id) !== "aye") || !isVisit) {
             sessionStorage.setItem(type + "-" + id, "aye");
             return this.http.post("/event", hit);
+    recordEvent(service: any, type: any, value?: any) {
         } else {
             return Observable.from(["k"]);
         }

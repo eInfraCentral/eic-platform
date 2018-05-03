@@ -38,7 +38,7 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
                 this.resourceService.getVisitsForService(params["id"]),
                 this.resourceService.getFavouritesForService(params["id"]),
                 this.resourceService.getExternalsForService(params["id"]),
-                this.resourceService.recordHit(params["id"], "INTERNAL")
+                this.resourceService.recordEvent(params["id"], "INTERNAL")
             ).subscribe(suc => {
                 this.EU = suc[0];
                 this.providers = suc[2];
@@ -116,7 +116,7 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
     }
 
     visit() {
-        this.resourceService.recordHit(this.service.id, "EXTERNAL").subscribe(console.log);
+        this.resourceService.recordEvent(this.service.id, "EXTERNAL").subscribe(console.log);
     }
 
     handleError(error) {
