@@ -8,22 +8,20 @@ import {Service, User} from "../domain/eic-model";
 import {AuthenticationService} from "./authentication.service";
 import {HTTPWrapper} from "./http-wrapper.service";
 import {NavigationService} from "./navigation.service";
+import {ResourceService} from "./resource.service";
 
 @Injectable()
 export class UserService {
-    constructor(public http: HTTPWrapper, public router: NavigationService, public authenticationService: AuthenticationService) {
+    constructor(public http: HTTPWrapper, public router: NavigationService, public authenticationService: AuthenticationService,
+                public resourceService: ResourceService) {
     }
 
-    addFavourite(serviceID: string) {
+    favouriteService(serviceID: string) {
         if (this.authenticationService.isLoggedIn()) {
-            let params = new URLSearchParams();
-            params.append("userID", this.authenticationService.user.id);
-            params.append("serviceID", serviceID);
-            return this.http.post("/user/addFavourite", {}, {params}).subscribe(console.log);
+            return this.resourceService.recordEvent(serviceID, "FAVOURITE", 1).subscribe(console.log);
         } else {
             this.router.login();
         }
-
     }
 
     loginUser(email: string, password: string): Observable<any> {
@@ -39,9 +37,9 @@ export class UserService {
             service.providers.indexOf(this.authenticationService.user.email.split("@")[0]) > -1;
     }
 
-    public rateService(id: string) {
+    public rateService(serviceID: string, value: any) {
         if (this.authenticationService.isLoggedIn()) {
-            console.log(`Gon rate ${id} when this is implemented!`);
+            return this.resourceService.recordEvent(serviceID, "RATING", value).subscribe(console.log);
         } else {
             this.router.login();
         }
