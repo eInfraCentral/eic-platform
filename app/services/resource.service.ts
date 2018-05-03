@@ -5,7 +5,7 @@ import {Injectable} from "@angular/core";
 import {URLSearchParams} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import {BrowseResults} from "../domain/browse-results";
-import {Event, Service} from "../domain/eic-model";
+import {Service} from "../domain/eic-model";
 import {SearchResults} from "../domain/search-results";
 import {URLParameter} from "../domain/url-parameter";
 import {AuthenticationService} from "./authentication.service";
@@ -181,16 +181,15 @@ export class ResourceService {
         return this.http[shouldPut ? "put" : "post"]("/service", service).map(res => <Service> <any> res);
     }
 
-        let hit = new Event();
-        hit.service = id;
-        hit.instant = Date.now();
-        hit.user = (this.authenticationService.user || {id: ""}).id;
-        hit.type = type;
-        let isVisit = ["internal", "external"].indexOf(hit.type) > 0;
-        if (( isVisit && sessionStorage.getItem(type + "-" + id) !== "aye") || !isVisit) {
-            sessionStorage.setItem(type + "-" + id, "aye");
-            return this.http.post("/event", hit);
     recordEvent(service: any, type: any, value?: any) {
+        let event = Object.assign({
+            instant: Date.now(),
+            user: (this.authenticationService.user || {id: ""}).id
+        }, {service, type, value});
+        let isVisit = ["INTERNAL", "EXTERNAL"].indexOf(event.type) > 0;
+        if (( isVisit && sessionStorage.getItem(type + "-" + service) !== "aye") || !isVisit) {
+            sessionStorage.setItem(type + "-" + service, "aye");
+            return this.http.post("/event", event);
         } else {
             return Observable.from(["k"]);
         }
