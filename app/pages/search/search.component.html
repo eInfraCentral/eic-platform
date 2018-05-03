@@ -166,7 +166,7 @@
                                                 </div>
                                                 <div class="uk-margin-small-top">
                                                     <a (click)="this.comparisonService.addOrRemove(resourceInfo.id)" title="Compare list" uk-tooltip="delay: 500">
-                                                        <i [ngClass]="{'blueActionIcons': this.comparisonService.servicesToCompare.includes(resourceInfo.id)}"
+                                                        <i [ngClass]="{'blueActionIcons': this.comparisonService.servicesToCompare.indexOf(resourceInfo.id) > 0}"
                                                            class="fa fa-compress fa-flip-horizontal fa-lg" aria-hidden="true"></i>
                                                     </a>
                                                 </div>
