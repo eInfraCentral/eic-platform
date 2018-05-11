@@ -178,7 +178,7 @@
                             <td *ngFor="let service of services" class="uk-width-1-{{services.length}}">
                                 <div class="fieldName">Phase</div>
                                 <ng-template [ngIf]="service.lifeCycleStatus && service.lifeCycleStatus!=''">
-                                    {{service.lifeCycleStatus}}
+                                    {{service.lifeCycleStatus | lookup:this.vocabularies.LifeCycleStatus}}
                                 </ng-template>
                                 <ng-template [ngIf]="!service.lifeCycleStatus || service.lifeCycleStatus==''">
                                     --
@@ -189,7 +189,7 @@
                             <td *ngFor="let service of services" class="uk-width-1-{{services.length}}">
                                 <div class="fieldName">TRL</div>
                                 <ng-template [ngIf]="service.trl && service.trl!=''">
-                                    {{service.trl}}
+                                    {{service.trl | lookup:this.vocabularies.TRL}}
                                 </ng-template>
                                 <ng-template [ngIf]="!service.trl || service.trl==''">
                                     --
@@ -200,7 +200,7 @@
                             <td *ngFor="let service of services" class="uk-width-1-{{services.length}}">
                                 <div class="fieldName">Category</div>
                                 <ng-template [ngIf]="service.category && service.category!=''">
-                                    {{service.category}}
+                                    {{service.category | lookup:this.vocabularies.Category }}
                                 </ng-template>
                                 <ng-template [ngIf]="!service.category || service.category==''">
                                     --
@@ -211,7 +211,7 @@
                             <td *ngFor="let service of services" class="uk-width-1-{{services.length}}">
                                 <div class="fieldName">Subcategory</div>
                                 <ng-template [ngIf]="service.subcategory && service.subcategory!=''">
-                                    {{service.subcategory}}
+                                    {{service.subcategory | lookup:this.vocabularies.Subcategory }}
                                 </ng-template>
                                 <ng-template [ngIf]="!service.subcategory || service.subcategory==''">
                                     --
