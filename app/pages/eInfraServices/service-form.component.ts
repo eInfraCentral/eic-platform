@@ -6,7 +6,7 @@ import {NavigationService} from "../../services/navigation.service";
 import {ResourceService} from "../../services/resource.service";
 import {UserService} from "../../services/user.service";
 import {URLValidator} from "../../shared/validators/generic.validator";
-import {PhaseValidator, TLRValidator} from "../../shared/validators/vocabulary.validator";
+import {LifeCycleStatusValidator, TLRValidator} from "../../shared/validators/vocabulary.validator";
 import {LanguagesComponent} from "./multivalue-components/languages.component";
 import {PlacesComponent} from "./multivalue-components/places.component";
 import {ProvidersComponent} from "./multivalue-components/providers.component";
@@ -84,7 +84,7 @@ export class ServiceFormComponent {
         "lastUpdate": [""],
         "changeLog": [""],
         //"validFor": [""],
-        "lifeCycleStatus": ["", Validators.compose([Validators.required, PhaseValidator])],
+        "lifeCycleStatus": ["", Validators.compose([Validators.required, LifeCycleStatusValidator])],
         "trl": ["", Validators.compose([Validators.required, TLRValidator])],
         "category": ["", Validators.required],
         "subcategory": ["", Validators.required],

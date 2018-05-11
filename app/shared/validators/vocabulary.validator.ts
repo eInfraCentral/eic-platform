@@ -9,7 +9,7 @@ export function TLRValidator(control: AbstractControl) {
     return PatternValidator(control, /^[789]$/);
 }
 
-export function PhaseValidator(control: AbstractControl) {
+export function LifeCycleStatusValidator(control: AbstractControl) {
     return PatternValidator(control, /^Alpha|Beta|Production$/);
 }
 

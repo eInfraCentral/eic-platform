@@ -128,8 +128,8 @@
                                                              [valid]="serviceForm.get('lifeCycleStatus').valid && serviceForm.get('lifeCycleStatus').dirty">
                                                     <select formControlName="lifeCycleStatus" class="uk-select"
                                                             [ngClass]="{'uk-form-danger': !serviceForm.get('lifeCycleStatus').valid && serviceForm.get('lifeCycleStatus').dirty}">
-                                                        <option *ngFor="let c of this.vocabularies.Phase | keys" [ngValue]="c">
-                                                            {{this.vocabularies.Phase[c]}}
+                                                        <option *ngFor="let c of this.vocabularies.LifeCycleStatus | keys" [ngValue]="c">
+                                                            {{this.vocabularies.LifeCycleStatus[c]}}
                                                         </option>
                                                     </select>
                                                 </form-inline>

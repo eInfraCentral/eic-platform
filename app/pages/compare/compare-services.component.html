@@ -176,7 +176,7 @@
                         </tr>
                         <tr>
                             <td *ngFor="let service of services" class="uk-width-1-{{services.length}}">
-                                <div class="fieldName">Phase</div>
+                                <div class="fieldName">Lifecycle status</div>
                                 <ng-template [ngIf]="service.lifeCycleStatus && service.lifeCycleStatus!=''">
                                     {{service.lifeCycleStatus | lookup:this.vocabularies.LifeCycleStatus}}
                                 </ng-template>
