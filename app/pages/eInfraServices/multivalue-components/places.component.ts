@@ -26,6 +26,6 @@ export class PlacesComponent extends MyGroup {
 
     ngOnInit() {
         super.ngOnInit();
-        this.resourceService.getVocabularies("Country").subscribe(suc => this.places = suc);
+        this.resourceService.getVocabularies("Place").subscribe(suc => this.places = suc);
     }
 }
