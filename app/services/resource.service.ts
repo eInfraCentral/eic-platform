@@ -63,7 +63,7 @@ export class ResourceService {
     }
 
     getVocabularies(type?: string) {
-        return this.http.get(`/vocabulary/all?from=0&quantity=10000${type ? "&type=" + type : ""}`)
+        return this.http.get(`/vocabulary/all?from=0&quantity=1000${type ? "&type=" + type : ""}`)
         .map(e => (<any>e).results.reduce(type ? this.idToName : this.idToObject, {}));
     }
 
