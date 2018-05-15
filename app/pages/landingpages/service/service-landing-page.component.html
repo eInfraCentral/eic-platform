@@ -61,10 +61,10 @@
                     </div>
 
                     <div class="tags" *ngIf="service.lifeCycleStatus || service.trl || service.category || service.subcategory">
-                        <span title="Category" uk-tooltip="delay: 500" class="uk-label uk-label-primary">{{service.category || "Service category not available"}}</span>
-                        <span title="Subcategory" uk-tooltip="delay: 500" class="uk-label uk-label-primary">{{service.subcategory || "Service subcategory not available"}}</span>
-                        <span title="Technology Readiness Level" uk-tooltip="delay: 500" class="uk-label uk-label-primary">TRL {{service.trl || "not available"}}</span>
-                        <span title="Lifecycle Status" uk-tooltip="delay: 500" class="uk-label uk-label-primary">{{service.lifeCycleStatus || "Lifecycle Status not available"}}</span>
+                        <span title="Category" uk-tooltip="delay: 500" class="uk-label uk-label-primary">{{service.category ? this.vocabularies[service.category].name : "Service category not available"}}</span>
+                        <span title="Subcategory" uk-tooltip="delay: 500" class="uk-label uk-label-primary">{{service.subcategory? this.vocabularies[service.subcategory].name : "Service subcategory not available"}}</span>
+                        <span title="Technology Readiness Level" uk-tooltip="delay: 500" class="uk-label uk-label-primary">TRL {{this.vocabularies[service.trl].name || "not available"}}</span>
+                        <span title="Lifecycle Status" uk-tooltip="delay: 500" class="uk-label uk-label-primary">{{this.vocabularies[service.lifeCycleStatus].name || "Lifecycle Status not available"}}</span>
                     </div>
 
                     <div class="" *ngIf="service.description">
@@ -291,7 +291,7 @@
                                             <dt>Places</dt>
                                             <dd>
                                                 <!--<span *ngFor="let place of service.places">{{place}}, </span>-->
-                                                <span >{{service.places.join()}}</span>
+                                                <span>{{this.getPrettyList(service.places)}}</span>
                                             </dd>
                                         </ng-template>
                                         <ng-template [ngIf]="!service.places || service.places.length==0">
@@ -317,7 +317,7 @@
                                         <ng-template [ngIf]="service.languages && service.languages.length>0">
                                             <dt>Languages</dt>
                                             <dd>
-                                                <span >{{service.languages.join()}} </span>
+                                                <span>{{this.getPrettyList(service.languages)}}</span>
                                             </dd>
                                         </ng-template>
                                         <ng-template [ngIf]="!service.languages || service.languages.length==0">

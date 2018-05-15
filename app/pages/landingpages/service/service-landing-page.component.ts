@@ -22,6 +22,7 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
     public WW: string[];
     private sub: Subscription;
     private providers: any = {};
+    private vocabularies: any = [];
     public stats: any = {visits: 0, favourites: 0, externals: 0};
 
     serviceMapOptions: any = null;
@@ -37,6 +38,7 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
                 this.resourceService.getWW(),
                 this.resourceService.getService(params["id"]),
                 this.resourceService.getProviders(),
+                this.resourceService.getVocabularies(),
                 this.resourceService.getVisitsForService(params["id"]),
                 this.resourceService.getFavouritesForService(params["id"]),
                 this.resourceService.getExternalsForService(params["id"]),
@@ -46,9 +48,10 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
                 this.WW = suc[1];
                 this.service = suc[2];
                 this.providers = suc[3];
-                this.stats.visits = Object.values(suc[4]).reduce((acc, v) => acc + v, 0);
-                this.stats.favourites = Object.values(suc[5]).reduce((acc, v) => acc + v, 0);
-                this.stats.externals = Object.values(suc[6]).reduce((acc, v) => acc + v, 0);
+                this.vocabularies = suc[4];
+                this.stats.visits = Object.values(suc[5]).reduce((acc, v) => acc + v, 0);
+                this.stats.favourites = Object.values(suc[6]).reduce((acc, v) => acc + v, 0);
+                this.stats.externals = Object.values(suc[7]).reduce((acc, v) => acc + v, 0);
 
                 this.setCountriesForService(this.service.places);
 
@@ -110,6 +113,10 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
 
     getPrettyService(id) {
         return (this.services || []).find(e => e.id == id) || {id, name: "Name not found!"};
+    }
+
+    getPrettyList(list) {
+        return list.map(e => this.vocabularies[e].name).join();
     }
 
     visit() {
