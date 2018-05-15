@@ -55,7 +55,6 @@ export class ServiceDashboardComponent implements OnInit {
 
         this.resourceService.getVisitsForService(this.service.id).map(data => {
 
-            console.log('Visits' , data);
             //THESE 3 weird lines should be deleted when pgl makes everything ok :)
             return Object.entries(data).map((d) => {
                 return [new Date(d[0]).getTime(),d[1]];

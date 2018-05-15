@@ -1,9 +1,10 @@
-import { Component, OnInit } from "@angular/core";
-import { Service } from "../../../domain/eic-model";
-import { AuthenticationService } from "../../../services/authentication.service";
-import { NavigationService } from "../../../services/navigation.service";
-import { ResourceService } from "../../../services/resource.service";
-import { UserService } from "../../../services/user.service";
+import {Component, OnInit} from "@angular/core";
+import {Service} from "../../../domain/eic-model";
+import {AuthenticationService} from "../../../services/authentication.service";
+import {NavigationService} from "../../../services/navigation.service";
+import {ResourceService} from "../../../services/resource.service";
+import {UserService} from "../../../services/user.service";
+import {Observable} from "rxjs/Observable";
 
 declare var require: any;
 
@@ -22,7 +23,7 @@ export class DashboardComponent implements OnInit {
     public EU: string[];
     public WW: string[];
 
-    providerVisitsOptions : any = null;
+    providerVisitsOptions: any = null;
     providerRatingsOptions: any = null;
     providerFavouritesOptions: any = null;
     providerVisitationPercentageOptions: any = null;
@@ -30,7 +31,7 @@ export class DashboardComponent implements OnInit {
 
     constructor(public authenticationService: AuthenticationService, public userService: UserService,
                 public resourceService: ResourceService, public router: NavigationService) {
-   }
+    }
 
     ngOnInit() {
         Observable.zip(
