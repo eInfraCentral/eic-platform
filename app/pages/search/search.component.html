@@ -58,7 +58,7 @@
                                         <input type="checkbox" name="vehicle" value="Bike" data-md-icheck
                                                (change)="this.onSelection($event, facet.field, facetValue.value)"
                                                [checked]="facetValue.isChecked">
-                                        {{facetValue.value}}
+                                        {{this.getFacetLabel(facet, facetValue)}}
                                         <span>({{facetValue.count}})</span>
                                     </div>
                                 </read-more>
@@ -81,7 +81,7 @@
                                         <input type="checkbox" name="vehicle" value="Bike" data-md-icheck
                                                (change)="this.onSelection($event, facet.field, facetValue.value)"
                                                [checked]="facetValue.isChecked">
-                                        {{facet.label==="Provider"? this.providers[facetValue.value] : facetValue.value ? facetValue.value : "N/A"}}
+                                        {{this.getFacetLabel(facet, facetValue)}}
                                         <span>({{facetValue.count}})</span>
                                     </div>
                                 </read-more>
