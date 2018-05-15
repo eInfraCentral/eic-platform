@@ -9,6 +9,7 @@ import {AuthenticationService} from "../../../services/authentication.service";
 import {NavigationService} from "../../../services/navigation.service";
 import {ResourceService} from "../../../services/resource.service";
 import {UserService} from "../../../services/user.service";
+import {Observable} from "rxjs/Observable";
 
 @Component({
     selector: "service-dashboard",
@@ -22,6 +23,7 @@ export class ServiceDashboardComponent implements OnInit {
     private sub: Subscription;
 
     public EU: string[];
+    public WW: string[];
 
     serviceVisitsOptions : any = null;
     serviceRatingsOptions: any = null;
@@ -34,17 +36,16 @@ export class ServiceDashboardComponent implements OnInit {
 
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
-            this.resourceService.getService(params["id"]).subscribe(
-                service => {
-                    this.service = service;
-                    this.resourceService.getEU().subscribe(
-                        data => {
-                            this.EU = data;
-                            return this.getDataForService(service);
-                        }
-                    );
-                },
-                error => this.handleError(<any>error));
+            Observable.zip(
+                this.resourceService.getEU(),
+                this.resourceService.getWW(),
+                this.resourceService.getService(params["id"])
+            ).subscribe(suc => {
+                this.EU = suc[0];
+                this.WW = suc[1];
+                this.service = suc[2];
+                this.getDataForService(this.service);
+            });
         });
     }
 
