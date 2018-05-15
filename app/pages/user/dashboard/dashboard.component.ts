@@ -20,6 +20,7 @@ export class DashboardComponent implements OnInit {
     public errorMessage: string;
 
     public EU: string[];
+    public WW: string[];
 
     providerVisitsOptions : any = null;
     providerRatingsOptions: any = null;
@@ -32,26 +33,22 @@ export class DashboardComponent implements OnInit {
    }
 
     ngOnInit() {
-        this.resourceService.getProviders().subscribe(
-            suc => {
-                for (let provider in suc) {
-                    if (this.authenticationService.user.email === provider + "@eic") {
-                        //eventually manager/provider/aai should provide the relevant info,
-                        // but for now, we just check if user's email=provider+eic
-                        this.provider = provider;
-                            this.resourceService.getEU().subscribe(
-                                data => {
-
-                                    console.log('Europe data', data);
-
-                                    this.EU = data;
-                                    return this.getDataForProvider(provider);
-                                }
-                            );
-                    }
+        Observable.zip(
+            this.resourceService.getEU(),
+            this.resourceService.getWW(),
+            this.resourceService.getProviders()
+        ).subscribe(suc => {
+            this.EU = suc[0];
+            this.WW = suc[1];
+            for (let provider in suc[2]) {
+                if (this.authenticationService.user.email === provider + "@eic") {
+                    //eventually manager/provider/aai should provide the relevant info,
+                    // but for now, we just check if user's email=provider+eic
+                    this.provider = provider;
                 }
             }
-        );
+            this.getDataForProvider(this.provider);
+        });
     }
 
     getDataForProvider(provider) {
