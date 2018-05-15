@@ -90,11 +90,7 @@ export class SearchComponent implements OnInit, OnDestroy {
             if (urlParameter.key === "query") {
                 this.searchForm.get("query").setValue(urlParameter.values[0]);
             } else if (urlParameter.key === "advanced") {
-                if (urlParameter.values[0] == "true") {
-                    this.advanced = true;
-                } else {
-                    this.advanced = false;
-                }
+                this.advanced = urlParameter.values[0] == "true";
             } else {
                 for (let facet of this.searchResults.facets) {
                     if (facet.field === urlParameter.key) {
