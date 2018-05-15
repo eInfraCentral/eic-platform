@@ -177,13 +177,7 @@ export class ServiceDashboardComponent implements OnInit {
     }
 
     setCountriesForService(data : any) {
-
-        let places = JSON.parse(JSON.stringify(data || []));
-        let iEU = places.indexOf("EU");
-        if (iEU > -1) {
-            places.splice(iEU, 1);
-            places.push(...this.EU);
-        }
+        let places = this.resourceService.expandRegion(JSON.parse(JSON.stringify(data || [])), this.EU, this.WW);
 
         this.serviceMapOptions = {
             chart: {

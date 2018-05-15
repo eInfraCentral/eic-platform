@@ -244,14 +244,8 @@ export class DashboardComponent implements OnInit {
         };
     }
 
-    setCountriesForProvider(data : any) {
-
-        let places = JSON.parse(JSON.stringify(data || []));
-        let iEU = places.indexOf("EU");
-        if (iEU > -1) {
-            places.splice(iEU, 1);
-            places.push(...this.EU);
-        }
+    setCountriesForProvider(data: any) {
+        let places = this.resourceService.expandRegion(JSON.parse(JSON.stringify(data || [])), this.EU, this.WW);
 
         this.providerMapOptions = {
             chart: {
