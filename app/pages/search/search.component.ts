@@ -5,7 +5,9 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
+import {Observable} from "rxjs/Observable";
 import {Subscription} from "rxjs/Subscription";
+import {Facet, FacetValue} from "../../domain/facet";
 import {SearchQuery} from "../../domain/search-query";
 import {SearchResults} from "../../domain/search-results";
 import {AuthenticationService} from "../../services/authentication.service";
@@ -132,6 +134,10 @@ export class SearchComponent implements OnInit, OnDestroy {
         this.searchResults.facets.sort((a, b): number => {
             return facetValues[a.field] - facetValues[b.field];
         });
+    }
+
+    getFacetLabel(facet: Facet, facetValue: FacetValue) {
+        return facet.label === "Provider" ? this.providers[facetValue.value] || "N/A" : (this.vocabularies[facetValue.value] || {name:"N/A"}).name || "N/A";
     }
 
     onSubmit(searchValue: SearchQuery) {
