@@ -317,7 +317,7 @@
                                         <ng-template [ngIf]="service.languages && service.languages.length>0">
                                             <dt>Languages</dt>
                                             <dd>
-                                                <span *ngFor="let language of service.languages">{{language}}, </span>
+                                                <span >{{service.languages.join()}} </span>
                                             </dd>
                                         </ng-template>
                                         <ng-template [ngIf]="!service.languages || service.languages.length==0">
