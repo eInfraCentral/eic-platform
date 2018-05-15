@@ -161,6 +161,21 @@ export class ResourceService {
         return this.http.get("/vocabulary/getWW");
     }
 
+    //this should be somewhere else, I think
+    expandRegion(places, eu, ww) {
+        let iEU = places.indexOf("Place-EU");
+        if (iEU > -1) {
+            places.splice(iEU, 1);
+            places.push(...eu);
+        }
+        let iWW = places.indexOf("Place-WW");
+        if (iWW > -1) {
+            places.splice(iWW, 1);
+            places.push(...ww);
+        }
+        return places;
+    }
+
     getExternalsForProvider(provider: string) {
         return this.getVisitsForProvider(provider, "externals");
     }
