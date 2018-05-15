@@ -16,7 +16,7 @@ export class UserService {
                 public resourceService: ResourceService) {
     }
 
-    favouriteService(serviceID: string) {
+    addFavourite(serviceID: string) {
         if (this.authenticationService.isLoggedIn()) {
             return this.resourceService.recordEvent(serviceID, "FAVOURITE", 1).subscribe(console.log);
         } else {
