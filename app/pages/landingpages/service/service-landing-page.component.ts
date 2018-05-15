@@ -19,6 +19,7 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
     public service: Service;
     public errorMessage: string;
     public EU: string[];
+    public WW: string[];
     private sub: Subscription;
     private providers: any = {};
     public stats: any = {visits: 0, favourites: 0, externals: 0};
@@ -33,6 +34,7 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
         this.sub = this.route.params.subscribe(params => {
             Observable.zip(
                 this.resourceService.getEU(),
+                this.resourceService.getWW(),
                 this.resourceService.getService(params["id"]),
                 this.resourceService.getProviders(),
                 this.resourceService.getVisitsForService(params["id"]),
@@ -41,11 +43,12 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
                 this.resourceService.recordEvent(params["id"], "INTERNAL")
             ).subscribe(suc => {
                 this.EU = suc[0];
-                this.providers = suc[2];
-                this.service = suc[1];
-                this.stats.visits = Object.values(suc[3]).reduce((acc, v) => acc + v);
-                this.stats.favourites = Object.values(suc[4]).reduce((acc, v) => acc + v);
-                this.stats.externals = Object.values(suc[5]).reduce((acc, v) => acc + v);
+                this.WW = suc[1];
+                this.service = suc[2];
+                this.providers = suc[3];
+                this.stats.visits = Object.values(suc[4]).reduce((acc, v) => acc + v, 0);
+                this.stats.favourites = Object.values(suc[5]).reduce((acc, v) => acc + v, 0);
+                this.stats.externals = Object.values(suc[6]).reduce((acc, v) => acc + v, 0);
 
                 this.setCountriesForService(this.service.places);
 
