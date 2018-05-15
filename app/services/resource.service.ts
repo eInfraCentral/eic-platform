@@ -157,6 +157,10 @@ export class ResourceService {
         return this.http.get("/vocabulary/getEU");
     }
 
+    getWW() {
+        return this.http.get("/vocabulary/getWW");
+    }
+
     getExternalsForProvider(provider: string) {
         return this.getVisitsForProvider(provider, "externals");
     }
