@@ -39,6 +39,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     foundResults = true;
     advanced: boolean = false;
     providers: any;
+    vocabularies: any;
 
     constructor(public fb: FormBuilder, public router: NavigationService, public route: ActivatedRoute,
                 public userService: UserService, public resourceService: ResourceService,
@@ -47,8 +48,12 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.resourceService.getProviders().subscribe(providers => {
-            this.providers = providers;
+        Observable.zip(
+            this.resourceService.getProviders(),
+            this.resourceService.getVocabularies()
+        ).subscribe(suc => {
+            this.providers = suc[0];
+            this.vocabularies = suc[1];
             this.sub = this.route.params.subscribe(params => {
                 this.urlParameters.splice(0, this.urlParameters.length);
                 this.foundResults = true;
