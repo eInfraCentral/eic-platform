@@ -63,8 +63,12 @@ export class ResourceService {
     }
 
     getVocabularies(type?: string) {
-        return this.http.get(`/vocabulary/all?from=0&quantity=1000${type ? "&type=" + type : ""}`)
-        .map(e => (<any>e).results.reduce(type ? this.idToName : this.idToObject, {}));
+        return this.getVocabulariesRaw(type).map(e => e.results.reduce(type ? this.idToName : this.idToObject, {}));
+    }
+
+
+    getVocabulariesRaw(type?: string) {
+        return this.http.get(`/vocabulary/all?from=0&quantity=1000${type ? "&type=" + type : ""}`);
     }
 
     getVocabulariesUsingGroupBy(type?: string) {
