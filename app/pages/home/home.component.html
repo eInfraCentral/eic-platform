@@ -583,24 +583,18 @@
         </div>
 
         <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid="">
-            <div *ngFor="let c of this.categories" class="uk-width-1-5@m" (click)="this.router.search({category:c.value})">
+            <div *ngFor="let c of this.categories" class="uk-width-1-5@m" (click)="this.router.search({category:c.id})">
                 <div class="wk-panel wk-overlay-hover" style="min-height: 100px;">
-                    <!--<a class="wk-position-cover wk-position-z-index" ></a>-->
+
                     <div class="wk-text-center wk-margin wk-margin-top-remove">
                         <div class="wk-overlay">
-                            <img src="./imgs/Icons/{{c.icon}}" alt="{{c.value}}" width="64">
-                            <img src="./imgs/Icons/{{c.hover}}" class=" wk-overlay-panel wk-overlay-image wk-overlay-fade" alt="{{c.alt}}" width="64">
+                            <img src={{this.baseIconURI+c.extra[0]}} alt={{c.name}} width="64">
+                            <img src={{this.baseIconURI+c.extra[1]}} alt={{c.name}} width="64" class=" wk-overlay-panel wk-overlay-image wk-overlay-fade" >
                         </div>
                     </div>
                     <h3 class="wk-h4 wk-margin-top-remove uk-text-center">
-                        <!--<a class="wk-link-reset" href="#{{c.anchor}}">-->
-                        <!--{{c.value}}-->
-                        <!--</a>-->
-
-
-                        <!--uk-toggle="target: {{c.value}}; animation: uk-animation-fade;" this can't go in the <a> for some reason-->
                         <a class="wk-link-reset" type="button">
-                            {{c.value}}
+                            {{c.name}}
                         </a>
                     </h3>
                 </div>
