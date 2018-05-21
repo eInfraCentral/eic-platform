@@ -8,7 +8,7 @@ export class CanActivateEditGuard implements CanActivate {
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return true;
-        //return this.userService.canEditService(TODO: Find a smart way of doing this);
+        return true; //TODO: implement
+        //return this.userService.canEditService();
     }
 }
