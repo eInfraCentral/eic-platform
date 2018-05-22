@@ -139,8 +139,8 @@
                                                              [valid]="serviceForm.get('trl').valid && serviceForm.get('trl').dirty">
                                                     <select formControlName="trl" class="uk-select"
                                                             [ngClass]="{'uk-form-danger': !serviceForm.get('trl').valid && serviceForm.get('trl').dirty}">
-                                                        <option *ngFor="let c of this.vocabularies.TechnologyReadinessLevel | keys"
-                                                                [ngValue]="c">{{this.vocabularies.TechnologyReadinessLevel[c]}}
+                                                        <option *ngFor="let c of this.vocabularies.TRL | keys"
+                                                                [ngValue]="c">{{this.vocabularies.TRL[c]}}
                                                         </option>
                                                     </select>
                                                 </form-inline>
