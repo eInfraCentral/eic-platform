@@ -1,4 +1,4 @@
-// Generated using typescript-generator version 1.27.339 on 2018-05-18 14:20:14.
+// Generated using typescript-generator version 1.27.339 on 2018-05-25 11:47:46.
 
 export class Addenda implements Identifiable {
     featured: boolean;
@@ -123,7 +123,7 @@ export class User implements Identifiable {
 }
 
 export class Vocabulary implements Identifiable {
-    extra: string[];
+    extras: string[];
     id: string;
     name: string;
     parent: string;
