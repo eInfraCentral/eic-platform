@@ -2,6 +2,7 @@ import {Component, Injector, OnInit} from "@angular/core";
 import {Subscription} from "rxjs/Subscription";
 import {Service} from "../../domain/eic-model";
 import {ServiceFormComponent} from "./service-form.component";
+import {AuthenticationService} from "../../services/authentication.service";
 
 @Component({
     selector: "service-upload",
@@ -11,8 +12,8 @@ import {ServiceFormComponent} from "./service-form.component";
 export class ServiceUploadComponent extends ServiceFormComponent implements OnInit {
     private sub: Subscription;
 
-    constructor(protected injector: Injector) {
-        super(injector);
+    constructor(protected injector: Injector, protected authenticationService: AuthenticationService) {
+        super(injector, authenticationService);
         this.editMode = false;
     }
 

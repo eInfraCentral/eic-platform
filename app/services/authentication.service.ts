@@ -36,4 +36,8 @@ export class AuthenticationService {
     public isLoggedIn(): boolean {
         return getCookie(this.cookieName) != null && this.user != null;
     }
+
+    public getUserId(): string {
+        return this.user.id == null ? "null" : this.user.id;
+    }
 }
