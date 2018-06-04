@@ -4,13 +4,10 @@
    Use this file to add custom CSS easily
  ========================================================================== */
 
-/*body {*/
-    /*color: #666666;*/
-    /*font-family: 'Roboto', sans-serif;*/
-    /*!*font-family: "Open Sans";*!*/
-    /*font-size: 15px;*/
-    /*line-height: 24px;*/
-/*}*/
+body {
+    font-family: Montserrat, sans-serif;
+    /*font-family: "Open Sans";*/
+}
 
 /*li, dt, dd {*/
     /*line-height: 24px;*/
