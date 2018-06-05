@@ -45,7 +45,8 @@ export class SearchComponent implements OnInit, OnDestroy {
 
     constructor(public fb: FormBuilder, public router: NavigationService, public route: ActivatedRoute,
                 public userService: UserService, public resourceService: ResourceService,
-                public authenticationService: AuthenticationService, public comparisonService: ComparisonService) {
+                public authenticationService: AuthenticationService, public comparisonService: ComparisonService,
+                public navigationService: NavigationService) {
         this.searchForm = fb.group({"query": [""]});
     }
 
@@ -68,15 +69,20 @@ export class SearchComponent implements OnInit, OnDestroy {
                         this.urlParameters.push(urlParameter);
                     }
                 }
+
+                this.navigationService.paramsObservable.next(this.urlParameters);
+
                 //request results from the registry
                 return this.resourceService.search(this.urlParameters).subscribe(
                     searchResults => this.updateSearchResults(searchResults));
+
             });
         });
     }
 
     ngOnDestroy(): void {
         this.sub.unsubscribe();
+        this.navigationService.paramsObservable.next(null);
     }
 
     updateSearchResults(searchResults: SearchResults) {
