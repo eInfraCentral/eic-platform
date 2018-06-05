@@ -9,6 +9,11 @@ body {
     /*font-family: "Open Sans";*/
 }
 
+.uk-container, .container {
+    padding-left: 80px;
+    padding-right: 80px;
+}
+
 /*li, dt, dd {*/
     /*line-height: 24px;*/
 /*}*/

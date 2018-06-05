@@ -1,0 +1,13 @@
+<div class="breadcrumbs">
+    <div class="uk-container uk-container-expand">
+        <div *ngIf="breadcrumbs">
+            <ul class="uk-breadcrumb">
+                <li *ngFor="let frag of breadcrumbs; let isLast = last; let i = index;">
+                    <a [routerLink]="[breadcrumbs.slice(1,i+1).join('/')]" *ngIf="!isLast" href="">{{frag}}</a>
+                    <span *ngIf="isLast">{{frag}}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+

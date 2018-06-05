@@ -72,3 +72,7 @@
     color: rgba(0,71,186,1) !important;
     border: none !important;
 }
+
+.uk-navbar-container > .uk-container .uk-navbar-right, .uk-navbar-container > .container .uk-navbar-right {
+    margin-right: 0px;
+}
