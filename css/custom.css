@@ -3,9 +3,11 @@
 /* ========================================================================
    Use this file to add custom CSS easily
  ========================================================================== */
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,700');
 
 body {
     font-family: Montserrat, sans-serif;
+    font-weight: 300;
     /*font-family: "Open Sans";*/
 }
 
