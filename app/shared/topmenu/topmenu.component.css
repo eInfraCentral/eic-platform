@@ -1,19 +1,19 @@
-.uk-navbar-nav > li > a {
+.uk-navbar-nav > li > a , .uk-navbar-nav > li > a:focus, .uk-navbar-nav > li > a:active{
     color: #0047BA;
     font-size: 15px;
     font-weight: bold;
 }
 
-.uk-navbar-nav > li > a:hover, .uk-navbar-nav > li > a:focus {
+.uk-navbar-nav > li > a:hover {
     color: #D1303A;
 }
 
-.uk-navbar-dropdown-nav > li > a, .uk-navbar-dropdown-nav > li > a {
+.uk-navbar-dropdown-nav > li > a, .uk-navbar-dropdown-nav > li > a:focus, .uk-navbar-dropdown-nav > li > a:active {
     color: #0047BA;
     font-size: 16px;
 }
 
-.uk-navbar-dropdown-nav > li > a:hover, .uk-navbar-dropdown-nav > li > a:focus {
+.uk-navbar-dropdown-nav > li > a:hover {
     color: #D1303A;
 }
 

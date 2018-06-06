@@ -32,13 +32,7 @@
                     <div class="uk-panel" id="module-0">
                         <ul class="uk-nav uk-nav-default">
                             <li class="uk-nav-header" [routerLinkActive]="['uk-active']">
-                                <a [routerLink]="['/home']" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">
-                                    Home
-                                    <!--<img class="uk-responsive-height" src="./imgs/Icons/Home_24white.svg" alt="home">-->
-                                </a>
-                            </li>
-                            <li class="uk-nav-header" [routerLinkActive]="['uk-active']">
-                                <a [routerLink]="['/search']" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">Search</a>
+                                <a [routerLink]="['/search']" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">Catalogue</a>
                             </li>
                             <li class="uk-nav-header uk-parent" [routerLinkActive]="['uk-active']">Support
                                 <ul class="uk-nav-sub">
@@ -132,31 +126,30 @@
                         <!--<li *ngIf="this.authenticationService.isLoggedIn() && this.authenticationService.user.id == 'stefania'" class="uk-parent" [routerLinkActive]="['uk-active']">-->
                             <!--<a routerLink="/dashboard" routerLinkActive="uk-active">Dashboard</a>-->
                         <!--</li>-->
-                        <!--<li class="uk-parent" [routerLinkActive]="['uk-active']">-->
-                            <!--<a routerLink="/home" routerLinkActive="uk-active">-->
-                                <!--Home-->
-                                <!--&lt;!&ndash;<img class="uk-responsive-height" src="./imgs/Icons/Home_24white.svg" alt="home">&ndash;&gt;-->
-                            <!--</a>-->
-                        <!--</li>-->
                         <li class="uk-parent" [routerLinkActive]="['uk-active']">
-                            <a #categoriesDropdown href="#" class="" aria-expanded="false">
-                                Categories
-                                <img *ngIf="!categoriesOpen" class="uk-margin-small-left" src="../../../assets/images/icons/ic_arrow_down.svg">
-                                <img *ngIf="categoriesOpen" class="uk-margin-small-left" src="../../../assets/images/icons/arrow_filter_active.svg">
+                            <a routerLink="/search" routerLinkActive="uk-active">
+                                Catalogue
                             </a>
-                            <div class="uk-navbar-dropdown uk-navbar-dropdown-bottom-left" style="top: 80px; left: 106.55px;" id="categories" (click)="onClick('categories')">
-                                <div class="uk-navbar-dropdown-grid uk-child-width-1-1 uk-grid uk-grid-stack" uk-grid="">
-                                    <div class="uk-first-column">
-                                        <ul class="uk-nav uk-navbar-dropdown-nav">
-                                            <li><a [routerLink]="['/developers']" routerLinkActive="uk-active">For developers</a></li>
-                                            <li><a [routerLink]="['/support/faqs']" routerLinkActive="uk-active">FAQs</a></li>
-                                            <li><a href="http://einfracentral.eu/contact" target="_blank" routerLinkActive="uk-active">Ask a question</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--<a routerLink="/search" routerLinkActive="uk-active">Categories</a>-->
                         </li>
+                        <!--<li class="uk-parent" [routerLinkActive]="['uk-active']">-->
+                            <!--<a #categoriesDropdown href="#" class="" aria-expanded="false">-->
+                                <!--Categories-->
+                                <!--<img *ngIf="!categoriesOpen" class="uk-margin-small-left" src="../../../assets/images/icons/ic_arrow_down.svg">-->
+                                <!--<img *ngIf="categoriesOpen" class="uk-margin-small-left" src="../../../assets/images/icons/arrow_filter_active.svg">-->
+                            <!--</a>-->
+                            <!--<div class="uk-navbar-dropdown uk-navbar-dropdown-bottom-left" style="top: 80px; left: 106.55px;" id="categories" (click)="onClick('categories')">-->
+                                <!--<div class="uk-navbar-dropdown-grid uk-child-width-1-1 uk-grid uk-grid-stack" uk-grid="">-->
+                                    <!--<div class="uk-first-column">-->
+                                        <!--<ul class="uk-nav uk-navbar-dropdown-nav">-->
+                                            <!--<li><a [routerLink]="['/developers']" routerLinkActive="uk-active">For developers</a></li>-->
+                                            <!--<li><a [routerLink]="['/support/faqs']" routerLinkActive="uk-active">FAQs</a></li>-->
+                                            <!--<li><a href="http://einfracentral.eu/contact" target="_blank" routerLinkActive="uk-active">Ask a question</a></li>-->
+                                        <!--</ul>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--&lt;!&ndash;<a routerLink="/search" routerLinkActive="uk-active">Categories</a>&ndash;&gt;-->
+                        <!--</li>-->
                         <li class="uk-parent" [routerLinkActive]="['uk-active']">
                             <a href="#" class="" aria-expanded="false">
                                 Support <img class="uk-margin-small-left" src="../../../assets/images/icons/ic_arrow_down.svg">
