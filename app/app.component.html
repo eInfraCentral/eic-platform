@@ -1,6 +1,6 @@
 <div class="uk-offcanvas-content">
     <top-menu *ngIf="!isLoginOrRegister"></top-menu>
-    <breadcrumbs *ngIf="router.url != '/home' && router.url != '/'" [breadcrumbs]="breadcrumbs"></breadcrumbs>
+    <breadcrumbs *ngIf="router.url != '/home' && router.url != '/'" ></breadcrumbs>
     <router-outlet></router-outlet>
     <feedback></feedback>
     <footer></footer>
