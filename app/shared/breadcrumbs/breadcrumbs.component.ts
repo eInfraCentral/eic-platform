@@ -56,11 +56,7 @@ export class BreadcrumbsComponent implements OnInit {
             };
             breadcrumbs.push(breadcrumb);
             this.breadcrumbs = this.getBreadcrumbs(root,"",breadcrumbs);
-            if(this.breadcrumbs.find(v => v.label=='Compare')) {
-                this.goBack = true;
-            } else {
-                this.goBack = false;
-            }
+            this.goBack = !!this.breadcrumbs.find(v => v.label == 'Compare');
         });
     }
 
