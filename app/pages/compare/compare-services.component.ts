@@ -73,4 +73,9 @@ export class CompareServicesComponent implements OnInit, OnDestroy {
     onSubmit(searchValue: SearchQuery) {
         return this.router.search({query: searchValue.query});
     }
+
+    getShownRating() {
+        //if user has rated, then show user rating
+        //else show average rating
+    }
 }

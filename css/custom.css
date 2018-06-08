@@ -21,6 +21,17 @@ body {
     box-shadow: 2px 15px 50px rgba(41, 44, 61, .1);
 }
 
+.uk-button-default {
+    border: 1px solid #0047BA;
+    border-radius: 2px;
+    color: #0047BA;
+}
+
+.uk-button-default:hover {
+    background-color: #0047BA;
+    color: #fff;
+}
+
 /*li, dt, dd {*/
     /*line-height: 24px;*/
 /*}*/

@@ -19,7 +19,7 @@ export class ComparisonService {
             this.servicesToCompare.splice(idx, 1);
             sessionStorage.setItem("compareServices", JSON.stringify(this.servicesToCompare));
         } else {
-            if (this.servicesToCompare.length == 4) {
+            if (this.servicesToCompare.length == 3) {
                 UIkit.notification({
                                        message: "You have reached the maximum number of items you can compare",
                                        status: "primary",
