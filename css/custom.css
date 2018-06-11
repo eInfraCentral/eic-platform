@@ -3,14 +3,34 @@
 /* ========================================================================
    Use this file to add custom CSS easily
  ========================================================================== */
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,700');
 
-/*body {*/
-    /*color: #666666;*/
-    /*font-family: 'Roboto', sans-serif;*/
-    /*!*font-family: "Open Sans";*!*/
-    /*font-size: 15px;*/
-    /*line-height: 24px;*/
-/*}*/
+body {
+    font-family: Montserrat, sans-serif;
+    font-weight: 300;
+    /*font-family: "Open Sans";*/
+}
+
+.uk-container, .container {
+    padding-left: 80px;
+    padding-right: 80px;
+}
+
+.uk-navbar-container:not(.uk-navbar-transparent) {
+    background: #fff;
+    box-shadow: 2px 15px 50px rgba(41, 44, 61, .1);
+}
+
+.uk-button-default {
+    border: 1px solid #0047BA;
+    border-radius: 2px;
+    color: #0047BA;
+}
+
+.uk-button-default:hover {
+    background-color: #0047BA;
+    color: #fff;
+}
 
 /*li, dt, dd {*/
     /*line-height: 24px;*/

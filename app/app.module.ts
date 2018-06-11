@@ -56,6 +56,8 @@ import { ChartModule } from "angular2-highcharts";
 import { ServiceLandingPageComponent } from "./pages/landingpages/service/service-landing-page.component";
 import { Angulartics2Module } from 'angulartics2';
 import { Angulartics2Piwik } from 'angulartics2/dist/providers/';
+import { BreadcrumbsComponent } from "./shared/breadcrumbs/breadcrumbs.component";
+import { SlickModule } from "ngx-slick";
 
 const eicForms = [
     ProvidersComponent, PlacesComponent, LanguagesComponent, TagsComponent,
@@ -96,7 +98,8 @@ export function highchartsFactory() {
         UserModule,
         Angulartics2Module.forRoot([Angulartics2Piwik]),
         CKEditorModule,
-        ChartModule
+        ChartModule,
+        SlickModule.forRoot()
     ],
     declarations: [
         //MAIN
@@ -111,6 +114,7 @@ export function highchartsFactory() {
         FeedbackComponent,
         FooterComponent,
         TopMenuComponent,
+        BreadcrumbsComponent,
         //USER
         ActivateComponent,
         DashboardComponent,

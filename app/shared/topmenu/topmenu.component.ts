@@ -1,22 +1,101 @@
 /**
  * Created by stefania on 7/5/16.
  */
-import {Component, ViewEncapsulation} from "@angular/core";
+import {
+    Component, DoCheck, ElementRef, OnChanges, OnDestroy, OnInit, Renderer2, SimpleChanges, ViewChild,
+    ViewEncapsulation
+} from "@angular/core";
 import {AuthenticationService} from "../../services/authentication.service";
+import { ActivatedRoute, Router } from "@angular/router";
+import { FormBuilder, FormGroup } from "@angular/forms";
+import { SearchQuery } from "../../domain/search-query";
+import { NavigationService } from "../../services/navigation.service";
+import { Subscription } from "rxjs/Subscription";
+import { URLParameter } from "../../domain/url-parameter";
 
 @Component({
     selector: "top-menu",
     templateUrl: "./topmenu.component.html",
-    styles: [`
-        .uk-navbar-nav > li > a.loginLink {
-            color: #214c9c;
-        }
-    `],
+    styleUrls: ["./topmenu.component.css"],
     encapsulation: ViewEncapsulation.None
 })
-export class TopMenuComponent {
-    constructor(public authenticationService: AuthenticationService) {
+export class TopMenuComponent implements OnInit, OnDestroy {
+
+    private sub: Subscription;
+    public searchForm: FormGroup;
+
+    urlParameters: URLParameter[] = [];
+    //
+    @ViewChild('categoriesDropdown') categoriesDropdown: ElementRef;
+    // @ViewChild('supportDropdown') supportDropdown: ElementRef;
+
+    categoriesOpen: boolean = false;
+    supportOpen: boolean = false;
+
+    constructor(public authenticationService: AuthenticationService, private renderer: Renderer2,
+                public router: Router, public fb: FormBuilder, public navigationService: NavigationService,
+                private activatedRoute: ActivatedRoute) {
+        this.searchForm = fb.group({"query": [""]});
     }
+
+    onSubmit(searchValue: SearchQuery) {
+        return this.navigationService.search({query: searchValue.query});
+    }
+
+    ngOnInit(): void {
+        this.navigationService.paramsObservable.subscribe(params => {
+
+            if(params!=null) {
+                for (let urlParameter of params) {
+                    if(urlParameter.key === 'query') {
+                        this.searchForm.get('query').setValue(urlParameter.values[0]);
+                    }
+                }
+            } else {
+                this.searchForm.get('query').setValue('');
+            }
+
+        });
+    }
+
+    ngOnDestroy(): void {
+        this.sub.unsubscribe();
+    }
+
+    // ngDoCheck(): void {
+    //     if (this.categoriesDropdown.nativeElement.classList.contains("uk-open")) {
+    //         console.log("it is open");
+    //     } else {
+    //         console.log("it is closed");
+    //     }
+    // }
+
+    // ngOnInit() {
+    //     console.log(this.router.url);
+    //     //using selectRootElement instead of depreaced invokeElementMethod
+    //     //this.categoriesDropdown.nativeElement.subscribe(console.log("aaaa"))
+    //     //this.renderer.selectRootElement(this.categoriesDropdown["nativeElement"]).
+    //     //this.renderer.selectRootElement(this.categoriesDropdown["nativeElement"]).onHover.subscribe(console.log("hover"));
+    //     // this.renderer.selectRootElement(this.categoriesDropdown["nativeElement"]).focus();
+    // }
+
+    // onChangeOpen(event: any) {
+    //     console.log(event);
+    // }
+
+    // openDropdown(id: string) {
+    //     if(id=='categories')
+    //         this.categoriesOpen = true;
+    //     if(id=='support')
+    //         this.supportOpen = true;
+    // }
+    //
+    // closeDropdown(id: string) {
+    //     if(id=='categories')
+    //         this.categoriesOpen = false;
+    //     if(id=='support')
+    //         this.supportOpen = false;
+    // }
 
     onClick(id: string) {
         var el: HTMLElement = document.getElementById(id);

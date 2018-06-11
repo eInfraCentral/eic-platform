@@ -1,5 +1,5 @@
 <div id="tm-main" class="tm-main uk-section uk-section-default" uk-height-viewport="expand: true" style="box-sizing: border-box;">
-    <div class="uk-container">
+    <div class="uk-container uk-container-expand">
         <div class="uk-grid" uk-grid="">
 
             <ng-template [ngIf]="errorMessage">
@@ -16,34 +16,37 @@
 
                     <div class="uk-grid">
                         <div class="uk-width-3-4@m">
-                            <img src="{{service.symbol || 'http://fvtelibrary.com/img/user/NoLogo.png'}}" style="max-width: 110px; margin: 32px 32px 0px 0px;">
-                            <div class="uk-display-inline-block uk-vertical-align-top uk-margin-top">
+                            <div class="uk-display-inline-block uk-vertical-align-top">
                                 <h2 class="uk-h2 uk-inline" style="margin-bottom: 5px">
                                     {{service.name || "Not Available"}}
-                                    <!--<a target="_blank" [href]="service.url" (click)="visit()">-->
-                                      <!--{{service.name || "Not Available"}}-->
-                                    <!--</a>-->
                                     <span class="uk-margin-left" *ngIf="this.userService.canEditService(service)">
                                         <a (click)="this.router.edit(service.id)" routerLinkActive="active"><i class="fa fa-pencil"></i></a>
                                     </span>
                                 </h2>
-                                <div style="display: flex">by&nbsp;
-                                    <span class="comma-element" *ngFor="let provider of service.providers">
-                                        <a (click)="this.router.search({provider: provider})">{{[provider]|lookup:providers}}</a>
+                                <div *ngIf="service.tagline && (service.tagline.length>0)" class="tagLine">
+                                    {{service.tagline}}
+                                </div>
+                                <div>
+                                    <star-rating-comp (click)="this.userService.rateService(service.id)" [starType]="'svg'" [rating]="this.getShownRating()" [step]="1"
+                                                      [showHalfStars]="true" [readOnly]=!this.authenticationService.isLoggedIn() [size]="'medium'"
+                                                      [staticColor]="'ok'" class="uk-inline starRating"></star-rating-comp>
+                                    <span class="uk-margin-medium-left">
+                                        <img src="../../../../assets/images/icons/ic_love_icon.svg">
+                                        <span class="statsNumbers">{{stats.favourite || 0}}</span>
+                                    </span>
+                                    <span class="uk-margin-medium-left">
+                                        <img src="../../../../assets/images/icons/ic_visit_icon.svg">
+                                        <span class="statsNumbers">{{stats.visits || 0}}</span>
                                     </span>
                                 </div>
                             </div>
                         </div>
                         <div class="uk-width-1-4@m">
-                            <div class="uk-margin-top">
-                                <star-rating-comp (click)="this.userService.rateService(service.id)" [starType]="'svg'" [rating]="this.getShownRating()" [step]="1"
-                                                  [showHalfStars]="true" [readOnly]=!this.authenticationService.isLoggedIn() [size]="'medium'"
-                                                  [staticColor]="'ok'"></star-rating-comp>
-                            </div>
-                            <div class="uk-margin-top" style="text-align: center">
-                                <button class="uk-button uk-button-primary visitButton" (click)="visit()" routerLinkActive="active">
-                                    <strong>Visit Service</strong>
-                                </button>
+
+                            <div class="uk-card uk-card-body uk-card-custom providerCard">
+                                <img src="{{service.symbol || 'http://fvtelibrary.com/img/user/NoLogo.png'}}"
+                                     style="max-width: 67px;">
+                                <span class="provider">{{service.providers[0] | uppercase}}</span>
                             </div>
                         </div>
 
@@ -53,406 +56,243 @@
 
                 <div class="uk-width-expand@m uk-first-column uk-grid-margin-medium">
 
-                    <div *ngIf="service.tagline && (service.tagline.length>0)" class="tagLine">
-                        <i>"{{service.tagline}}"</i>
-                    </div>
-                    <div *ngIf="!service.tagline || (service.tagline.length==0)" class="tagLine">
-                        <i>"--"</i>
-                    </div>
-
-                    <div class="tags" *ngIf="service.lifeCycleStatus || service.trl || service.category || service.subcategory">
-                        <span title="Category" uk-tooltip="delay: 500" class="uk-label uk-label-primary">{{service.category ? this.vocabularies[service.category].name : "Service category not available"}}</span>
-                        <span title="Subcategory" uk-tooltip="delay: 500" class="uk-label uk-label-primary">{{service.subcategory? this.vocabularies[service.subcategory].name : "Service subcategory not available"}}</span>
-                        <span title="Technology Readiness Level" uk-tooltip="delay: 500" class="uk-label uk-label-primary">TRL {{this.vocabularies[service.trl].name || "not available"}}</span>
-                        <span title="Lifecycle Status" uk-tooltip="delay: 500" class="uk-label uk-label-primary">{{this.vocabularies[service.lifeCycleStatus].name || "Lifecycle Status not available"}}</span>
-                    </div>
-
-                    <div class="" *ngIf="service.description">
+                    <div class="serviceDescription" *ngIf="service.description">
                         <p [innerHTML]="service.description">
                         </p>
                     </div>
-                    <div class="" *ngIf="!service.description">
-                        <p>
-                            Service description not available
-                        </p>
+
+                    <div class="tags" *ngIf="service.tags && service.tags.length>0">
+                        <span *ngFor="let tag of service.tags" class="uk-label">{{tag}}</span>
                     </div>
 
-                    <ng-template [ngIf]="service.tags && service.tags.length>0">
-                        <hr style="margin-top: 10px; margin-bottom: 8px; border-top: dotted 1px #CCCCCC;" class="ng-scope">
-                        <span>Service tags</span>
-                        <div class="">
-                            <span *ngFor="let tag of service.tags" class="uk-label uk-label-default">{{tag}}</span>
-                        </div>
-                        <hr style="margin-top: 10px; margin-bottom: 8px; border-top: dotted 1px #CCCCCC;" class="ng-scope">
-                    </ng-template>
-
-                    <ng-template [ngIf]="!service.tags || service.tags.length==0">
-                        <hr style="margin-top: 10px; margin-bottom: 8px; border-top: dotted 1px #CCCCCC;" class="ng-scope">
-                        <span>Service tags</span>
-                        <div class="">
-                            <span class="uk-label uk-label-default">Not available</span>
-                        </div>
-                        <hr style="margin-top: 10px; margin-bottom: 8px; border-top: dotted 1px #CCCCCC;" class="ng-scope">
-                    </ng-template>
-
-                    <!--<hr style="margin-top: 10px; margin-bottom: 8px; border-top: dotted 1px #CCCCCC;" class="ng-scope">-->
-                    <div class="contractualInfo uk-margin-medium-top">
-                        <h4>Contractual Info</h4>
-                        <dl class="uk-description-list">
-
-                            <ng-template [ngIf]="service.options">
-                                <dt>Options</dt>
-                                <dd>{{service.options}}</dd>
-                            </ng-template>
-                            <ng-template [ngIf]="!service.options">
-                                <dt>Options</dt>
-                                <dd>Not available</dd>
-                            </ng-template>
-
-                            <ng-template [ngIf]="service.price">
-                                <dt>Pricing model</dt>
-                                <dd>{{service.price}}</dd>
-                            </ng-template>
-                            <ng-template [ngIf]="!service.price">
-                                <dt>Pricing model</dt>
-                                <dd>Not available</dd>
-                            </ng-template>
-
-                            <ng-template [ngIf]="service.serviceLevelAgreement">
-                                <dt>Service Level Agreement</dt>
-                                <dd>{{service.serviceLevelAgreement}}</dd>
-                            </ng-template>
-                            <ng-template [ngIf]="!service.serviceLevelAgreement">
-                                <dt>Service Level Agreement</dt>
-                                <dd>Not available</dd>
-                            </ng-template>
-
-                            <ng-template [ngIf]="service.termsOfUse && service.termsOfUse.length > 0">
-                                <dt>Terms of Use</dt>
-                                <dd>{{service.termsOfUse}}</dd>
-                            </ng-template>
-                            <ng-template [ngIf]="!service.termsOfUse">
-                                <dt>Terms of Use</dt>
-                                <dd>Not available</dd>
-                            </ng-template>
-
-                        </dl>
+                    <div>
+                        <button class="uk-button uk-button-primary visitButton" (click)="visit()" routerLinkActive="active">
+                            <strong>Homepage Service</strong>
+                        </button>
                     </div>
-                    <!--<hr style="margin-top: 10px; margin-bottom: 8px; border-top: dotted 1px #CCCCCC;" class="ng-scope">-->
-
-                    <dl class="uk-description-list">
-
-                        <ng-template [ngIf]="service.version">
-                            <dt>Version</dt>
-                            <dd>{{service.version}}</dd>
-                        </ng-template>
-                        <ng-template [ngIf]="!service.version">
-                            <dt>Version</dt>
-                            <dd>Not available</dd>
-                        </ng-template>
-
-                        <ng-template [ngIf]="service.funding">
-                            <dt>Funding sources</dt>
-                            <dd>{{service.funding}}</dd>
-                        </ng-template>
-                        <ng-template [ngIf]="!service.funding">
-                            <dt>Funding sources</dt>
-                            <dd>Not available</dd>
-                        </ng-template>
-                    </dl>
 
 
-                    <!--TABS-->
-                    <ul class=" uk-tab uk-visible@m uk-margin-medium-top" uk-tab="connect: #infoTabs; animation: uk-animation-fade">
-                        <!--<li *ngIf="service.targetUsers || service.userValue || service.userBase">-->
-                        <li>
-                            <a>Usage</a>
-                        </li>
-                        <li>
-                            <!--<li *ngIf="service.requiredServices">-->
-                            <a>Required Services</a>
-                        </li>
-                        <li>
-                        <!--<li *ngIf="service.relatedServices">-->
-                            <a>Related Services</a>
-                        </li>
-                        <li>
-                        <!--<li *ngIf="service.places || service.region || service.language">-->
-                            <a>Service Coverage</a>
-                        </li>
-                        <!--<li *ngIf="service.options || service.price || service.serviceLevelAgreement || service.termsOfUse">-->
-                        <!--<li>-->
-                            <!--<a>Contractual Info</a>-->
-                        <!--</li>-->
-                    </ul>
+                    <div class="uk-grid-collapse uk-grid uk-width-1-1 uk-margin-large-top">
 
-                    <button class="uk-button uk-button-default uk-hidden@m" type="button">
-                        <span uk-navbar-toggle-icon></span> <span class="uk-margin-small-left">{{activeTab}}</span>
-                    </button>
-
-                    <ul id="toggle-small-tabs" class="uk-subnav uk-subnav-pill uk-dropdown uk-hidden@m" uk-switcher="{connect: #infoTabs; animation: uk-animation-fade}" uk-dropdown="mode: click" uk-toggle="target: #toggle-small-tabs">
-                        <!--<li *ngIf="service.targetUsers || service.userValue || service.userBase">-->
-                        <li>
-                            <a>Usage</a>
-                        </li>
-                        <li>
-                            <!--<li *ngIf="service.requiredService">-->
-                            <a>Required Services</a>
-                        </li>
-                        <li>
-                        <!--<li *ngIf="service.relatedService">-->
-                            <a>Related Services</a>
-                        </li>
-                        <li>
-                        <!--<li *ngIf="service.places || service.region || service.language">-->
-                            <a>Service Coverage</a>
-                        </li>
-                        <!--<li *ngIf="service.options || service.price || service.serviceLevelAgreement || service.termsOfUse">-->
-                        <!--<li>-->
-                            <!--<a>Contractual Info</a>-->
-                        <!--</li>-->
-                    </ul>
-
-                    <ul id="infoTabs" class="uk-switcher  uk-width-1-1 uk-margin-top custom-tab-content-large">
-                        <!--<li *ngIf="service.targetUsers || service.userValue || service.userBase">-->
-                        <li>
-                            <div class="uk-margin-medium-top">
+                        <div class="uk-width-1-2@m uk-margin-right">
+                            <!--USAGE-->
+                            <div class="uk-card uk-card-body uk-card-basic-info uk-margin-bottom">
+                                <h2 class="uk-h2">Usage</h2>
                                 <dl class="uk-description-list">
-
-                                    <ng-template [ngIf]="service.targetUsers">
-                                        <dt>Target users</dt>
+                                    <div *ngIf="service.trl" class="uk-margin-small-bottom">
+                                        <dt class="uk-margin-small-right uk-inline">Technology readiness level</dt>
+                                        <dd class="uk-inline">{{this.vocabularies[service.trl].name.charAt(0)}}</dd>
+                                    </div>
+                                    <div *ngIf="service.lifeCycleStatus" class="uk-margin-small-bottom">
+                                        <dt class="uk-margin-small-right uk-inline">Lifecycle Status</dt>
+                                        <dd class="uk-inline">{{this.vocabularies[service.lifeCycleStatus].name}}</dd>
+                                    </div>
+                                </dl>
+                                <hr class="customDivider">
+                                <dl class="uk-description-list">
+                                    <ng-container *ngIf="service.options">
+                                        <dt class="uk-margin-small-bottom">Options</dt>
+                                        <dd>{{service.options}}</dd>
+                                    </ng-container>
+                                    <ng-container *ngIf="service.targetUsers">
+                                        <dt class="uk-margin-small-bottom">Target Users</dt>
                                         <dd>{{service.targetUsers}}</dd>
-                                    </ng-template>
-                                    <ng-template [ngIf]="!service.targetUsers">
-                                        <dt>Target users</dt>
-                                        <dd>Not available</dd>
-                                    </ng-template>
-
-                                    <ng-template [ngIf]="service.userValue">
-                                        <dt>User value</dt>
-                                        <dd>{{service.userValue}}</dd>
-                                    </ng-template>
-                                    <ng-template [ngIf]="!service.userValue">
-                                        <dt>User value</dt>
-                                        <dd>Not available</dd>
-                                    </ng-template>
-
-                                    <ng-template [ngIf]="service.userBase">
-                                        <dt>User base</dt>
+                                    </ng-container>
+                                    <ng-container *ngIf="service.userValues">
+                                        <dt class="uk-margin-small-bottom">User values</dt>
+                                        <dd>{{service.userValues}}</dd>
+                                    </ng-container>
+                                    <ng-container *ngIf="service.userBase">
+                                        <dt class="uk-margin-small-bottom">User base</dt>
                                         <dd>{{service.userBase}}</dd>
-                                    </ng-template>
-                                    <ng-template [ngIf]="!service.userBase">
-                                        <dt>User base</dt>
-                                        <dd>Not available</dd>
-                                    </ng-template>
-
+                                    </ng-container>
                                 </dl>
                             </div>
-                        </li>
-                        <li>
-                            <!--<li *ngIf="service.requiredServices">-->
-                            <div class="uk-margin-medium-top">
-                                <ul *ngIf="service.requiredServices && service.requiredServices.length > 0">
-                                    <li *ngFor="let requiredService of service.requiredServices">
-                                        <a (click)="this.router.service(getPrettyService(requiredService).id)">{{getPrettyService(requiredService).name}}</a>
-                                    </li>
-                                </ul>
-                                <div *ngIf="!service.requiredServices || service.requiredServices.length==0" class="uk-alert uk-alert-warning">
-                                    There are no available required services
-                                </div>
+                            <!--REQUIRED / RELATED SERVICES-->
+                            <div class="uk-card uk-card-body uk-card-basic-info">
+                                <h2 class="uk-h2">Required / Related services</h2>
+                                <dl class="uk-description-list">
+                                    <ng-container *ngIf="service.requiredServices && service.requiredServices.length > 0">
+                                        <dt class="uk-margin-small-bottom">Required services</dt>
+                                        <dd *ngFor="let requiredService of service.requiredServices">
+                                            <a (click)="this.router.service(getPrettyService(requiredService).id)">{{getPrettyService(requiredService).name}}</a>
+                                            <!--<ul>-->
+                                                <!--<li *ngFor="let requiredService of service.requiredServices">-->
+                                                    <!--<a (click)="this.router.service(getPrettyService(requiredService).id)">{{getPrettyService(requiredService).name}}</a>-->
+                                                <!--</li>-->
+                                            <!--</ul>-->
+                                        </dd>
+                                    </ng-container>
+                                    <ng-container *ngIf="!service.requiredServices || service.requiredServices.length == 0">
+                                        <dt class="uk-margin-small-bottom">Required services</dt>
+                                        <dd>
+                                            -
+                                        </dd>
+                                    </ng-container>
+                                    <ng-container *ngIf="service.relatedServices && service.relatedServices.length>0">
+                                        <dt class="uk-margin-small-bottom">Related services</dt>
+                                        <dd *ngFor="let relatedService of service.relatedServices">
+                                            <a (click)="this.router.service(getPrettyService(relatedService).id)">{{getPrettyService(relatedService).name}}</a>
+                                            <!--<ul>-->
+                                                <!--<li *ngFor="let relatedService of service.relatedServices">-->
+                                                    <!--<a (click)="this.router.service(getPrettyService(relatedService).id)">{{getPrettyService(relatedService).name}}</a>-->
+                                                <!--</li>-->
+                                            <!--</ul>-->
+                                        </dd>
+                                    </ng-container>
+                                    <ng-container *ngIf="!service.relatedServices || service.relatedServices.length == 0">
+                                        <dt class="uk-margin-small-bottom">Related services</dt>
+                                        <dd>
+                                            -
+                                        </dd>
+                                    </ng-container>
+                                </dl>
                             </div>
-                        </li>
-                        <li>
-                        <!--<li *ngIf="service.relatedService">-->
-                            <div class="uk-margin-medium-top">
-                                <ul *ngIf="service.relatedServices && service.relatedServices.length>0">
-                                    <li *ngFor="let relatedService of service.relatedServices">
-                                        <a (click)="this.router.service(getPrettyService(relatedService).id)">{{getPrettyService(relatedService).name}}</a>
-                                    </li>
-                                </ul>
-                                <div *ngIf="!service.relatedServices || service.relatedServices.length==0" class="uk-alert uk-alert-warning">
-                                    There are no available related services
+                        </div>
+
+                        <div class="uk-width-expand@m">
+                            <!--SERVICE COVERAGE-->
+                            <div class="uk-card uk-card-body uk-card-basic-info uk-margin-bottom">
+                                <h2 class="uk-h2">Service coverage</h2>
+                                <div style="width:100%" *ngIf="serviceMapOptions">
+                                    <chart type="Map" [options]="serviceMapOptions"></chart>
                                 </div>
+                                <dl class="uk-description-list">
+                                    <ng-container *ngIf="service.places && service.places.length>0">
+                                        <dt class="uk-margin-small-bottom">Places</dt>
+                                        <dd>
+                                            <!--<span *ngFor="let place of service.places">{{place}}, </span>-->
+                                            <span>{{this.getPrettyList(service.places)}}</span>
+                                        </dd>
+                                    </ng-container>
+                                    <ng-container *ngIf="service.languages && service.languages.length>0">
+                                        <dt class="uk-margin-small-bottom">Languages</dt>
+                                        <dd>
+                                            <span>{{this.getPrettyList(service.languages)}}</span>
+                                        </dd>
+                                    </ng-container>
+                                </dl>
                             </div>
-                        </li>
-                        <li>
-                        <!--<li *ngIf="service.places || service.region || service.language">-->
-                            <div class="uk-grid uk-margin-medium-top">
-                                <div class="uk-width-1-2@m">
-                                    <div style="width:100%" *ngIf="serviceMapOptions">
-                                        <chart type="Map" [options]="serviceMapOptions"></chart>
-                                    </div>
-                                    <!--<div id="coverageMap">{{this.runHighCharts()}}</div>-->
-                                </div>
-                                <div class="uk-width-1-2@m">
-                                    <dl class="uk-description-list">
-
-                                        <ng-template [ngIf]="service.places && service.places.length>0">
-                                            <dt>Places</dt>
-                                            <dd>
-                                                <!--<span *ngFor="let place of service.places">{{place}}, </span>-->
-                                                <span>{{this.getPrettyList(service.places)}}</span>
-                                            </dd>
-                                        </ng-template>
-                                        <ng-template [ngIf]="!service.places || service.places.length==0">
-                                            <dt>Places</dt>
-                                            <dd>
-                                                <span>Not available</span>
-                                            </dd>
-                                        </ng-template>
-
-                                        <!--<ng-template [ngIf]="service.region && service.region.length>0">-->
-                                            <!--<dt>Regions</dt>-->
-                                            <!--<dd>-->
-                                                <!--<span *ngFor="let region of service.region">{{region}}, </span>-->
-                                            <!--</dd>-->
-                                        <!--</ng-template>-->
-                                        <!--<ng-template [ngIf]="!service.region || service.region.length==0">-->
-                                            <!--<dt>Regions</dt>-->
-                                            <!--<dd>-->
-                                                <!--<span>Not available</span>-->
-                                            <!--</dd>-->
-                                        <!--</ng-template>-->
-
-                                        <ng-template [ngIf]="service.languages && service.languages.length>0">
-                                            <dt>Languages</dt>
-                                            <dd>
-                                                <span>{{this.getPrettyList(service.languages)}}</span>
-                                            </dd>
-                                        </ng-template>
-                                        <ng-template [ngIf]="!service.languages || service.languages.length==0">
-                                            <dt>Languages</dt>
-                                            <dd>
-                                                <span>Not available</span>
-                                            </dd>
-                                        </ng-template>
-
-                                    </dl>
-                                </div>
+                            <!--FUNDING-->
+                            <div *ngIf="service.funding" class="uk-card uk-card-body uk-card-basic-info">
+                                <h2 class="uk-h2">Funding</h2>
+                                <dl class="uk-description-list">
+                                    <!--<dt class="uk-margin-small-bottom">Funding sources</dt>-->
+                                    <dd>{{service.funding}}</dd>
+                                </dl>
                             </div>
-                        </li>
-                        <!--<li *ngIf="service.options || service.price || service.serviceLevelAgreement || service.termsOfUse">-->
-                        <!--<li>-->
-                            <!--<div class="uk-margin-medium-top">-->
-                                <!--<dl class="uk-description-list">-->
+                        </div>
+                    </div>
 
-                                    <!--<ng-template [ngIf]="service.options">-->
-                                        <!--<dt>Options</dt>-->
-                                        <!--<dd>{{service.options}}</dd>-->
-                                    <!--</ng-template>-->
-                                    <!--<ng-template [ngIf]="!service.options">-->
-                                        <!--<dt>Options</dt>-->
-                                        <!--<dd>Not available</dd>-->
-                                    <!--</ng-template>-->
-
-                                    <!--<ng-template [ngIf]="service.price">-->
-                                        <!--<dt>Pricing model</dt>-->
-                                        <!--<dd>{{service.price}}</dd>-->
-                                    <!--</ng-template>-->
-                                    <!--<ng-template [ngIf]="!service.price">-->
-                                        <!--<dt>Pricing model</dt>-->
-                                        <!--<dd>Not available</dd>-->
-                                    <!--</ng-template>-->
-
-                                    <!--<ng-template [ngIf]="service.serviceLevelAgreement">-->
-                                        <!--<dt>Service Level Agreement</dt>-->
-                                        <!--<dd>{{service.serviceLevelAgreement}}</dd>-->
-                                    <!--</ng-template>-->
-                                    <!--<ng-template [ngIf]="!service.serviceLevelAgreement">-->
-                                        <!--<dt>Service Level Agreement</dt>-->
-                                        <!--<dd>Not available</dd>-->
-                                    <!--</ng-template>-->
-
-                                    <!--<ng-template [ngIf]="service.termsOfUse && service.termsOfUse.length > 0">-->
-                                        <!--<dt>Terms of Use</dt>-->
-                                        <!--<dd>{{service.termsOfUse}}</dd>-->
-                                    <!--</ng-template>-->
-                                    <!--<ng-template [ngIf]="!service.termsOfUse">-->
-                                        <!--<dt>Terms of Use</dt>-->
-                                        <!--<dd>Not available</dd>-->
-                                    <!--</ng-template>-->
-
-                                <!--</dl>-->
-                            <!--</div>-->
-                        <!--</li>-->
-                    </ul>
 
                 </div>
 
                 <!--SIDEBAR-->
                 <div class="tm-sidebar uk-width-1-4@m">
-                    <div class="uk-card uk-card-body uk-card-default sidemenu">
-                        <h4>Usage Stats</h4>
-                        <ul class="uk-list">
-                            <!--<li> Average rating <star-rating-comp [starType]="'svg'" [rating]="4.5" [step]="0.5"-->
-                                                                  <!--[showHalfStars]="true" [readOnly]=!this.authenticationService.isLoggedIn() [size]="'small'"-->
-                                                                  <!--[staticColor]="'ok'"></star-rating-comp></li>-->
-                            <li> Visited at eInfraCentral: <strong> {{stats.visits || 0}} </strong> times</li>
-                            <li> Visited at providers' site: <strong> {{stats.external || 0}} </strong> times</li>
-                            <li> Favored by <strong> {{stats.favourite|| 0}} </strong> users</li>
-                        </ul>
-                        <!--<a style="font-size: 15px">View more ></a>-->
+
+                    <h4 class="uk-h4 sidebarHeaders uk-margin-large-top">Contractual Info</h4>
+                    <div class="uk-card uk-card-body uk-card-custom sideInfo">
+                        <div *ngIf="service.request" class="uk-margin-small-bottom">
+                            <a class="uk-margin-small-right" target="_blank" href="{{service.request}}">Service order</a>
+                            <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
+                        </div>
+                        <div *ngIf="service.price" class="uk-margin-small-bottom">
+                            <a class="uk-margin-small-right" target="_blank" href="{{service.price}}">Price</a>
+                            <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
+                        </div>
+                        <div *ngIf="service.serviceLevelAgreement" class="uk-margin-small-bottom">
+                            <a class="uk-margin-small-right" target="_blank" href="{{service.serviceLevelAgreement}}">Service level agreement</a>
+                            <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
+                        </div>
+                        <ng-container *ngIf="service.termsOfUse && service.termsOfUse.length > 0">
+                            <div *ngIf="service.termsOfUse.length==1" class="uk-margin-small-bottom">
+                                <a class="uk-margin-small-right" target="_blank" href="{{service.termsOfUse[0]}}">Terms of use</a>
+                                <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
+                            </div>
+                            <ng-container *ngIf="service.termsOfUse.length>1">
+                                <div *ngFor="let term of service.termsOfUse; let i = index;" class="uk-margin-small-bottom">
+                                    <a class="uk-margin-small-right" target="_blank" href="{{service.termsOfUse[i]}}">Terms of use {{i+1}}</a>
+                                    <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
+                                </div>
+                            </ng-container>
+                        </ng-container>
                     </div>
-                    <!--<div class="uk-card uk-card-body uk-card-default sidemenu uk-margin-top"-->
-                         <!--*ngIf="service.request || service.helpdesk || service.userManual || service.trainingInformation || service.feedback">-->
-                    <div class="uk-card uk-card-body uk-card-default sidemenu uk-margin-top">
-                        <h4>Support</h4>
-                        <ul class="uk-list" style="word-wrap: break-word;">
-                            <li *ngIf="service.request">
-                                <strong>Service request: </strong>
-                                <a target="_blank" href="{{service.request}}">{{service.request}}</a>
-                            </li>
-                            <li *ngIf="!service.request">
-                                <strong>Service request: </strong>not available
-                            </li>
 
-                            <li *ngIf="service.helpdesk">
-                                <strong>Service helpdesk: </strong>
-                                <a target="_blank" href="{{service.helpdesk}}">{{service.helpdesk}}</a>
-                            </li>
-                            <li *ngIf="!service.helpdesk">
-                                <strong>Service helpdesk: </strong>not available
-                            </li>
-                            <li *ngIf="service.multimediaURL">
-                                <strong>Service media: </strong>
-                                <a target="_blank" href="{{service.multimediaURL}}">{{service.multimediaURL}}</a>
-                            </li>
-                            <li *ngIf="!service.multimediaURL">
-                                <strong>Service media: </strong>not available
-                            </li>
+                    <h4 class="uk-h4 sidebarHeaders uk-margin-medium-top">Support</h4>
+                    <div class="uk-card uk-card-body uk-card-custom sideInfo">
+                        <div *ngIf="service.helpdesk" class="uk-margin-small-bottom">
+                            <a class="uk-margin-small-right" target="_blank" href="{{service.helpdesk}}">Helpdesk</a>
+                            <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
+                        </div>
+                        <div *ngIf="service.userManual" class="uk-margin-small-bottom">
+                            <a class="uk-margin-small-right" target="_blank" href="{{service.userManual}}">User manual</a>
+                            <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
+                        </div>
+                        <div *ngIf="service.feedback" class="uk-margin-small-bottom">
+                            <a class="uk-margin-small-right" target="_blank" href="{{service.feedback}}">Feedback</a>
+                            <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
+                        </div>
+                        <div *ngIf="service.trainingInformation" class="uk-margin-small-bottom">
+                            <a class="uk-margin-small-right" target="_blank" href="{{service.trainingInformation}}">Training information</a>
+                            <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
+                        </div>
+                        <div *ngIf="service.multimediaURL" class="uk-margin-small-bottom">
+                            <a class="uk-margin-small-right" target="_blank" href="{{service.multimediaURL}}">Multimedia</a>
+                            <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
+                        </div>
+                    </div>
 
-                            <li *ngIf="service.userManual">
-                                <strong>User manual: </strong>
-                                <a target="_blank" href="{{service.userManual}}">{{service.userManual}}</a>
-                            </li>
-                            <li *ngIf="!service.userManual">
-                                <strong>User manual: </strong>not available
-                            </li>
+                    <!--TODO uncomment when we have KPIs-->
+                    <!--<h4 class="uk-h4 sidebarHeaders uk-margin-medium-top">Performance Information</h4>-->
+                    <!--<div class="uk-card uk-card-body uk-card-custom sideInfo">-->
+                        <!--&lt;!&ndash;<hr class="customDivider">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<div *ngIf="service.reliability" class="uk-margin-small-bottom">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<span class="infoTitle uk-margin-small-right">Reliability</span>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<span class="infoDescription">{{service.reliability}}</span>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<div *ngIf="service.reliability" class="uk-margin-small-bottom">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<span class="infoTitle uk-margin-small-right">Durability</span>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<span class="infoDescription">{{service.reliability}}</span>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<div *ngIf="service.reliability" class="uk-margin-small-bottom">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<span class="infoTitle uk-margin-small-right">Performance</span>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<span class="infoDescription">{{service.reliability}}</span>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--</div>-->
 
-                            <li *ngIf="service.trainingInformation">
-                                <strong>Training Information: </strong>
-                                <a target="_blank" href="{{service.trainingInformation}}">{{service.trainingInformation}}</a>
-                            </li>
-                            <li *ngIf="!service.trainingInformation">
-                                <strong>Training Information: </strong>not available
-                            </li>
-
-                            <li *ngIf="service.feedback">
-                                <strong>Service feedback: </strong>
-                                <a target="_blank" href="{{service.feedback}}">{{service.feedback}}</a>
-                            </li>
-                            <li *ngIf="!service.feedback">
-                                <strong>Service feedback: </strong>not available
-                            </li>
-                        </ul>
+                    <h4 class="uk-h4 sidebarHeaders uk-margin-medium-top">Version</h4>
+                    <hr class="customDivider">
+                    <div>
+                        <div *ngIf="service.version" class="uk-margin-small-bottom">
+                            <span class="infoTitle uk-margin-small-right">Version</span>
+                            <span class="infoDescription">{{service.version}}</span>
+                        </div>
+                        <div *ngIf="service.lastUpdate" class="uk-margin-small-bottom">
+                            <span class="infoTitle uk-margin-small-right">Last update</span>
+                            <span class="infoDescription">{{service.lastUpdate}}</span>
+                        </div>
+                        <div *ngIf="service.changeLog" class="uk-margin-small-bottom">
+                            <span class="infoTitle uk-margin-small-right">What's new</span>
+                            <span class="infoDescription">{{service.changeLog}}</span>
+                        </div>
+                        <div *ngIf="service.validFor" class="uk-margin-small-bottom">
+                            <span class="infoTitle uk-margin-small-right">Validity</span>
+                            <span class="infoDescription">Until {{service.validFor}}</span>
+                        </div>
+                        <div *ngIf="service.availability" class="uk-margin-small-bottom">
+                            <span class="infoTitle uk-margin-small-right">Availability</span>
+                            <span class="infoDescription">{{service.availability}}</span>
+                        </div>
+                        <!--TODO uncomment when we have KPIs-->
+                        <!--<div *ngIf="service.availability" class="uk-margin-small-bottom">-->
+                            <!--<span class="infoTitle uk-margin-small-right">Measurement</span>-->
+                            <!--<span class="infoDescription">{{service.availability}}</span>-->
+                        <!--</div>-->
                     </div>
 
                 </div>
 
             </ng-template>
-
-
-
 
         </div>
     </div>

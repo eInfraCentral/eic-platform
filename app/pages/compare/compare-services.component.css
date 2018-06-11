@@ -1,11 +1,92 @@
+.uk-section {
+    padding-top: 30px;
+}
+
+table tbody tr {
+    border-top: 1px solid rgba(84,84,84,0.30);
+}
+
+table tbody tr.noBorderTop {
+    border-top: none;
+}
+
+.serviceBrandName {
+    font-size: 18px;
+    color: #2B4371;
+    letter-spacing: 0.41px;
+    font-weight: 400;
+    padding-bottom: 20px;
+}
+
+.tagLine {
+    font-size: 16px;
+    color: #4D586A;
+    letter-spacing: 0.36px;
+    line-height: 23px;
+}
+
+.uk-table th {
+    text-transform: none;
+    padding: 0px 20px;
+}
+
+.star-container {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.uk-table td {
+    padding: 20px 20px;
+}
+
+.fieldName {
+    font-size: 12px;
+    color: #0047BA;
+    letter-spacing: 0;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.fieldValue {
+    font-size: 13px;
+    color: #4D586A;
+    letter-spacing: 0.32px;
+    line-height: 19px;
+}
+
+.evenColumn {
+    background: #EFF1F3;
+}
+
+.favoriteButton {
+    font-size: 15px;
+    letter-spacing: 0.36px;
+    text-align: center;
+}
+
+a .removeLink {
+    font-weight: 400;
+    font-size: 15px;
+    color: #4D586A;
+    letter-spacing: 0.36px;
+    line-height: 23px;
+    vertical-align: middle;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #343F51;
+}
+
+
+
+
+
+
 .search_box_bg .uk-button-default {
     background-color: transparent;
     border: 1px solid #fff;
     color: #fff;
-}
-
-.uk-table th {
-    text-align: center;
 }
 
 .actionIcons {
@@ -34,18 +115,6 @@
     /*top: 20px;*/
 /*}*/
 
-.serviceBrandName {
-    padding-bottom: 20px;
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-.fieldName {
-    color: #909090;
-    font-size: 12px;
-    margin-bottom: 10px !important;
-    text-transform: uppercase;
-}
 
 .comma-element::before {
     content: ', ';

@@ -1,9 +1,15 @@
 
 import {Injectable} from "@angular/core";
 import {Router} from "@angular/router";
+import { Subject } from "rxjs/Subject";
 
 @Injectable()
 export class NavigationService {
+
+    private searchParams : Subject<any> = new Subject();
+
+    private breadcrumbs_ : Subject<any> = new Subject<any>();
+
     constructor(public router: Router) {
     }
 
@@ -41,5 +47,17 @@ export class NavigationService {
 
     goOffsite(url: string) {
         window.location.href = url;
+    }
+
+    public get paramsObservable() {
+        return this.searchParams;
+    }
+
+    public get breadcrumbs() {
+        return this.breadcrumbs_.asObservable();
+    }
+
+    public set breadcrumbs(breadcrumb : any) {
+        this.breadcrumbs_.next(breadcrumb);
     }
 }

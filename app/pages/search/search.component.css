@@ -1,3 +1,122 @@
+.uk-section {
+    padding-top: 30px;
+}
+
+.compareWrapper {
+    opacity: 0.89;
+    background: #4D586A;
+    /*color: #bbb;*/
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 150px;
+    width: 100%;
+    z-index: 100;
+}
+
+.serviceToCompareCard {
+    background: #ECECEC;
+    border-radius: 2px;
+    font-size: 11px;
+    color: #4D586A;
+    letter-spacing: 0;
+    line-height: 17px;
+    /*height: 70%;*/
+    padding: 20px 17px;
+}
+
+.uk-button-white {
+    background: #FFFFFF;
+    border-radius: 2px;
+    font-weight: 400;
+    font-size: 16px;
+    color: #0047BA;
+    letter-spacing: 0;
+}
+
+.clearAllLink {
+    font-weight: 700;
+    font-size: 16px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    text-transform: uppercase;
+}
+
+.actions {
+    position: absolute;
+    right: 40px;
+    margin-top: 35px;
+}
+
+.serviceDetails {
+    background: rgba(103,118,144,0.05);
+    border-radius: 2px;
+}
+
+.provider {
+    font-size: 12px;
+    color: #545454;
+    letter-spacing: 0;
+    text-align: center;
+}
+
+.symbolAndProvider {
+    background: #EFF1F3;
+}
+
+.serviceInfo {
+    padding-left: 80px;
+}
+
+.serviceInfo h3 {
+    font-weight: 400;
+    font-size: 17px;
+    color: #2B4371;
+    letter-spacing: 0.41px;
+    text-transform: none;
+}
+
+.serviceInfo h3 a {
+    color: #2B4371;
+}
+
+.serviceTagLine {
+    font-weight: 700;
+    font-size: 15px;
+    color: #0047BA;
+    letter-spacing: 0;
+    line-height: 22px;
+}
+
+.serviceDescription {
+    font-size: 13px;
+    color: #4D586A;
+    letter-spacing: 0.32px;
+    line-height: 19px;
+}
+
+.addenda a {
+    font-weight: 400;
+    font-size: 13px;
+    color: #0047BA;
+    letter-spacing: 0;
+    text-transform: uppercase;
+}
+
+.addenda input {
+    background: rgba(196,208,230,0.90);
+    border-radius: 2px;
+}
+
+/*.serviceDescription {*/
+    /*text-align: justify;*/
+/*}*/
+
+
+
+
+
 .uk-form.searchForm input[type="text"] {
     height: 40px;
 }
@@ -197,13 +316,9 @@ input.searchTextBox, input.searchTextBox:focus, input.searchTextBox:active {
     text-transform: uppercase;
 }
 
-.serviceDescription {
-    text-align: justify;
-}
-
-.serviceTagLine {
-    color: #214c9c;
-}
+/*.serviceTagLine {*/
+    /*color: #214c9c;*/
+/*}*/
 
 .actionIcons {
     width: 25%;
