@@ -69,15 +69,17 @@
                 <!--</div>-->
             <!--</ngx-slick>-->
 
-            <div *ngFor="let featuredService of featuredServices" class="uk-card uk-card-body uk-card-gray uk-margin-left featuredService"
-                 (click)="this.router.search({category:c.id})">
-                <h3>{{featuredService.name}}</h3>
-                <p *ngIf="featuredService.tagline">{{featuredService.tagline}}</p>
-                <div class="symbolAndProvider">
-                    <img src="{{featuredService.symbol || 'http://fvtelibrary.com/img/user/NoLogo.png'}}" class="serviceSymbol">
-                    <span class="provider">{{featuredService.providers[0] | uppercase}}</span>
+
+                <div *ngFor="let featuredService of featuredServices" class="uk-card uk-card-body uk-card-gray uk-margin-left featuredService">
+                    <a (click)="this.router.service(featuredService.id)">
+                        <h3>{{featuredService.name}}</h3>
+                        <p *ngIf="featuredService.tagline">{{featuredService.tagline}}</p>
+                        <div class="symbolAndProvider">
+                            <img src="{{featuredService.symbol || 'http://fvtelibrary.com/img/user/NoLogo.png'}}" class="serviceSymbol">
+                            <span class="provider">{{featuredService.providers[0] | uppercase}}</span>
+                        </div>
+                    </a>
                 </div>
-            </div>
 
             <!--<div *ngFor="let featuredService of featuredServices" class="uk-padding-left featuredService">-->
                 <!--<div class="uk-card uk-card-body uk-card-gray"-->
