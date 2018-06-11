@@ -42,22 +42,22 @@ export class BreadcrumbsComponent implements OnInit {
      */
     ngOnInit() {
         const ROUTE_DATA_BREADCRUMB: string = "breadcrumb";
-
+        this.handleEvent({});
         //subscribe to the NavigationEnd event
-        this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
-            //set breadcrumbs
-            // console.log(event);
-            let root: ActivatedRoute = this.activatedRoute.root;
-            let breadcrumbs = [];
-            let breadcrumb: IBreadcrumb = {
-                label: 'Home',
-                params: {},
-                url: "/home"
-            };
-            breadcrumbs.push(breadcrumb);
-            this.breadcrumbs = this.getBreadcrumbs(root,"",breadcrumbs);
-            this.goBack = !!this.breadcrumbs.find(v => v.label == 'Compare');
-        });
+        this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => this.handleEvent(event));
+    }
+
+    private handleEvent(event : any) {
+        let root: ActivatedRoute = this.activatedRoute.root;
+        let breadcrumbs = [];
+        let breadcrumb: IBreadcrumb = {
+            label: 'Home',
+            params: {},
+            url: "/home"
+        };
+        breadcrumbs.push(breadcrumb);
+        this.breadcrumbs = this.getBreadcrumbs(root,"",breadcrumbs);
+        this.goBack = !!this.breadcrumbs.find(v => v.label == 'Compare');
     }
 
     /**
