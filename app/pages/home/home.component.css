@@ -101,6 +101,10 @@ h2 {
     flex-wrap: wrap;
 }
 
+.featuredService a {
+    text-decoration: none;
+}
+
 .featuredService {
     flex: 1;
     /*position: relative;*/
