@@ -219,6 +219,6 @@ export class ResourceService {
     }
 
     getFeaturedServices() {
-        return this.http.get(`/service/getFeaturedServices`).map(res => <Service[]> <any> res);
+        return this.http.get(`/service/featured/all`).map(res => <Service[]> <any> res);
     }
 }
