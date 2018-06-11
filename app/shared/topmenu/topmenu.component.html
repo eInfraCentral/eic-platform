@@ -199,7 +199,8 @@
                             </a>
                         </li>
                         <li *ngIf="!authenticationService.isLoggedIn()" class="uk-parent" [routerLinkActive]="['uk-active']">
-                            <a [routerLink]="['/signUp']" routerLinkActive="uk-active" class="signUp">
+                            <!--<a [routerLink]="['/signUp']" routerLinkActive="uk-active" class="signUp">-->
+                            <a routerLinkActive="uk-active" class="signUp" title="This will be available in the next release">
                                 Sign Up
                                 <!--<img class="uk-responsive-height" src="./imgs/Icons/Home_24white.svg" alt="home">-->
                             </a>
