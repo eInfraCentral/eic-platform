@@ -11,6 +11,10 @@ body {
     /*font-family: "Open Sans";*/
 }
 
+.uk-section-primary {
+    background: #0047BA;
+}
+
 .uk-container, .container {
     padding-left: 80px;
     padding-right: 80px;
