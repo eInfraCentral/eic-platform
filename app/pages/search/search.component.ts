@@ -202,6 +202,7 @@ export class SearchComponent implements OnInit, OnDestroy {
             categoryIndex++;
             if (category === "query") {
                 this.searchForm.get("query").setValue("");
+                this.navigationService.paramsObservable.next(null);
             }
         }
         return this.navigateUsingParameters();

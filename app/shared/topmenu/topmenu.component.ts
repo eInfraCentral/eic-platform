@@ -39,7 +39,9 @@ export class TopMenuComponent implements OnInit, OnDestroy {
     }
 
     onSubmit(searchValue: SearchQuery) {
-        return this.navigationService.search({query: searchValue.query});
+        let params = Object.assign({},this.activatedRoute.children[0].snapshot.params);
+        params['query'] = searchValue.query;
+        return this.navigationService.search(params);
     }
 
     ngOnInit(): void {
