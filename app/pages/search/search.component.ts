@@ -16,6 +16,7 @@ import {NavigationService} from "../../services/navigation.service";
 import {ResourceService} from "../../services/resource.service";
 import {UserService} from "../../services/user.service";
 import {URLParameter} from "./../../domain/url-parameter";
+import { Service } from "../../domain/eic-model";
 
 declare var UIkit: any;
 
@@ -204,6 +205,10 @@ export class SearchComponent implements OnInit, OnDestroy {
             }
         }
         return this.navigateUsingParameters();
+    }
+
+    isSelected(service : Service) : boolean {
+        return (this.comparisonService.servicesToCompare.map(e => e.id).indexOf(service.id)) > -1;
     }
 
     selectFacet(category: string, value: string) {

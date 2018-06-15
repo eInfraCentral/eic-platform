@@ -249,10 +249,9 @@
                                                 </span>
                                                 <span class="uk-margin-medium-right">
                                                     <input type="checkbox" class="uk-margin-small-right"
-                                                           [checked]="comparisonService.servicesToCompare.indexOf(resourceInfo) > -1"
+                                                           [checked]="isSelected(resourceInfo)"
                                                            (change)="comparisonService.addOrRemove(resourceInfo)">
-                                                    <a *ngIf="(comparisonService.servicesToCompare.indexOf(resourceInfo) == -1)">Add to compare</a>
-                                                    <a *ngIf="comparisonService.servicesToCompare.indexOf(resourceInfo) > -1">Added</a>
+                                                    <a>{{isSelected(resourceInfo) ? 'Added' : 'Add to compare'}}</a>
                                                 </span>
                                                 <span class="uk-float-right">
                                                     <img src="../../../../assets/images/icons/ic_visit_icon.svg">
@@ -575,10 +574,10 @@
                                             </span>
                                             <span class="uk-margin-medium-right">
                                                 <input type="checkbox" class="uk-margin-small-right"
-                                                       [checked]="comparisonService.servicesToCompare.indexOf(resourceInfo) > -1"
+                                                       [checked]="isSelected(resourceInfo)"
                                                        (change)="comparisonService.addOrRemove(resourceInfo)">
-                                                <a *ngIf="(comparisonService.servicesToCompare.indexOf(resourceInfo) == -1)">Add to compare</a>
-                                                <a *ngIf="comparisonService.servicesToCompare.indexOf(resourceInfo) > -1">Added</a>
+                                                <a>{{isSelected(resourceInfo) ? 'Added' : 'Add to compare'}}</a>
+                                                <!--<a *ngIf="comparisonService.servicesToCompare.indexOf(resourceInfo) > -1">Added</a>-->
                                             </span>
                                             <span class="uk-float-right">
                                                 <img src="../../../../assets/images/icons/ic_visit_icon.svg">
