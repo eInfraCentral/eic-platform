@@ -25,6 +25,7 @@ declare var UIkit: any;
     styleUrls: ["./search.component.css"]
 })
 export class SearchComponent implements OnInit, OnDestroy {
+
     searchForm: FormGroup;
     errorMessage: string;
     sub: Subscription;
@@ -43,6 +44,8 @@ export class SearchComponent implements OnInit, OnDestroy {
     providers: any;
     vocabularies: any;
 
+    listViewActive: boolean = true;
+
     constructor(public fb: FormBuilder, public router: NavigationService, public route: ActivatedRoute,
                 public userService: UserService, public resourceService: ResourceService,
                 public authenticationService: AuthenticationService, public comparisonService: ComparisonService,
@@ -51,6 +54,9 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+
+        this.listViewActive = true;
+
         Observable.zip(
             this.resourceService.getProviders(),
             this.resourceService.getVocabularies()
@@ -83,6 +89,15 @@ export class SearchComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.sub.unsubscribe();
         this.navigationService.paramsObservable.next(null);
+    }
+
+    toggleListGrid(show: string) {
+        if(show == 'list')
+            this.listViewActive = true;
+        else if(show == 'grid')
+            this.listViewActive = false;
+        else
+            this.listViewActive = true;
     }
 
     updateSearchResults(searchResults: SearchResults) {
@@ -187,6 +202,24 @@ export class SearchComponent implements OnInit, OnDestroy {
             if (category === "query") {
                 this.searchForm.get("query").setValue("");
             }
+        }
+        return this.navigateUsingParameters();
+    }
+
+    selectFacet(category: string, value: string) {
+        var foundCategory = false;
+        for (let urlParameter of this.urlParameters) {
+            if (urlParameter.key === category) {
+                foundCategory = true;
+                urlParameter.values.push(value);
+            }
+        }
+        if (!foundCategory) {
+            var newParameter: URLParameter = {
+                key: category,
+                values: [value]
+            };
+            this.urlParameters.push(newParameter);
         }
         return this.navigateUsingParameters();
     }
