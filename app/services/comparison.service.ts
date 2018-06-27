@@ -15,7 +15,7 @@ export class ComparisonService {
     }
 
     addOrRemove(service: Service, go: boolean) {
-        let idx = this.servicesToCompare.indexOf(service);
+        let idx = this.servicesToCompare.map(s => s.id).indexOf(service.id);
         if (idx > -1) {
             this.servicesToCompare.splice(idx, 1);
             sessionStorage.setItem("compareServices", JSON.stringify(this.servicesToCompare));
@@ -44,7 +44,6 @@ export class ComparisonService {
 
     go() {
         if (this.servicesToCompare.length > 1) {
-            console.log(this.servicesToCompare);
             return this.router.compare({services: this.servicesToCompare.map(x => x.id).join(',')});
         } else {
             this.router.search({});

@@ -36,9 +36,9 @@ a.signUp, a:hover.signUp {
 
 .menuSearch {
     margin-top: 20px;
-    margin-left: 30px;
-    margin-right: 30px;
-    width: 336px;
+    margin-left: 20px;
+    margin-right: 20px;
+    width: 300px;
     border-bottom: none;
     font-size: 16px;
     padding: 0 15px;
@@ -82,4 +82,8 @@ a.signUp, a:hover.signUp {
 
 .uk-navbar-container > .uk-container .uk-navbar-right, .uk-navbar-container > .container .uk-navbar-right {
     margin-right: 0px;
+}
+
+.uk-navbar-right > .uk-navbar-nav > li > a {
+    white-space: nowrap;
 }

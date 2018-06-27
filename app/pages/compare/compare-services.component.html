@@ -9,16 +9,16 @@
         <div id="myGrid" class="uk-grid" uk-grid="">
 
 
-            <div class="uk-width-3-4">
+            <div class="uk-width-1-1">
 
                 <table id="myTable" class="uk-table uk-text-left">
-                    <thead class="uk-width-3-4 uk-margin-bottom tablehead" style="">
+                    <thead class="uk-width-1-1 uk-margin-bottom tablehead" style="">
                     <!--<thead class="header uk-width-1-1 uk-margin-bottom">-->
                         <tr>
                             <th class="uk-width-1-4"></th>
                             <th *ngFor="let service of services; let i = index;" class="uk-width-1-4" [ngClass]="{evenColumn: i%2==1}">
                                 <div class="uk-margin-bottom uk-margin-top">
-                                    <a (click)="this.comparisonService.addOrRemove(service.id, true)" title="Remove from comparison list" uk-tooltip="delay: 500">
+                                    <a (click)="this.comparisonService.addOrRemove(service,true)" title="Remove from comparison list" uk-tooltip="delay: 500">
                                         <img src="../../../assets/images/icons/ic_remove.svg">
                                         <span class="removeLink uk-margin-small-left">Remove</span>
                                     </a>

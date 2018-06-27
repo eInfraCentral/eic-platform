@@ -11,6 +11,14 @@ body {
     /*font-family: "Open Sans";*/
 }
 
+h1, .uk-h1, h2, .uk-h2, h3, .uk-h3, h4, .uk-h4, h5, .uk-h5, h6, .uk-h6 {
+    font-family: Montserrat, sans-serif;
+}
+
+.uk-section-primary {
+    background: #0047BA;
+}
+
 .uk-container, .container {
     padding-left: 80px;
     padding-right: 80px;
@@ -369,9 +377,9 @@ a[class*="wk-"]:hover {
     text-decoration: none;
 }
 
-h1, .uk-h1, h2, .uk-h2, h3, .uk-h3, h4, .uk-h4, h5, .uk-h5, h6, .uk-h6 {
-    font-family: "Open Sans";
-}
+/*h1, .uk-h1, h2, .uk-h2, h3, .uk-h3, h4, .uk-h4, h5, .uk-h5, h6, .uk-h6 {*/
+    /*font-family: "Open Sans";*/
+/*}*/
 
 /******************************************************/
 

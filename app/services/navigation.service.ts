@@ -1,6 +1,6 @@
 
 import {Injectable} from "@angular/core";
-import {Router} from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Subject } from "rxjs/Subject";
 
 @Injectable()
@@ -26,7 +26,7 @@ export class NavigationService {
     }
 
     search(any: any) {
-        return this.router.navigate(["/search", any]);
+        return this.router.navigate(["/search",any]);
     }
 
     login() {
