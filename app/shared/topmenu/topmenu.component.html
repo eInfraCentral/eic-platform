@@ -1,3 +1,4 @@
+<!--MOBILE-->
 <div class="tm-header-mobile uk-hidden@m">
     <nav class="uk-navbar-container uk-navbar" uk-navbar="">
         <div class="uk-navbar-left">
@@ -31,13 +32,7 @@
                     <div class="uk-panel" id="module-0">
                         <ul class="uk-nav uk-nav-default">
                             <li class="uk-nav-header" [routerLinkActive]="['uk-active']">
-                                <a [routerLink]="['/home']" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">
-                                    Home
-                                    <!--<img class="uk-responsive-height" src="./imgs/Icons/Home_24white.svg" alt="home">-->
-                                </a>
-                            </li>
-                            <li class="uk-nav-header" [routerLinkActive]="['uk-active']">
-                                <a [routerLink]="['/search']" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">Search</a>
+                                <a [routerLink]="['/search']" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">Catalogue</a>
                             </li>
                             <li class="uk-nav-header uk-parent" [routerLinkActive]="['uk-active']">Support
                                 <ul class="uk-nav-sub">
@@ -109,8 +104,15 @@
 
     <!--</div>-->
 <!--</div>-->
-<div class="tm-header uk-visible@m" uk-header="">
-    <div class="uk-navbar-container uk-sticky" uk-sticky="" media="768" cls-active="uk-active uk-navbar-sticky" style="">
+
+<!--NO MOBILE-->
+<!--<div class="tm-header uk-visible@m" uk-header="">-->
+    <!--<div class="uk-navbar-container uk-sticky" uk-sticky="" media="768" cls-active="uk-active uk-navbar-sticky" style="">-->
+        <!--<div class="uk-container uk-container-expand">-->
+<div class="tm-header uk-visible@m tm-header-transparent" uk-header="">
+    <div class="uk-navbar-container uk-sticky uk-navbar-transparent" uk-sticky="top:0" media="768"
+          cls-active="uk-active uk-navbar-sticky" style="" animation="uk-animation-slide-top"
+          top=".tm-header + [class*=&quot;uk-section&quot;]" cls-inactive="uk-navbar-transparent">
         <div class="uk-container uk-container-expand">
             <nav class="uk-navbar" uk-navbar="{&quot;align&quot;:&quot;left&quot;}">
                 <div class="uk-navbar-left">
@@ -119,21 +121,39 @@
                              class="uk-responsive-height" alt="eInfraCentral" style="width: 250px">
                     </a>
                 </div>
-                <div class="uk-navbar-center">
+                <div class="uk-margin-medium-left">
                     <ul class="uk-navbar-nav">
                         <!--<li *ngIf="this.authenticationService.isLoggedIn() && this.authenticationService.user.id == 'stefania'" class="uk-parent" [routerLinkActive]="['uk-active']">-->
                             <!--<a routerLink="/dashboard" routerLinkActive="uk-active">Dashboard</a>-->
                         <!--</li>-->
                         <li class="uk-parent" [routerLinkActive]="['uk-active']">
-                            <a routerLink="/home" routerLinkActive="uk-active">
-                                Home
-                                <!--<img class="uk-responsive-height" src="./imgs/Icons/Home_24white.svg" alt="home">-->
+                            <a routerLink="/search" routerLinkActive="uk-active">
+                                Catalogue
                             </a>
                         </li>
+                        <!--<li class="uk-parent" [routerLinkActive]="['uk-active']">-->
+                            <!--<a #categoriesDropdown href="#" class="" aria-expanded="false">-->
+                                <!--Categories-->
+                                <!--<img *ngIf="!categoriesOpen" class="uk-margin-small-left" src="../../../assets/images/icons/ic_arrow_down.svg">-->
+                                <!--<img *ngIf="categoriesOpen" class="uk-margin-small-left" src="../../../assets/images/icons/arrow_filter_active.svg">-->
+                            <!--</a>-->
+                            <!--<div class="uk-navbar-dropdown uk-navbar-dropdown-bottom-left" style="top: 80px; left: 106.55px;" id="categories" (click)="onClick('categories')">-->
+                                <!--<div class="uk-navbar-dropdown-grid uk-child-width-1-1 uk-grid uk-grid-stack" uk-grid="">-->
+                                    <!--<div class="uk-first-column">-->
+                                        <!--<ul class="uk-nav uk-navbar-dropdown-nav">-->
+                                            <!--<li><a [routerLink]="['/developers']" routerLinkActive="uk-active">For developers</a></li>-->
+                                            <!--<li><a [routerLink]="['/support/faqs']" routerLinkActive="uk-active">FAQs</a></li>-->
+                                            <!--<li><a href="http://einfracentral.eu/contact" target="_blank" routerLinkActive="uk-active">Ask a question</a></li>-->
+                                        <!--</ul>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--&lt;!&ndash;<a routerLink="/search" routerLinkActive="uk-active">Categories</a>&ndash;&gt;-->
+                        <!--</li>-->
                         <li class="uk-parent" [routerLinkActive]="['uk-active']">
-                            <a routerLink="/search" routerLinkActive="uk-active">Search</a>
-                        </li>
-                        <li class="uk-parent" [routerLinkActive]="['uk-active']"><a href="#" class="" aria-expanded="false">Support</a>
+                            <a href="#" class="" aria-expanded="false">
+                                Support <img class="uk-margin-small-left" src="../../../assets/images/icons/ic_arrow_down.svg">
+                            </a>
                             <div class="uk-navbar-dropdown uk-navbar-dropdown-bottom-left" style="top: 80px; left: 106.55px;" id="support" (click)="onClick('support')">
                                 <div class="uk-navbar-dropdown-grid uk-child-width-1-1 uk-grid uk-grid-stack" uk-grid="">
                                     <div class="uk-first-column">
@@ -146,36 +166,25 @@
                                 </div>
                             </div>
                         </li>
+                        <li *ngIf = "router.url != '/home' && router.url != '/'">
+                            <form [formGroup]="searchForm" (ngSubmit)="this.onSubmit(searchForm.value)">
+                                <input type="text" class="uk-input menuSearch" placeholder="Search" name="keyword" formControlName="query">
+                            </form>
+                        </li>
                     </ul>
                 </div>
 
                 <div class="uk-navbar-right">
 
                     <ul class="uk-navbar-nav">
-                        <li class="uk-parent">
-
-                            <a *ngIf="authenticationService.isLoggedIn()" class="loginLink">
+                        <li *ngIf="authenticationService.isLoggedIn()" class="uk-parent" [routerLinkActive]="['uk-active']">
+                            <a href="#" class="" aria-expanded="false">
                                 <span> {{this.authenticationService.user.name}} {{this.authenticationService.user.surname}} <span class="uk-margin-small-right uk-icon" ><svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" ratio="1"><circle fill="none" stroke="#000" stroke-width="1.1" cx="9.9" cy="6.4" r="4.4"></circle><path fill="none" stroke="#000" stroke-width="1.1" d="M1.5,19 C2.3,14.5 5.8,11.2 10,11.2 C14.2,11.2 17.7,14.6 18.5,19.2"></path></svg></span></span>
                             </a>
-                            <a *ngIf="!authenticationService.isLoggedIn()" class="loginLink" >
-                                <!--Sign in | Register <span class="uk-margin-small-right uk-icon" ></span>-->
-                                <span style="color: rgb(255, 255, 255); border: medium none rgb(255, 255, 255);" id="btl-panel-login" class="btl-dropdown">
-                                    <a class="loginLink" [routerLink]="['/signIn']"> Sign In   </a>
-                                </span>
-                                <!--registration disabled here:-->
-                                <!--|-->
-                                <!--<span style="color: rgb(255, 255, 255); border: medium none rgb(255, 255, 255);" class="btl-dropdown">-->
-                                    <!--<a [routerLink]="['/signUp']" routerLinkActive="uk-active" class="loginLink">Register</a>-->
-                                <!--</span>-->
-                                <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" ratio="1"><circle fill="none" stroke="#000" stroke-width="1.1" cx="9.9" cy="6.4" r="4.4"></circle><path fill="none" stroke="#000" stroke-width="1.1" d="M1.5,19 C2.3,14.5 5.8,11.2 10,11.2 C14.2,11.2 17.7,14.6 18.5,19.2"></path></svg>
-                            </a>
-
-
-                            <div *ngIf="authenticationService.isLoggedIn()" class="uk-navbar-dropdown uk-navbar-dropdown-bottom-left"   id="userMenu" (click)="onClick('userMenu')"  >
+                            <div class="uk-navbar-dropdown uk-navbar-dropdown-bottom-left" style="top: 80px; left: 106.55px;" id="user" (click)="onClick('support')">
                                 <div class="uk-navbar-dropdown-grid uk-child-width-1-1 uk-grid uk-grid-stack" uk-grid="">
                                     <div class="uk-first-column">
                                         <ul class="uk-nav uk-navbar-dropdown-nav">
-                                            <!--<li><a href="" >My profile</a></li>-->
                                             <li><a [routerLink]="['/dashboard']" routerLinkActive="uk-active">Monitoring Dashboard</a></li>
                                             <li><a routerLink="/home" (click)="this.authenticationService.logout()">Log out</a></li>
                                         </ul>
@@ -183,6 +192,47 @@
                                 </div>
                             </div>
                         </li>
+                        <li *ngIf="!authenticationService.isLoggedIn()" class="uk-parent" [routerLinkActive]="['uk-active']">
+                            <a [routerLink]="['/signIn']" routerLinkActive="uk-active">
+                                Log In
+                                <!--<img class="uk-responsive-height" src="./imgs/Icons/Home_24white.svg" alt="home">-->
+                            </a>
+                        </li>
+                        <li *ngIf="!authenticationService.isLoggedIn()" class="uk-parent" [routerLinkActive]="['uk-active']">
+                            <!--<a [routerLink]="['/signUp']" routerLinkActive="uk-active" class="signUp">-->
+                            <a routerLinkActive="uk-active" class="signUp" title="This will be available in the next release">
+                                Sign Up
+                                <!--<img class="uk-responsive-height" src="./imgs/Icons/Home_24white.svg" alt="home">-->
+                            </a>
+                        </li>
+
+
+                        <!--<li class="uk-parent">-->
+
+                            <!--<a *ngIf="authenticationService.isLoggedIn()" class="loginLink">-->
+                                <!--<span> {{this.authenticationService.user.name}} {{this.authenticationService.user.surname}} <span class="uk-margin-small-right uk-icon" ><svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" ratio="1"><circle fill="none" stroke="#000" stroke-width="1.1" cx="9.9" cy="6.4" r="4.4"></circle><path fill="none" stroke="#000" stroke-width="1.1" d="M1.5,19 C2.3,14.5 5.8,11.2 10,11.2 C14.2,11.2 17.7,14.6 18.5,19.2"></path></svg></span></span>-->
+                            <!--</a>-->
+                            <!--<a *ngIf="!authenticationService.isLoggedIn()" [routerLink]="['/signIn']">-->
+                                <!--Log In-->
+                            <!--</a>-->
+                            <!--<a *ngIf="!authenticationService.isLoggedIn()" [routerLink]="['/signUp']"-->
+                               <!--class="loginLink uk-margin-medium-left" style="color: rgb(255, 255, 255); border: 1px #0047BA;">-->
+                                <!--Sign Up-->
+                            <!--</a>-->
+
+
+                            <!--<div *ngIf="authenticationService.isLoggedIn()" class="uk-navbar-dropdown uk-navbar-dropdown-bottom-left"   id="userMenu" (click)="onClick('userMenu')"  >-->
+                                <!--<div class="uk-navbar-dropdown-grid uk-child-width-1-1 uk-grid uk-grid-stack" uk-grid="">-->
+                                    <!--<div class="uk-first-column">-->
+                                        <!--<ul class="uk-nav uk-navbar-dropdown-nav">-->
+                                            <!--&lt;!&ndash;<li><a href="" >My profile</a></li>&ndash;&gt;-->
+                                            <!--<li><a [routerLink]="['/dashboard']" routerLinkActive="uk-active">Monitoring Dashboard</a></li>-->
+                                            <!--<li><a routerLink="/home" (click)="this.authenticationService.logout()">Log out</a></li>-->
+                                        <!--</ul>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</li>-->
                     </ul>
 
                 </div>

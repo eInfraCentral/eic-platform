@@ -11,7 +11,10 @@ import {AuthenticationService} from "./services/authentication.service";
     templateUrl: "./app.component.html"
 })
 export class AppComponent implements OnInit {
+
     isLoginOrRegister: boolean = false;
+
+    breadcrumbs : string[] = [];
 
     constructor(public router: Router, public oauthService: AuthenticationService, private angulartics2Piwik: Angulartics2Piwik) {
         // // URL of the SPA to redirect the user to after login
@@ -32,6 +35,10 @@ export class AppComponent implements OnInit {
 
     ngOnInit() {
         this.router.events.subscribe((evt: any) => {
+
+            this.breadcrumbs = evt.url.split(/\//);
+            this.breadcrumbs[0] = 'Home';
+
             this.isLoginOrRegister = ["/signUp", "/signIn"].indexOf(evt.url) > 0;
         });
         this.router.events.subscribe((evt) => {

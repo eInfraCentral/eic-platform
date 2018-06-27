@@ -1,3 +1,4 @@
+<div class="tm-header-placeholder uk-margin-remove-adjacent" style="height: 80px;"></div>
 <div class="uk-section-secondary uk-position-relative" uk-scrollspy="{&quot;target&quot;:&quot;[uk-scrollspy-class]&quot;,&quot;cls&quot;:&quot;uk-animation-fade&quot;,&quot;delay&quot;:false}">
     <div style="background-image: url('./imgs/iStock-629814372.jpg'); background-color: rgb(255, 255, 255); box-sizing: border-box; min-height: calc(100vh - 229.5px);" class="uk-background-norepeat uk-background-cover uk-background-fixed uk-section uk-padding-remove-bottom uk-flex uk-flex-middle" uk-height-viewport="offset-top: true;offset-bottom: 20">
         <div class="uk-position-cover" style="background-color: rgba(31, 55, 97, 0.53);"></div>
@@ -7,589 +8,111 @@
                     <div class="search_box_bg uk-grid-large uk-flex-middle uk-grid uk-grid-stack" uk-grid="">
                         <div class="uk-width-1-1@m uk-first-column">
                             <h2 class="uk-margin-large uk-margin-remove-top uk-text-center uk-h2 uk-scrollspy-inview uk-animation-fade" uk-scrollspy-class="" style="">
-                                Your Gateway for European E-Infrastructures</h2>
+                                Your Gateway for European Services for Research
+                            </h2>
                             <div>
                                 <div class="search_box_bg" style="text-align:center">
                                     <form [formGroup]="searchForm" (ngSubmit)="this.onSubmit(searchForm.value)">
-                                        <input aria-describedby="sizing-addon2" class="uk-input uk-width-1-2 ng-pristine ng-valid ng-touched uk-comment uk-comment-meta"
-                                               name="keyword" placeholder="Search our service catalogue..." type="text"
+                                        <input aria-describedby="sizing-addon2" class="uk-input uk-width-1-2 ng-pristine
+                                        ng-valid ng-touched uk-comment uk-comment-meta uk-search-field"
+                                               name="keyword" placeholder="Which service are you looking for?" type="text"
                                                formControlName="query">
                                         <button class=" uk-button uk-button-default" type="submit">Search</button>
                                     </form>
 
                                 </div>
                             </div>
+                            <!--TODO uncomment this when I have time to fix it properly-->
+                            <!--<div class="uk-margin-medium-top">-->
+                                <!--<div class="trendingSearches">-->
+                                    <!--Trending searches: <span>network, security resources, share, analyze data</span>-->
+                                <!--</div>-->
+                            <!--</div>-->
                         </div>
                     </div>
                 </div>
-                <!--<div class="uk-container uk-container-expand uk-margin-medium">-->
-                    <!--<div class="search_box_bg uk-grid-collapse uk-grid uk-grid-stack" uk-grid="">-->
-                        <!--<div class="uk-width-1-1@m uk-first-column">-->
-                            <!--<div class="uk-margin-large uk-margin-remove-bottom uk-text-center uk-grid-match uk-child-width-1-1 uk-child-width-1-3@s uk-child-width-1-3@m uk-grid-collapse uk-grid-divider uk-scrollspy-inview uk-animation-fade uk-grid" uk-scrollspy-class="" uk-grid="" style="">-->
-                                <!--<div class="uk-first-column"><div uk-scrollspy-class="" class="uk-width-medium uk-margin-auto el-item uk-panel uk-scrollspy-inview uk-animation-fade" style="">-->
-                                    <!--<h1 class="el-title uk-margin uk-h3 uk-text-primary">-->
-                                        <!--20 tools &amp; services    </h1>-->
-                                <!--</div>-->
-                                <!--</div>-->
-                                <!--<div><div uk-scrollspy-class="" class="uk-width-medium uk-margin-auto el-item uk-panel uk-scrollspy-inview uk-animation-fade" style="">-->
-                                    <!--<h1 class="el-title uk-margin uk-h3 uk-text-primary">-->
-                                        <!--6 mi fulltexts    </h1>-->
-                                <!--</div>-->
-                                <!--</div>-->
-                                <!--<div><div uk-scrollspy-class="" class="uk-width-medium uk-margin-auto el-item uk-panel uk-scrollspy-inview uk-animation-fade" style="">-->
-                                    <!--<h1 class="el-title uk-margin uk-h3 uk-text-primary">-->
-                                        <!--10 mi abstracts    </h1>-->
-                                <!--</div>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
             </div>
         </div>
     </div>
 </div>
 
+<div class="uk-section-default uk-section">
+    <div class="uk-container uk-margin-large-bottom">
+        <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid="">
+            <div class="uk-width-1-1@m uk-first-column">
+                <h1 class="uk-margin-medium uk-text-center uk-h2">
+                    <span class="uk-text-background">Highlighted Services</span>
+                </h1>
+            </div>
+        </div>
 
+        <div *ngIf="featuredServices" class="uk-grid-margin uk-grid uk-grid-stack uk-child-width-1-5@m
+        featuredServicesContainer uk-margin-medium-top" uk-grid="">
 
-<!--<div class="uk-section-default uk-section">-->
-    <!--<div class="uk-container">-->
-        <!--<div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid="">-->
-            <!--<div class="uk-width-1-1@m uk-first-column">-->
-                <!--<h1 class="uk-margin-medium uk-text-center uk-h2">-->
-                    <!--<span class="uk-text-background">Explore services</span>-->
-                <!--</h1>-->
-                <!--<div class="uk-panel">-->
-                    <!--<div id="wk-grid66f" class="wk-grid-width-1-1 wk-grid-width-medium-1-5 wk-grid-width-large-1-5 wk-grid-width-xlarge-1-5 wk-grid wk-grid-match wk-grid-large wk-text-center serviceicon" data-wk-grid-match="{target:'&gt; div &gt; .wk-panel', row:true}" data-wk-grid-margin="">-->
-
-                        <!--&lt;!&ndash;First row&ndash;&gt;-->
-                        <!--<div class="wk-row-first">-->
-                            <!--<div class="wk-panel wk-overlay-hover" style="min-height: 100px;">-->
-                                <!--&lt;!&ndash;<a class="wk-position-cover wk-position-z-index" ></a>&ndash;&gt;-->
-                                <!--<div class="wk-text-center wk-margin wk-margin-top-remove">-->
-                                    <!--<div class="wk-overlay ">-->
-                                        <!--<img src="./imgs/Icons/fingerprint_scanning_authorization.svg" alt="AAI" width="64">-->
-                                        <!--<img src="./imgs/Icons/fingerprint_scanning_authorization_hover.svg" class=" wk-overlay-panel wk-overlay-image wk-overlay-fade" alt="AAI" width="64">-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<h3 class="wk-h4 wk-margin-top-remove">-->
-                                    <!--&lt;!&ndash;<a class="wk-link-reset" href="#aai">&ndash;&gt;-->
-                                        <!--&lt;!&ndash;Authentication and Authorization Infrastructure&ndash;&gt;-->
-                                    <!--&lt;!&ndash;</a>&ndash;&gt;-->
-                                    <!--<a class="wk-link-reset" type="button" href="#aai"-->
-                                            <!--uk-toggle="target: #aai; animation: uk-animation-fade;">-->
-                                        <!--Authentication and Authorization Infrastructure-->
-                                    <!--</a>-->
-                                <!--</h3>-->
-                                <!--<div id="aai" class="uk-card uk-card-default uk-card-body uk-margin-small" hidden="hidden">-->
-                                    <!--<div class="uk-grid">-->
-                                        <!--<div class="uk-width-1-3@m">-->
-                                            <!--<div class="uk-margin">-->
-                                                <!--Blabcjfhsvahfl-->
-                                            <!--</div>-->
-                                            <!--<div class="uk-margin">-->
-                                                <!--Blasvbhafkhabr kuskuahsvahfl-->
-                                            <!--</div>-->
-                                            <!--<div class="uk-margin">-->
-                                                <!--fhjvejfuyag arygukraykgyr-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                        <!--<div class="uk-width-1-3@m">-->
-                                            <!--<div class="uk-margin">-->
-                                                <!--Blabcjfhsvahfl-->
-                                            <!--</div>-->
-                                            <!--<div class="uk-margin">-->
-                                                <!--Blasvbhafkhabr kuskuahsvahfl-->
-                                            <!--</div>-->
-                                            <!--<div class="uk-margin">-->
-                                                <!--fhjvejfuyag arygukraykgyr-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                        <!--<div class="uk-width-1-3@m">-->
-                                            <!--<div class="uk-margin">-->
-                                                <!--Blabcjfhsvahfl-->
-                                            <!--</div>-->
-                                            <!--<div class="uk-margin">-->
-                                                <!--Blasvbhafkhabr kuskuahsvahfl-->
-                                            <!--</div>-->
-                                            <!--<div class="uk-margin">-->
-                                                <!--fhjvejfuyag arygukraykgyr-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-
-                                <!--&lt;!&ndash;<div class="wk-margin">&ndash;&gt;-->
-                                    <!--&lt;!&ndash;<div>Guidelines for content providers</div>&ndash;&gt;-->
-                                    <!--&lt;!&ndash;<div>Validation service</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="">-->
-                            <!--<div class="wk-panel wk-overlay-hover" style="min-height: 100px;">-->
-                                <!--<a class="wk-position-cover wk-position-z-index" href="/www.cnn.com"></a>-->
-                                <!--<div class="wk-text-center wk-margin wk-margin-top-remove">-->
-                                    <!--<div class="wk-overlay ">-->
-                                        <!--<img src="./imgs/Icons/cloud_server.svg" alt="Compute" width="64">-->
-                                        <!--<img src="./imgs/Icons/cloud_server_hover.svg" class=" wk-overlay-panel wk-overlay-image wk-overlay-fade" alt="Compute" width="64">-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<h3 class="wk-h4 wk-margin-top-remove">-->
-                                    <!--<a class="wk-link-reset" href="/www.cnn.com">Compute</a>-->
-                                <!--</h3>-->
-                                <!--&lt;!&ndash;<div class="wk-margin">&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Guidelines for content providers</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Validation service</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="">-->
-                            <!--<div class="wk-panel wk-overlay-hover" style="min-height: 100px;">-->
-                                <!--<a class="wk-position-cover wk-position-z-index" href="/www.cnn.com"></a>-->
-                                <!--<div class="wk-text-center wk-margin wk-margin-top-remove">-->
-                                    <!--<div class="wk-overlay ">-->
-                                        <!--<img src="./imgs/Icons/handshake.svg" alt="Connectivity" width="64">-->
-                                        <!--<img src="./imgs/Icons/handshake_hover.svg" class=" wk-overlay-panel wk-overlay-image wk-overlay-fade" alt="Connectivity" width="64">-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<h3 class="wk-h4 wk-margin-top-remove">-->
-                                    <!--<a class="wk-link-reset" href="/www.cnn.com">Connectivity</a>-->
-                                <!--</h3>-->
-                                <!--&lt;!&ndash;<div class="wk-margin">&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Guidelines for content providers</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Validation service</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="">-->
-                            <!--<div class="wk-panel wk-overlay-hover" style="min-height: 100px;">-->
-                                <!--<a class="wk-position-cover wk-position-z-index" href="/www.cnn.com"></a>-->
-                                <!--<div class="wk-text-center wk-margin wk-margin-top-remove">-->
-                                    <!--<div class="wk-overlay ">-->
-                                        <!--<img src="./imgs/Icons/consulting.svg" alt="Consulting" width="64">-->
-                                        <!--<img src="./imgs/Icons/consulting_hover.svg" class=" wk-overlay-panel wk-overlay-image wk-overlay-fade" alt="Consulting" width="64">-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<h3 class="wk-h4 wk-margin-top-remove">-->
-                                    <!--<a class="wk-link-reset" href="/www.cnn.com">Consulting</a>-->
-                                <!--</h3>-->
-                                <!--&lt;!&ndash;<div class="wk-margin">&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Guidelines for content providers</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Validation service</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="">-->
-                            <!--<div class="wk-panel wk-overlay-hover" style="min-height: 100px;">-->
-                                <!--<a class="wk-position-cover wk-position-z-index" href="/www.cnn.com"></a>-->
-                                <!--<div class="wk-text-center wk-margin wk-margin-top-remove">-->
-                                    <!--<div class="wk-overlay ">-->
-                                        <!--<img src="./imgs/Icons/keyword.svg" alt="Content Delivery" width="64">-->
-                                        <!--<img src="./imgs/Icons/keyword_hover.svg" class=" wk-overlay-panel wk-overlay-image wk-overlay-fade" alt="Content Delivery" width="64">-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<h3 class="wk-h4 wk-margin-top-remove">-->
-                                    <!--<a class="wk-link-reset" href="/www.cnn.com">Content Delivery</a>-->
-                                <!--</h3>-->
-                                <!--&lt;!&ndash;<div class="wk-margin">&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Guidelines for content providers</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Validation service</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                            <!--</div>-->
-                        <!--</div>-->
-
-
-
-
-                        <!--&lt;!&ndash;Second row&ndash;&gt;-->
-                        <!--<div class="wk-grid-margin wk-row-first">-->
-                            <!--<div class="wk-panel wk-overlay-hover" style="min-height: 100px;">-->
-                                <!--<a class="wk-position-cover wk-position-z-index" href="/www.cnn.com"></a>-->
-                                <!--<div class="wk-text-center wk-margin wk-margin-top-remove">-->
-                                    <!--<div class="wk-overlay ">-->
-                                        <!--<img src="./imgs/Icons/data-connectivity.svg" alt="Data connectivity" width="64">-->
-                                        <!--<img src="./imgs/Icons/data-connectivity_hover.svg" class=" wk-overlay-panel wk-overlay-image wk-overlay-fade" alt="Data connectivity" width="64">-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<h3 class="wk-h4 wk-margin-top-remove">-->
-                                    <!--<a class="wk-link-reset" href="/www.cnn.com">Data connectivity</a>-->
-                                <!--</h3>-->
-                                <!--&lt;!&ndash;<div class="wk-margin">&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Guidelines for content providers</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Validation service</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="wk-grid-margin">-->
-                            <!--<div class="wk-panel wk-overlay-hover" style="min-height: 100px;">-->
-                                <!--<a class="wk-position-cover wk-position-z-index" href="/www.cnn.com"></a>-->
-                                <!--<div class="wk-text-center wk-margin wk-margin-top-remove">-->
-                                    <!--<div class="wk-overlay ">-->
-                                        <!--&lt;!&ndash;TODO change this&ndash;&gt;-->
-                                        <!--<img src="./imgs/Icons/keyword.svg" alt="Data discovery" width="64">-->
-                                        <!--<img src="./imgs/Icons/keyword_hover.svg" class=" wk-overlay-panel wk-overlay-image wk-overlay-fade" alt="Data discovery" width="64">-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<h3 class="wk-h4 wk-margin-top-remove">-->
-                                    <!--<a class="wk-link-reset" href="/www.cnn.com">Data discovery</a>-->
-                                <!--</h3>-->
-                                <!--&lt;!&ndash;<div class="wk-margin">&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Guidelines for content providers</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Validation service</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="wk-grid-margin">-->
-                            <!--<div class="wk-panel wk-overlay-hover" style="min-height: 100px;">-->
-                                <!--<a class="wk-position-cover wk-position-z-index" href="/www.cnn.com"></a>-->
-                                <!--<div class="wk-text-center wk-margin wk-margin-top-remove">-->
-                                    <!--<div class="wk-overlay ">-->
-                                        <!--&lt;!&ndash;TODO change this&ndash;&gt;-->
-                                        <!--<img src="./imgs/Icons/database.svg" alt="Data movement" width="64">-->
-                                        <!--<img src="./imgs/Icons/database_hover.svg" class=" wk-overlay-panel wk-overlay-image wk-overlay-fade" alt="Data movement" width="64">-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<h3 class="wk-h4 wk-margin-top-remove">-->
-                                    <!--<a class="wk-link-reset" href="/www.cnn.com">Data movement</a>-->
-                                <!--</h3>-->
-                                <!--&lt;!&ndash;<div class="wk-margin">&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Guidelines for content providers</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Validation service</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="wk-grid-margin">-->
-                            <!--<div class="wk-panel wk-overlay-hover" style="min-height: 100px;">-->
-                                <!--<a class="wk-position-cover wk-position-z-index" href="/www.cnn.com"></a>-->
-                                <!--<div class="wk-text-center wk-margin wk-margin-top-remove">-->
-                                    <!--<div class="wk-overlay ">-->
-                                        <!--&lt;!&ndash;TODO change this&ndash;&gt;-->
-                                        <!--<img src="./imgs/Icons/cloud_server.svg" alt="Data registration" width="64">-->
-                                        <!--<img src="./imgs/Icons/cloud_server_hover.svg" class=" wk-overlay-panel wk-overlay-image wk-overlay-fade" alt="Data registration" width="64">-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<h3 class="wk-h4 wk-margin-top-remove">-->
-                                    <!--<a class="wk-link-reset" href="/www.cnn.com">Data registration</a>-->
-                                <!--</h3>-->
-                                <!--&lt;!&ndash;<div class="wk-margin">&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Guidelines for content providers</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Validation service</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="wk-grid-margin">-->
-                            <!--<div class="wk-panel wk-overlay-hover" style="min-height: 100px;">-->
-                                <!--<a class="wk-position-cover wk-position-z-index" href="/www.cnn.com"></a>-->
-                                <!--<div class="wk-text-center wk-margin wk-margin-top-remove">-->
-                                    <!--<div class="wk-overlay ">-->
-                                        <!--&lt;!&ndash;TODO change this&ndash;&gt;-->
-                                        <!--<img src="./imgs/Icons/database_security.svg" alt="Data storage" width="64">-->
-                                        <!--<img src="./imgs/Icons/database_security_hover.svg" class=" wk-overlay-panel wk-overlay-image wk-overlay-fade" alt="Data storage" width="64">-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<h3 class="wk-h4 wk-margin-top-remove">-->
-                                    <!--<a class="wk-link-reset" href="/www.cnn.com">Data storage</a>-->
-                                <!--</h3>-->
-                                <!--&lt;!&ndash;<div class="wk-margin">&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Guidelines for content providers</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Validation service</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                            <!--</div>-->
-                        <!--</div>-->
-
-
-
-                        <!--&lt;!&ndash;Third row&ndash;&gt;-->
-                        <!--<div class="wk-grid-margin wk-row-first">-->
-                            <!--<div class="wk-panel wk-overlay-hover" style="min-height: 100px;">-->
-                                <!--<a class="wk-position-cover wk-position-z-index" href="/www.cnn.com"></a>-->
-                                <!--<div class="wk-text-center wk-margin wk-margin-top-remove">-->
-                                    <!--<div class="wk-overlay ">-->
-                                        <!--<img src="./imgs/Icons/puzzle.svg" alt="Interoperability" width="64">-->
-                                        <!--<img src="./imgs/Icons/puzzle_hover.svg" class=" wk-overlay-panel wk-overlay-image wk-overlay-fade" alt="Interoperability" width="64">-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<h3 class="wk-h4 wk-margin-top-remove">-->
-                                    <!--<a class="wk-link-reset" href="/www.cnn.com">Interoperability</a>-->
-                                <!--</h3>-->
-                                <!--&lt;!&ndash;<div class="wk-margin">&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Guidelines for content providers</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Validation service</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="wk-grid-margin">-->
-                            <!--<div class="wk-panel wk-overlay-hover" style="min-height: 100px;">-->
-                                <!--<a class="wk-position-cover wk-position-z-index" href="/www.cnn.com"></a>-->
-                                <!--<div class="wk-text-center wk-margin wk-margin-top-remove">-->
-                                    <!--<div class="wk-overlay ">-->
-                                        <!--<img src="./imgs/Icons/analysis.svg" alt="Monitor and analysis" width="64">-->
-                                        <!--<img src="./imgs/Icons/analysis_hover.svg" class=" wk-overlay-panel wk-overlay-image wk-overlay-fade" alt="Monitor and analysis" width="64">-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<h3 class="wk-h4 wk-margin-top-remove">-->
-                                    <!--<a class="wk-link-reset" href="/www.cnn.com">Monitor and analysis</a>-->
-                                <!--</h3>-->
-                                <!--&lt;!&ndash;<div class="wk-margin">&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Guidelines for content providers</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Validation service</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="wk-grid-margin">-->
-                            <!--<div class="wk-panel wk-overlay-hover" style="min-height: 100px;">-->
-                                <!--<a class="wk-position-cover wk-position-z-index" href="/www.cnn.com"></a>-->
-                                <!--<div class="wk-text-center wk-margin wk-margin-top-remove">-->
-                                    <!--<div class="wk-overlay ">-->
-                                        <!--<img src="./imgs/Icons/dashboard_performance.svg" alt="Network Performance" width="64">-->
-                                        <!--<img src="./imgs/Icons/dashboard_performance_hover.svg" class=" wk-overlay-panel wk-overlay-image wk-overlay-fade" alt="Network Performance" width="64">-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<h3 class="wk-h4 wk-margin-top-remove">-->
-                                    <!--<a class="wk-link-reset" href="/www.cnn.com">Network Performance</a>-->
-                                <!--</h3>-->
-                                <!--&lt;!&ndash;<div class="wk-margin">&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Guidelines for content providers</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Validation service</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="wk-grid-margin">-->
-                            <!--<div class="wk-panel wk-overlay-hover" style="min-height: 100px;">-->
-                                <!--<a class="wk-position-cover wk-position-z-index" href="/www.cnn.com"></a>-->
-                                <!--<div class="wk-text-center wk-margin wk-margin-top-remove">-->
-                                    <!--<div class="wk-overlay ">-->
-                                        <!--&lt;!&ndash;TODO change this&ndash;&gt;-->
-                                        <!--<img src="./imgs/Icons/peopletalk.svg" alt="Operations" width="64">-->
-                                        <!--<img src="./imgs/Icons/peopletalk_hover.svg" class=" wk-overlay-panel wk-overlay-image wk-overlay-fade" alt="Operations" width="64">-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<h3 class="wk-h4 wk-margin-top-remove">-->
-                                    <!--<a class="wk-link-reset" href="/www.cnn.com">Operations</a>-->
-                                <!--</h3>-->
-                                <!--&lt;!&ndash;<div class="wk-margin">&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Guidelines for content providers</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Validation service</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="wk-grid-margin">-->
-                            <!--<div class="wk-panel wk-overlay-hover" style="min-height: 100px;">-->
-                                <!--<a class="wk-position-cover wk-position-z-index" href="/www.cnn.com"></a>-->
-                                <!--<div class="wk-text-center wk-margin wk-margin-top-remove">-->
-                                    <!--<div class="wk-overlay ">-->
-                                        <!--&lt;!&ndash;TODO change this&ndash;&gt;-->
-                                        <!--<img src="./imgs/Icons/connectivity.svg" alt="Platform" width="64">-->
-                                        <!--<img src="./imgs/Icons/connectivity_hover.svg" class=" wk-overlay-panel wk-overlay-image wk-overlay-fade" alt="Platform" width="64">-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<h3 class="wk-h4 wk-margin-top-remove">-->
-                                    <!--<a class="wk-link-reset" href="/www.cnn.com">Platform</a>-->
-                                <!--</h3>-->
-                                <!--&lt;!&ndash;<div class="wk-margin">&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Guidelines for content providers</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Validation service</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                            <!--</div>-->
-                        <!--</div>-->
-
-
-
-                        <!--&lt;!&ndash;Fourth row&ndash;&gt;-->
-                        <!--<div class="wk-grid-margin wk-row-first">-->
-                            <!--<div class="wk-panel wk-overlay-hover" style="min-height: 100px;">-->
-                                <!--<a class="wk-position-cover wk-position-z-index" href="/www.cnn.com"></a>-->
-                                <!--<div class="wk-text-center wk-margin wk-margin-top-remove">-->
-                                    <!--<div class="wk-overlay ">-->
-                                        <!--<img src="./imgs/Icons/unlock.svg" alt="Publishing" width="64">-->
-                                        <!--<img src="./imgs/Icons/unlock_hover.svg" class=" wk-overlay-panel wk-overlay-image wk-overlay-fade" alt="Publishing" width="64">-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<h3 class="wk-h4 wk-margin-top-remove">-->
-                                    <!--<a class="wk-link-reset" href="/www.cnn.com">Publishing</a>-->
-                                <!--</h3>-->
-                                <!--&lt;!&ndash;<div class="wk-margin">&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Guidelines for content providers</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Validation service</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="wk-grid-margin">-->
-                            <!--<div class="wk-panel wk-overlay-hover" style="min-height: 100px;">-->
-                                <!--<a class="wk-position-cover wk-position-z-index" href="/www.cnn.com"></a>-->
-                                <!--<div class="wk-text-center wk-margin wk-margin-top-remove">-->
-                                    <!--<div class="wk-overlay ">-->
-                                        <!--&lt;!&ndash;TODO change this&ndash;&gt;-->
-                                        <!--<img src="./imgs/Icons/cloud_server.svg" alt="Repository" width="64">-->
-                                        <!--<img src="./imgs/Icons/cloud_server_hover.svg" class=" wk-overlay-panel wk-overlay-image wk-overlay-fade" alt="Repository" width="64">-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<h3 class="wk-h4 wk-margin-top-remove">-->
-                                    <!--<a class="wk-link-reset" href="/www.cnn.com">Repository</a>-->
-                                <!--</h3>-->
-                                <!--&lt;!&ndash;<div class="wk-margin">&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Guidelines for content providers</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Validation service</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="wk-grid-margin">-->
-                            <!--<div class="wk-panel wk-overlay-hover" style="min-height: 100px;">-->
-                                <!--<a class="wk-position-cover wk-position-z-index" href="/www.cnn.com"></a>-->
-                                <!--<div class="wk-text-center wk-margin wk-margin-top-remove">-->
-                                    <!--<div class="wk-overlay ">-->
-                                        <!--&lt;!&ndash;TODO change this&ndash;&gt;-->
-                                        <!--<img src="./imgs/Icons/consulting.svg" alt="Research Projects" width="64">-->
-                                        <!--<img src="./imgs/Icons/consulting_hover.svg" class=" wk-overlay-panel wk-overlay-image wk-overlay-fade" alt="Research Projects" width="64">-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<h3 class="wk-h4 wk-margin-top-remove">-->
-                                    <!--<a class="wk-link-reset" href="/www.cnn.com">Research Projects</a>-->
-                                <!--</h3>-->
-                                <!--&lt;!&ndash;<div class="wk-margin">&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Guidelines for content providers</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Validation service</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="wk-grid-margin">-->
-                            <!--<div class="wk-panel wk-overlay-hover" style="min-height: 100px;">-->
-                                <!--<a class="wk-position-cover wk-position-z-index" href="/www.cnn.com"></a>-->
-                                <!--<div class="wk-text-center wk-margin wk-margin-top-remove">-->
-                                    <!--<div class="wk-overlay ">-->
-                                        <!--<img src="./imgs/Icons/database_security.svg" alt="Security" width="64">-->
-                                        <!--<img src="./imgs/Icons/database_security_hover.svg" class=" wk-overlay-panel wk-overlay-image wk-overlay-fade" alt="Security" width="64">-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<h3 class="wk-h4 wk-margin-top-remove">-->
-                                    <!--<a class="wk-link-reset" href="/www.cnn.com">Security</a>-->
-                                <!--</h3>-->
-                                <!--&lt;!&ndash;<div class="wk-margin">&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Guidelines for content providers</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Validation service</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="wk-grid-margin">-->
-                            <!--<div class="wk-panel wk-overlay-hover" style="min-height: 100px;">-->
-                                <!--<a class="wk-position-cover wk-position-z-index" href="/www.cnn.com"></a>-->
-                                <!--<div class="wk-text-center wk-margin wk-margin-top-remove">-->
-                                    <!--<div class="wk-overlay ">-->
-                                        <!--<img src="./imgs/Icons/database.svg" alt="Storage and Data" width="64">-->
-                                        <!--<img src="./imgs/Icons/database_hover.svg" class=" wk-overlay-panel wk-overlay-image wk-overlay-fade" alt="Storage and Data" width="64">-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<h3 class="wk-h4 wk-margin-top-remove">-->
-                                    <!--<a class="wk-link-reset" href="/www.cnn.com">Storage and Data</a>-->
-                                <!--</h3>-->
-                                <!--&lt;!&ndash;<div class="wk-margin">&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Guidelines for content providers</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Validation service</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                            <!--</div>-->
-                        <!--</div>-->
-
-
-
-                        <!--&lt;!&ndash;Fifth row&ndash;&gt;-->
-                        <!--<div class="wk-grid-margin wk-row-first">-->
-                            <!--<div class="wk-panel wk-overlay-hover" style="min-height: 100px;">-->
-                                <!--<a class="wk-position-cover wk-position-z-index" href="/www.cnn.com"></a>-->
-                                <!--<div class="wk-text-center wk-margin wk-margin-top-remove">-->
-                                    <!--<div class="wk-overlay ">-->
-                                        <!--&lt;!&ndash;TODO change this&ndash;&gt;-->
-                                        <!--<img src="./imgs/Icons/data-connectivity.svg" alt="Text Mining, Data Mining, Information Extraction" width="64">-->
-                                        <!--<img src="./imgs/Icons/data-connectivity_hover.svg" class=" wk-overlay-panel wk-overlay-image wk-overlay-fade" alt="Text Mining, Data Mining, Information Extraction" width="64">-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<h3 class="wk-h4 wk-margin-top-remove">-->
-                                    <!--<a class="wk-link-reset" href="/www.cnn.com">Text Mining, Data Mining, Information Extraction</a>-->
-                                <!--</h3>-->
-                                <!--&lt;!&ndash;<div class="wk-margin">&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Guidelines for content providers</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Validation service</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="wk-grid-margin">-->
-                            <!--<div class="wk-panel wk-overlay-hover" style="min-height: 100px;">-->
-                                <!--<a class="wk-position-cover wk-position-z-index" href="/www.cnn.com"></a>-->
-                                <!--<div class="wk-text-center wk-margin wk-margin-top-remove">-->
-                                    <!--<div class="wk-overlay ">-->
-                                        <!--<img src="./imgs/Icons/training-presentation-teach-meeting.svg" alt="Training" width="64">-->
-                                        <!--<img src="./imgs/Icons/training-presentation-teach-meeting_hover.svg" class=" wk-overlay-panel wk-overlay-image wk-overlay-fade" alt="Training" width="64">-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<h3 class="wk-h4 wk-margin-top-remove">-->
-                                    <!--<a class="wk-link-reset" href="/www.cnn.com">Training</a>-->
-                                <!--</h3>-->
-                                <!--&lt;!&ndash;<div class="wk-margin">&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Guidelines for content providers</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div>Validation service</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                            <!--</div>-->
-                        <!--</div>-->
-
-
-
-
-
-                    <!--</div>-->
-                    <!--<script>-->
-                        <!--(function($){-->
-                            <!--// get the images of the gallery and replace it by a canvas of the same size to fix the problem with overlapping images on load.-->
-                            <!--$('img[width][height]:not(.wk-overlay-panel)', $('#wk-grid66f')).each(function() {-->
-                                <!--var $img = $(this);-->
-                                <!--if (this.width == 'auto' || this.height == 'auto' || !$img.is(':visible')) {-->
-                                    <!--return;-->
-                                <!--}-->
-                                <!--var $canvas = $('&lt;canvas class="wk-responsive-width"&gt;&lt;/canvas&gt;').attr({width:$img.attr('width'), height:$img.attr('height')}),-->
-                                    <!--img = new Image,-->
-                                    <!--release = function() {-->
-                                        <!--$canvas.remove();-->
-                                        <!--$img.css('display', '');-->
-                                        <!--release = function(){};-->
-                                    <!--};-->
-                                <!--$img.css('display', 'none').after($canvas);-->
-                                <!--$(img).on('load', function(){ release(); });-->
-                                <!--setTimeout(function(){ release(); }, 1000);-->
-                                <!--img.src = this.src;-->
-                            <!--});-->
-                        <!--})(jQuery);-->
-                    <!--</script>-->
+            <!--<ngx-slick class="carousel" #slickModal="slick-modal" [config]="slideConfig">-->
+                <!--<div ngxSlickItem *ngFor="let slide of slides" class="slide">-->
+                    <!--<img src="{{ slide.img }}" alt="" width="100%">-->
                 <!--</div>-->
-                <!--<div class="uk-margin uk-text-center">-->
-                    <!--<a class="el-content uk-button uk-button-default" href="#" title="Explore More" uk-scroll="">-->
-                        <!--View all-->
-                    <!--</a>-->
+            <!--</ngx-slick>-->
+
+
+            <!--<ngx-slick class="carousel" #slickModal="slick-modal" [config]="slideConfig">-->
+                <!--&lt;!&ndash;<div ngxSlickItem *ngFor="let c of this.categories" class="slide" style="height: 100%">&ndash;&gt;-->
+                <!--<div ngxSlickItem *ngFor="let c of this.categories" class="slide">-->
+                    <!--<div class="uk-card uk-card-body uk-card-gray">-->
+                        <!--<h3>OpenAIRE Inference</h3>-->
+                        <!--<p>Text and data mining for scholarly communication</p>-->
+                        <!--<div>-->
+
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</ngx-slick>-->
+
+
+                <div *ngFor="let featuredService of featuredServices" class="uk-card uk-card-body uk-card-gray uk-margin-left featuredService">
+                    <a (click)="this.router.service(featuredService.id)">
+                        <h3>{{featuredService.name}}</h3>
+                        <p *ngIf="featuredService.tagline">{{featuredService.tagline}}</p>
+                        <div class="symbolAndProvider">
+                            <img src="{{featuredService.symbol || 'http://fvtelibrary.com/img/user/NoLogo.png'}}" class="serviceSymbol">
+                            <span class="provider">{{featuredService.providers[0] | uppercase}}</span>
+                        </div>
+                    </a>
+                </div>
+
+            <!--<div *ngFor="let featuredService of featuredServices" class="uk-padding-left featuredService">-->
+                <!--<div class="uk-card uk-card-body uk-card-gray"-->
+                     <!--(click)="this.router.search({category:c.id})">-->
+                    <!--<h3>{{featuredService.name}}</h3>-->
+                    <!--<p *ngIf="featuredService.tagline">{{featuredService.tagline}}</p>-->
+                    <!--<div>-->
+                        <!--<img src="{{featuredService.symbol || 'http://fvtelibrary.com/img/user/NoLogo.png'}}" class="serviceSymbol">-->
+                        <!--<span class="provider">{{featuredService.providers[0] | uppercase}}</span>-->
+                    <!--</div>-->
                 <!--</div>-->
             <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
 
-
-
-
-
-<div class="uk-section-default uk-section">
+        </div>
+    </div>
     <div class="uk-container serviceicon">
         <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid="">
             <div class="uk-width-1-1@m uk-first-column">
                 <h1 class="uk-margin-medium uk-text-center uk-h2">
-                    <span class="uk-text-background">Explore services</span>
+                    <span class="uk-text-background">Explore services by Category</span>
                 </h1>
             </div>
         </div>
 
         <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid="">
-            <div *ngFor="let c of this.categories" class="uk-width-1-5@m" (click)="this.router.search({category:c.id})">
+            <div *ngFor="let c of this.categories" class="uk-width-1-6@m" (click)="this.router.search({category:c.id})">
                 <div class="wk-panel wk-overlay-hover" style="min-height: 100px;">
 
                     <div class="wk-text-center wk-margin wk-margin-top-remove">
                         <div class="wk-overlay">
-                            <img src={{this.baseIconURI+c.extras[0]}} alt={{c.name}} width="64">
-                            <img src={{this.baseIconURI+c.extras[1]}} alt={{c.name}} width="64" class=" wk-overlay-panel wk-overlay-image wk-overlay-fade" >
+                            <img src={{this.baseIconURI+c.extras[0]}} alt={{c.name}} height="70">
+                            <img src={{this.baseIconURI+c.extras[1]}} alt={{c.name}} height="70"
+                                 class=" wk-overlay-panel wk-overlay-image wk-overlay-fade" >
                         </div>
                     </div>
                     <h3 class="wk-h4 wk-margin-top-remove uk-text-center">
@@ -612,818 +135,102 @@
     </div>
 </div>
 
-
-<!--<div class="parbase section part-reference">-->
-    <!--<div class="parsys content">-->
-        <!--<div class="parbase section item-expander">-->
-            <!--<div id="element-1f915c49-74b8-468b-a7de-3034f5be8894"-->
-                 <!--class="aws-item-expander-cortex aws-has-icon-hover aws-content-width-constrain aws-has-hover-icons-as-active">-->
-                <!--<div class="aws-triangle" style="top: 98px; left: 120px; display: none;">-->
-                    <!--<div class="aws-triangle-inner"></div>-->
-                <!--</div>-->
-                <!--<div class="aws-item-expander-row" id="aws-item-expander-row-00"></div>-->
-                <!--<div class="aws-item-expander-row" id="aws-item-expander-row-01"></div>-->
-                <!--<div class="aws-item-expander-row" id="aws-item-expander-row-02"></div>-->
-                <!--<div class="aws-item-expander-row" id="aws-item-expander-row-03"></div>-->
-                <!--<div class="aws-item-expander-row" id="aws-item-expander-row-04">-->
-                    <!--<div class="aws-item-wrapper" data-id="0" id="aws-item-expander-wrapper-00">-->
-                        <!--<a class="aws-trigger aws-icon-ps-60-square-chip" style="height: 98px;">-->
-                            <!--<span>Compute</span>-->
-                            <!--<div class="aws-triangle" style="display: none;">-->
-                                <!--<div class="aws-triangle-inner"></div>-->
-                            <!--</div>-->
-                        <!--</a>-->
-                    <!--</div>-->
-                    <!--<div class="aws-item-expander-accordion" id="aws-item-expander-accordion-00"-->
-                         <!--style="height: 0px; display: none;"></div>-->
-                    <!--<div class="aws-item-wrapper" data-id="1" id="aws-item-expander-wrapper-01">-->
-                        <!--<a class="aws-trigger aws-icon-ps-60-file-box" style="height: 98px;">-->
-                            <!--<span>Storage</span>-->
-                            <!--<div class="aws-triangle" style="display: none;">-->
-                                <!--<div class="aws-triangle-inner"></div>-->
-                            <!--</div>-->
-                        <!--</a>-->
-
-                    <!--</div>-->
-                    <!--<div class="aws-item-expander-accordion" id="aws-item-expander-accordion-01"-->
-                         <!--style="height: 0px; display: none;"></div>-->
-                    <!--<div class="aws-item-wrapper" data-id="2" id="aws-item-expander-wrapper-02">-->
-                        <!--<a class="aws-trigger aws-icon-ps-60-database-server" style="height: 98px;">-->
-                            <!--<span>Database</span>-->
-                            <!--<div class="aws-triangle" style="display: none;">-->
-                                <!--<div class="aws-triangle-inner"></div>-->
-                            <!--</div>-->
-                        <!--</a>-->
-
-                    <!--</div>-->
-                    <!--<div class="aws-item-expander-accordion" id="aws-item-expander-accordion-02"-->
-                         <!--style="height: 0px; display: none;"></div>-->
-                    <!--<div class="aws-item-wrapper" data-id="3" id="aws-item-expander-wrapper-03">-->
-                        <!--<a class="aws-trigger aws-icon-ps-60-cloud-arrows" style="height: 98px;">-->
-                            <!--<span>Migration</span>-->
-                            <!--<div class="aws-triangle" style="display: none;">-->
-                                <!--<div class="aws-triangle-inner"></div>-->
-                            <!--</div>-->
-                        <!--</a>-->
-
-                    <!--</div>-->
-                    <!--<div class="aws-item-expander-accordion" id="aws-item-expander-accordion-03"-->
-                         <!--style="height: 0px; display: none;"></div>-->
-                    <!--<div class="aws-item-wrapper" data-id="4" id="aws-item-expander-wrapper-04">-->
-                        <!--<a class="aws-trigger aws-icon-ps-60-network-nodes" style="height: 98px;">-->
-                            <!--<span>Networking &amp; Content Delivery</span>-->
-                            <!--<div class="aws-triangle" style="display: none;">-->
-                                <!--<div class="aws-triangle-inner"></div>-->
-                            <!--</div>-->
-                        <!--</a>-->
-
-                    <!--</div>-->
-
-
-                    <!--&lt;!&ndash;for 1-1&ndash;&gt;-->
-                    <!--<div class="aws-item-expander-accordion" id="aws-item-expander-accordion-04"-->
-                         <!--style="height: 0px; display: none;">-->
-                        <!--<div class="aws-item-expander-content" id="aws-item-expander-content-00">-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/ec2/?hp=tile&amp;so-exp=below"> Amazon-->
-                                    <!--EC2<span>Virtual Servers in the Cloud</span> </a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/ecr/?hp=tile&amp;so-exp=below"> Amazon EC2 Container Registry<span>Store and Retrieve Docker Images</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/ecs/?hp=tile&amp;so-exp=below"> Amazon EC2 Container Service<span>Run and Manage Docker Containers</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="http://amazonlightsail.com"> Amazon Lightsail<span>Launch and Manage Virtual Private Servers</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/vpc/?hp=tile&amp;so-exp=below"> Amazon-->
-                                    <!--VPC<span>Isolated Cloud Resources</span> </a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/batch/?hp=tile&amp;so-exp=below"> AWS-->
-                                    <!--Batch<span>Run Batch Jobs at Any Scale</span> </a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/elasticbeanstalk/?hp=tile&amp;so-exp=below"> AWS Elastic Beanstalk<span>Run and Manage Web Apps</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/lambda/?hp=tile&amp;so-exp=below"> AWS Lambda<span>Run Your Code in Response to Events</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/autoscaling/?hp=tile&amp;so-exp=below"> Auto-->
-                                    <!--Scaling<span>Automatic Elasticity</span> </a>-->
-                            <!--</div>-->
-                        <!--</div>-->
-
-
-                        <!--&lt;!&ndash;for 1-2&ndash;&gt;-->
-                        <!--<div class="aws-item-expander-content" id="aws-item-expander-content-01">-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/s3/?hp=tile&amp;so-exp=below"> Amazon-->
-                                    <!--S3<span>Scalable Storage in the Cloud</span> </a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/ebs/?hp=tile&amp;so-exp=below"> Amazon EBS<span>Block Storage for EC2</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/efs/?hp=tile&amp;so-exp=below"> Amazon Elastic File System<span>Managed File Storage for EC2</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/glacier1/?hp=tile&amp;so-exp=below"> Amazon Glacier<span>Low-Cost Archive Storage in the Cloud</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/storagegateway/?hp=tile&amp;so-exp=below"> AWS Storage Gateway<span>Hybrid Storage Integration</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/snowball/?hp=tile&amp;so-exp=below"> AWS Snowball<span>Petabyte-scale Data Transport</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/snowball-edge/?hp=tile&amp;so-exp=below"> AWS Snowball Edge<span>Petabyte-scale Data Transport with On-board Compute</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/snowmobile/?hp=tile&amp;so-exp=below"> AWS Snowmobile<span>Exabyte-scale Data Transport</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                        <!--</div>-->
-
-                        <!--&lt;!&ndash;for 1-3&ndash;&gt;-->
-                        <!--<div class="aws-item-expander-content" id="aws-item-expander-content-02">-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/rds/aurora/?hp=tile&amp;so-exp=below"> Amazon Aurora<span>High Performance Managed Relational Database</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/rds/?hp=tile&amp;so-exp=below"> Amazon RDS<span>Managed Relational Database Service for MySQL, PostgreSQL, Oracle, SQL Server, and MariaDB</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/dynamodb/?hp=tile&amp;so-exp=below"> Amazon DynamoDB<span>Managed NoSQL Database</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/dynamodb/dax/?hp=tile&amp;so-exp=below"> Amazon DynamoDB Accelerator-->
-                                    <!--(DAX)<span>Fully Managed In-Memory Cache for DynamoDB</span> </a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/elasticache/?hp=tile&amp;so-exp=below"> Amazon ElastiCache<span>In-Memory Caching System</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/redshift/?hp=tile&amp;so-exp=below"> Amazon Redshift<span>Fast, Simple, Cost-Effective Data Warehousing</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/dms/?hp=tile&amp;so-exp=below"> AWS Database Migration Service<span>Migrate Databases with Minimal Downtime</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                        <!--</div>-->
-
-                        <!--&lt;!&ndash;for 1-4&ndash;&gt;-->
-                        <!--<div class="aws-item-expander-content" id="aws-item-expander-content-03">-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/application-discovery/?hp=tile&amp;so-exp=below"> AWS Application Discovery-->
-                                    <!--Service<span>Discover On-Premises Applications to Streamline Migration</span> </a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/dms/?hp=tile&amp;so-exp=below"> AWS Database Migration Service<span>Migrate Databases with Minimal Downtime</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/server-migration-service/?hp=tile&amp;so-exp=below"> AWS Server Migration-->
-                                    <!--Service <span>Migrate On-Premises Servers to AWS</span> </a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/snowball/?hp=tile&amp;so-exp=below"> AWS Snowball<span>Petabyte-scale Data Transport</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/snowball-edge/?hp=tile&amp;so-exp=below"> AWS Snowball Edge<span>Petabyte-scale Data Transport with On-board Compute</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/snowmobile/?hp=tile&amp;so-exp=below"> AWS Snowmobile<span>Exabyte-scale Data Transport</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                        <!--</div>-->
-
-                        <!--&lt;!&ndash;for 1-5&ndash;&gt;-->
-                        <!--<div class="aws-item-expander-content" id="aws-item-expander-content-04">-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/vpc/?hp=tile&amp;so-exp=below"> Amazon-->
-                                    <!--VPC<span>Isolated Cloud Resources</span> </a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/cloudfront/?hp=tile&amp;so-exp=below"> Amazon CloudFront<span>Global Content Delivery Network</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/route53/?hp=tile&amp;so-exp=below"> Amazon Route 53<span>Scalable Domain Name System</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/directconnect/?hp=tile&amp;so-exp=below"> AWS Direct Connect<span>Dedicated Network Connection to AWS</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/elasticloadbalancing/?hp=tile&amp;so-exp=below"> Elastic Load Balancing<span>High Scale Load Balancing</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-
-                <!--&lt;!&ndash;SECOND ROW&ndash;&gt;-->
-                <!--<div class="aws-item-expander-row" id="aws-item-expander-row-05"></div>-->
-                <!--<div class="aws-item-expander-row" id="aws-item-expander-row-06"></div>-->
-                <!--<div class="aws-item-expander-row" id="aws-item-expander-row-07"></div>-->
-                <!--<div class="aws-item-expander-row" id="aws-item-expander-row-08"></div>-->
-                <!--<div class="aws-item-expander-row" id="aws-item-expander-row-09">-->
-                    <!--<div class="aws-item-wrapper" data-id="5" id="aws-item-expander-wrapper-05">-->
-                        <!--<a class="aws-trigger aws-icon-ps-60-tools" style="height: 98px;">-->
-                            <!--<span>Developer Tools</span>-->
-                            <!--<div class="aws-triangle" style="display: none;">-->
-                                <!--<div class="aws-triangle-inner"></div>-->
-                            <!--</div>-->
-                        <!--</a>-->
-
-                    <!--</div>-->
-                    <!--<div class="aws-item-expander-accordion" id="aws-item-expander-accordion-05"-->
-                         <!--style="height: 0px; display: none;"></div>-->
-                    <!--<div class="aws-item-wrapper" data-id="6" id="aws-item-expander-wrapper-06">-->
-                        <!--<a class="aws-trigger aws-icon-ps-60-dashboard-dials" style="height: 98px;">-->
-                            <!--<span>Management Tools</span>-->
-                            <!--<div class="aws-triangle" style="display: none;">-->
-                                <!--<div class="aws-triangle-inner"></div>-->
-                            <!--</div>-->
-                        <!--</a>-->
-
-                    <!--</div>-->
-                    <!--<div class="aws-item-expander-accordion" id="aws-item-expander-accordion-06"-->
-                         <!--style="height: 0px; display: none;"></div>-->
-                    <!--<div class="aws-item-wrapper" data-id="7" id="aws-item-expander-wrapper-07">-->
-                        <!--<a class="aws-trigger aws-icon-ps-60-shield-circle" style="height: 98px;">-->
-                            <!--<span>Security, Identity &amp; Compliance</span>-->
-                            <!--<div class="aws-triangle" style="display: none;">-->
-                                <!--<div class="aws-triangle-inner"></div>-->
-                            <!--</div>-->
-                        <!--</a>-->
-
-                    <!--</div>-->
-                    <!--<div class="aws-item-expander-accordion" id="aws-item-expander-accordion-07"-->
-                         <!--style="display: none; height: 0px;"></div>-->
-                    <!--<div class="aws-item-wrapper" data-id="8" id="aws-item-expander-wrapper-08">-->
-                        <!--<a class="aws-trigger aws-icon-ps-60-pie-bar-charts" style="height: 98px;">-->
-                            <!--<span>Analytics</span>-->
-                            <!--<div class="aws-triangle" style="display: none;">-->
-                                <!--<div class="aws-triangle-inner"></div>-->
-                            <!--</div>-->
-                        <!--</a>-->
-
-                    <!--</div>-->
-                    <!--<div class="aws-item-expander-accordion" id="aws-item-expander-accordion-08"-->
-                         <!--style="display: none; height: 0px;"></div>-->
-                    <!--<div class="aws-item-wrapper" data-id="9" id="aws-item-expander-wrapper-09">-->
-                        <!--<a class="aws-trigger aws-icon-ps-60-brain-gear" style="height: 98px;">-->
-                            <!--<span>Artificial Intelligence</span>-->
-                            <!--<div class="aws-triangle" style="display: none;">-->
-                                <!--<div class="aws-triangle-inner"></div>-->
-                            <!--</div>-->
-                        <!--</a>-->
-
-                    <!--</div>-->
-                    <!--<div class="aws-item-expander-accordion" id="aws-item-expander-accordion-09"-->
-                         <!--style="display: none; height: 0px;">-->
-                        <!--<div class="aws-item-expander-content" id="aws-item-expander-content-05">-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/codestar/?hp=tile&amp;so-exp=below"> AWS CodeStar<span>Develop and Deploy AWS Applications </span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/codecommit/?hp=tile&amp;so-exp=below"> AWS CodeCommit<span>Store Code in Private Git Repositories</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/codebuild/?hp=tile&amp;so-exp=below"> AWS-->
-                                    <!--CodeBuild<span>Build and Test Code</span> </a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/codedeploy/?hp=tile&amp;so-exp=below"> AWS CodeDeploy<span>Automate Code Deployment</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/codepipeline/?hp=tile&amp;so-exp=below"> AWS CodePipeline<span>Release Software using Continuous Delivery</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/xray/?hp=tile&amp;so-exp=below"> AWS X-Ray<span>Analyze and Debug Your Applications</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/cli/?hp=tile&amp;so-exp=below"> AWS Command Line Interface<span>Unified Tool to Manage AWS Services</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="aws-item-expander-content" id="aws-item-expander-content-06">-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/cloudwatch/?hp=tile&amp;so-exp=below"> Amazon CloudWatch<span>Monitor Resources and Applications</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/ec2/systems-manager/?hp=tile&amp;so-exp=below"> Amazon EC2 Systems-->
-                                    <!--Manager<span>Configure and Manage EC2 Instances and On-premises Servers</span> </a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/cloudformation/?hp=tile&amp;so-exp=below"> AWS CloudFormation<span>Create and Manage Resources with Templates</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/cloudtrail/?hp=tile&amp;so-exp=below"> AWS CloudTrail<span>Track User Activity and API Usage</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/config/?hp=tile&amp;so-exp=below"> AWS Config<span>Track Resource Inventory and Changes</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/opsworks/?hp=tile&amp;so-exp=below"> AWS OpsWorks<span>Automate Operations with Chef</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/servicecatalog/?hp=tile&amp;so-exp=below"> AWS Service Catalog<span>Create and Use Standardized Products</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/trustedadvisor/?hp=tile&amp;so-exp=below"> AWS Trusted Advisor<span>Optimize Performance and Security</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/premiumsupport/phd/?hp=tile&amp;so-exp=below"> AWS Personal Health-->
-                                    <!--Dashboard<span>Personalized view of AWS service health</span> </a>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="aws-item-expander-content" id="aws-item-expander-content-07">-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/cloud-directory/?p=tile"> Amazon Cloud Directory<span>Create flexible cloud-native directories</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/iam/?hp=tile&amp;so-exp=below"> AWS Identity &amp; Access Management<span>Manage User Access and Encryption Keys</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/inspector/?hp=tile&amp;so-exp=below"> Amazon Inspector<span>Analyze Application Security</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/certificate-manager/?hp=tile&amp;so-exp=below"> AWS Certificate Manager<span>Provision, Manage, and Deploy SSL/TLS Certificates</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/cloudhsm/?hp=tile&amp;so-exp=below"> AWS CloudHSM<span>Hardware-based Key Storage for Regulatory Compliance</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/directoryservice/?hp=tile&amp;so-exp=below"> AWS Directory Service<span>Host and Manage Active Directory</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/kms/?hp=tile&amp;so-exp=below"> AWS Key Management Service<span>Managed Creation and Control of Encryption Keys</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/organizations/?hp=tile&amp;so-exp=below"> AWS Organizations<span>Policy-based management for multiple AWS accounts</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/shield/?hp=tile&amp;so-exp=below"> AWS Shield<span>DDoS Protection</span> </a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/waf/?hp=tile&amp;so-exp=below"> AWS-->
-                                    <!--WAF<span>Filter Malicious Web Traffic</span> </a>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="aws-item-expander-content" id="aws-item-expander-content-08">-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/athena/?hp=tile&amp;so-exp=below"> Amazon Athena<span>Query Data in S3 using SQL</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/elasticmapreduce/?hp=tile&amp;so-exp=below"> Amazon EMR<span>Hosted Hadoop Framework</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/cloudsearch/?hp=tile&amp;so-exp=below"> Amazon CloudSearch<span>Managed Search Service</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/elasticsearch-service/?hp=tile&amp;so-exp=below"> Amazon Elasticsearch Service<span>Run and Scale Elasticsearch Clusters</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/kinesis/?hp=tile&amp;so-exp=below"> Amazon Kinesis<span>Work with Real-Time Streaming Data</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/redshift/?hp=tile&amp;so-exp=below"> Amazon Redshift<span>Fast, Simple, Cost-Effective Data Warehousing</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="https://quicksight.aws"> Amazon-->
-                                    <!--Quicksight<span>Fast Business Analytics Service</span> </a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/datapipeline/?hp=tile&amp;so-exp=below"> AWS Data Pipeline<span>Orchestration Service for Periodic, Data-Driven Workflows</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/glue/?hp=tile&amp;so-exp=below"> AWS Glue<span>Prepare and Load Data</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="aws-item-expander-content" id="aws-item-expander-content-09">-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/lex/?hp=tile&amp;so-exp=below"> Amazon-->
-                                    <!--Lex<span>Build Voice and Text Chatbots</span> </a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/polly/?hp=tile&amp;so-exp=below"> Amazon Polly<span>Turn Text into Lifelike Speech</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/rekognition/?hp=tile&amp;so-exp=below"> Amazon Rekognition<span>Search and Analyze Images</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/machine-learning/?hp=tile&amp;so-exp=below"> Amazon Machine Learning<span>Machine Learning for Developers</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-
-                <!--&lt;!&ndash;THIRD ROW&ndash;&gt;-->
-                <!--<div class="aws-item-expander-row" id="aws-item-expander-row-010"></div>-->
-                <!--<div class="aws-item-expander-row" id="aws-item-expander-row-011"></div>-->
-                <!--<div class="aws-item-expander-row" id="aws-item-expander-row-012"></div>-->
-                <!--<div class="aws-item-expander-row" id="aws-item-expander-row-013"></div>-->
-                <!--<div class="aws-item-expander-row" id="aws-item-expander-row-014">-->
-                    <!--<div class="aws-item-wrapper" data-id="10" id="aws-item-expander-wrapper-010">-->
-                        <!--<a class="aws-trigger aws-icon-ps-60-tablet-phone" style="height: 98px;">-->
-                            <!--<span>Mobile Services</span>-->
-                            <!--<div class="aws-triangle" style="display: none;">-->
-                                <!--<div class="aws-triangle-inner"></div>-->
-                            <!--</div>-->
-                        <!--</a>-->
-
-                    <!--</div>-->
-                    <!--<div class="aws-item-expander-accordion" id="aws-item-expander-accordion-010"-->
-                         <!--style="display: none; height: 0px;"></div>-->
-                    <!--<div class="aws-item-wrapper" data-id="11" id="aws-item-expander-wrapper-011">-->
-                        <!--<a class="aws-trigger aws-icon-ps-60-application" style="height: 98px;">-->
-                            <!--<span>Application Services</span>-->
-                            <!--<div class="aws-triangle" style="display: none;">-->
-                                <!--<div class="aws-triangle-inner"></div>-->
-                            <!--</div>-->
-                        <!--</a>-->
-
-                    <!--</div>-->
-                    <!--<div class="aws-item-expander-accordion" id="aws-item-expander-accordion-011"-->
-                         <!--style="display: none; height: 0px;"></div>-->
-                    <!--<div class="aws-item-wrapper" data-id="12" id="aws-item-expander-wrapper-012">-->
-                        <!--<a class="aws-trigger aws-icon-ps-60-bubble-gear" style="height: 98px;">-->
-                            <!--<span>Messaging</span>-->
-                            <!--<div class="aws-triangle" style="display: none;">-->
-                                <!--<div class="aws-triangle-inner"></div>-->
-                            <!--</div>-->
-                        <!--</a>-->
-
-                    <!--</div>-->
-                    <!--<div class="aws-item-expander-accordion" id="aws-item-expander-accordion-012"-->
-                         <!--style="display: none; height: 0px;"></div>-->
-                    <!--<div class="aws-item-wrapper" data-id="13" id="aws-item-expander-wrapper-013">-->
-                        <!--<a class="aws-trigger aws-icon-ps-60-laptop-buildings" style="height: 98px;">-->
-                            <!--<span>Business Productivity</span>-->
-                            <!--<div class="aws-triangle" style="display: none;">-->
-                                <!--<div class="aws-triangle-inner"></div>-->
-                            <!--</div>-->
-                        <!--</a>-->
-
-                    <!--</div>-->
-                    <!--<div class="aws-item-expander-accordion" id="aws-item-expander-accordion-013"-->
-                         <!--style="display: none; height: 0px;"></div>-->
-                    <!--<div class="aws-item-wrapper" data-id="14" id="aws-item-expander-wrapper-014">-->
-                        <!--<a class="aws-trigger aws-icon-ps-60-laptop-tablet-clouds" style="height: 98px;">-->
-                            <!--<span>Desktop &amp; App Streaming</span>-->
-                            <!--<div class="aws-triangle" style="display: none;">-->
-                                <!--<div class="aws-triangle-inner"></div>-->
-                            <!--</div>-->
-                        <!--</a>-->
-
-                    <!--</div>-->
-                    <!--<div class="aws-item-expander-accordion" id="aws-item-expander-accordion-014"-->
-                         <!--style="display: none; height: 0px;">-->
-                        <!--<div class="aws-item-expander-content" id="aws-item-expander-content-010">-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/mobile/?hp=tile&amp;so-exp=below"> AWS Mobile Hub<span>Build, Test, and Monitor Apps</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/api-gateway/?hp=tile&amp;so-exp=below"> Amazon API Gateway<span>Build, Deploy, and Manage APIs</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/cognito/?hp=tile&amp;so-exp=below"> Amazon Cognito<span>User Identity and App Data Synchronization</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/pinpoint/?hp=tile&amp;so-exp=below"> Amazon Pinpoint<span>Push Notifications for Mobile Apps</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/device-farm/?hp=tile&amp;so-exp=below"> AWS Device Farm<span>Test Android, FireOS, and iOS Apps on Real Devices in the Cloud</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/mobile/sdk/?hp=tile&amp;so-exp=below"> AWS Mobile SDK<span>Mobile Software Development Kit</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="aws-item-expander-content" id="aws-item-expander-content-011">-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/step-functions/?hp=tile&amp;so-exp=below"> AWS Step Functions<span>Coordinate Distributed Applications</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/api-gateway/?hp=tile&amp;so-exp=below"> Amazon API Gateway<span>Build, Deploy, and Manage APIs</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/elastictranscoder/?hp=tile&amp;so-exp=below"> Amazon Elastic Transcoder<span>Easy-to-Use Scalable Media Transcoding</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="aws-item-expander-content" id="aws-item-expander-content-012">-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/sqs/?hp=tile&amp;so-exp=below"> Amazon Simple Queue Service (SQS) <span>Managed Message Queues</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/sns/?hp=tile&amp;so-exp=below"> Amazon Simple Notification Service (SNS)<span>Pub/Sub, Mobile Push and SMS</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/pinpoint/?hp=tile&amp;so-exp=below"> Amazon Pinpoint<span>Push Notifications for Mobile Apps</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/ses/?hp=tile&amp;so-exp=below"> Amazon Simple Email Service (SES)<span>Email Sending and Receiving</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="aws-item-expander-content" id="aws-item-expander-content-013">-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="https://chime.aws?hp=tile&amp;so-exp=below"> Amazon Chime<span>Frustration-free meetings, video calls, and chat</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/workdocs/?hp=tile&amp;so-exp=below"> Amazon WorkDocs<span>Enterprise Storage and Sharing Service</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/workmail/?hp=tile&amp;so-exp=below"> Amazon WorkMail<span>Secure and Managed Business Email and Calendaring</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="aws-item-expander-content" id="aws-item-expander-content-014">-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/workspaces/?hp=tile&amp;so-exp=below"> Amazon WorkSpaces<span>Desktop Computing Service</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/appstream/?hp=tile&amp;so-exp=below"> Amazon AppStream 2.0<span>Stream desktop applications securely to a browser</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="aws-item-expander-row" id="aws-item-expander-row-015"></div>-->
-                <!--<div class="aws-item-expander-row" id="aws-item-expander-row-016"></div>-->
-                <!--<div class="aws-item-expander-row" id="aws-item-expander-row-017"></div>-->
-                <!--<div class="aws-item-expander-row" id="aws-item-expander-row-018">-->
-                    <!--<div class="aws-item-wrapper" data-id="15" id="aws-item-expander-wrapper-015">-->
-                        <!--<a class="aws-trigger aws-icon-ps-60-circular-circuit" style="height: 98px;"> <span>Internet of Things</span>-->
-                            <!--<div class="aws-triangle" style="display: none;">-->
-                                <!--<div class="aws-triangle-inner"></div>-->
-                            <!--</div>-->
-                        <!--</a>-->
-
-                    <!--</div>-->
-                    <!--<div class="aws-item-expander-accordion" id="aws-item-expander-accordion-015"-->
-                         <!--style="display: none; height: 0px;"></div>-->
-                    <!--<div class="aws-item-wrapper" data-id="16" id="aws-item-expander-wrapper-016">-->
-                        <!--<a class="aws-trigger aws-icon-ps-60-headset" style="height: 98px;"> <span>Contact Center</span>-->
-                            <!--<div class="aws-triangle" style="display: none;">-->
-                                <!--<div class="aws-triangle-inner"></div>-->
-                            <!--</div>-->
-                        <!--</a>-->
-
-                    <!--</div>-->
-                    <!--<div class="aws-item-expander-accordion" id="aws-item-expander-accordion-016"-->
-                         <!--style="display: none; height: 0px;"></div>-->
-                    <!--<div class="aws-item-wrapper" data-id="17" id="aws-item-expander-wrapper-017">-->
-                        <!--<a class="aws-trigger aws-icon-ps-60-game-controller" style="height: 98px;"> <span>Game Development</span>-->
-                            <!--<div class="aws-triangle" style="display: none;">-->
-                                <!--<div class="aws-triangle-inner"></div>-->
-                            <!--</div>-->
-                        <!--</a>-->
-
-                    <!--</div>-->
-                    <!--<div class="aws-item-expander-accordion" id="aws-item-expander-accordion-017"-->
-                         <!--style="display: none; height: 0px;"></div>-->
-                    <!--<div class="aws-item-wrapper" data-id="18" id="aws-item-expander-wrapper-018">-->
-                        <!--<a class="aws-trigger aws-icon-ps-60-arrow-right" href="/products/?hp=tile&amp;so-exp=below"-->
-                           <!--style="height: 98px;"> <span>See All Products</span>-->
-                            <!--<div class="aws-triangle" style="display: none;">-->
-                                <!--<div class="aws-triangle-inner"></div>-->
-                            <!--</div>-->
-                        <!--</a>-->
-
-                    <!--</div>-->
-                    <!--<div class="aws-item-expander-accordion" id="aws-item-expander-accordion-018"-->
-                         <!--style="display: none; height: 0px;">-->
-                        <!--<div class="aws-item-expander-content" id="aws-item-expander-content-015">-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/iot/?hp=tile&amp;so-exp=below"> AWS IoT Platform<span>Connect Devices to the Cloud</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/greengrass/?hp=tile&amp;so-exp=below"> AWS Greengrass<span>Local Compute, Messaging, and Sync for Devices</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/iot/button/?hp=tile&amp;so-exp=below"> AWS IoT Button<span>Cloud Programmable Dash Button</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="aws-item-expander-content" id="aws-item-expander-content-016">-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/connect/?hp=tile&amp;so-exp=below"> Amazon Connect<span>Cloud-based contact center</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="aws-item-expander-content" id="aws-item-expander-content-017">-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/gamelift/?hp=tile&amp;so-exp=below"> Amazon GameLift<span>Simple, fast, cost-effective dedicated game server hosting</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="aws-content-item">-->
-                                <!--<a href="/lumberyard/?hp=tile&amp;so-exp=below"> Amazon Lumberyard<span>A Free Cross-Platform 3D Game Engine, with Full Source, Integrated with AWS and Twitch</span>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="aws-item-expander-content" id="aws-item-expander-content-018">-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<script>-->
-                <!--require(['jquery', 'plugins/item-expander-cortex'], function ($, ItemExpander) {-->
-                    <!--new ItemExpander($('#element-1f915c49-74b8-468b-a7de-3034f5be8894')[0]);-->
-                <!--});-->
-            <!--</script>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
-
-
-
-
-<!--<div class="omtd_secondary uk-section-muted uk-section uk-padding-remove-vertical">-->
-    <!--<div class="uk-container uk-container-expand">-->
-        <!--<div class="uk-container uk-container-expand">-->
-            <!--<div class="uk-grid-collapse uk-grid" uk-grid="">-->
-                <!--<div class="uk-width-3-4@m uk-first-column">-->
-                    <!--<div class="uk-margin-remove-vertical">-->
-                        <!--&nbsp;</div>-->
-                    <!--<h2 class="uk-margin-small uk-h2 uk-text-primary">-->
-                        <!--Our policies    </h2>-->
-                    <!--<ul class="uk-margin-small uk-list uk-list-large">-->
-                        <!--<li class="el-item">                <h3 class="el-title uk-h3 uk-margin-remove">on open access scholarly and scientific content</h3>-->
-                            <!--<div class="el-content uk-text-lead">-->
-                                <!--How and where we retrieve the content from, how often, what processes it goes through? Are there any constraints or limitations on its use for research?-->
-                            <!--</div>-->
-                        <!--</li>-->
-                        <!--<li class="el-item">                <h3 class="el-title uk-h3 uk-margin-remove">on sharing and using TDM services</h3>-->
-                            <!--<div class="el-content uk-text-lead">-->
-                                <!--Who is able to register services? What types of tools/components/services is the platform for? What are the relavant quality issues?-->
-                            <!--</div>-->
-                        <!--</li>-->
-                        <!--<li class="el-item">                <h3 class="el-title uk-h3 uk-margin-remove">on the platform usage</h3>-->
-                            <!--<div class="el-content uk-text-lead">-->
-                                <!--Who is able to use the platform? What are the resources allocated? Where are the results stored, published, shared?-->
-                            <!--</div>-->
-                        <!--</li>-->
-                    <!--</ul>-->
-                    <!--<div class="uk-margin-medium uk-text-center">-->
-                        <!--<a class="el-content uk-button uk-button-secondary" [routerLink]="['/support/faqPolicies']">-->
-                            <!--View all-->
-                        <!--</a>-->
-                    <!--</div>-->
-                    <!--<div class="uk-margin-remove-vertical">-->
-                        <!--&nbsp;</div>-->
-                <!--</div>-->
-                <!--<div class="uk-width-expand@m uk-grid-item-match">-->
-                    <!--<div class="uk-tile uk-tile-secondary uk-tile-xsmall">-->
-                        <!--<h2 class="uk-h3">-->
-                            <!--Latest additions    </h2>-->
-                        <!--<div id="page#25" class="small-padding uk-margin-remove-vertical uk-grid-match uk-child-width-1-1 uk-child-width-1-1@m uk-child-width-1-1@l uk-child-width-1-1@xl uk-grid-small uk-grid-divider uk-grid uk-grid-stack" uk-grid="">-->
-                            <!--<div class="uk-first-column"><div class="el-item uk-panel">-->
-                                <!--<div class="uk-child-width-expand uk-grid-collapse uk-grid" uk-grid="">-->
-                                    <!--<div class="uk-width-1-5@m uk-first-column">-->
-                                        <!--<a href="/www.cnn.com" class="el-link"><span uk-icon="icon: cog;ratio: 1" class="el-image uk-icon"><svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" ratio="1"><circle fill="none" stroke="#000" cx="9.997" cy="10" r="3.31"/><path fill="none" stroke="#000" d="M18.488,12.285 L16.205,16.237 C15.322,15.496 14.185,15.281 13.303,15.791 C12.428,16.289 12.047,17.373 12.246,18.5 L7.735,18.5 C7.938,17.374 7.553,16.299 6.684,15.791 C5.801,15.27 4.655,15.492 3.773,16.237 L1.5,12.285 C2.573,11.871 3.317,10.999 3.317,9.991 C3.305,8.98 2.573,8.121 1.5,7.716 L3.765,3.784 C4.645,4.516 5.794,4.738 6.687,4.232 C7.555,3.722 7.939,2.637 7.735,1.5 L12.263,1.5 C12.072,2.637 12.441,3.71 13.314,4.22 C14.206,4.73 15.343,4.516 16.225,3.794 L18.487,7.714 C17.404,8.117 16.661,8.988 16.67,10.009 C16.672,11.018 17.415,11.88 18.488,12.285 L18.488,12.285 Z"/></svg></span></a>            </div>-->
-                                    <!--<div>-->
-                                        <!--<h6 class="el-title uk-margin uk-h6 uk-text-primary uk-margin-remove-adjacent uk-margin-remove-bottom">-->
-                                            <!--Funder exractor    </h6>-->
-                                        <!--<div class="el-meta uk-margin uk-text-meta">Athena Research &amp; Innovation Center</div>-->
-                                        <!--<div class="el-content uk-margin"><div class="margin-top:0px!important; padding-top:0px">20 Dec 2016</div></div>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                            <!--</div>-->
-                            <!--<div class="uk-grid-margin uk-first-column"><div class="el-item uk-panel">-->
-                                <!--<div class="uk-child-width-expand uk-grid-collapse uk-grid" uk-grid="">-->
-                                    <!--<div class="uk-width-1-5@m uk-first-column">-->
-                                        <!--<a href="/www.cnn.com" class="el-link"><span uk-icon="icon: album;ratio: 1" class="el-image uk-icon"><svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" ratio="1"><rect x="5" y="2" width="10" height="1"/><rect x="3" y="4" width="14" height="1"/><rect fill="none" stroke="#000" x="1.5" y="6.5" width="17" height="11"/></svg></span></a>            </div>-->
-                                    <!--<div>-->
-                                        <!--<h6 class="el-title uk-margin uk-h6 uk-text-primary uk-margin-remove-adjacent uk-margin-remove-bottom">-->
-                                            <!--Portuguese OA Sci literature    </h6>-->
-                                        <!--<div class="el-meta uk-margin uk-text-meta">University of Minho</div>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                            <!--</div>-->
-                            <!--<div class="uk-grid-margin uk-first-column"><div class="el-item uk-panel">-->
-                                <!--<div class="uk-child-width-expand uk-grid-collapse uk-grid" uk-grid="">-->
-                                    <!--<div class="uk-width-1-5@m uk-first-column">-->
-                                        <!--<a href="/www.cnn.com" class="el-link"><span uk-icon="icon: cog;ratio: 1" class="el-image uk-icon"><svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" ratio="1"><circle fill="none" stroke="#000" cx="9.997" cy="10" r="3.31"/><path fill="none" stroke="#000" d="M18.488,12.285 L16.205,16.237 C15.322,15.496 14.185,15.281 13.303,15.791 C12.428,16.289 12.047,17.373 12.246,18.5 L7.735,18.5 C7.938,17.374 7.553,16.299 6.684,15.791 C5.801,15.27 4.655,15.492 3.773,16.237 L1.5,12.285 C2.573,11.871 3.317,10.999 3.317,9.991 C3.305,8.98 2.573,8.121 1.5,7.716 L3.765,3.784 C4.645,4.516 5.794,4.738 6.687,4.232 C7.555,3.722 7.939,2.637 7.735,1.5 L12.263,1.5 C12.072,2.637 12.441,3.71 13.314,4.22 C14.206,4.73 15.343,4.516 16.225,3.794 L18.487,7.714 C17.404,8.117 16.661,8.988 16.67,10.009 C16.672,11.018 17.415,11.88 18.488,12.285 L18.488,12.285 Z"/></svg></span></a>            </div>-->
-                                    <!--<div>-->
-                                        <!--<h6 class="el-title uk-margin uk-h6 uk-text-primary uk-margin-remove-adjacent uk-margin-remove-bottom">-->
-                                            <!--Funder exractor    </h6>-->
-                                        <!--<div class="el-meta uk-margin uk-text-meta">Athena Research &amp; Innovation Center</div>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
-
 <div class="uk-section-muted uk-section-overlap uk-position-relative" uk-scrollspy="{&quot;target&quot;:&quot;[uk-scrollspy-class]&quot;,&quot;cls&quot;:&quot;uk-animation-fade&quot;,&quot;delay&quot;:false}">
-    <div style="background-image: url('./imgs/iStock-629814372.jpg');" class="uk-background-norepeat uk-background-cover uk-background-center-center uk-background-fixed uk-section uk-section-large">
+    <div style="background-image: url('./imgs/iStock-629814372.jpg');" class="uk-background-norepeat uk-background-cover uk-background-center-center uk-background-fixed uk-section uk-section-medium">
         <div class="uk-position-cover" style="background-color: rgba(31, 55, 97, 0.53);"></div>
         <div class="uk-container uk-container-large uk-position-relative">
-            <div class="uk-container uk-container-large uk-grid-margin-large">
-                <div class="uk-grid-large uk-grid-divider uk-grid" uk-grid="">
-                    <div class="uk-width-expand@m">
-                        <h1 class="uk-text-center uk-h2 uk-scrollspy-inview uk-animation-fade" uk-scrollspy-class="" style="">
-                            <span style="color:#fff">Are you a service provider?</span>    </h1>
-                        <div class="uk-margin uk-text-center uk-text-lead uk-scrollspy-inview uk-animation-fade" uk-scrollspy-class="" style="">
-                            <div style="color:#fefefe"><p>Use our platform to register your services, make them available to the public and monitor their usage statistics</p></div></div>
+
+            <div class="uk-grid uk-width-1-1">
+                <div class="uk-width-3-5@m firstColumn">
+                    <div class="aboutUs">
+                        <h3>
+                            About us
+                        </h3>
+                        <p>
+                            e-Infrastructures address the needs of European researchers for digital services in terms of
+                            networking, computing and data management by fostering the emergence of Open Science. In the
+                            context of the European open science agenda there is a need to capitalise on past e-infrastructure
+                            investments and develop an e-infrastructure commons.
+                        </p>
+                        <div class="">
+                            <div class="uk-text-right">
+                                <a class="uk-flex-right uk-margin-small-right">Read all
+                                    <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="uk-width-expand@m uk-first-column">
-                        <h1 class="uk-text-center uk-h2 uk-scrollspy-inview uk-animation-fade" uk-scrollspy-class="" style="">
-                            <span style="color:#fff">Are you a service consumer?</span>    </h1>
-                        <div class="uk-margin uk-text-center uk-text-lead uk-scrollspy-inview uk-animation-fade" uk-scrollspy-class="" style="">
-                            <div style="color:#fefefe"><p>Use our platform to browse through e-infra services, compare them, view metrics and much more information about the ones that are of interest to you</p></div></div>
+                    <div class="registerService personas">
+                        <h3>
+                            I would like to register a service
+                        </h3>
+                        <div class="uk-margin-small-bottom">
+                            <a class="uk-margin-small-right" target="_blank" [routerLink]="['/signUp']">Sign up and register a service</a>
+                            <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-width-2-5@m uk-padding-remove-left">
+                    <div class="needService personas">
+                        <h3>
+                            I need a service to
+                        </h3>
+                        <div class="uk-margin-small-bottom">
+                            <a class="uk-margin-small-right" target="_blank" [routerLink]="['/search']">Use network, computing and security resources</a>
+                            <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
+                        </div>
+                        <div class="uk-margin-small-bottom">
+                            <a class="uk-margin-small-right" target="_blank" [routerLink]="['/search']">Store, share and analyze data</a>
+                            <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
+                        </div>
+                        <div class="uk-margin-small-bottom">
+                            <a class="uk-margin-small-right" target="_blank" [routerLink]="['/search']">Use and share software</a>
+                            <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
+                        </div>
+                    </div>
+                    <div class="research personas">
+                        <h3>
+                            I am interested in research
+                        </h3>
+                        <div class="uk-margin-small-bottom">
+                            <a class="uk-margin-small-right" target="_blank" [routerLink]="['/search']">Administration and training services</a>
+                            <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
+                        </div>
+                        <div class="uk-margin-small-bottom">
+                            <a class="uk-margin-small-right" target="_blank" [routerLink]="['/search']">Monitoring and funding</a>
+                            <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid="">
-                <div class="uk-width-1-1@m uk-first-column">
-                    <div class="uk-margin-large uk-margin-remove-bottom uk-text-center uk-scrollspy-inview uk-animation-fade" uk-scrollspy-class="" style="">
-                        <a class="el-content uk-button uk-button-secondary" href="http://einfracentral.eu/basic-page/about-einfracentral">
-                            Learn more
-                        </a>
-                    </div>
-                </div>
-            </div>
+
+
+
+            <!--<div class="uk-container uk-container-large uk-grid-margin-large">-->
+                <!--<div class="uk-grid-large uk-grid-divider uk-grid" uk-grid="">-->
+                    <!--<div class="uk-width-expand@m">-->
+                        <!--<h1 class="uk-text-center uk-h2 uk-scrollspy-inview uk-animation-fade" uk-scrollspy-class="" style="">-->
+                            <!--<span style="color:#fff">Are you a service provider?</span>    </h1>-->
+                        <!--<div class="uk-margin uk-text-center uk-text-lead uk-scrollspy-inview uk-animation-fade" uk-scrollspy-class="" style="">-->
+                            <!--<div style="color:#fefefe"><p>Use our platform to register your services, make them available to the public and monitor their usage statistics</p></div></div>-->
+                    <!--</div>-->
+                    <!--<div class="uk-width-expand@m uk-first-column">-->
+                        <!--<h1 class="uk-text-center uk-h2 uk-scrollspy-inview uk-animation-fade" uk-scrollspy-class="" style="">-->
+                            <!--<span style="color:#fff">Are you a service consumer?</span>    </h1>-->
+                        <!--<div class="uk-margin uk-text-center uk-text-lead uk-scrollspy-inview uk-animation-fade" uk-scrollspy-class="" style="">-->
+                            <!--<div style="color:#fefefe"><p>Use our platform to browse through e-infra services, compare them, view metrics and much more information about the ones that are of interest to you</p></div></div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid="">-->
+                <!--<div class="uk-width-1-1@m uk-first-column">-->
+                    <!--<div class="uk-margin-large uk-margin-remove-bottom uk-text-center uk-scrollspy-inview uk-animation-fade" uk-scrollspy-class="" style="">-->
+                        <!--<a class="el-content uk-button uk-button-secondary" href="http://einfracentral.eu/basic-page/about-einfracentral">-->
+                            <!--Learn more-->
+                        <!--</a>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
         </div>
     </div>
 </div>

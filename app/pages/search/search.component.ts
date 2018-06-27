@@ -16,6 +16,7 @@ import {NavigationService} from "../../services/navigation.service";
 import {ResourceService} from "../../services/resource.service";
 import {UserService} from "../../services/user.service";
 import {URLParameter} from "./../../domain/url-parameter";
+import { Service } from "../../domain/eic-model";
 
 declare var UIkit: any;
 
@@ -25,6 +26,7 @@ declare var UIkit: any;
     styleUrls: ["./search.component.css"]
 })
 export class SearchComponent implements OnInit, OnDestroy {
+
     searchForm: FormGroup;
     errorMessage: string;
     sub: Subscription;
@@ -43,13 +45,19 @@ export class SearchComponent implements OnInit, OnDestroy {
     providers: any;
     vocabularies: any;
 
+    listViewActive: boolean = true;
+
     constructor(public fb: FormBuilder, public router: NavigationService, public route: ActivatedRoute,
                 public userService: UserService, public resourceService: ResourceService,
-                public authenticationService: AuthenticationService, public comparisonService: ComparisonService) {
+                public authenticationService: AuthenticationService, public comparisonService: ComparisonService,
+                public navigationService: NavigationService) {
         this.searchForm = fb.group({"query": [""]});
     }
 
     ngOnInit() {
+
+        this.listViewActive = true;
+
         Observable.zip(
             this.resourceService.getProviders(),
             this.resourceService.getVocabularies()
@@ -68,15 +76,29 @@ export class SearchComponent implements OnInit, OnDestroy {
                         this.urlParameters.push(urlParameter);
                     }
                 }
+
+                this.navigationService.paramsObservable.next(this.urlParameters);
+
                 //request results from the registry
                 return this.resourceService.search(this.urlParameters).subscribe(
                     searchResults => this.updateSearchResults(searchResults));
+
             });
         });
     }
 
     ngOnDestroy(): void {
         this.sub.unsubscribe();
+        this.navigationService.paramsObservable.next(null);
+    }
+
+    toggleListGrid(show: string) {
+        if(show == 'list')
+            this.listViewActive = true;
+        else if(show == 'grid')
+            this.listViewActive = false;
+        else
+            this.listViewActive = true;
     }
 
     updateSearchResults(searchResults: SearchResults) {
@@ -180,7 +202,30 @@ export class SearchComponent implements OnInit, OnDestroy {
             categoryIndex++;
             if (category === "query") {
                 this.searchForm.get("query").setValue("");
+                this.navigationService.paramsObservable.next(null);
             }
+        }
+        return this.navigateUsingParameters();
+    }
+
+    isSelected(service : Service) : boolean {
+        return (this.comparisonService.servicesToCompare.map(e => e.id).indexOf(service.id)) > -1;
+    }
+
+    selectFacet(category: string, value: string) {
+        var foundCategory = false;
+        for (let urlParameter of this.urlParameters) {
+            if (urlParameter.key === category) {
+                foundCategory = true;
+                urlParameter.values.push(value);
+            }
+        }
+        if (!foundCategory) {
+            var newParameter: URLParameter = {
+                key: category,
+                values: [value]
+            };
+            this.urlParameters.push(newParameter);
         }
         return this.navigateUsingParameters();
     }

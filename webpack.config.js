@@ -57,7 +57,7 @@ var webpackConfig = {
             {test: /\.css$/, loaders: ['to-string-loader', 'css-loader']},
             {test: /\.html$/, loader: 'raw-loader'},
             {test: /\.scss$/, loaders: ['style', 'css', 'postcss', 'sass']},
-            {test: /\.(woff2?|ttf|eot|svg)$/, loader: 'url?limit=10000'},
+            {test: /\.(woff2?|ttf|eot|svg)$/, loader: 'url-loader?limit=10000'},
             {test: /bootstrap\/dist\/js\/umd\//, loader: 'imports?jQuery=jquery'}
         ]
     }

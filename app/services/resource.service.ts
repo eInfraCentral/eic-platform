@@ -217,4 +217,8 @@ export class ResourceService {
             return Observable.from(["k"]);
         }
     }
+
+    getFeaturedServices() {
+        return this.http.get(`/service/featured/all`).map(res => <Service[]> <any> res);
+    }
 }

@@ -1,3 +1,192 @@
+.uk-section {
+    padding-top: 30px;
+}
+
+.compareWrapper {
+    opacity: 0.89;
+    background: #4D586A;
+    /*color: #bbb;*/
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 150px;
+    width: 100%;
+    z-index: 100;
+}
+
+.serviceToCompareCard {
+    background: #ECECEC;
+    border-radius: 2px;
+    font-size: 11px;
+    color: #4D586A;
+    letter-spacing: 0;
+    line-height: 17px;
+    /*height: 70%;*/
+    padding: 20px 17px;
+}
+
+.uk-button-white {
+    background: #FFFFFF;
+    border-radius: 2px;
+    font-weight: 400;
+    font-size: 16px;
+    color: #0047BA;
+    letter-spacing: 0;
+}
+
+.clearAllLink {
+    font-weight: 700;
+    font-size: 16px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    text-transform: uppercase;
+}
+
+.actions {
+    position: absolute;
+    right: 40px;
+    margin-top: 35px;
+}
+
+
+
+.filters a {
+    font-size: 16px;
+    color: #2B4371;
+    font-weight: 300;
+    text-transform: none;
+    /*padding: 0 0;*/
+    height: 30px;
+}
+
+.filters a:hover {
+    font-size: 16px;
+    color: #D13239;
+    /*font-weight: bold;*/
+}
+
+.uk-navbar-dropdown-nav a, .uk-navbar-dropdown-nav a:hover {
+    font-size: 14px;
+}
+
+.refines .uk-h3 {
+    font-size: 16px;
+    color: #2B4371;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    margin-top: 5px;
+}
+
+/* dropdown width override */
+.uk-navbar-dropdown-nav > li > a {
+    white-space: nowrap;
+}
+
+.uk-navbar-dropdown {
+    min-width: 200px;
+    width: auto;
+}
+
+
+
+
+.serviceDetails {
+    background: rgba(103,118,144,0.05);
+    border-radius: 2px;
+}
+
+.provider {
+    font-size: 14px;
+    color: #545454;
+    letter-spacing: 0;
+    text-align: center;
+}
+
+.symbolAndProvider {
+    background: #EFF1F3;
+}
+
+.serviceInfo {
+    padding-left: 80px;
+}
+
+.gridView .serviceInfo {
+    padding-left: 40px;
+}
+
+.gridView .uk-card-body {
+    padding: 30px 30px;
+}
+
+.gridView .serviceDetails {
+    background: none;
+}
+
+.gridView .serviceInfo {
+    background: rgba(103,118,144,0.05);
+}
+
+.serviceInfo h3 {
+    font-weight: 400;
+    font-size: 18px;
+    color: #2B4371;
+    letter-spacing: 0.41px;
+    text-transform: none;
+}
+
+.serviceInfo h3 a {
+    color: #2B4371;
+}
+
+.gridView .serviceInfo h3 {
+    height: 2.5em;
+}
+
+.serviceTagLine {
+    font-weight: 700;
+    font-size: 16px;
+    color: #0047BA;
+    letter-spacing: 0;
+    line-height: 22px;
+}
+
+.gridView .serviceTagLine {
+    height: 4em;
+}
+
+.serviceDescription {
+    font-size: 14px;
+    color: #4D586A;
+    letter-spacing: 0.32px;
+    line-height: 19px;
+}
+
+.gridView .serviceDescription {
+    height: 4em;
+}
+
+.addenda a {
+    font-weight: 400;
+    font-size: 13px;
+    color: #0047BA;
+    letter-spacing: 0;
+    text-transform: uppercase;
+}
+
+.addenda input {
+    background: rgba(196,208,230,0.90);
+    border-radius: 2px;
+}
+
+/*.serviceDescription {*/
+    /*text-align: justify;*/
+/*}*/
+
+
+
+
+
 .uk-form.searchForm input[type="text"] {
     height: 40px;
 }
@@ -43,10 +232,18 @@
     font-weight: bold;
 }
 
+.refineOption {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #2B4371;
+}
+
 .refineOption span {
     font-weight: 300;
-    color: #bbbbbb;
+    /*color: #bbbbbb;*/
 }
+
+
 
 /*.uk-pagination > li > a {*/
     /*color: #666666;*/
@@ -93,6 +290,22 @@ input.searchTextBox, input.searchTextBox:focus, input.searchTextBox:active {
 
 /******************************************************************/
 
+ul.facets-selected {
+    padding-left: 0px;
+}
+
+.search-tag {
+    border: 1px solid #4D586A;
+    border-radius: 2px;
+    font-size: 13px;
+    color: #4D586A;
+}
+
+.search-tag .title {
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
 .cf::after, .lc::after, main::after, [role="main"]::after, .section::after, .search-list-item footer::after {
     clear: both;
     content: "";
@@ -103,7 +316,7 @@ input.searchTextBox, input.searchTextBox:focus, input.searchTextBox:active {
     display: block;
     font-size: 0;
     margin-top: 0.4rem;
-    text-align: center;
+    /*text-align: center;*/
 }
 
 .search-input-item, .search-tag {
@@ -123,7 +336,7 @@ input.searchTextBox, input.searchTextBox:focus, input.searchTextBox:active {
 .facets-selected .search-tag {
     background-color: transparent;
     border-right: 1px solid #a3b8bd;
-    color: #ffffff;
+    /*color: #ffffff;*/
     font-size: 0.875rem;
 }
 
@@ -132,7 +345,7 @@ input.searchTextBox, input.searchTextBox:focus, input.searchTextBox:active {
 }
 
 .search-tag .title {
-    color: rgba(255, 255, 255, 0.8);
+    /*color: rgba(255, 255, 255, 0.8);*/
     font-size: 0.75rem;
     font-weight: bold;
     text-transform: uppercase;
@@ -149,14 +362,15 @@ input.searchTextBox, input.searchTextBox:focus, input.searchTextBox:active {
 }
 
 .facets-selected .search-tag a[data-role="remove"] {
-    background-color: #a3b8bd;
+    /*background-color: #a3b8bd;*/
     border-radius: 20em;
     display: inline-block;
     font-size: 11px;
     position: relative;
-    text-align: center;
+    /*text-align: center;*/
     top: -1px;
     width: 1.6em;
+    color: #4D586A;
 }
 
 .has-bgimage .facets-selected .search-tag a[data-role="remove"] {
@@ -197,13 +411,9 @@ input.searchTextBox, input.searchTextBox:focus, input.searchTextBox:active {
     text-transform: uppercase;
 }
 
-.serviceDescription {
-    text-align: justify;
-}
-
-.serviceTagLine {
-    color: #214c9c;
-}
+/*.serviceTagLine {*/
+    /*color: #214c9c;*/
+/*}*/
 
 .actionIcons {
     width: 25%;

@@ -1,25 +1,26 @@
 
 import {Injectable} from "@angular/core";
 import {NavigationService} from "./navigation.service";
+import { Service } from "../domain/eic-model";
 
 declare var UIkit;
 
 @Injectable()
 export class ComparisonService {
 
-    public servicesToCompare: string[] = [];
+    public servicesToCompare: Service[] = [];
 
     constructor(public router: NavigationService) {
         this.servicesToCompare = JSON.parse(sessionStorage.getItem("compareServices") || "[]");
     }
 
-    addOrRemove(id: string, go: boolean) {
-        let idx = this.servicesToCompare.indexOf(id);
+    addOrRemove(service: Service, go: boolean) {
+        let idx = this.servicesToCompare.map(s => s.id).indexOf(service.id);
         if (idx > -1) {
             this.servicesToCompare.splice(idx, 1);
             sessionStorage.setItem("compareServices", JSON.stringify(this.servicesToCompare));
         } else {
-            if (this.servicesToCompare.length == 4) {
+            if (this.servicesToCompare.length == 3) {
                 UIkit.notification({
                                        message: "You have reached the maximum number of items you can compare",
                                        status: "primary",
@@ -27,7 +28,7 @@ export class ComparisonService {
                                        timeout: 5000
                                    });
             } else {
-                this.servicesToCompare.push(id);
+                this.servicesToCompare.push(service);
                 sessionStorage.setItem("compareServices", JSON.stringify(this.servicesToCompare));
             }
         }
@@ -36,9 +37,14 @@ export class ComparisonService {
         }
     }
 
+    clearAll() {
+        this.servicesToCompare.length = 0;
+        sessionStorage.removeItem("compareServices");
+    }
+
     go() {
         if (this.servicesToCompare.length > 1) {
-            return this.router.compare({services: this.servicesToCompare.toString()});
+            return this.router.compare({services: this.servicesToCompare.map(x => x.id).join(',')});
         } else {
             this.router.search({});
         }

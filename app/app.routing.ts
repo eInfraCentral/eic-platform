@@ -21,33 +21,54 @@ const appRoutes: Routes = [
     },
     {
         path: "home",
-        component: HomeComponent
+        component: HomeComponent,
+        data: {
+            breadcrumb : "Home"
+        }
     },
     {
         path: "search",
-        component: SearchComponent
+        component: SearchComponent,
+        data: {
+            breadcrumb : "Search"
+        }
     },
     {
         path: "compare",
-        component: CompareServicesComponent
+        component: CompareServicesComponent,
+        data: {
+            breadcrumb : "Compare"
+        }
     },
     {
         path: "browseCategories",
-        component: BrowseCategoriesComponent
+        component: BrowseCategoriesComponent,
+        data: {
+            breadcrumb : "Browse"
+        }
     },
     {
         path: "service/:id",
-        component: ServiceLandingPageComponent
+        component: ServiceLandingPageComponent,
+        data: {
+            breadcrumb : "Service"
+        }
     },
     {
         path: "upload",
         component: ServiceUploadComponent,
-        canActivate: [CanActivateViaAuthGuard]
+        canActivate: [CanActivateViaAuthGuard],
+        data: {
+            breadcrumb : "Upload"
+        }
     },
     {
         path: "edit/:id",
         component: ServiceEditComponent,
-        canActivate: [CanActivateViaAuthGuard]
+        canActivate: [CanActivateViaAuthGuard],
+        data: {
+            breadcrumb : "Edit"
+        }
     }
 ];
 export const appRoutingProviders: any[] = [];
