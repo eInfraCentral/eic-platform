@@ -16,6 +16,7 @@ import {TagsComponent} from "./multivalue-components/tags.component";
 import {TermsOfUseComponent} from "./multivalue-components/termsOfUse.component";
 import * as sd from "./services.description";
 import {AuthenticationService} from "../../services/authentication.service";
+import {categoriesAndSubcategories} from "../../domain/categories";
 
 @Component({
     selector: "service-form",
@@ -106,6 +107,7 @@ export class ServiceFormComponent {
     };
     providers: any = null;
     vocabularies: any = null;
+    categories = categoriesAndSubcategories;
     // dp: any = {
     //     options: {
     //         dateFormat: "dd.mm.yyyy"

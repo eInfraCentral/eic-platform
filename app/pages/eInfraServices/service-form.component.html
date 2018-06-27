@@ -148,21 +148,34 @@
                                                 <form-inline *ngIf="this.vocabularies" [description]="categoryDesc"
                                                              [params]="'inline'"
                                                              [valid]="serviceForm.get('category').valid && serviceForm.get('category').dirty">
+                                                    <!--<select formControlName="category" class="uk-select"-->
+                                                            <!--[ngClass]="{'uk-form-danger': !serviceForm.get('category').valid && serviceForm.get('category').dirty}">-->
+                                                        <!--<option *ngFor="let c of this.vocabularies.Category | keys"-->
+                                                                <!--[ngValue]="c">{{this.vocabularies.Category[c]}}-->
+                                                        <!--</option>-->
+                                                    <!--</select>-->
                                                     <select formControlName="category" class="uk-select"
                                                             [ngClass]="{'uk-form-danger': !serviceForm.get('category').valid && serviceForm.get('category').dirty}">
-                                                        <option *ngFor="let c of this.vocabularies.Category | keys"
-                                                                [ngValue]="c">{{this.vocabularies.Category[c]}}
+                                                        <option *ngFor="let c of this.categories | keys "
+                                                                [ngValue]="c">{{c}}
                                                         </option>
                                                     </select>
                                                 </form-inline>
                                                 <div></div>
-                                                <form-inline *ngIf="this.vocabularies" [description]="subcategoryDesc"
+                                                <!--<form-inline *ngIf="this.vocabularies" [description]="subcategoryDesc"-->
+                                                <form-inline *ngIf="serviceForm.get('category').value" [description]="subcategoryDesc"
                                                              [params]="'inline'"
                                                              [valid]="serviceForm.get('subcategory').valid && serviceForm.get('subcategory').dirty">
+                                                    <!--<select formControlName="subcategory" class="uk-select"-->
+                                                            <!--[ngClass]="{'uk-form-danger': !serviceForm.get('subcategory').valid && serviceForm.get('subcategory').dirty}">-->
+                                                        <!--<option *ngFor="let c of this.vocabularies.Subcategory | keys"-->
+                                                                <!--[ngValue]="c">{{this.vocabularies.Subcategory[c]}}-->
+                                                        <!--</option>-->
+                                                    <!--</select>-->
                                                     <select formControlName="subcategory" class="uk-select"
                                                             [ngClass]="{'uk-form-danger': !serviceForm.get('subcategory').valid && serviceForm.get('subcategory').dirty}">
-                                                        <option *ngFor="let c of this.vocabularies.Subcategory | keys"
-                                                                [ngValue]="c">{{this.vocabularies.Subcategory[c]}}
+                                                        <option *ngFor="let c of categories[serviceForm.get('category').value]"
+                                                                [ngValue]="c">{{c}}
                                                         </option>
                                                     </select>
                                                 </form-inline>
