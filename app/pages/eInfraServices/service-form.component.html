@@ -156,7 +156,7 @@
                                                     <!--</select>-->
                                                     <select formControlName="category" class="uk-select"
                                                             [ngClass]="{'uk-form-danger': !serviceForm.get('category').valid && serviceForm.get('category').dirty}">
-                                                        <option *ngFor="let c of this.categories | keys "
+                                                        <option *ngFor="let c of (this.categories | keys | sort )"
                                                                 [ngValue]="c">{{c}}
                                                         </option>
                                                     </select>
@@ -174,7 +174,7 @@
                                                     <!--</select>-->
                                                     <select formControlName="subcategory" class="uk-select"
                                                             [ngClass]="{'uk-form-danger': !serviceForm.get('subcategory').valid && serviceForm.get('subcategory').dirty}">
-                                                        <option *ngFor="let c of categories[serviceForm.get('category').value]"
+                                                        <option *ngFor="let c of ( categories[serviceForm.get('category').value] | sort )"
                                                                 [ngValue]="c">{{c}}
                                                         </option>
                                                     </select>
