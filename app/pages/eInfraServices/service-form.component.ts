@@ -179,5 +179,6 @@ export class ServiceFormComponent {
             this.providers = suc[0];
             this.vocabularies = this.transformVocabularies(suc[1]);
         });
+        this.serviceForm.get('category').valueChanges.subscribe(v => {console.log(v)});
     }
 }
