@@ -111,5 +111,14 @@ export var categoriesAndSubcategories =
         "Audit and Assessment of Information Security",
         "High Performance Computing",
         "Other"
+    ],
+    "Aggregator": [
+        "Job Execution",
+        "Data",
+        "Validation",
+        "Repository",
+        "Identity",
+        "High Performance Computing",
+        "Other"
     ]
 };
