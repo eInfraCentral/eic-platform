@@ -36,8 +36,8 @@ export class HomeComponent implements OnInit {
     ngOnInit() {
         this.resourceService.getVocabulariesRaw("Category").subscribe(suc => {
             this.categories = suc.results
-            .map(e => Object.assign(e, {extras: e.extras || ["no_icon.svg", "no_icon.svg"]}));
-            // .filter(e => e.id !== "Category-Other" && e.extras && e.extras.length && e.extras.length === 2);
+            .map(e => Object.assign(e, {extras: e.extras || ["no_icon.svg", "no_icon.svg"]}))
+            .filter(e => e.id !== "Category-Other" && e.extras && e.extras.length && e.extras.length === 2);
         });
 
         this.resourceService.getFeaturedServices().subscribe(
