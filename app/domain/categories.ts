@@ -120,5 +120,8 @@ export var categoriesAndSubcategories =
         "Identity",
         "High Performance Computing",
         "Other"
+    ],
+    "Other": [
+        "Other"
     ]
 };
