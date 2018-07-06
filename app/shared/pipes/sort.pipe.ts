@@ -3,6 +3,7 @@
  */
 
 import {Pipe, PipeTransform} from "@angular/core";
+import {isNullOrUndefined} from "util";
 
 
 @Pipe({
@@ -10,15 +11,10 @@ import {Pipe, PipeTransform} from "@angular/core";
 })
 export class StringArraySortPipe implements PipeTransform {
     transform(array: Array<String>, args: string): Array<String> {
-        array.sort((a: any, b: any) => {
-            if (a < b) {
-                return -1;
-            } else if (a > b) {
-                return 1;
-            } else {
-                return 0;
-            }
-        });
+        if (isNullOrUndefined(array)) {
+            return undefined;
+        }
+        array.sort();
         return array;
     }
 }
