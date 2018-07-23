@@ -2,7 +2,7 @@
  * Created by stefania on 9/6/16.
  */
 import {Injectable} from "@angular/core";
-import {URLSearchParams} from "@angular/http";
+import {RequestOptions, URLSearchParams} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import {BrowseResults} from "../domain/browse-results";
 import {Service} from "../domain/eic-model";
@@ -10,13 +10,18 @@ import {SearchResults} from "../domain/search-results";
 import {URLParameter} from "../domain/url-parameter";
 import {AuthenticationService} from "./authentication.service";
 import {HTTPWrapper} from "./http-wrapper.service";
+import {stringify} from "querystring";
 @Injectable()
 export class ResourceService {
     constructor(public http: HTTPWrapper, public authenticationService: AuthenticationService) {
     }
 
     getAll(resourceType: string) {
-        return this.http.get(`/${resourceType}/all`);
+        let params : RequestOptions = new RequestOptions();
+        params.params = new URLSearchParams();
+        params.params.append("from","0");
+        params.params.append("quantity","10000");
+        return this.http.get(`/${resourceType}/all`,params);
     }
 
     getBy(resourceType: string, resourceField: string) {
@@ -75,7 +80,7 @@ export class ResourceService {
         return this.http.get(`/vocabulary/by/type`).filter(e => type ? e && e.type && e.type === type : true);
     }
 
-    idToName(acc, v) {
+    idToName(acc : any, v : any) {
         acc[v.id] = v.name;
         return acc;
     }
