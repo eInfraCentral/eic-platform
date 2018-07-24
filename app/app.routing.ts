@@ -55,6 +55,13 @@ const appRoutes: Routes = [
         }
     },
     {
+        path: "service/:id/:version",
+        component: ServiceLandingPageComponent,
+        data: {
+            breadcrumb : "Service"
+        }
+    },
+    {
         path: "upload",
         component: ServiceUploadComponent,
         canActivate: [CanActivateViaAuthGuard],

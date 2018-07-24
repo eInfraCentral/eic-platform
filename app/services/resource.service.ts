@@ -94,8 +94,8 @@ export class ResourceService {
         return this.getBy("service", "infra_service_id");
     }
 
-    getService(id: string) {
-        return this.get("service", id);
+    getService(id: string, version? : string) {
+        return this.get("service", [id,version].join('/'));
     }
 
     getSelectedServices(ids: string[]) {

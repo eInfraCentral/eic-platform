@@ -36,7 +36,7 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
             Observable.zip(
                 this.resourceService.getEU(),
                 this.resourceService.getWW(),
-                this.resourceService.getService(params["id"]),
+                this.resourceService.getService(params["id"], params['version']),
                 this.resourceService.getProviders(),
                 this.resourceService.getVocabularies(),
                 this.resourceService.getVisitsForService(params["id"]),
