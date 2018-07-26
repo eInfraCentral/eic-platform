@@ -53,9 +53,9 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
                 this.stats.favourites = Object.values(suc[6]).reduce((acc, v) => acc + v, 0);
                 this.stats.externals = Object.values(suc[7]).reduce((acc, v) => acc + v, 0);
                 this.router.breadcrumbs = this.service.name;
-                this.setCountriesForService(this.service.places);
+                this.setCountriesForService(this.service.place);
 
-                let serviceIDs = (this.service.requiredServices || []).concat(this.service.relatedServices || [])
+                let serviceIDs = (this.service.requiredService || []).concat(this.service.relatedService || [])
                 .filter((e, i, a) => a.indexOf(e) === i);
                 if (serviceIDs.length > 0) {
                     this.resourceService.getSelectedServices(serviceIDs)

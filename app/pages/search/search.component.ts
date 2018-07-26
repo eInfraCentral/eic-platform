@@ -31,7 +31,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     errorMessage: string;
     sub: Subscription;
     urlParameters: URLParameter[] = [];
-    searchResults: SearchResults;
+    searchResults: SearchResults<Service>;
     facetOrder = ["category", "trl", "lifeCycleStatus", "provider"];
     pageSize: number = 0;
     currentPage: number = 0;
@@ -101,7 +101,7 @@ export class SearchComponent implements OnInit, OnDestroy {
             this.listViewActive = true;
     }
 
-    updateSearchResults(searchResults: SearchResults) {
+    updateSearchResults(searchResults: SearchResults<Service>) {
 
         //INITIALISATIONS
         this.errorMessage = null;

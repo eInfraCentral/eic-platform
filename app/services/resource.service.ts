@@ -5,7 +5,7 @@ import {Injectable} from "@angular/core";
 import {RequestOptions, URLSearchParams} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import {BrowseResults} from "../domain/browse-results";
-import {Service} from "../domain/eic-model";
+import { Service, ServiceHistory } from "../domain/eic-model";
 import {SearchResults} from "../domain/search-results";
 import {URLParameter} from "../domain/url-parameter";
 import {AuthenticationService} from "./authentication.service";
@@ -64,7 +64,7 @@ export class ResourceService {
         }
         searchQuery.delete("to");
         let questionMark = urlParameters.length > 0 ? "?" : "";
-        return this.http.get(`/service/all${questionMark}${searchQuery.toString()}`).map(res => <SearchResults> <any> res);
+        return this.http.get(`/service/all${questionMark}${searchQuery.toString()}`).map(res => <SearchResults<Service>> <any> res);
     }
 
     getVocabularies(type?: string) {
@@ -146,7 +146,7 @@ export class ResourceService {
         return this.getServicesOfferedByProvider(id).map(res => {
             let servicesGroupedByPlace = {};
             for (let service of res) {
-                for (let place of service.places) {
+                for (let place of service.place) {
                     if (servicesGroupedByPlace[place]) {
                         servicesGroupedByPlace[place].push(res);
                     } else {
@@ -225,5 +225,9 @@ export class ResourceService {
 
     getFeaturedServices() {
         return this.http.get(`/service/featured/all`).map(res => <Service[]> <any> res);
+    }
+
+    getServiceHistory(serviceId: string) {
+        return this.http.get(`/service/history/${serviceId}`).map(res => <SearchResults<ServiceHistory>> <any> res);
     }
 }

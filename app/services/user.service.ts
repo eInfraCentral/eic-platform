@@ -33,8 +33,8 @@ export class UserService {
     }
 
     public canEditService(service: Service) {
-        return this.authenticationService.isLoggedIn() && service.providers && service.providers.length > 0 &&
-            service.providers.indexOf(this.authenticationService.user.email.split("@")[0]) > -1;
+        return this.authenticationService.isLoggedIn() && service.provider && service.provider.length > 0 &&
+            service.provider.indexOf(this.authenticationService.user.email.split("@")[0]) > -1;
     }
 
     public rateService(serviceID: string, value: any) {
