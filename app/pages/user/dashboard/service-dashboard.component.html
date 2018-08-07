@@ -85,73 +85,104 @@
                                     <section class="section md-bg-blue-grey-700">
                                         <div class="uk-container uk-container-center">
                                             <div class="al_timeline">
-                                                <div class="al_timeline_block versionChange">
-                                                    <div class="al_timeline_image uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-scale-up">
-                                                    </div>
-                                                    <div class="al_timeline_content uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-slide-left">
-                                                        <h3>Version 3</h3>
-                                                        <p>Updated to this version on 08/08/17 by Antonis Lempesis</p>
-                                                        <a class="md-btn md-btn-primary" href="#">View version details</a>
-                                                    </div>
-                                                </div>
-                                                <div class="al_timeline_block update">
-                                                    <div class="al_timeline_image uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-scale-up">
-                                                    </div>
-                                                    <div class="al_timeline_content uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-slide-right">
-                                                        <h3>Updated</h3>
-                                                        <p>on 07/06/17 by George Papastefanatos</p>
-                                                    </div>
-                                                </div>
-                                                <div class="al_timeline_block update">
-                                                    <div class="al_timeline_image uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-scale-up">
-                                                    </div>
-                                                    <div class="al_timeline_content uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-slide-right">
-                                                        <h3>Updated</h3>
-                                                        <p>on 05/06/17 by Antonis Lempesis</p>
-                                                    </div>
-                                                </div>
-                                                <div class="al_timeline_block versionChange">
-                                                    <div class="al_timeline_image uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-scale-up">
-                                                    </div>
-                                                    <div class="al_timeline_content uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-slide-right">
-                                                        <h3>Version 2</h3>
-                                                        <p>Updated to this version by Stefania Martziou</p>
-                                                        <a class="md-btn md-btn-primary" href="#">View version details</a>
-                                                    </div>
-                                                </div>
-                                                <div class="al_timeline_block update">
-                                                    <div class="al_timeline_image uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-scale-up">
-                                                    </div>
-                                                    <div class="al_timeline_content uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-slide-right">
-                                                        <h3>Updated</h3>
-                                                        <p>on 07/06/17 by George Papastefanatos</p>
-                                                    </div>
-                                                </div>
-                                                <div class="al_timeline_block update">
-                                                    <div class="al_timeline_image uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-scale-up">
-                                                    </div>
-                                                    <div class="al_timeline_content uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-slide-right">
-                                                        <h3>Updated</h3>
-                                                        <p>on 07/06/17 by Panagiotis Lampropoulos</p>
-                                                    </div>
-                                                </div>
-                                                <div class="al_timeline_block update">
-                                                    <div class="al_timeline_image uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-scale-up">
-                                                    </div>
-                                                    <div class="al_timeline_content uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-slide-left">
-                                                        <h3>Updated</h3>
-                                                        <p>on 07/06/17 by Stefania Martziou</p>
-                                                    </div>
-                                                </div>
-                                                <div class="al_timeline_block versionChange">
-                                                    <div class="al_timeline_image">
-                                                    </div>
-                                                    <div class="al_timeline_content">
-                                                        <h3>Version 1</h3>
-                                                        <p>Updated to this version on 01/01/2017 by George Papastefanatos</p>
-                                                        <a class="md-btn md-btn-primary" href="#">View version details</a>
-                                                    </div>
-                                                </div>
+
+                                                <ng-container *ngIf="serviceHistory?.results?.length>0">
+                                                    <ng-container *ngFor="let history of serviceHistory.results">
+
+                                                        <div *ngIf="history.versionChange" class="al_timeline_block versionChange">
+                                                            <div class="al_timeline_image uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-scale-up">
+                                                            </div>
+                                                            <div class="al_timeline_content uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-slide-left">
+                                                                <h3>Version {{history.version}}</h3>
+                                                                <p>Updated to this version on {{history.modifiedAt | date:'shortDate'}} by {{history.modifiedBy}}</p>
+                                                                <a class="md-btn md-btn-primary" [routerLink]="['/service/',service.id,history.version]">View version details</a>
+                                                            </div>
+                                                        </div>
+
+                                                        <div *ngIf="!history.versionChange" class="al_timeline_block update">
+                                                            <div class="al_timeline_image uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-scale-up">
+                                                            </div>
+                                                            <div class="al_timeline_content uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-slide-right">
+                                                                <h3>Updated</h3>
+                                                                <p>on {{history.modifiedAt | date:'shortDate'}} by {{history.modifiedBy}}</p>
+                                                            </div>
+                                                        </div>
+
+                                                    </ng-container>
+
+
+
+                                                </ng-container>
+
+                                                <!--<div class="al_timeline_block versionChange">-->
+                                                    <!--<div class="al_timeline_image uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-scale-up">-->
+                                                    <!--</div>-->
+                                                    <!--<div class="al_timeline_content uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-slide-left">-->
+                                                        <!--<h3>Version 3</h3>-->
+                                                        <!--<p>Updated to this version on 08/08/17 by Antonis Lempesis</p>-->
+                                                        <!--<a class="md-btn md-btn-primary" href="#">View version details</a>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                                <!--<div class="al_timeline_block update">-->
+                                                    <!--<div class="al_timeline_image uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-scale-up">-->
+                                                    <!--</div>-->
+                                                    <!--<div class="al_timeline_content uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-slide-right">-->
+                                                        <!--<h3>Updated</h3>-->
+                                                        <!--<p>on 07/06/17 by George Papastefanatos</p>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                                <!--<div class="al_timeline_block update">-->
+                                                    <!--<div class="al_timeline_image uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-scale-up">-->
+                                                    <!--</div>-->
+                                                    <!--<div class="al_timeline_content uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-slide-right">-->
+                                                        <!--<h3>Updated</h3>-->
+                                                        <!--<p>on 05/06/17 by Antonis Lempesis</p>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                                <!--<div class="al_timeline_block versionChange">-->
+                                                    <!--<div class="al_timeline_image uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-scale-up">-->
+                                                    <!--</div>-->
+                                                    <!--<div class="al_timeline_content uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-slide-right">-->
+                                                        <!--<h3>Version 2</h3>-->
+                                                        <!--<p>Updated to this version by Stefania Martziou</p>-->
+                                                        <!--<a class="md-btn md-btn-primary" href="#">View version details</a>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                                <!--<div class="al_timeline_block update">-->
+                                                    <!--<div class="al_timeline_image uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-scale-up">-->
+                                                    <!--</div>-->
+                                                    <!--<div class="al_timeline_content uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-slide-right">-->
+                                                        <!--<h3>Updated</h3>-->
+                                                        <!--<p>on 07/06/17 by George Papastefanatos</p>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                                <!--<div class="al_timeline_block update">-->
+                                                    <!--<div class="al_timeline_image uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-scale-up">-->
+                                                    <!--</div>-->
+                                                    <!--<div class="al_timeline_content uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-slide-right">-->
+                                                        <!--<h3>Updated</h3>-->
+                                                        <!--<p>on 07/06/17 by Panagiotis Lampropoulos</p>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                                <!--<div class="al_timeline_block update">-->
+                                                    <!--<div class="al_timeline_image uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-scale-up">-->
+                                                    <!--</div>-->
+                                                    <!--<div class="al_timeline_content uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-slide-left">-->
+                                                        <!--<h3>Updated</h3>-->
+                                                        <!--<p>on 07/06/17 by Stefania Martziou</p>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                                <!--<div class="al_timeline_block versionChange">-->
+                                                    <!--<div class="al_timeline_image">-->
+                                                    <!--</div>-->
+                                                    <!--<div class="al_timeline_content">-->
+                                                        <!--<h3>Version 1</h3>-->
+                                                        <!--<p>Updated to this version on 01/01/2017 by George Papastefanatos</p>-->
+                                                        <!--<a class="md-btn md-btn-primary" href="#">View version details</a>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+
+
                                             </div>
                                         </div>
                                     </section>

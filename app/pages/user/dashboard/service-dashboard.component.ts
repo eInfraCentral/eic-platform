@@ -4,12 +4,13 @@
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs/Subscription";
-import {Service} from "../../../domain/eic-model";
+import { Service, ServiceHistory } from "../../../domain/eic-model";
 import {AuthenticationService} from "../../../services/authentication.service";
 import {NavigationService} from "../../../services/navigation.service";
 import {ResourceService} from "../../../services/resource.service";
 import {UserService} from "../../../services/user.service";
 import {Observable} from "rxjs/Observable";
+import { SearchResults } from "../../../domain/search-results";
 
 @Component({
     selector: "service-dashboard",
@@ -29,6 +30,8 @@ export class ServiceDashboardComponent implements OnInit {
     serviceRatingsOptions: any = null;
     serviceFavouritesOptions: any = null;
     serviceMapOptions: any = null;
+
+    serviceHistory: SearchResults<ServiceHistory>;
 
     constructor(private route: ActivatedRoute, private router: NavigationService, private resourceService: ResourceService,
                 private authenticationService: AuthenticationService, private userService: UserService) {
@@ -51,7 +54,7 @@ export class ServiceDashboardComponent implements OnInit {
 
     getDataForService(service) {
 
-        this.setCountriesForService(this.service.places);
+        this.setCountriesForService(this.service.place);
 
         this.resourceService.getVisitsForService(this.service.id).map(data => {
 
@@ -86,6 +89,11 @@ export class ServiceDashboardComponent implements OnInit {
             data => this.setRatingsForService(data),
             // error => this.handleError(<any>error)
         );
+
+
+        this.resourceService.getServiceHistory(this.service.id).subscribe(
+            searchResults => this.serviceHistory = searchResults,
+            error => this.handleError(<any>error));
     }
 
     setVisitsForService(data : any) {

@@ -1,4 +1,4 @@
-// Generated using typescript-generator version 1.27.339 on 2018-05-25 11:47:46.
+// Generated using typescript-generator version 1.27.339 on 2018-07-26 11:35:50.
 
 export class Addenda implements Identifiable {
     featured: boolean;
@@ -34,6 +34,52 @@ export class Indicator implements Identifiable {
     unit: Unit;
 }
 
+export class Service implements Identifiable {
+    availability: string;
+    category: string;
+    changeLog: string;
+    description: string;
+    feedback: URL;
+    funding: string;
+    helpdesk: URL;
+    id: string;
+    language: string[];
+    lastUpdate: XMLGregorianCalendar;
+    lifeCycleStatus: string;
+    multimediaURL: URL;
+    name: string;
+    options: string;
+    order: URL;
+    place: string[];
+    price: URL;
+    provider: string[];
+    providerName: string;
+    relatedService: string[];
+    reliability: string;
+    request: URL;
+    requiredService: string[];
+    serviceLevelAgreement: URL;
+    serviceability: string;
+    subcategory: string;
+    symbol: URL;
+    tag: string[];
+    tagline: string;
+    targetUsers: string;
+    termOfUse: URL[];
+    trainingInformation: URL;
+    trl: string;
+    url: URL;
+    userBase: string;
+    userManual: URL;
+    userValue: string;
+    validFor: XMLGregorianCalendar;
+    version: string;
+}
+
+export class InfraService extends Service {
+    serviceMetadata: ServiceMetadata;
+}
+
 export class Manager implements Identifiable {
     contactInformation: string;
     id: string;
@@ -65,46 +111,19 @@ export class Provider implements Identifiable {
     user: User[];
 }
 
-export class Service implements Identifiable {
-    availability: string;
-    category: string;
-    changeLog: string;
-    description: string;
-    feedback: URL;
-    funding: string;
-    helpdesk: URL;
-    id: string;
-    languages: string[];
-    lastUpdate: XMLGregorianCalendar;
-    lifeCycleStatus: string;
-    multimediaURL: URL;
-    name: string;
-    options: string;
-    order: URL;
-    places: string[];
-    price: URL;
-    providers: string[];
-    providerName: string;
-    relatedServices: string[];
-    reliability: string;
-    request: URL;
-    requiredServices: string[];
-    serviceLevelAgreement: URL;
-    serviceability: string;
-    subcategory: string;
-    symbol: URL;
-    tags: string[];
-    tagline: string;
-    targetUsers: string;
-    termsOfUse: URL[];
-    trainingInformation: URL;
-    trl: string;
-    url: URL;
-    userBase: string;
-    userManual: URL;
-    userValue: string;
-    validFor: XMLGregorianCalendar;
+export class ServiceMetadata {
+    featured: boolean;
+    modifiedAt: string;
+    modifiedBy: string;
+    performanceData: Measurement<any>[];
+    published: boolean;
+    registeredAt: string;
+    registeredBy: string;
+}
+
+export class ServiceHistory extends ServiceMetadata {
     version: string;
+    versionChange: boolean;
 }
 
 export class Unit {
@@ -123,21 +142,21 @@ export class User implements Identifiable {
 }
 
 export class Vocabulary implements Identifiable {
-    extras: string[];
+    extra: string[];
     id: string;
     name: string;
     parent: string;
     type: string;
 }
 
-export class XMLGregorianCalendar implements Cloneable {
-}
-
 export class URL implements Serializable {
 }
 
-export interface Cloneable {
+export class XMLGregorianCalendar implements Cloneable {
 }
 
 export interface Serializable {
+}
+
+export interface Cloneable {
 }

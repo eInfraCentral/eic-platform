@@ -110,7 +110,7 @@ export class DashboardComponent implements OnInit {
     groupServicesOfProviderPerPlace(services: Service[]) {
         let ret = {};
         for (let service of services) {
-            for (let place of service.places) {
+            for (let place of service.place) {
                 if (ret[place]) {
                     ret[place].push(this.providerServices);
                 } else {
