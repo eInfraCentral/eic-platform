@@ -48,7 +48,6 @@ export var categoriesAndSubcategories =
         "Brokering",
         "Annotation",
         "Validation",
-        "Repository",
         "Other"
     ],
     "Software": [
@@ -57,7 +56,6 @@ export var categoriesAndSubcategories =
         "Component",
         "Algorithm",
         "Developer",
-        "Repository",
         "Other"
     ],
     "Application": [
@@ -67,7 +65,6 @@ export var categoriesAndSubcategories =
         "Productivity",
         "Business",
         "Developer",
-        "Repository",
         "Other"
     ],
     "Security": [
@@ -113,13 +110,39 @@ export var categoriesAndSubcategories =
         "Other"
     ],
     "Aggregator": [
-        "Job Execution",
+        "Services",
         "Data",
-        "Validation",
-        "Repository",
-        "Identity",
-        "High Performance Computing",
-        "Other"
+        "Applications",
+        "Software",
+        "Publications",
+        "Other",
+        
+        "Services-Data",
+        "Sevices-Applications",
+        "Services-Software",
+        "Services-Publications",
+        "Data-Applications",
+        "Data-Software",
+        "Data-Publications",
+        "Applications-Software",
+        "Applications-Publications",
+        "Software-Publications",
+        "Services-Data-Applications",
+        "Services-Data-Software",
+        "Services-Data-Publications",
+        "Services-Applications-Software",
+        "Services-Applications-Publications",
+        "Services-Software-Publications",
+        "Services-Software-Applications",
+        "Data-Applications-Software",
+        "Data-Applications-Publications",
+        "Data-Software-Publications",
+        "Services-Data-Applications-Software",
+        "Services-Data-Applications-Publications",
+        "Services-Data-Software-Publications",
+        "Services-Software-Publications-Applications",
+        "Data-Software-Applications-Publications",
+        "Services-Data-Applications-Software-Publications"
     ],
     "Other": [
         "Other"
