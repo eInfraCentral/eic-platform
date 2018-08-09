@@ -577,7 +577,7 @@
                                                 <a (click)="addToFavourites(resourceInfo.id)">
                                                     <i [ngClass]="getIfUserFavourite(resourceInfo.id)?'fa fa-heart':'fa fa-heart-o'"></i>
                                                 </a>
-                                                <span class="statsNumbers">{{ getServiceFavourites(resourceInfo.id) || 0}}</span>
+                                                <span class="statsNumbers">{{ 0 }}</span>
                                             </span>
                                             <span class="uk-margin-medium-right">
                                                 <input type="checkbox" class="uk-margin-small-right"
