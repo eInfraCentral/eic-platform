@@ -126,123 +126,127 @@ export class DashboardComponent implements OnInit {
     }
 
     setVisitsForProvider(data : any) {
-
-        this.providerVisitsOptions = {
-            title:{
-                text:''
-            },
-            xAxis: {
-                type: 'datetime',
-                dateTimeLabelFormats: { // don't display the dummy year
-                    month: '%e. %b',
-                    year: '%b'
+        if (data) {
+            this.providerVisitsOptions = {
+                title:{
+                    text:''
                 },
-                title: {
-                    text: 'Date'
-                }
-            },
-            yAxis: {
-                title: {
-                    text: 'Number of visits'
-                }
-            },
-            series: [{
-                name: 'Visits over time',
-                data: data
-            }]
-        };
+                xAxis: {
+                    type: 'datetime',
+                    dateTimeLabelFormats: { // don't display the dummy year
+                        month: '%e. %b',
+                        year: '%b'
+                    },
+                    title: {
+                        text: 'Date'
+                    }
+                },
+                yAxis: {
+                    title: {
+                        text: 'Number of visits'
+                    }
+                },
+                series: [{
+                    name: 'Visits over time',
+                    data: data
+                }]
+            };
+        }
     }
 
     setFavouritesForProvider(data : any) {
-
-        this.providerFavouritesOptions = {
-            title:{
-                text:''
-            },
-            xAxis: {
-                type: 'datetime',
-                dateTimeLabelFormats: { // don't display the dummy year
-                    month: '%e. %b',
-                    year: '%b'
+        if (data) {
+            this.providerFavouritesOptions = {
+                title: {
+                    text: ''
                 },
-                title: {
-                    text: 'Date'
-                }
-            },
-            yAxis: {
-                title: {
-                    text: 'Number of favourites'
-                }
-            },
-            series: [{
-                name: 'Favourites over time',
-                color: '#C72B28',
-                data: data
-            }]
-        };
+                xAxis: {
+                    type: 'datetime',
+                    dateTimeLabelFormats: { // don't display the dummy year
+                        month: '%e. %b',
+                        year: '%b'
+                    },
+                    title: {
+                        text: 'Date'
+                    }
+                },
+                yAxis: {
+                    title: {
+                        text: 'Number of favourites'
+                    }
+                },
+                series: [{
+                    name: 'Favourites over time',
+                    color: '#C72B28',
+                    data: data
+                }]
+            };
+        }
     }
 
     setRatingsForProvider(data : any) {
-
-        this.providerRatingsOptions = {
-            title:{
-                text:''
-            },
-            xAxis: {
-                type: 'datetime',
-                dateTimeLabelFormats: { // don't display the dummy year
-                    month: '%e. %b',
-                    year: '%b'
+        if (data) {
+            this.providerRatingsOptions = {
+                title:{
+                    text:''
                 },
-                title: {
-                    text: 'Date'
-                }
-            },
-            yAxis: {
-                title: {
-                    text: 'Average rating'
-                }
-            },
-            series: [{
-                name: 'Average ratings over time',
-                color: '#013203',
-                data: data
-            }]
-        };
+                xAxis: {
+                    type: 'datetime',
+                    dateTimeLabelFormats: { // don't display the dummy year
+                        month: '%e. %b',
+                        year: '%b'
+                    },
+                    title: {
+                        text: 'Date'
+                    }
+                },
+                yAxis: {
+                    title: {
+                        text: 'Average rating'
+                    }
+                },
+                series: [{
+                    name: 'Average ratings over time',
+                    color: '#013203',
+                    data: data
+                }]
+            };
+        }
     }
 
     setVisitationsForProvider(data : any) {
-
-        this.providerVisitationPercentageOptions = {
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-                type: 'pie'
-            },
-            title:{
-                text:''
-            },
-            // xAxis: {
-            //     type: 'datetime',
-            //     dateTimeLabelFormats: { // don't display the dummy year
-            //         month: '%e. %b',
-            //         year: '%b'
-            //     },
-            //     title: {
-            //         text: 'Date'
-            //     }
-            // },
-            // yAxis: {
-            //     title: {
-            //         text: 'Number of visits'
-            //     }
-            // },
-            series: [{
-                name: "Services' visitation percentage",
-                data: data
-            }]
-        };
+        if (data) {
+            this.providerVisitationPercentageOptions = {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title:{
+                    text:''
+                },
+                // xAxis: {
+                //     type: 'datetime',
+                //     dateTimeLabelFormats: { // don't display the dummy year
+                //         month: '%e. %b',
+                //         year: '%b'
+                //     },
+                //     title: {
+                //         text: 'Date'
+                //     }
+                // },
+                // yAxis: {
+                //     title: {
+                //         text: 'Number of visits'
+                //     }
+                // },
+                series: [{
+                    name: "Services' visitation percentage",
+                    data: data
+                }]
+            };
+        }
     }
 
     setCountriesForProvider(data: any) {

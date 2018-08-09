@@ -54,7 +54,7 @@
                             <th class="uk-width-1-4"></th>
                             <th *ngFor="let service of services; let i = index;" class="uk-width-1-4" [ngClass]="{evenColumn: i%2==1}">
                                 <div class="uk-margin-bottom">
-                                    <star-rating-comp (click)="this.userService.rateService(service.id)" [starType]="'svg'" [rating]="this.getShownRating()" [step]="1"
+                                    <star-rating-comp #rating (click)="this.userService.rateService(service.id, rating.rating)" [starType]="'svg'" [rating]="this.getShownRating()" [step]="1"
                                                       [showHalfStars]="true" [readOnly]=!this.authenticationService.isLoggedIn() [size]="'medium'"
                                                       [staticColor]="'ok'" class="uk-inline starRating"></star-rating-comp>
                                     <span class="uk-margin-medium-left">
@@ -210,7 +210,7 @@
                             <!--<td></td>-->
                             <!--<td *ngFor="let service of services" class="uk-width-1-{{services.length}}">-->
                                 <!--<div class="uk-margin-small-top">-->
-                                    <!--<star-rating-comp (click)="this.userService.rateService(service.id)" [starType]="'svg'" [rating]="0" [step]="1"-->
+                                    <!--<star-rating-comp #rating (click)="this.userService.rateService(service.id rating.rating)" [starType]="'svg'" [rating]="0" [step]="1"-->
                                                       <!--[showHalfStars]="true" [readOnly]=!this.authenticationService.isLoggedIn() [size]="'small'"-->
                                                       <!--[staticColor]="'ok'"></star-rating-comp>-->
                                     <!--<span>rated <strong>0</strong> times</span>-->
