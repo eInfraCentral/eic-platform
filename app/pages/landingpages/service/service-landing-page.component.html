@@ -27,12 +27,14 @@
                                     {{service.tagline}}
                                 </div>
                                 <div>
-                                    <star-rating-comp (click)="this.userService.rateService(service.id)" [starType]="'svg'" [rating]="this.getShownRating()" [step]="1"
+                                    <star-rating-comp #rating (click)="rateService(rating.rating)" [starType]="'svg'" [rating]="userRating" [step]="1"
                                                       [showHalfStars]="true" [readOnly]=!this.authenticationService.isLoggedIn() [size]="'medium'"
                                                       [staticColor]="'ok'" class="uk-inline starRating"></star-rating-comp>
                                     <span class="uk-margin-medium-left">
-                                        <img src="../../../../assets/images/icons/ic_love_icon.svg">
-                                        <span class="statsNumbers">{{stats.favourite || 0}}</span>
+                                        <a (click)="addToFavourites()">
+                                            <i [ngClass]="isUserFavourite?'fa fa-heart':'fa fa-heart-o'"></i>
+                                        </a>
+                                        <span class="statsNumbers">{{stats.favourites || 0}}</span>
                                     </span>
                                     <span class="uk-margin-medium-left">
                                         <img src="../../../../assets/images/icons/ic_visit_icon.svg">
@@ -46,7 +48,7 @@
                             <div class="uk-card uk-card-body uk-card-custom providerCard">
                                 <img src="{{service.symbol || 'http://fvtelibrary.com/img/user/NoLogo.png'}}"
                                      style="max-width: 67px;">
-                                <span class="provider">{{service.providers[0] | uppercase}}</span>
+                                <span class="provider">{{service.providerName | uppercase}}</span>
                             </div>
                         </div>
 

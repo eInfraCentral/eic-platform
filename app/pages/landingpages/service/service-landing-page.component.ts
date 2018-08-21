@@ -26,6 +26,8 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
     public stats: any = {visits: 0, favourites: 0, externals: 0};
 
     serviceMapOptions: any = null;
+    isUserFavourite: boolean;
+    userRating = 0;
 
     constructor(public route: ActivatedRoute, public router: NavigationService, public resourceService: ResourceService,
                 public authenticationService: AuthenticationService, public userService: UserService) {
@@ -61,6 +63,9 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
                     this.resourceService.getSelectedServices(serviceIDs)
                     .subscribe(services => this.services = services);
                 }
+
+                this.getIfFavourite();
+                this.getShownRating();
             });
         });
     }
@@ -106,7 +111,38 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
         };
     }
 
+    getIfFavourite() {
+        this.userService.getIfFavouriteOfUser(this.service.id).subscribe(
+            res => this.isUserFavourite = res
+        );
+    }
+
+    addToFavourites() {
+        this.userService.addFavourite(this.service.id).subscribe(
+            res => console.log,
+            err => console.log(err),
+            () => this.getIfFavourite()
+        );
+    }
+
+    rateService(rating: number) {
+        this.userService.rateService(this.service.id, rating).subscribe(
+            res => console.log,
+            err => console.log(err),
+            () => this.getShownRating()
+        );
+    }
+
     getShownRating() {
+        this.userService.getUserRating(this.service.id).subscribe(
+            res => this.userRating = res,
+            error => console.log(error),
+            () => {
+                if (!this.userRating) {
+                    this.userRating = 0;
+                }
+            }
+        );
         //if user has rated, then show user rating
         //else show average rating
     }

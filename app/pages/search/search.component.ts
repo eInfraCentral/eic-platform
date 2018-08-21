@@ -17,6 +17,7 @@ import {ResourceService} from "../../services/resource.service";
 import {UserService} from "../../services/user.service";
 import {URLParameter} from "./../../domain/url-parameter";
 import { Service } from "../../domain/eic-model";
+import { IStarRatingOnClickEvent } from 'angular-star-rating';
 
 declare var UIkit: any;
 
@@ -47,6 +48,9 @@ export class SearchComponent implements OnInit, OnDestroy {
 
     listViewActive: boolean = true;
 
+    userFavourites = [];
+    userRatings: Event[] = [];
+
     constructor(public fb: FormBuilder, public router: NavigationService, public route: ActivatedRoute,
                 public userService: UserService, public resourceService: ResourceService,
                 public authenticationService: AuthenticationService, public comparisonService: ComparisonService,
@@ -60,10 +64,14 @@ export class SearchComponent implements OnInit, OnDestroy {
 
         Observable.zip(
             this.resourceService.getProviders(),
-            this.resourceService.getVocabularies()
+            this.resourceService.getVocabularies(),
+            this.userService.getRatingsOfUser(),
+            this.userService.getFavouritesOfUser()
         ).subscribe(suc => {
             this.providers = suc[0];
             this.vocabularies = suc[1];
+            this.userRatings = suc[2];
+            this.userFavourites = suc[3];
             this.sub = this.route.params.subscribe(params => {
                 this.urlParameters.splice(0, this.urlParameters.length);
                 this.foundResults = true;
@@ -81,7 +89,8 @@ export class SearchComponent implements OnInit, OnDestroy {
 
                 //request results from the registry
                 return this.resourceService.search(this.urlParameters).subscribe(
-                    searchResults => this.updateSearchResults(searchResults));
+                    searchResults => this.updateSearchResults(searchResults)
+                );
 
             });
         });
@@ -330,4 +339,44 @@ export class SearchComponent implements OnInit, OnDestroy {
             this.urlParameters.push(newFromParameter);
         }
     }
+
+    getUserRating(serviceID: string) {
+        if ( this.userRatings && this.userRatings.filter(x => x['service'] === serviceID).length > 0) {
+            return +this.userRatings.filter(x => x['service'] === serviceID)[0]['value'];
+        }
+        return 0;
+    }
+
+    getIfUserFavourite(serviceID: string) {
+        return (this.userFavourites && this.userFavourites.some(x => x['service'] === serviceID));
+    }
+
+    addToFavourites(serviceID: string) {
+        this.userService.addFavourite(serviceID).subscribe(
+            res => console.log,
+            err => console.log(err),
+            () => {
+                this.userService.getFavouritesOfUser().subscribe(
+                    res => this.userFavourites = res,
+                    err => console.log(err),
+                    () => this.getIfUserFavourite(serviceID)
+                );
+            }
+        );
+    }
+
+    rateService(serviceID: string, rating: number) {
+        this.userService.rateService(serviceID, rating).subscribe(
+            res => console.log,
+            err => console.log(err),
+            () => {
+                this.userService.getRatingsOfUser().subscribe(
+                  res => this.userRatings = res,
+                  err => console.log(err),
+                    () => this.getUserRating(serviceID)
+                );
+            }
+        );
+    }
+
 }

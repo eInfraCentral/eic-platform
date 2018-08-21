@@ -97,90 +97,95 @@ export class ServiceDashboardComponent implements OnInit {
     }
 
     setVisitsForService(data : any) {
-
-        this.serviceVisitsOptions = {
-            title:{
-                text:''
-            },
-            xAxis: {
-                type: 'datetime',
-                dateTimeLabelFormats: { // don't display the dummy year
-                    month: '%e. %b',
-                    year: '%b'
+        if (data) {
+            this.serviceVisitsOptions = {
+                title:{
+                    text:''
                 },
-                title: {
-                    text: 'Date'
-                }
-            },
-            yAxis: {
-                title: {
-                    text: 'Number of visits'
-                }
-            },
-            series: [{
-                name: 'Visits over time',
-                color: '#036166',
-                data: data
-            }]
-        };
+                xAxis: {
+                    type: 'datetime',
+                    dateTimeLabelFormats: { // don't display the dummy year
+                        month: '%e. %b',
+                        year: '%b'
+                    },
+                    title: {
+                        text: 'Date'
+                    }
+                },
+                yAxis: {
+                    title: {
+                        text: 'Number of visits'
+                    }
+                },
+                series: [{
+                    name: 'Visits over time',
+                    color: '#036166',
+                    data: data
+                }]
+            };
+        }
     }
 
     setFavouritesForService(data : any) {
-
-        this.serviceFavouritesOptions = {
-            title:{
-                text:''
-            },
-            xAxis: {
-                type: 'datetime',
-                dateTimeLabelFormats: { // don't display the dummy year
-                    month: '%e. %b',
-                    year: '%b'
+        if (data) {
+            this.serviceFavouritesOptions = {
+                title:{
+                    text:''
                 },
-                title: {
-                    text: 'Date'
-                }
-            },
-            yAxis: {
-                title: {
-                    text: 'Number of favourites'
-                }
-            },
-            series: [{
-                name: 'Favourites over time',
-                color: '#C36000',
-                data: data
-            }]
-        };
+                xAxis: {
+                    type: 'datetime',
+                    dateTimeLabelFormats: { // don't display the dummy year
+                        month: '%e. %b',
+                        year: '%b'
+                    },
+                    title: {
+                        text: 'Date'
+                    }
+                },
+                yAxis: {
+                    title: {
+                        text: 'Number of favourites'
+                    }
+                },
+                series: [{
+                    name: 'Favourites over time',
+                    color: '#C36000',
+                    data: data
+                }]
+            };
+
+        }
     }
 
     setRatingsForService(data : any) {
-
-        this.serviceRatingsOptions = {
-            title:{
-                text:''
-            },
-            xAxis: {
-                type: 'datetime',
-                dateTimeLabelFormats: { // don't display the dummy year
-                    month: '%e. %b',
-                    year: '%b'
+        if (data) {
+            this.serviceRatingsOptions = {
+                title:{
+                    text:''
                 },
-                title: {
-                    text: 'Date'
-                }
-            },
-            yAxis: {
-                title: {
-                    text: 'Average rating'
-                }
-            },
-            series: [{
-                name: 'Average rating over time',
-                color: '#6B0035',
-                data: data
-            }]
-        };
+                xAxis: {
+                    type: 'datetime',
+                    dateTimeLabelFormats: { // don't display the dummy year
+                        month: '%e. %b',
+                        year: '%b'
+                    },
+                    title: {
+                        text: 'Date'
+                    }
+                },
+                yAxis: {
+                    title: {
+                        text: 'Average rating'
+                    }
+                },
+                series: [{
+                    name: 'Average rating over time',
+                    color: '#6B0035',
+                    data: data
+                }]
+            };
+
+        }
     }
 
     setCountriesForService(data : any) {
