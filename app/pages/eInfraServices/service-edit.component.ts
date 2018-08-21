@@ -27,7 +27,7 @@ export class ServiceEditComponent extends ServiceFormComponent implements OnInit
         super.ngOnInit();
         this.sub = this.route.params.subscribe(params => {
             this.serviceID = params["id"];
-            this.resourceService.getService(this.serviceID).map(service => {
+            this.resourceService.getService(this.serviceID).subscribe(service => {
                 if (this.userService.canEditService(service)) {
                     ResourceService.removeNulls(service);
                     this.serviceForm.patchValue(this.toForms(service));
