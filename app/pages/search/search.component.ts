@@ -65,13 +65,9 @@ export class SearchComponent implements OnInit, OnDestroy {
         Observable.zip(
             this.resourceService.getProviders(),
             this.resourceService.getVocabularies(),
-            this.userService.getRatingsOfUser(),
-            this.userService.getFavouritesOfUser()
         ).subscribe(suc => {
             this.providers = suc[0];
             this.vocabularies = suc[1];
-            this.userRatings = suc[2];
-            this.userFavourites = suc[3];
             this.sub = this.route.params.subscribe(params => {
                 this.urlParameters.splice(0, this.urlParameters.length);
                 this.foundResults = true;
@@ -93,7 +89,18 @@ export class SearchComponent implements OnInit, OnDestroy {
                 );
 
             });
-        });
+        },
+            err => console.log(err),
+            () => {
+                if (this.authenticationService.isLoggedIn()) {
+                    this.userService.getRatingsOfUser().subscribe(
+                        ratings => this.userRatings = ratings
+                    );
+                    this.userService.getFavouritesOfUser().subscribe(
+                        favs => this.userFavourites = favs
+                    );
+                }
+            });
     }
 
     ngOnDestroy(): void {
@@ -352,31 +359,35 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
 
     addToFavourites(serviceID: string) {
-        this.userService.addFavourite(serviceID).subscribe(
-            res => console.log,
-            err => console.log(err),
-            () => {
-                this.userService.getFavouritesOfUser().subscribe(
-                    res => this.userFavourites = res,
-                    err => console.log(err),
-                    () => this.getIfUserFavourite(serviceID)
-                );
-            }
-        );
+        if (this.authenticationService.isLoggedIn()) {
+            this.userService.addFavourite(serviceID).subscribe(
+                res => console.log,
+                err => console.log(err),
+                () => {
+                    this.userService.getFavouritesOfUser().subscribe(
+                        res => this.userFavourites = res,
+                        err => console.log(err),
+                        () => this.getIfUserFavourite(serviceID)
+                    );
+                }
+            );
+        }
     }
 
     rateService(serviceID: string, rating: number) {
-        this.userService.rateService(serviceID, rating).subscribe(
-            res => console.log,
-            err => console.log(err),
-            () => {
-                this.userService.getRatingsOfUser().subscribe(
-                  res => this.userRatings = res,
-                  err => console.log(err),
-                    () => this.getUserRating(serviceID)
-                );
-            }
-        );
+        if (this.authenticationService.isLoggedIn()) {
+            this.userService.rateService(serviceID, rating).subscribe(
+                res => console.log,
+                err => console.log(err),
+                () => {
+                    this.userService.getRatingsOfUser().subscribe(
+                        res => this.userRatings = res,
+                        err => console.log(err),
+                        () => this.getUserRating(serviceID)
+                    );
+                }
+            );
+        }
     }
 
 }

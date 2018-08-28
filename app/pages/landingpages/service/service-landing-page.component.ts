@@ -64,8 +64,10 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
                     .subscribe(services => this.services = services);
                 }
 
-                this.getIfFavourite();
-                this.getShownRating();
+                if (this.authenticationService.isLoggedIn()) {
+                    this.getIfFavourite();
+                    this.getShownRating();
+                }
             });
         });
     }

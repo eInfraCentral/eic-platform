@@ -29,7 +29,7 @@ export class UserService {
         if (this.authenticationService.isLoggedIn()) {
             return this.http.get(`/event/favourite/all/user/${this.authenticationService.getUserId()}`);
         } else {
-            this.router.login();
+            return null;
         }
     }
 
@@ -67,7 +67,7 @@ export class UserService {
         if (this.authenticationService.isLoggedIn()) {
             return this.http.get(`/event/rating/all/user/${this.authenticationService.getUserId()}`);
         } else {
-            this.router.login();
+            return null;
         }
     }
 

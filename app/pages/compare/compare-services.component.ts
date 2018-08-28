@@ -41,13 +41,9 @@ export class CompareServicesComponent implements OnInit, OnDestroy {
         Observable.zip(
             this.resourceService.getProviders(),
             this.resourceService.getVocabularies(),
-            this.userService.getRatingsOfUser(),
-            this.userService.getFavouritesOfUser()
         ).subscribe(suc => {
             this.providers = suc[0];
             this.vocabularies = this.transformVocabularies(suc[1]);
-            this.userRatings = suc[2];
-            this.userFavourites = suc[3];
             this.sub = this.route.params.subscribe(params => {
                 let ids = (params.services || "").split(",");
                 if (ids.length > 1) {
@@ -58,7 +54,18 @@ export class CompareServicesComponent implements OnInit, OnDestroy {
                     this.router.search({});
                 }
             });
-        });
+        },
+            err => console.log(err),
+            () => {
+                if (this.authenticationService.isLoggedIn()) {
+                    this.userService.getRatingsOfUser().subscribe(
+                        ratings => this.userRatings = ratings
+                    );
+                    this.userService.getFavouritesOfUser().subscribe(
+                        favs => this.userFavourites = favs
+                    );
+                }
+            });
     }
 
     ngOnDestroy() {
