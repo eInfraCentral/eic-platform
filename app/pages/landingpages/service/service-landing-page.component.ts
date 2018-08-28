@@ -123,7 +123,12 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
         this.userService.addFavourite(this.service.id).subscribe(
             res => console.log,
             err => console.log(err),
-            () => this.getIfFavourite()
+            () => {
+                this.getIfFavourite();
+                this.resourceService.getFavouritesForService(this.service.id).subscribe(
+                    res => this.stats.favourites = Object.values(res).reduce((acc, v) => acc + v, 0)
+                );
+            }
         );
     }
 
