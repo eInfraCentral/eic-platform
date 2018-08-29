@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
             this.breadcrumbs = evt.url.split(/\//);
             this.breadcrumbs[0] = 'Home';
 
-            this.isLoginOrRegister = ["/signUp", "/signIn"].indexOf(evt.url) > 0;
+            this.isLoginOrRegister = ["/signUp", "/signIn"].indexOf(evt.url) >= 0;
         });
         this.router.events.subscribe((evt) => {
             if (!(evt instanceof NavigationEnd)) {

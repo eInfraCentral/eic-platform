@@ -36,9 +36,9 @@
                             </li>
                             <li class="uk-nav-header uk-parent" [routerLinkActive]="['uk-active']">Support
                                 <ul class="uk-nav-sub">
-                                    <li><a [routerLink]="['/support/faqPolicies']" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">FAQs - Policies</a></li>
-                                    <li><a [routerLink]="['/support/faqLegal']" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">FAQs - Legal</a></li>
-                                    <li><a href="http://openminted.eu/support/" target="_blank" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">Ask a question</a></li>
+                                    <li><a [routerLink]="['/developers']" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">For developers</a></li>
+                                    <li><a [routerLink]="['/support/faqs']" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">FAQs</a></li>
+                                    <li><a href="http://einfracentral.eu/contact" target="_blank" class="uk-offcanvas-close offcanvas-close">Ask a question</a></li>
                                 </ul>
                             </li>
 
@@ -55,7 +55,12 @@
                                     |
                                         <!-- Registration button -->
                                     <span style="color: rgb(255, 255, 255); border: medium none rgb(255, 255, 255);" class="btl-dropdown">
-                                        <a [routerLink]="['/signUp']" routerLinkActive="uk-active" class="loginLink">Register</a>
+                                        <!--<a [routerLink]="['/signUp']" routerLinkActive="uk-active" class="loginLink">Register</a>-->
+                                        <!-- TODO: remove -->
+                                        <a routerLinkActive="uk-active" class="signUp" title="This will be available in the next release">
+                                            Sign Up
+                                            <!--<img class="uk-responsive-height" src="./imgs/Icons/Home_24white.svg" alt="home">-->
+                                        </a>
                                     </span>
                                     <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" ratio="1"><circle fill="none" stroke="#000" stroke-width="1.1" cx="9.9" cy="6.4" r="4.4"></circle><path fill="none" stroke="#000" stroke-width="1.1" d="M1.5,19 C2.3,14.5 5.8,11.2 10,11.2 C14.2,11.2 17.7,14.6 18.5,19.2"></path></svg>
                                </span>
