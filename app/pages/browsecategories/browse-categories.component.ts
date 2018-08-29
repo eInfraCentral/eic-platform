@@ -30,7 +30,7 @@ export class BrowseCategoriesComponent implements OnInit {
         this.browseResults = browseResults;
         let noOfServices: number = 0;
         let keys = Object.keys(this.browseResults);
-        keys.sort(function(a,b) {if(a < b) return -1; else return 1});
+        keys.sort(function(a,b) {if(a.toLowerCase() < b.toLowerCase()) return -1; else return 1});
         for (let key of keys) {
             let services: Service[] = this.browseResults[key];
             noOfServices += services.length;
@@ -42,7 +42,7 @@ export class BrowseCategoriesComponent implements OnInit {
         for (let key of keys) {
             let services: Service[] = this.browseResults[key];
             counter += services.length;
-            services.sort(function(a,b) {if(a.name < b.name) return -1; else return 1});
+            services.sort(function(a,b) {if(a.name.toLowerCase() < b.name.toLowerCase()) return -1; else return 1});
             this.browseResultsColumns[columnIndex].data[key] = (services);
             if (counter > servicesPerColumn) {
                 columnIndex++;
