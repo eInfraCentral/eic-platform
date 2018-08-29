@@ -151,7 +151,7 @@
                                      [valid]="serviceForm.get('category').valid && serviceForm.get('category').dirty">
                           <select formControlName="category" class="uk-select"
                                   [ngClass]="{'uk-form-danger': !serviceForm.get('category').valid && serviceForm.get('category').dirty}">
-                            <!-- TODO: change getting categories from the categories.ts file and save them to vocabularies -->
+                            <!-- FIXME: change getting categories from the categories.ts file and save them to vocabularies -->
                             <option *ngFor="let c of (this.categories | keys | sort )"
                                     [ngValue]="'Category-'+c">{{c}}
                             </option>
@@ -164,8 +164,9 @@
                                      [valid]="serviceForm.get('subcategory').valid && serviceForm.get('subcategory').dirty">
                           <select formControlName="subcategory" class="uk-select"
                                   [ngClass]="{'uk-form-danger': !serviceForm.get('subcategory').valid && serviceForm.get('subcategory').dirty}">
-                            <!-- TODO: change getting subcategories from the categories.ts file and save them to vocabularies -->
-                            <option *ngFor="let c of ( categories[serviceForm.get('category').value] | sort )"
+                            <!-- FIXME: change getting subcategories from the categories.ts file and save them to vocabularies -->
+                            <!-- FIXME: remove monstrosity below!! -->
+                            <option *ngFor="let c of ( categories[(serviceForm.get('category').value).split('-')[1]] | sort )"
                                     [ngValue]="'Subcategory-'+c">{{c}}
                             </option>
                           </select>
