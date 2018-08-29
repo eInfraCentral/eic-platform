@@ -33,11 +33,7 @@ export class HTTPWrapper extends Http {
     public handleError(error: Response) {
         let message = "Severe server error";
         try {
-            if (JSON.parse(error.text()).error) {
-                message = JSON.parse(error.text()).error;
-            } else {
-                message += ' with code: ' + error.status;
-            }
+            message = JSON.parse(error.text()).error;
         } catch (e) {
             console.error("HTTPWrapper", e);
         }

@@ -30,7 +30,8 @@
                                     <dl *ngFor="let categoryServices of browseResultsColumn.data | keys" class="uk-description-list">
                                         <dt>{{ categoryServices }}</dt>
                                         <dd *ngFor="let service of browseResultsColumn.data[categoryServices]">
-                                            <a (click)="this.router.service(service.id)">{{service.name}}</a>
+                                            <!--<a (click)="this.router.service(service.id)">{{service.name}}</a>-->
+                                            <a [routerLink]="['/service/' + service.id]">{{service.name}}</a>
                                         </dd>
                                     </dl>
                                 </div>
