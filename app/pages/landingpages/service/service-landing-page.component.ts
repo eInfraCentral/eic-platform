@@ -65,6 +65,7 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
                 }
 
                 if (this.authenticationService.isLoggedIn()) {
+                    console.log('Ready to check if favourite!');
                     this.getIfFavourite();
                     this.getShownRating();
                 }
@@ -121,12 +122,26 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
 
     addToFavourites() {
         this.userService.addFavourite(this.service.id).subscribe(
-            res => console.log,
+            res => {
+                this.isUserFavourite = ( res['value'] === '1' );
+                console.log('res is', JSON.stringify(res));
+            },
             err => console.log(err),
             () => {
-                this.getIfFavourite();
+                this.stats.favourites = 0;
                 this.resourceService.getFavouritesForService(this.service.id).subscribe(
-                    res => this.stats.favourites = Object.values(res).reduce((acc, v) => acc + v, 0)
+                    favs => {
+                        console.log('favs is', JSON.stringify(favs));
+                        Object.keys(favs).forEach(
+                            key => {
+                                if ( favs[key] === 1 ) {
+                                    this.stats.favourites++;
+                                }
+                            }
+                        );
+                    },
+                    err => console.log(err),
+                    () => console.log('stats.favourites became', this.stats.favourites)
                 );
             }
         );

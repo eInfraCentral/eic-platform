@@ -167,7 +167,7 @@
                             </div>
                         </li>
                         <li *ngIf = "router.url != '/home' && router.url != '/'">
-                            <form [formGroup]="searchForm" (ngSubmit)="this.onSubmit(searchForm.value)">
+                            <form [formGroup]="searchForm" (ngSubmit)="onSubmit(searchForm.value)">
                                 <input type="text" class="uk-input menuSearch" placeholder="Search" name="keyword" formControlName="query">
                             </form>
                         </li>
