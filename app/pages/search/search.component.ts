@@ -374,6 +374,23 @@ export class SearchComponent implements OnInit, OnDestroy {
         }
     }
 
+    getServiceFavourites(serviceId: string) {
+        return this.resourceService.getFavouritesForService(serviceId).subscribe(
+            favs => {
+                let count = 0;
+                console.log('favs is', JSON.stringify(favs));
+                Object.keys(favs).forEach(
+                    key => {
+                        if ( favs[key] === 1 ) {
+                            count++;
+                        }
+                    }
+                );
+                return count;
+            }
+        );
+    }
+
     rateService(serviceID: string, rating: number) {
         if (this.authenticationService.isLoggedIn()) {
             this.userService.rateService(serviceID, rating).subscribe(

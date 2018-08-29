@@ -38,10 +38,10 @@ export class TopMenuComponent implements OnInit, OnDestroy {
         this.searchForm = fb.group({"query": [""]});
     }
 
-    onSubmit(searchValue: SearchQuery) {
-        let params = Object.assign({},this.activatedRoute.children[0].snapshot.params);
-        params['query'] = searchValue.query;
-        return this.navigationService.search(params);
+    onSubmit(searchValue: string) {
+        /*let params = Object.assign({},this.activatedRoute.children[0].snapshot.params);
+        params['query'] = searchValue.query;*/
+        return this.navigationService.search({query: searchValue});
     }
 
     ngOnInit(): void {

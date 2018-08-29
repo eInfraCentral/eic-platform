@@ -65,7 +65,6 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
                 }
 
                 if (this.authenticationService.isLoggedIn()) {
-                    console.log('Ready to check if favourite!');
                     this.getIfFavourite();
                     this.getShownRating();
                 }
