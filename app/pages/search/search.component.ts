@@ -355,21 +355,32 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
 
     getIfUserFavourite(serviceID: string) {
-        return (this.userFavourites && this.userFavourites.some(x => x['service'] === serviceID));
+        if (this.userFavourites &&
+            this.userFavourites.some(x => x['service'] === serviceID)) {
+            let i = this.userFavourites.findIndex(x => x['service'] === serviceID);
+
+            return (this.userFavourites[i]['value'] === '1');
+        } else {
+            return false;
+        }
     }
 
     addToFavourites(serviceID: string) {
         this.userService.addFavourite(serviceID).subscribe(
-            res => console.log,
+            res => {
+                // console.log(res['value']);
+                if (this.userFavourites &&
+                    this.userFavourites.some(x => x['service'] === serviceID)) {
+                    let i = this.userFavourites.findIndex(x => x['service'] === serviceID);
+                    this.userFavourites[i]['value'] = res['value'];
+                } else {
+                    this.userFavourites.push(res);
+                }
+            },
             err => console.log(err),
-            () => {
-                this.userService.getFavouritesOfUser().subscribe(
-                    res => this.userFavourites = res,
-                    err => console.log(err),
-                    () => this.getIfUserFavourite(serviceID)
-                );
-            }
+            () => this.getIfUserFavourite(serviceID)
         );
+
     }
 
     rateService(serviceID: string, rating: number) {
