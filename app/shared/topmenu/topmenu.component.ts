@@ -61,7 +61,9 @@ export class TopMenuComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.sub.unsubscribe();
+        if (this.authenticationService.isLoggedIn()) {
+            this.sub.unsubscribe();
+        }
     }
 
     // ngDoCheck(): void {
