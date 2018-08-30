@@ -359,35 +359,31 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
 
     addToFavourites(serviceID: string) {
-        if (this.authenticationService.isLoggedIn()) {
-            this.userService.addFavourite(serviceID).subscribe(
-                res => console.log,
-                err => console.log(err),
-                () => {
-                    this.userService.getFavouritesOfUser().subscribe(
-                        res => this.userFavourites = res,
-                        err => console.log(err),
-                        () => this.getIfUserFavourite(serviceID)
-                    );
-                }
-            );
-        }
+        this.userService.addFavourite(serviceID).subscribe(
+            res => console.log,
+            err => console.log(err),
+            () => {
+                this.userService.getFavouritesOfUser().subscribe(
+                    res => this.userFavourites = res,
+                    err => console.log(err),
+                    () => this.getIfUserFavourite(serviceID)
+                );
+            }
+        );
     }
 
     rateService(serviceID: string, rating: number) {
-        if (this.authenticationService.isLoggedIn()) {
-            this.userService.rateService(serviceID, rating).subscribe(
-                res => console.log,
-                err => console.log(err),
-                () => {
-                    this.userService.getRatingsOfUser().subscribe(
-                        res => this.userRatings = res,
-                        err => console.log(err),
-                        () => this.getUserRating(serviceID)
-                    );
-                }
-            );
-        }
+        this.userService.rateService(serviceID, rating).subscribe(
+            res => console.log,
+            err => console.log(err),
+            () => {
+                this.userService.getRatingsOfUser().subscribe(
+                    res => this.userRatings = res,
+                    err => console.log(err),
+                    () => this.getUserRating(serviceID)
+                );
+            }
+        );
     }
 
 }
