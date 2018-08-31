@@ -91,7 +91,7 @@ export class ResourceService {
     }
 
     getServices() {
-        return this.getBy("service", "infra_service_id");
+        return this.getBy("service", "id");
     }
 
     getService(id: string, version? : string) {
