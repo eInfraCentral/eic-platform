@@ -355,56 +355,46 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
 
     getIfUserFavourite(serviceID: string) {
-        return (this.userFavourites && this.userFavourites.some(x => x['service'] === serviceID));
+        if (this.userFavourites &&
+            this.userFavourites.some(x => x['service'] === serviceID)) {
+            let i = this.userFavourites.findIndex(x => x['service'] === serviceID);
+
+            return (this.userFavourites[i]['value'] === '1');
+        } else {
+            return false;
+        }
     }
 
     addToFavourites(serviceID: string) {
-        if (this.authenticationService.isLoggedIn()) {
-            this.userService.addFavourite(serviceID).subscribe(
-                res => console.log,
-                err => console.log(err),
-                () => {
-                    this.userService.getFavouritesOfUser().subscribe(
-                        res => this.userFavourites = res,
-                        err => console.log(err),
-                        () => this.getIfUserFavourite(serviceID)
-                    );
+        this.userService.addFavourite(serviceID).subscribe(
+            res => {
+                // console.log(res['value']);
+                if (this.userFavourites &&
+                    this.userFavourites.some(x => x['service'] === serviceID)) {
+                    let i = this.userFavourites.findIndex(x => x['service'] === serviceID);
+                    this.userFavourites[i]['value'] = res['value'];
+                } else {
+                    this.userFavourites.push(res);
                 }
-            );
-        }
-    }
-
-    getServiceFavourites(serviceId: string) {
-        return this.resourceService.getFavouritesForService(serviceId).subscribe(
-            favs => {
-                let count = 0;
-                console.log('favs is', JSON.stringify(favs));
-                Object.keys(favs).forEach(
-                    key => {
-                        if ( favs[key] === 1 ) {
-                            count++;
-                        }
-                    }
-                );
-                return count;
-            }
+            },
+            err => console.log(err),
+            () => this.getIfUserFavourite(serviceID)
         );
+
     }
 
     rateService(serviceID: string, rating: number) {
-        if (this.authenticationService.isLoggedIn()) {
-            this.userService.rateService(serviceID, rating).subscribe(
-                res => console.log,
-                err => console.log(err),
-                () => {
-                    this.userService.getRatingsOfUser().subscribe(
-                        res => this.userRatings = res,
-                        err => console.log(err),
-                        () => this.getUserRating(serviceID)
-                    );
-                }
-            );
-        }
+        this.userService.rateService(serviceID, rating).subscribe(
+            res => console.log,
+            err => console.log(err),
+            () => {
+                this.userService.getRatingsOfUser().subscribe(
+                    res => this.userRatings = res,
+                    err => console.log(err),
+                    () => this.getUserRating(serviceID)
+                );
+            }
+        );
     }
 
 }

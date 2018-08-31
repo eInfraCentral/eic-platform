@@ -26,7 +26,7 @@ export class LoginComponent {
     }
 
     onSubmit(myUser: User, isValid: boolean) {
-        if (isValid) {
+        if (isValid || ( (myUser.email !== '') && (myUser.password !== '') )) {
             this.userService.loginUser(myUser.email, myUser.password).subscribe(user => this.saveLoginStatus(user));
         } else {
             this.errorMessage = "Invalid";

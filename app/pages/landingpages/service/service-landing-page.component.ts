@@ -127,21 +127,16 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
             },
             err => console.log(err),
             () => {
-                this.stats.favourites = 0;
-                this.resourceService.getFavouritesForService(this.service.id).subscribe(
-                    favs => {
-                        console.log('favs is', JSON.stringify(favs));
-                        Object.keys(favs).forEach(
-                            key => {
-                                if ( favs[key] === 1 ) {
-                                    this.stats.favourites++;
-                                }
-                            }
-                        );
-                    },
-                    err => console.log(err),
-                    () => console.log('stats.favourites became', this.stats.favourites)
-                );
+                setTimeout( () => {
+                    this.resourceService.getFavouritesForService(this.service.id).subscribe(
+                        favs => {
+                            console.log('favs is', JSON.stringify(favs));
+                            this.stats.favourites = Object.values(favs).reduce((acc, v) => acc + v, 0);
+                        },
+                        err => console.log(err),
+                        () => console.log('stats.favourites became', this.stats.favourites)
+                    );
+                }, 1000);
             }
         );
     }
