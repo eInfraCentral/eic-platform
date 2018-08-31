@@ -167,7 +167,7 @@
                             <!-- FIXME: change getting subcategories from the categories.ts file and save them to vocabularies -->
                             <!-- FIXME: remove monstrosity below!! -->
                             <option *ngFor="let c of ( categories[(serviceForm.get('category').value).split('-')[1]] | sort )"
-                                    [ngValue]="'Subcategory-'+c">{{c}}
+                                    [ngValue]="'Subcategory-'+ c.split(' ').join('_')">{{c}}
                             </option>
                           </select>
                         </form-inline>
