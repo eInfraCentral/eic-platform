@@ -39,7 +39,7 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
                 this.resourceService.getEU(),
                 this.resourceService.getWW(),
                 this.resourceService.getService(params["id"], params['version']),
-                this.resourceService.getProviders(),
+                this.resourceService.getProvidersNames(),
                 this.resourceService.getVocabularies(),
                 this.resourceService.getVisitsForService(params["id"]),
                 this.resourceService.getFavouritesForService(params["id"]),

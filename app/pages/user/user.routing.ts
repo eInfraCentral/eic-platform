@@ -10,6 +10,7 @@ import {DashboardComponent} from "./dashboard/dashboard.component";
 import {ServiceDashboardComponent} from "./dashboard/service-dashboard.component";
 import {LoginComponent} from "./login/login.component";
 import {SignUpComponent} from "./register/sign-up.component";
+import { NewServiceProviderComponent } from './addServiceProvider/new-service-provider.component';
 
 const userRoutes: Routes = [
     {

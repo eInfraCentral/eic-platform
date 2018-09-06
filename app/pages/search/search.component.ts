@@ -15,8 +15,8 @@ import {ComparisonService} from "../../services/comparison.service";
 import {NavigationService} from "../../services/navigation.service";
 import {ResourceService} from "../../services/resource.service";
 import {UserService} from "../../services/user.service";
-import {URLParameter} from "./../../domain/url-parameter";
-import { Service } from "../../domain/eic-model";
+import {URLParameter} from "../../domain/url-parameter";
+import { Event, Service } from '../../domain/eic-model';
 import { IStarRatingOnClickEvent } from 'angular-star-rating';
 
 declare var UIkit: any;
@@ -48,7 +48,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
     listViewActive: boolean = true;
 
-    userFavourites = [];
+    userFavourites: Event[] = [];
     userRatings: Event[] = [];
 
     constructor(public fb: FormBuilder, public router: NavigationService, public route: ActivatedRoute,
@@ -63,7 +63,7 @@ export class SearchComponent implements OnInit, OnDestroy {
         this.listViewActive = true;
 
         Observable.zip(
-            this.resourceService.getProviders(),
+            this.resourceService.getProvidersNames(),
             this.resourceService.getVocabularies(),
         ).subscribe(suc => {
             this.providers = suc[0];
@@ -94,10 +94,28 @@ export class SearchComponent implements OnInit, OnDestroy {
             () => {
                 if (this.authenticationService.isLoggedIn()) {
                     this.userService.getRatingsOfUser().subscribe(
-                        ratings => this.userRatings = ratings
+                        ratings => this.userRatings = ratings.sort (
+                            function(a,b){
+                                if (a['instant'] > b['instant']) {
+                                    return -1;
+                                } else if (a['instant'] < b['instant']) {
+                                    return 1;
+                                } else {
+                                    return 0;
+                                }
+                            } )
                     );
-                    this.userService.getFavouritesOfUser().subscribe(
-                        favs => this.userFavourites = favs
+                    this.userService.getFavouritesOfUser().subscribe (
+                        favs => this.userFavourites = favs.sort (
+                            function(a,b){
+                                if (a['instant'] > b['instant']) {
+                                    return -1;
+                                } else if (a['instant'] < b['instant']) {
+                                    return 1;
+                                } else {
+                                    return 0;
+                                }
+                            } )
                     );
                 }
             });
@@ -348,18 +366,21 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
 
     getUserRating(serviceID: string) {
-        if ( this.userRatings && this.userRatings.filter(x => x['service'] === serviceID).length > 0) {
-            return +this.userRatings.filter(x => x['service'] === serviceID)[0]['value'];
+        if (this.userRatings &&
+            this.userRatings.some(x => x.service === serviceID)) {
+
+            let i = this.userRatings.findIndex(x => x.service === serviceID);
+            return +this.userRatings[i].value;
         }
         return 0;
     }
 
     getIfUserFavourite(serviceID: string) {
         if (this.userFavourites &&
-            this.userFavourites.some(x => x['service'] === serviceID)) {
-            let i = this.userFavourites.findIndex(x => x['service'] === serviceID);
+            this.userFavourites.some(x => x.service === serviceID)) {
 
-            return (this.userFavourites[i]['value'] === '1');
+            let i = this.userFavourites.findIndex(x => x.service === serviceID);
+            return (this.userFavourites[i].value === '1');
         } else {
             return false;
         }
@@ -370,9 +391,9 @@ export class SearchComponent implements OnInit, OnDestroy {
             res => {
                 // console.log(res['value']);
                 if (this.userFavourites &&
-                    this.userFavourites.some(x => x['service'] === serviceID)) {
-                    let i = this.userFavourites.findIndex(x => x['service'] === serviceID);
-                    this.userFavourites[i]['value'] = res['value'];
+                    this.userFavourites.some(x => x.service === serviceID)) {
+                    let i = this.userFavourites.findIndex(x => x.service === serviceID);
+                    this.userFavourites[i].value = res['value'];
                 } else {
                     this.userFavourites.push(res);
                 }
@@ -385,16 +406,18 @@ export class SearchComponent implements OnInit, OnDestroy {
 
     rateService(serviceID: string, rating: number) {
         this.userService.rateService(serviceID, rating).subscribe(
-            res => console.log,
+            res => {
+                // console.log(res['value']);
+                if (this.userRatings &&
+                    this.userRatings.some(x => x.service === serviceID)) {
+                    let i = this.userRatings.findIndex(x => x.service === serviceID);
+                    this.userRatings[i].value = res['value'];
+                } else {
+                    this.userRatings.push(res);
+                }
+            },
             err => console.log(err),
-            () => {
-                this.userService.getRatingsOfUser().subscribe(
-                    res => this.userRatings = res,
-                    err => console.log(err),
-                    () => this.getUserRating(serviceID)
-                );
-            }
+            () => this.getUserRating(serviceID)
         );
     }
-
 }

@@ -37,7 +37,7 @@ export class DashboardComponent implements OnInit {
         Observable.zip(
             this.resourceService.getEU(),
             this.resourceService.getWW(),
-            this.resourceService.getProviders()
+            this.resourceService.getProvidersNames()
         ).subscribe(suc => {
             this.EU = suc[0];
             this.WW = suc[1];

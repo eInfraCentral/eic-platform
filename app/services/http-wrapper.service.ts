@@ -22,7 +22,7 @@ export class HTTPWrapper extends Http {
     }
 
     public getAny(url: string, options?: RequestOptionsArgs): Observable<any> {
-        // console.log(`calling ${url}`);
+        console.log(`calling ${url}`);
         return super.get(url, options).map(this.getJSON).catch(this.handleError);
     }
 

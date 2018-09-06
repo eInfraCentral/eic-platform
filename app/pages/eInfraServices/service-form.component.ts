@@ -173,7 +173,7 @@ export class ServiceFormComponent {
 
     ngOnInit() {
         Observable.zip(
-            this.resourceService.getProviders(),
+            this.resourceService.getProvidersNames(),
             this.resourceService.getVocabularies()
         ).subscribe(suc => {
             this.providers = suc[0];
