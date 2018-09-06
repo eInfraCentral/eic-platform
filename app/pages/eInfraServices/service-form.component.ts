@@ -158,7 +158,7 @@ export class ServiceFormComponent {
     onSubmit(service: Service, isValid: boolean) {
         //TODO: check if model is valid
         if (isValid) {
-            service.providerName = this.authenticationService.getUserId();
+            service.providerName = this.authenticationService.getUserProperty("id");
             this.resourceService.uploadService(this.toServer(service), this.editMode)
             .subscribe(service => {
                 setTimeout(() => this.router.service(service.id), 1000);

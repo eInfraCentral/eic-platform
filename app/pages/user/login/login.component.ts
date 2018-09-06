@@ -3,7 +3,7 @@
  */
 import {Component} from "@angular/core";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {User} from "../../../domain/eic-model";
+import {AAIUser, User} from "../../../domain/eic-model";
 import {AuthenticationService} from "../../../services/authentication.service";
 import {UserService} from "../../../services/user.service";
 
@@ -33,7 +33,7 @@ export class LoginComponent {
         }
     }
 
-    saveLoginStatus(user: User) {
+    saveLoginStatus(user: AAIUser) {
         this.authenticationService.login(user);
         this.submitted = true;
     }

@@ -141,6 +141,17 @@ export class User implements Identifiable {
     surname: string;
 }
 
+export class AAIUser implements Identifiable {
+    email: string;
+    id: string;
+    family_name: string;
+    given_name: string;
+    name: string;
+    eduperson_unique_id: string;
+    sub: string;
+    roles: string[];
+}
+
 export class Vocabulary implements Identifiable {
     extra: string[];
     id: string;

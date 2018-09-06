@@ -3,21 +3,22 @@
  */
 
 import {Injectable} from "@angular/core";
-import {User} from "../domain/eic-model";
+import {AAIUser} from "../domain/eic-model";
 import {deleteCookie, getCookie, setCookie} from "../domain/utils";
 import {NavigationService} from "./navigation.service";
+import {isNullOrUndefined} from "util";
 
 @Injectable()
 export class AuthenticationService {
     redirectURL: string = "/dashboard";
-    cookieName: string = "jwt";
-    user: User = null;
+    cookieName: string = "info";
+    user: AAIUser = null;
 
     constructor(public router: NavigationService) {
-        this.user = JSON.parse(getCookie(this.cookieName));
+        // this.user = JSON.parse(getCookie(this.cookieName));
     }
 
-    public login(user: User) {
+    public loginOLD(user: AAIUser) {
         if (!this.isLoggedIn()) {
             setCookie(this.cookieName, JSON.stringify(user), 1);
             this.user = user;
@@ -25,11 +26,50 @@ export class AuthenticationService {
         }
     }
 
+    public b64DecodeUnicode(str: string) {
+        return decodeURIComponent(Array.prototype.map.call(atob(str), function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+        }).join(''))
+    }
+
+    public getUserInfo() {
+        // retrieve user information from cookie
+        if (!this.isLoggedIn() && getCookie(this.cookieName) !== null) {
+            console.log(this.b64DecodeUnicode(getCookie(this.cookieName)));
+            this.b64DecodeUnicode(getCookie(this.cookieName));
+
+            this.user = JSON.parse(this.b64DecodeUnicode(getCookie(this.cookieName)));
+            this.user.id = this.user.eduperson_unique_id;
+            sessionStorage.setItem('userInfo', JSON.stringify(this.user));
+            // console.log(this.user);
+            // this.user = user;
+            // this.router.go(this.redirectURL);
+        }
+    }
+
+    getUserProperty(property: string) {
+        const user = JSON.parse(sessionStorage.getItem('userInfo'));
+        if ( !isNullOrUndefined(user) && !isNullOrUndefined(user[property]) && (user[property] !== 'null') ) {
+            return user[property];
+        }
+        return null;
+    }
+
+    public login(user?: AAIUser) {
+        if (getCookie(this.cookieName) !== null) {
+            this.getUserInfo();
+        } else {
+            window.location.href = process.env.API_ENDPOINT + "/openid_connect_login";
+        }
+    }
+
     public logout() {
         if (this.isLoggedIn()) {
             deleteCookie(this.cookieName);
             this.user = null;
-            this.router.home();
+            sessionStorage.clear();
+            window.location.href = process.env.API_ENDPOINT + "/openid_logout";
+            // this.router.home();
         }
     }
 
@@ -39,5 +79,9 @@ export class AuthenticationService {
 
     public getUserId(): string {
         return this.user.id == null ? "null" : this.user.id;
+    }
+
+    public getUserRoles(): string[] {
+        return this.user.roles !== undefined ? this.user.roles : null;
     }
 }

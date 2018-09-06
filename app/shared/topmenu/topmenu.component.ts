@@ -12,6 +12,7 @@ import { SearchQuery } from "../../domain/search-query";
 import { NavigationService } from "../../services/navigation.service";
 import { Subscription } from "rxjs/Subscription";
 import { URLParameter } from "../../domain/url-parameter";
+import {equal} from "assert";
 
 @Component({
     selector: "top-menu",
@@ -64,6 +65,19 @@ export class TopMenuComponent implements OnInit, OnDestroy {
         if (this.authenticationService.isLoggedIn()) {
             this.sub.unsubscribe();
         }
+    }
+
+    goToLoginAAI(): void {
+        this.authenticationService.login();
+    }
+
+    isProvider() {
+        // FIXME: complete this method
+        let roles = this.authenticationService.getUserRoles();
+        if (roles && roles.some(x => x === "ROLE_PROVIDER")) {
+            return true;
+        }
+        return false;
     }
 
     // ngDoCheck(): void {
