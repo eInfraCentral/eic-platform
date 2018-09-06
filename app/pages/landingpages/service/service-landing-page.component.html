@@ -275,7 +275,7 @@
                         </div>
                         <div *ngIf="service.lastUpdate" class="uk-margin-small-bottom">
                             <span class="infoTitle uk-margin-small-right">Last update</span>
-                            <span class="infoDescription">{{service.lastUpdate}}</span>
+                            <span class="infoDescription">{{ service.lastUpdate | date }}</span>
                         </div>
                         <div *ngIf="service.changeLog" class="uk-margin-small-bottom">
                             <span class="infoTitle uk-margin-small-right">What's new</span>
@@ -283,7 +283,7 @@
                         </div>
                         <div *ngIf="service.validFor" class="uk-margin-small-bottom">
                             <span class="infoTitle uk-margin-small-right">Validity</span>
-                            <span class="infoDescription">Until {{service.validFor}}</span>
+                            <span class="infoDescription">Until {{ service.validFor | date }}</span>
                         </div>
                         <div *ngIf="service.availability" class="uk-margin-small-bottom">
                             <span class="infoTitle uk-margin-small-right">Availability</span>
