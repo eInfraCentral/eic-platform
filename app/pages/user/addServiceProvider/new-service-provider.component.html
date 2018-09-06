@@ -1,0 +1,103 @@
+<div class="uk-section-default uk-section uk-section-small uk-padding-remove-bottom" style="min-height: 325px">
+    <div class="uk-container">
+        <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid="">
+            <div class="uk-width-1-1@m uk-first-column">
+
+                <h1 class="uk-h3">Add New Service Provider</h1>
+
+                <!-- TOP HELP CONTENT -->
+                <help-content #topHelperContent [position]="'top'"
+                              [ngClass]="topHelperContent.isPresent()?'uk-margin-medium-top uk-margin-medium-bottom':'clear-style'">
+                </help-content>
+
+                <div class="uk-container uk-margin-medium-top uk-margin-medium-bottom">
+                    <div class="uk-grid">
+
+                        <!-- LEFT HELP CONTENT -->
+                        <aside-help-content #leftHelperContent [position]="'left'"
+                                            [ngClass]="leftHelperContent.isPresent()?'tm-sidebar uk-width-1-4@m uk-first-column':'clear-style'">
+                        </aside-help-content>
+
+
+                        <!-- MIDDLE -->
+                        <div class=" uk-width-expand@m">
+
+                            <div *ngIf="errorMessage" class="uk-alert uk-alert-danger">{{errorMessage}}</div>
+
+                            <div class="middle-box animated fadeInDown ">
+
+                                <div [formGroup]="newProviderForm" class="uk-form">
+                                    <div class="uk-margin-medium-bottom">
+                                        <label class="uk-form-label" for="organizationName">{{ organizationNameDesc.label }}</label>
+                                        <input id="organizationName" class="uk-input" type="text" formControlName="organizationName"
+                                               [ngClass]="{'uk-form-danger': !newProviderForm.get('organizationName').valid && newProviderForm.get('organizationName').dirty}">
+                                    </div>
+                                    <div class="uk-margin-medium-bottom">
+                                        <label class="uk-form-label" for="firstName">{{ firstNameDesc.label }}</label>
+                                        <input id="firstName" class="uk-input" type="text" formControlName="firstName"
+                                               [ngClass]="{'uk-form-danger': !newProviderForm.get('firstName').valid && newProviderForm.get('firstName').dirty}">
+                                    </div>
+                                    <div class="uk-margin-medium-bottom">
+                                        <label class="uk-form-label" for="lastName">{{ lastNameDesc.label }}</label>
+                                        <input id="lastName" class="uk-input" type="text" formControlName="lastName"
+                                               [ngClass]="{'uk-form-danger': !newProviderForm.get('lastName').valid && newProviderForm.get('lastName').dirty}">
+                                    </div>
+                                    <div class="uk-margin-medium-bottom">
+                                        <label class="uk-form-label" for="email">{{ emailDesc.label }}</label>
+                                        <input id="email" class="uk-input" type="text" formControlName="email"
+                                               [ngClass]="{'uk-form-danger': !newProviderForm.get('email').valid && newProviderForm.get('email').dirty}">
+                                    </div>
+                                    <div class="uk-margin-medium-bottom">
+                                        <label class="uk-form-label" for="phoneNumber">{{ phoneNumberDesc.label }}</label>
+                                        <input id="phoneNumber" class="uk-input" type="text" formControlName="phoneNumber"
+                                               [ngClass]="{'uk-form-danger': !newProviderForm.get('phoneNumber').valid && newProviderForm.get('phoneNumber').dirty}">
+                                    </div>
+                                    <div class="uk-margin-medium-bottom">
+                                        <label class="uk-form-label" for="organizationWebsite">{{ organizationWebsiteDesc.label }}</label>
+                                        <input id="organizationWebsite" class="uk-input" type="text" formControlName="organizationWebsite"
+                                               [ngClass]="{'uk-form-danger': !newProviderForm.get('organizationWebsite').valid && newProviderForm.get('organizationWebsite').dirty}">
+                                    </div>
+                                    <div class="uk-margin-medium-bottom">
+                                        <label class="uk-form-label" for="catalogueOfResources">{{ catalogueOfResourcesDesc.label }}</label>
+                                        <input id="catalogueOfResources" class="uk-input" type="text" formControlName="catalogueOfResources"
+                                               [ngClass]="{'uk-form-danger': !newProviderForm.get('catalogueOfResources').valid && newProviderForm.get('catalogueOfResources').dirty}">
+                                    </div>
+                                    <div class="uk-margin-medium-bottom">
+                                        <label class="uk-form-label" for="publicDescOfResources">{{ publicDescOfResourcesDesc.label }}</label>
+                                        <input id="publicDescOfResources" class="uk-input" type="text" formControlName="publicDescOfResources"
+                                               [ngClass]="{'uk-form-danger': !newProviderForm.get('publicDescOfResources').valid && newProviderForm.get('publicDescOfResources').dirty}">
+                                    </div>
+                                    <div class="uk-margin-medium-bottom">
+                                        <label class="uk-form-label" for="additionalInfo">{{ additionalInfoDesc.label }}</label>
+                                        <input id="additionalInfo" class="uk-input" type="text" formControlName="additionalInfo"
+                                               [ngClass]="{'uk-form-danger': !newProviderForm.get('additionalInfo').valid && newProviderForm.get('additionalInfo').dirty}">
+                                    </div>
+
+                                    <div>
+                                        <button class="uk-button uk-bu uk-button-blue" (click)="registerProvider()">
+                                            Submit
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- RIGHT HELP CONTENT -->
+                            <aside-help-content #rightHelperContent [position]="'right'"
+                                                [ngClass]="rightHelperContent.isPresent()?'tm-sidebar uk-width-1-4@m uk-first-column':'clear-style'">
+                            </aside-help-content>
+
+                        </div>
+                    </div>
+
+
+                    <!-- BOTTOM HELP CONTENT -->
+                    <help-content #bottomHelperContent [position]="'bottom'"
+                                  [ngClass]="bottomHelperContent.isPresent()?'uk-margin-medium-top uk-margin-medium-bottom':'clear-style'">
+                    </help-content>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

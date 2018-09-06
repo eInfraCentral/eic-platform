@@ -9,6 +9,7 @@ import {SharedModule} from "../../shared/shared.module";
 import {LoginComponent} from "./login/login.component";
 import {SignUpComponent} from "./register/sign-up.component";
 import {userRouting} from "./user.routing";
+import { NewServiceProviderComponent } from './addServiceProvider/new-service-provider.component';
 
 @NgModule({
     imports: [

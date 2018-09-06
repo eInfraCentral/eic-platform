@@ -158,8 +158,12 @@ export class ResourceService {
         });
     }
 
-    getProviders() {
+    getProvidersNames() {
         return this.getAll("provider").map(e => e.results.reduce(this.idToName, {}));
+    }
+
+    getProviders() {
+        return this.getAll("provider");
     }
 
     getEU() {
