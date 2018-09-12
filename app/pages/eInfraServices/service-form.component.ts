@@ -44,7 +44,7 @@ export class ServiceFormComponent {
     readonly versionDesc: sd.Description = sd.versionDesc;
     readonly lastUpdateDesc: sd.Description = sd.lastUpdateDesc;
     readonly changeLogDesc: sd.Description = sd.changeLogDesc;
-    //whereis validForDesc
+    readonly validForDesc: sd.Description = sd.validForDesc;
     readonly lifeCycleStatusDesc: sd.Description = sd.lifeCycleStatusDesc;
     readonly trlDesc: sd.Description = sd.trlDesc;
     readonly categoryDesc: sd.Description = sd.categoryDesc;
@@ -85,7 +85,7 @@ export class ServiceFormComponent {
         "version": [""],
         "lastUpdate": [""],
         "changeLog": [""],
-        //"validFor": [""],
+        "validFor": [""],
         "lifeCycleStatus": ["", Validators.compose([Validators.required, LifeCycleStatusValidator])],
         "trl": ["", Validators.compose([Validators.required, TRLValidator])],
         "category": ["", Validators.required],
