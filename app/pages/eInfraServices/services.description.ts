@@ -16,9 +16,9 @@ export const symbolDesc = {label: "symbol", mandatory: false, desc: "Link to a v
 export const multimediaURLDesc = {label: "multimedia URL", mandatory: false, desc: "Link to a page containing multimedia regarding the service"};
 export const providersDesc = {label: "providers", mandatory: true, desc: "Organisation that manages and delivers the service and with whom the customer signs the SLA"};
 export const versionDesc = {label: "version", mandatory: false, desc: "Informs about the implementation of the service that is in force as well as about its previous implementations, if any"};
-export const lastUpdateDesc = {label: "revision Date", mandatory: false, desc: "The date of the latest update"};
-export const changeLogDesc = {label: "version History", mandatory: false, desc: "A list of the service features added in the latest version"};
-//whereis validfor
+export const lastUpdateDesc = {label: "date of Last Update", mandatory: false, desc: "The date of the latest update"};
+export const changeLogDesc = {label: "change Log", mandatory: false, desc: "A list of the service features added in the latest version"};
+export const validForDesc = {label: "valid Until", mandatory: false, desc: "The date up to which the service description is valid"};
 export const lifeCycleStatusDesc = {label: "lifeCycleStatus", mandatory: true, desc: "Is used to tag the service to the full service cycle: e.g., discovery, alpha (prototype available for closed set of users), beta (service being developed while available for testing publicly), production, retired (not anymore offered)"};
 export const trlDesc = {label: "trl", mandatory: true, desc: "Is used to tag the service to the Technology Readiness Level"};
 export const categoryDesc = {label: "category", mandatory: true, desc: "A named group of services that offer access to the same type of resource. These are external ones that are of interest to a customer"};

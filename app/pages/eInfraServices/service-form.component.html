@@ -112,8 +112,13 @@
                         </form-inline>
                         <form-inline [description]="lastUpdateDesc" [params]="'inline'"
                                      [valid]="serviceForm.get('lastUpdate').valid && serviceForm.get('lastUpdate').dirty">
-                          <input class="uk-input" type="text" formControlName="lastUpdate"
-                                 [ngClass]="{'uk-form-danger': !serviceForm.get('lastUpdate').valid && serviceForm.get('lastUpdate').dirty}">
+                          <input class="uk-input"
+                                 type="text"
+                                 onfocus="(this.type='date')"
+                                 formControlName=lastUpdate>
+
+                          <!--<input class="uk-input" type="text" formControlName="lastUpdate"-->
+                                 <!--[ngClass]="{'uk-form-danger': !serviceForm.get('lastUpdate').valid && serviceForm.get('lastUpdate').dirty}">-->
                         </form-inline>
                         <!--<form #myForm="ngForm" novalidate>-->
                         <!--<my-date-picker name="mydate" [options]="dp.options" [(ngModel)]="dp.default"></my-date-picker>-->
@@ -123,7 +128,11 @@
                           <input class="uk-input" type="text" formControlName="changeLog"
                                  [ngClass]="{'uk-form-danger': !serviceForm.get('changeLog').valid && serviceForm.get('changeLog').dirty}">
                         </form-inline>
-                        <!--validFor goes here-->
+                        <form-inline [description]="validForDesc" [params]="'inline'"
+                                     [valid]="serviceForm.get('validFor').valid && serviceForm.get('validFor').dirty">
+                          <input class="uk-input" type="text" formControlName="validFor"
+                                 [ngClass]="{'uk-form-danger': !serviceForm.get('validFor').valid && serviceForm.get('validFor').dirty}">
+                        </form-inline>
                         <form-inline *ngIf="this.vocabularies" [description]="lifeCycleStatusDesc"
                                      [params]="'inline'"
                                      [valid]="serviceForm.get('lifeCycleStatus').valid && serviceForm.get('lifeCycleStatus').dirty">
