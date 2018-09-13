@@ -54,7 +54,7 @@ export class ServiceFormComponent {
     readonly tagsDesc: sd.Description = sd.tagsDesc;
     readonly requiredServicesDesc: sd.Description = sd.requiredServicesDesc;
     readonly relatedServicesDesc: sd.Description = sd.relatedServicesDesc;
-    readonly requestDesc: sd.Description = sd.requestDesc;
+    readonly orderDesc: sd.Description = sd.orderDesc;
     readonly helpdeskDesc: sd.Description = sd.helpdeskDesc;
     readonly userManualDesc: sd.Description = sd.userManualDesc;
     readonly trainingInformationDesc: sd.Description = sd.trainingInformationDesc;
@@ -95,7 +95,7 @@ export class ServiceFormComponent {
         //tags is defined in component
         //requiredServices is defined in component
         //relatedServices is defined in component
-        "request": ["", Validators.compose([Validators.required, URLValidator])],
+        "order": ["", Validators.compose([Validators.required, URLValidator])],
         "helpdesk": ["", URLValidator],
         "userManual": ["", URLValidator],
         "trainingInformation": ["", URLValidator],
