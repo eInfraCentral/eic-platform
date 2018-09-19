@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { additionalInfoDesc, catalogueOfResourcesDesc, Description, emailDesc, firstNameDesc, lastNameDesc,
          organizationNameDesc, organizationWebsiteDesc, phoneNumberDesc, publicDescOfResourcesDesc } from '../eInfraServices/services.description';
 import { AuthenticationService } from '../../services/authentication.service';
+import { ServiceProviderService } from '../../services/service-provider.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'new-service-provider',
@@ -12,11 +14,32 @@ export class NewServiceProviderComponent implements OnInit {
     errorMessage: string;
     userInfo = { family_name: '', given_name: '', email: '' };
 
+/*
+* {
+  "additionalInfo": "string",
+  "catalogueOfResources": "string",
+  "contactInformation": "string",
+  "id": "string",
+  "name": "string",
+  "publicDescOfResources": "string",
+  "users": [
+    {
+      "email": "string",
+      "id": "string",
+      "name": "string",
+      "surname": "string"
+    }
+  ],
+  "website": "string"
+}
+* */
+
+
     newProviderForm: FormGroup;
     readonly formDefinition = {
-        organizationName: ['', Validators.required],
-        phoneNumber: [''],
-        organizationWebsite: ['', Validators.required],
+        name: ['', Validators.required],
+        contactInformation: [''],
+        website: ['', Validators.required],
         catalogueOfResources: [''],
         publicDescOfResources: [''],
         additionalInfo: ['', Validators.required]
@@ -33,7 +56,9 @@ export class NewServiceProviderComponent implements OnInit {
 
 
     constructor(private fb: FormBuilder,
-                private authService: AuthenticationService) {}
+                private authService: AuthenticationService,
+                private serviceProviderService: ServiceProviderService,
+                private router: Router) {}
 
     ngOnInit() {
         this.newProviderForm = this.fb.group(this.formDefinition);
@@ -43,8 +68,26 @@ export class NewServiceProviderComponent implements OnInit {
     }
 
     registerProvider() {
+        // TODO: Return the user id when it becomes available
         if (this.newProviderForm.valid) {
-            console.log(JSON.stringify(this.newProviderForm));
+            console.log(JSON.stringify(this.newProviderForm.value));
+            let newProvider = Object.assign(
+                this.newProviderForm.value,
+                {users: [{ email: this.userInfo.email,
+                                 id: null,
+                                 name: this.userInfo.given_name,
+                                 surname: this.userInfo.family_name
+                                }]
+                });
+            console.log(JSON.stringify(newProvider));
+
+            this.serviceProviderService.createNewServiceProvider(newProvider).subscribe(
+                res => console.log(res),
+                err => console.log(err),
+                () => {
+                    this.router.navigate(['/myServiceProviders']);
+                }
+            );
         }
     }
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ResourceService } from '../../services/resource.service';
 import { Provider } from '../../domain/eic-model';
 import { statusList } from '../../domain/service-provider-status-list';
+import { ServiceProviderService } from '../../services/service-provider.service';
 
 declare var UIkit: any;
 
@@ -16,7 +17,7 @@ export class ServiceProvidersListComponent implements OnInit {
     selectedProvider: Provider;
     statusList = statusList;
 
-    constructor(private resourceService: ResourceService) {}
+    constructor(private resourceService: ResourceService, private serviceProviderService: ServiceProviderService) {}
 
     ngOnInit() {
         this.getProviders();
@@ -43,7 +44,19 @@ export class ServiceProvidersListComponent implements OnInit {
             console.log('i is', i);
             this.selectedProvider.status = this.statusList[i+1];
             console.log(JSON.stringify(this.selectedProvider));
+            if (this.selectedProvider.status ==='approved') {
+                this.selectedProvider.active = true;
+            }
         }
-        UIkit.modal('#approveModal').hide();
+        const updatedFields = Object.assign({ id: this.selectedProvider.id,
+                                                    status: this.selectedProvider.status,
+                                                    active: this.selectedProvider.active});
+
+        this.serviceProviderService.updateServiceProvider(updatedFields).subscribe(
+            res => console.log(res),
+            err => console.log(err),
+            () => UIkit.modal('#approveModal').hide()
+        );
+
     }
 }

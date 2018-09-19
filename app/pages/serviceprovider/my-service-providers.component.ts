@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Provider } from '../../domain/eic-model';
+import { ServiceProviderService } from '../../services/service-provider.service';
 
 @Component({
     selector: 'my-service-providers',
@@ -8,10 +9,21 @@ import { Provider } from '../../domain/eic-model';
 export class MyServiceProvidersComponent implements OnInit {
     errorMessage: string;
 
-    myProviders: Provider[] = [];
+    myProviders: Provider[];
 
-    constructor() {}
+    constructor(private serviceProviderService: ServiceProviderService) {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.getServiceProviders();
+    }
 
+    getServiceProviders() {
+        this.serviceProviderService.getMyServiceProviders().subscribe(
+            res => this.myProviders = res,
+            err => {
+                console.log(err);
+                this.errorMessage = 'An error occurred!';
+            }
+        );
+    }
 }

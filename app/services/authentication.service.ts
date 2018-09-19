@@ -81,7 +81,7 @@ export class AuthenticationService {
             this.getUserInfo();
         } else {
 
-            // TODO: delete before push!!!
+            // TODO: comment before push!!!
             /*setCookie(this.cookieName, 'eyJzdWIiOiIxMTY0MTIwNjkzMzUwMTc0NDUyNzVAZ29vZ2xlLmNvbSIsIm5hbWUiOiLOms+Jzr3Pg8+EzrHOvc+Ezq/Ovc6/z4IgzqPPgM+Nz4HOv8+FIiwiZ2l2ZW5fbmFtZSI6Is6az4nOvc+Dz4TOsc69z4TOr869zr/PgiIsImZhbWlseV9uYW1lIjoizqPPgM+Nz4HOv8+FIiwiZW1haWwiOiJzcHlyb3Vrb25AZ21haWwuY29tIiwiZWR1cGVyc29uX3VuaXF1ZV9pZCI6IjExNjQxMjA2OTMzNTAxNzQ0NTI3NUBnb29nbGUuY29tIiwicm9sZXMiOlsiUk9MRV9QUk9WSURFUiIsIlJPTEVfVVNFUiJdfQ==',1)
             window.location.href = 'http://0.0.0.0:3000/home';*/
 

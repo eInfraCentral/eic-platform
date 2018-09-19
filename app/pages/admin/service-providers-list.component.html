@@ -24,7 +24,7 @@
 
                             <div *ngIf="errorMessage" class="uk-alert uk-alert-danger">{{errorMessage}}</div>
 
-                            <div class="middle-box animated fadeInDown ">
+                            <div class="middle-box animated fadeInDown">
 
                                 <div id="serviceForm">
                                     <table class="uk-table uk-table-striped">
@@ -40,7 +40,7 @@
                                             <tr *ngFor="let provider of providers">
                                                 <td>{{ provider.name }}</td>
                                                 <td>{{ provider.status }}</td>
-                                                <td>N/A</td>
+                                                <td>link-to-under-review-service</td>
                                                 <td class="uk-text-right">
                                                     <button *ngIf="provider.status !== 'approved'"
                                                             class="uk-button uk-button-blue"
