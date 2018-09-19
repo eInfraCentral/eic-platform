@@ -1,16 +1,4 @@
-// Generated using typescript-generator version 1.27.339 on 2018-07-26 11:35:50.
-
-export class Addenda implements Identifiable {
-    featured: boolean;
-    id: string;
-    modifiedAt: number;
-    modifiedBy: string;
-    performanceData: Measurement<any>[];
-    published: boolean;
-    registeredAt: number;
-    registeredBy: string;
-    service: string;
-}
+// Generated using typescript-generator version 1.27.339 on 2018-09-18 12:53:47.
 
 export class Dimension {
 }
@@ -35,7 +23,6 @@ export class Indicator implements Identifiable {
 }
 
 export class Service implements Identifiable {
-    availability: string;
     category: string;
     changeLog: string;
     description: string;
@@ -53,13 +40,9 @@ export class Service implements Identifiable {
     place: string[];
     price: URL;
     provider: string[];
-    providerName: string;
     relatedService: string[];
-    reliability: string;
-    request: URL;
     requiredService: string[];
     serviceLevelAgreement: URL;
-    serviceability: string;
     subcategory: string;
     symbol: URL;
     tag: string[];
@@ -77,7 +60,9 @@ export class Service implements Identifiable {
 }
 
 export class InfraService extends Service {
+    active: boolean;
     serviceMetadata: ServiceMetadata;
+    status: string;
 }
 
 export class Manager implements Identifiable {
@@ -104,11 +89,29 @@ export class Membership implements Identifiable {
 }
 
 export class Provider implements Identifiable {
+    active: boolean;
+    additionalInfo: string;
+    catalogueOfResources: URL;
     contactInformation: string;
     id: string;
     name: string;
-    service: Service[];
+    publicDescOfResources: URL;
+    status: string;
     user: User[];
+    website: URL;
+}
+
+export class RichService {
+    categoryName: string;
+    favourites: number;
+    hasRate: number;
+    isFavourite: boolean;
+    languageNames: string[];
+    ratings: number;
+    service: Service;
+    serviceMetadata: ServiceMetadata;
+    subCategoryName: string;
+    views: number;
 }
 
 export class ServiceMetadata {
@@ -132,24 +135,8 @@ export class Unit {
 export class User implements Identifiable {
     email: string;
     id: string;
-    iterationCount: number;
-    joinDate: string;
     name: string;
-    password: string;
-    resetToken: string;
-    salt: any;
     surname: string;
-}
-
-export class AAIUser implements Identifiable {
-    email: string;
-    id: string;
-    family_name: string;
-    given_name: string;
-    name: string;
-    eduperson_unique_id: string;
-    sub: string;
-    roles: string[];
 }
 
 export class Vocabulary implements Identifiable {

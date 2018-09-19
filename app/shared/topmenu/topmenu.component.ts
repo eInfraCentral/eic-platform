@@ -46,6 +46,10 @@ export class TopMenuComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+        this.isLoggedIn();
+        this.getUsername();
+        this.getUsersurname();
+
         this.navigationService.paramsObservable.subscribe(params => {
 
             if(params!=null) {
@@ -71,13 +75,28 @@ export class TopMenuComponent implements OnInit, OnDestroy {
         this.authenticationService.login();
     }
 
-    isProvider() {
-        // FIXME: complete this method
-        let roles = this.authenticationService.getUserRoles();
-        if (roles && roles.some(x => x === "ROLE_PROVIDER")) {
-            return true;
+    isLoggedIn() {
+        return this.authenticationService.isLoggedIn();
+    }
+
+    getUsername() {
+        if (this.authenticationService.isLoggedIn()) {
+            return this.authenticationService.getUserProperty('given_name');
         }
-        return false;
+    }
+
+    getUsersurname() {
+        if (this.authenticationService.isLoggedIn()) {
+            return this.authenticationService.getUserProperty('family_name');
+        }
+    }
+
+    isProvider() {
+        return this.authenticationService.getUserProperty('roles').some(x => x === "ROLE_PROVIDER");
+    }
+
+    isAdmin() {
+        return this.authenticationService.getUserProperty('roles').some(x => x === "ROLE_ADMIN");
     }
 
     // ngDoCheck(): void {

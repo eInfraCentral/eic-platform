@@ -12,9 +12,10 @@ import { HomeComponent } from "./pages/home/home.component";
 import { SearchComponent } from "./pages/search/search.component";
 import { CanActivateViaAuthGuard } from "./services/can-activate-auth-guard.service";
 import { ServiceLandingPageComponent } from "./pages/landingpages/service/service-landing-page.component";
-import { NewServiceProviderComponent } from './pages/user/addServiceProvider/new-service-provider.component';
+import { NewServiceProviderComponent } from './pages/serviceprovider/new-service-provider.component';
 import { ServiceProvidersListComponent } from './pages/admin/service-providers-list.component';
-import { AddFirstServiceComponent } from './pages/user/addServiceProvider/add-first-service.component';
+import { AddFirstServiceComponent } from './pages/serviceprovider/add-first-service.component';
+import { MyServiceProvidersComponent } from './pages/serviceprovider/my-service-providers.component';
 
 const appRoutes: Routes = [
     {
@@ -91,6 +92,11 @@ const appRoutes: Routes = [
     {
         path: "newServiceProvider/:id/addFirstService",
         component: AddFirstServiceComponent,
+        canActivate: [CanActivateViaAuthGuard]
+    },
+    {
+        path: "myServiceProviders",
+        component: MyServiceProvidersComponent,
         canActivate: [CanActivateViaAuthGuard]
     },
     {

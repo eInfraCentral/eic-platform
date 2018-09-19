@@ -3,7 +3,7 @@
         <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid="">
             <div class="uk-width-1-1@m uk-first-column">
 
-                <h1 class="uk-h3">Service Providers</h1>
+                <h1 class="uk-h3">My Service Providers</h1>
 
                 <!-- TOP HELP CONTENT -->
                 <help-content #topHelperContent [position]="'top'"
@@ -25,28 +25,30 @@
                             <div *ngIf="errorMessage" class="uk-alert uk-alert-danger">{{errorMessage}}</div>
 
                             <div class="middle-box animated fadeInDown ">
-
+                                <div>Coming soon ...</div>
                                 <div id="serviceForm">
                                     <table class="uk-table uk-table-striped">
                                         <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Current Status</th>
-                                                <th>service template</th>
-                                                <th></th>
-                                            </tr>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Current Status</th>
+                                            <th>service template</th>
+                                            <th></th>
+                                        </tr>
                                         </thead>
-                                        <tbody *ngIf="providers">
-                                            <tr *ngFor="let provider of providers">
-                                                <td>{{ provider.name }}</td>
-                                                <td>{{ provider.status }}</td>
-                                                <td>N/A</td>
-                                                <td class="uk-text-right">
-                                                    <button *ngIf="provider.status !== 'approved'"
-                                                            class="uk-button uk-button-blue"
-                                                            (click)="approveStatusChange(provider)">Approve</button>
-                                                </td>
-                                            </tr>
+                                        <tbody *ngIf="myProviders">
+                                        <tr *ngFor="let provider of myProviders">
+                                            <td>{{ provider.name }}</td>
+                                            <td>N/A</td>
+                                            <td>N/A</td>
+                                            <td class="uk-text-right">
+                                                <a *ngIf="provider.service && provider.service.length === 0"
+                                                   class="uk-button uk-button-blue"
+                                                   routerLink="{{ '/newServiceProvider/' + provider.id + '/addFirstService' }}">
+                                                    Add first Service
+                                                </a>
+                                            </td>
+                                        </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -70,13 +72,5 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
-
-<div id="approveModal" uk-modal>
-    <div class="uk-modal-dialog uk-modal-body">
-        <h4>Approve the change of status?</h4>
-        <button class="uk-button uk-button-primary" type="button" (click)="updateSelectedProvider()">OK</button>
-        <button class="uk-button uk-button-primary uk-modal-close" type="button">Cancel</button>
     </div>
 </div>

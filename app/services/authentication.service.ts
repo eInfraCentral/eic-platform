@@ -3,7 +3,6 @@
  */
 
 import {Injectable} from "@angular/core";
-import {AAIUser} from "../domain/eic-model";
 import {deleteCookie, getCookie, setCookie} from "../domain/utils";
 import {NavigationService} from "./navigation.service";
 import {isNullOrUndefined} from "util";
@@ -12,19 +11,19 @@ import {isNullOrUndefined} from "util";
 export class AuthenticationService {
     redirectURL: string = "/dashboard";
     cookieName: string = "info";
-    user: AAIUser = null;
+    user = null;
 
     constructor(public router: NavigationService) {
         // this.user = JSON.parse(getCookie(this.cookieName));
     }
 
-    public loginOLD(user: AAIUser) {
+    /*public loginOLD(user: AAIUser) {
         if (!this.isLoggedIn()) {
             setCookie(this.cookieName, JSON.stringify(user), 1);
             this.user = user;
             this.router.go(this.redirectURL);
         }
-    }
+    }*/
 
     public b64DecodeUnicode(str: string) {
         return decodeURIComponent(Array.prototype.map.call(atob(str), function(c) {
@@ -33,6 +32,15 @@ export class AuthenticationService {
     }
 
     public getUserInfo() {
+        /*{
+            "sub":"116412069335017445275@google.com",
+            "name":"Κωνσταντίνος Σπύρου",
+            "given_name":"Κωνσταντίνος",
+            "family_name":"Σπύρου",
+            "email":"spyroukon@gmail.com",
+            "eduperson_unique_id":"116412069335017445275@google.com"
+        }*/
+
         // retrieve user information from cookie
         if (!this.isLoggedIn() && getCookie(this.cookieName) !== null) {
             console.log(this.b64DecodeUnicode(getCookie(this.cookieName)));
@@ -40,11 +48,23 @@ export class AuthenticationService {
 
             this.user = JSON.parse(this.b64DecodeUnicode(getCookie(this.cookieName)));
             this.user.id = this.user.eduperson_unique_id;
+
+            // this.user.roles.push('ROLE_ADMIN');
+            // this.user.roles.push('ROLE_PROVIDER');
+
             sessionStorage.setItem('userInfo', JSON.stringify(this.user));
             // console.log(this.user);
             // this.user = user;
             // this.router.go(this.redirectURL);
         }
+    }
+
+    getUser() {
+        const user = JSON.parse(sessionStorage.getItem('userInfo'));
+        if (!isNullOrUndefined(user)) {
+            return user;
+        }
+        return null;
     }
 
     getUserProperty(property: string) {
@@ -55,11 +75,19 @@ export class AuthenticationService {
         return null;
     }
 
-    public login(user?: AAIUser) {
+    public login() {
         if (getCookie(this.cookieName) !== null) {
+            console.log('found cookie');
             this.getUserInfo();
         } else {
-            window.location.href = process.env.API_ENDPOINT + "/openid_connect_login";
+
+            // TODO: delete before push!!!
+            setCookie(this.cookieName, 'eyJzdWIiOiIxMTY0MTIwNjkzMzUwMTc0NDUyNzVAZ29vZ2xlLmNvbSIsIm5hbWUiOiLOms+Jzr3Pg8+EzrHOvc+Ezq/Ovc6/z4IgzqPPgM+Nz4HOv8+FIiwiZ2l2ZW5fbmFtZSI6Is6az4nOvc+Dz4TOsc69z4TOr869zr/PgiIsImZhbWlseV9uYW1lIjoizqPPgM+Nz4HOv8+FIiwiZW1haWwiOiJzcHlyb3Vrb25AZ21haWwuY29tIiwiZWR1cGVyc29uX3VuaXF1ZV9pZCI6IjExNjQxMjA2OTMzNTAxNzQ0NTI3NUBnb29nbGUuY29tIiwicm9sZXMiOlsiUk9MRV9QUk9WSURFUiIsIlJPTEVfVVNFUiJdfQ==',1)
+            window.location.href = 'http://0.0.0.0:3000/home';
+
+            // TODO: restore the login uri
+            //window.location.href = process.env.API_ENDPOINT + "/openid_connect_login";
+
         }
     }
 

@@ -3,7 +3,7 @@
  */
 import {Component} from "@angular/core";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {AAIUser, User} from "../../../domain/eic-model";
+import {User} from "../../../domain/eic-model";
 import {AuthenticationService} from "../../../services/authentication.service";
 import {UserService} from "../../../services/user.service";
 
@@ -26,15 +26,15 @@ export class LoginComponent {
     }
 
     onSubmit(myUser: User, isValid: boolean) {
-        if (isValid || ( (myUser.email !== '') && (myUser.password !== '') )) {
+        /*if (isValid || ( (myUser.email !== '') && (myUser.password !== '') )) {
             this.userService.loginUser(myUser.email, myUser.password).subscribe(user => this.saveLoginStatus(user));
         } else {
             this.errorMessage = "Invalid";
-        }
+        }*/
     }
 
-    saveLoginStatus(user: AAIUser) {
+    /*saveLoginStatus(user: AAIUser) {
         this.authenticationService.login(user);
         this.submitted = true;
-    }
+    }*/
 }

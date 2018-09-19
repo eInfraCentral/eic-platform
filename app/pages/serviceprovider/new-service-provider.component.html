@@ -33,19 +33,16 @@
                                                [ngClass]="{'uk-form-danger': !newProviderForm.get('organizationName').valid && newProviderForm.get('organizationName').dirty}">
                                     </div>
                                     <div class="uk-margin-medium-bottom">
-                                        <label class="uk-form-label" for="firstName">{{ firstNameDesc.label }}</label>
-                                        <input id="firstName" class="uk-input" type="text" formControlName="firstName"
-                                               [ngClass]="{'uk-form-danger': !newProviderForm.get('firstName').valid && newProviderForm.get('firstName').dirty}">
+                                        <label class="uk-form-label">{{ firstNameDesc.label }}</label>
+                                        <span class="uk-input">{{ userInfo.given_name }}</span>
                                     </div>
                                     <div class="uk-margin-medium-bottom">
-                                        <label class="uk-form-label" for="lastName">{{ lastNameDesc.label }}</label>
-                                        <input id="lastName" class="uk-input" type="text" formControlName="lastName"
-                                               [ngClass]="{'uk-form-danger': !newProviderForm.get('lastName').valid && newProviderForm.get('lastName').dirty}">
+                                        <label class="uk-form-label">{{ lastNameDesc.label }}</label>
+                                        <span class="uk-input">{{ userInfo.family_name }}</span>
                                     </div>
                                     <div class="uk-margin-medium-bottom">
-                                        <label class="uk-form-label" for="email">{{ emailDesc.label }}</label>
-                                        <input id="email" class="uk-input" type="text" formControlName="email"
-                                               [ngClass]="{'uk-form-danger': !newProviderForm.get('email').valid && newProviderForm.get('email').dirty}">
+                                        <label class="uk-form-label">{{ emailDesc.label }}</label>
+                                        <span class="uk-input">{{ userInfo.email }}</span>
                                     </div>
                                     <div class="uk-margin-medium-bottom">
                                         <label class="uk-form-label" for="phoneNumber">{{ phoneNumberDesc.label }}</label>
