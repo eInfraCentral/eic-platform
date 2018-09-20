@@ -68,7 +68,8 @@ export class NewServiceProviderComponent implements OnInit {
     }
 
     registerProvider() {
-        // TODO: Return the user id when it becomes available
+        // TODO: post the user id when it becomes available
+        this.errorMessage = '';
         if (this.newProviderForm.valid) {
             console.log(JSON.stringify(this.newProviderForm.value));
             let newProvider = Object.assign(
@@ -83,7 +84,10 @@ export class NewServiceProviderComponent implements OnInit {
 
             this.serviceProviderService.createNewServiceProvider(newProvider).subscribe(
                 res => console.log(res),
-                err => console.log(err),
+                err => {
+                    console.log(err);
+                    this.errorMessage = "Please fill in all required fields (marked with an asterisk), and fix the data format in fields underlined with a red colour.";
+                },
                 () => {
                     this.router.navigate(['/myServiceProviders']);
                 }

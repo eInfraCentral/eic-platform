@@ -1,10 +1,12 @@
-import {Component, OnInit} from "@angular/core";
-import {Service} from "../../../domain/eic-model";
+import { Component, OnInit} from "@angular/core";
+import { Provider, Service } from '../../../domain/eic-model';
 import {AuthenticationService} from "../../../services/authentication.service";
 import {NavigationService} from "../../../services/navigation.service";
 import {ResourceService} from "../../../services/resource.service";
 import {UserService} from "../../../services/user.service";
 import {Observable} from "rxjs/Observable";
+import { ActivatedRoute } from '@angular/router';
+import { ServiceProviderService } from '../../../services/service-provider.service';
 
 declare var require: any;
 
@@ -14,7 +16,8 @@ declare var require: any;
     styleUrls: ["./dashboard.component.css"]
 })
 export class DashboardComponent implements OnInit {
-    provider: string;
+    providerId: string;
+    provider: Provider;
     providerServices: Service[] = [];
     providerServicesGroupedByPlace: any;
     providerCoverage: string[];
@@ -29,41 +32,43 @@ export class DashboardComponent implements OnInit {
     providerVisitationPercentageOptions: any = null;
     providerMapOptions: any = null;
 
-    constructor(public authenticationService: AuthenticationService, public userService: UserService,
-                public resourceService: ResourceService, public router: NavigationService) {
+    constructor(public authenticationService: AuthenticationService,
+                public userService: UserService,
+                public resourceService: ResourceService,
+                public router: NavigationService,
+                private route: ActivatedRoute,
+                private providerService: ServiceProviderService) {
     }
 
     ngOnInit() {
+        this.providerId = this.route.snapshot.paramMap.get('provider');
         Observable.zip(
             this.resourceService.getEU(),
             this.resourceService.getWW(),
-            this.resourceService.getProvidersNames()
+            this.providerService.getServiceProviderById(this.providerId)
+            /*this.resourceService.getProvidersNames()*/
         ).subscribe(suc => {
             this.EU = suc[0];
             this.WW = suc[1];
-            for (let provider in suc[2]) {
-                if (this.authenticationService.user.email === provider + "@eic") {
-                    //eventually manager/provider/aai should provide the relevant info,
-                    // but for now, we just check if user's email=provider+eic
-                    this.provider = provider;
-                }
-            }
-            this.getDataForProvider(this.provider);
+            this.provider = suc[2];
+            this.getDataForProvider();
         });
     }
 
-    getDataForProvider(provider) {
+    getDataForProvider() {
 
-        this.resourceService.getServicesOfferedByProvider(provider)
+        this.providerService.getServicesOfProvider(this.providerId)
         .subscribe(res => {
             this.providerServices = res;
             this.providerServicesGroupedByPlace = this.groupServicesOfProviderPerPlace(this.providerServices);
-            this.providerCoverage = Object.keys(this.providerServicesGroupedByPlace);
+            if (this.providerServicesGroupedByPlace) {
+                this.providerCoverage = Object.keys(this.providerServicesGroupedByPlace);
 
-            this.setCountriesForProvider(this.providerCoverage);
+                this.setCountriesForProvider(this.providerCoverage);
+            }
         });
 
-        this.resourceService.getVisitsForProvider(this.provider).map(data => {
+        this.resourceService.getVisitsForProvider(this.providerId).map(data => {
             //THESE 3 weird lines should be deleted when pgl makes everything ok :)
             return Object.entries(data).map((d) => {
                 return [new Date(d[0]).getTime(),d[1]];
@@ -73,7 +78,7 @@ export class DashboardComponent implements OnInit {
             // error => this.handleError(<any>error)
         );
 
-        this.resourceService.getFavouritesForProvider(this.provider).map(data => {
+        this.resourceService.getFavouritesForProvider(this.providerId).map(data => {
             //THESE 3 weird lines should be deleted when pgl makes everything ok :)
             return Object.entries(data).map((d) => {
                 return [new Date(d[0]).getTime(),d[1]];
@@ -83,7 +88,7 @@ export class DashboardComponent implements OnInit {
             // error => this.handleError(<any>error)
         );
 
-        this.resourceService.getRatingsForProvider(this.provider).map(data => {
+        this.resourceService.getRatingsForProvider(this.providerId).map(data => {
             //THESE 3 weird lines should be deleted when pgl makes everything ok :)
             return Object.entries(data).map((d) => {
                 return [new Date(d[0]).getTime(),d[1]];
@@ -93,10 +98,12 @@ export class DashboardComponent implements OnInit {
             // error => this.handleError(<any>error)
         );
 
-        this.resourceService.getVisitationPercentageForProvider(this.provider).map(data => {
+        this.resourceService.getVisitationPercentageForProvider(this.providerId).map(data => {
             //THESE 3 weird lines should be deleted when pgl makes everything ok :)
             return Object.entries(data).map((d) => {
-                return {name : d[0], y : d[1]};
+                if (d[1] !== 'NaN') {
+                    return {name : d[0], y : d[1]};
+                }
             });
         }).subscribe(
             data => this.setVisitationsForProvider(data),
@@ -109,12 +116,14 @@ export class DashboardComponent implements OnInit {
 
     groupServicesOfProviderPerPlace(services: Service[]) {
         let ret = {};
-        for (let service of services) {
-            for (let place of service.place) {
-                if (ret[place]) {
-                    ret[place].push(this.providerServices);
-                } else {
-                    ret[place] = [];
+        if (this.providerServices && this.providerServices.length > 0) {
+            for (let service of services) {
+                for (let place of service.place) {
+                    if (ret[place]) {
+                        ret[place].push(this.providerServices);
+                    } else {
+                        ret[place] = [];
+                    }
                 }
             }
         }
@@ -122,7 +131,7 @@ export class DashboardComponent implements OnInit {
     }
 
     goToServiceDashboard(id: string) {
-        return this.router.dashboard(id);
+        return this.router.dashboard(this.providerId, id);
     }
 
     setVisitsForProvider(data : any) {
@@ -258,7 +267,7 @@ export class DashboardComponent implements OnInit {
                 // borderWidth: 1
             },
             title: {
-                text: 'Countries serviced by ' + this.provider
+                text: 'Countries serviced by ' + this.provider.name
             },
             // subtitle: {
             //     text: 'Demo of drawing all areas in the map, only highlighting partial data'

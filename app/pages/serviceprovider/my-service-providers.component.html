@@ -31,8 +31,7 @@
                                         <tr>
                                             <th>Name</th>
                                             <th>Current Status</th>
-                                            <th>service template</th>
-                                            <th></th>
+                                            <th>Actions</th>
                                         </tr>
                                         </thead>
                                         <tr *ngIf="myProviders.length === 0">
@@ -40,14 +39,13 @@
                                         </tr>
                                         <tbody *ngIf="myProviders.length > 0">
                                         <tr *ngFor="let provider of myProviders">
-                                            <td>{{ provider.name }}</td>
-                                            <td>N/A</td>
-                                            <td>N/A</td>
+                                            <td><a [routerLink]="['/dashboard',provider.id]" title="Go to provider dashboard">{{ provider.name }}</a></td>
+                                            <td>{{ provider.status }}</td>
                                             <td class="uk-text-right">
-                                                <a *ngIf="provider.service && provider.service.length === 0"
+                                                <a *ngIf="provider.status === 'pending service template approval'"
                                                    class="uk-button uk-button-blue"
-                                                   routerLink="{{ '/newServiceProvider/' + provider.id + '/addFirstService' }}">
-                                                    Add first Service
+                                                   routerLink="{{ getLinkToFirstService(provider.id) }}">
+                                                    {{ hasCreatedFirstService(provider.id) ? 'Go to': 'Add'}} first Service
                                                 </a>
                                             </td>
                                         </tr>

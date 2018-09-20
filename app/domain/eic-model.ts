@@ -39,7 +39,7 @@ export class Service implements Identifiable {
     order: URL;
     place: string[];
     price: URL;
-    provider: string[];
+    providers: string[];
     relatedService: string[];
     requiredService: string[];
     serviceLevelAgreement: URL;

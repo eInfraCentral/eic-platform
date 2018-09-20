@@ -16,6 +16,7 @@ export class ServiceProvidersListComponent implements OnInit {
     providers: Provider[] = [];
     selectedProvider: Provider;
     statusList = statusList;
+    pendingFirstServicePerProvider: any[] = [];
 
     constructor(private resourceService: ResourceService, private serviceProviderService: ServiceProviderService) {}
 
@@ -24,13 +25,31 @@ export class ServiceProvidersListComponent implements OnInit {
     }
 
     getProviders() {
-        this.resourceService.getProviders().subscribe(
-            res => this.providers = res['results'],
-            err => {
-                console.log(err);
-                this.errorMessage = 'The list could not be retrieved';
-            }
-        );
+        setTimeout( () => {
+            this.resourceService.getProviders().subscribe(
+                res => this.providers = res['results'],
+                err => {
+                    console.log(err);
+                    this.errorMessage = 'The list could not be retrieved';
+                },
+                () => {
+                    this.providers.forEach(
+                        p => {
+                            if (p.status === 'pending service template approval') {
+                                this.serviceProviderService.getPendingServicesOfProvider(p.id).subscribe(
+                                    res => {
+                                        if (res && (res.length > 0) ) {
+                                            this.pendingFirstServicePerProvider.push({ providerId: p.id, serviceId: res[0].id })
+                                        }
+                                    }
+                                );
+                            }
+                        }
+                    );
+                }
+
+            );
+        }, 1000);
     }
 
     approveStatusChange(provider: Provider) {
@@ -41,22 +60,38 @@ export class ServiceProvidersListComponent implements OnInit {
     updateSelectedProvider() {
         if ( this.selectedProvider && (this.selectedProvider.status !=='approved') ) {
             const i = this.statusList.indexOf(this.selectedProvider.status);
-            console.log('i is', i);
-            this.selectedProvider.status = this.statusList[i+1];
-            console.log(JSON.stringify(this.selectedProvider));
-            if (this.selectedProvider.status ==='approved') {
-                this.selectedProvider.active = true;
+            let active = false;
+            if (this.statusList[i+1] ==='approved') {
+                active = true;
             }
-        }
-        const updatedFields = Object.assign({ id: this.selectedProvider.id,
-                                                    status: this.selectedProvider.status,
-                                                    active: this.selectedProvider.active});
+            const updatedFields = Object.assign({ id: this.selectedProvider.id,
+                                                        status: this.statusList[i+1],
+                                                        active: active});
 
-        this.serviceProviderService.updateServiceProvider(updatedFields).subscribe(
-            res => console.log(res),
-            err => console.log(err),
-            () => UIkit.modal('#approveModal').hide()
-        );
+            this.serviceProviderService.updateServiceProvider(updatedFields).subscribe(
+                res => console.log(res),
+                err => {
+                        console.log(err);
+                    },
+                () => {
+                    UIkit.modal('#approveModal').hide();
+                    this.providers = [];
+                    this.getProviders();
+                }
+            );
+        }
 
     }
+
+    hasCreatedFirstService(id: string) {
+        return this.pendingFirstServicePerProvider.some(x => x.providerId === id);
+    }
+
+    getLinkToFirstService(id: string) {
+        if (this.hasCreatedFirstService(id)) {
+            return '/service/' + this.pendingFirstServicePerProvider.filter(x => x.providerId === id)[0].serviceId;
+        }
+        return '';
+    }
+
 }

@@ -21,7 +21,7 @@
                                     {{service.name || "Not Available"}}
 
                                     <!--TODO: UNCOMMENT WHEN NEW SERVICE SCHEMA WORKS !!!-->
-                                    <span class="uk-margin-left" *ngIf="this.userService.canEditService(service)">
+                                    <span class="uk-margin-left" *ngIf="canEditService">
                                         <a (click)="this.router.edit(service.id)" routerLinkActive="active"><i class="fa fa-pencil"></i></a>
                                     </span>
                                 </h2>
@@ -50,7 +50,9 @@
                             <div class="uk-card uk-card-body uk-card-custom providerCard">
                                 <img src="{{service.symbol || 'http://fvtelibrary.com/img/user/NoLogo.png'}}"
                                      style="max-width: 67px;">
-                                <span class="provider">{{service.providerName | uppercase}}</span>
+                                <span class="provider" *ngFor="let provider of service.providers; let i = index">
+                                    <br *ngIf="i > 0">{{ provider | uppercase }}
+                                </span>
                             </div>
                         </div>
 

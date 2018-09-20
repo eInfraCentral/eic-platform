@@ -4,6 +4,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { Service } from '../../domain/eic-model';
 import { ServiceFormComponent } from '../eInfraServices/service-form.component';
 import { ActivatedRoute } from '@angular/router';
+import { ServiceProviderService } from '../../services/service-provider.service';
 
 @Component({
     selector: 'add-first-service',
@@ -11,7 +12,11 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AddFirstServiceComponent extends ServiceFormComponent implements OnInit {
 
-    constructor(protected injector: Injector, protected authenticationService: AuthenticationService, private route: ActivatedRoute) {
+    pendingServices: Service[] = [];
+
+    constructor(protected injector: Injector,
+                protected authenticationService: AuthenticationService,
+                private route: ActivatedRoute) {
         super(injector, authenticationService);
         this.editMode = false;
     }

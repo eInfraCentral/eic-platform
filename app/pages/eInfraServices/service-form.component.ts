@@ -163,8 +163,8 @@ export class ServiceFormComponent {
         //TODO: check if model is valid
         if (isValid) {
             if ( (this.firstServiceForm === true) && this.providerId) {
-                service.provider = [];
-                service.provider.push(this.providerId);
+                service.providers = [];
+                service.providers.push(this.providerId);
             }
             this.resourceService.uploadService(this.toServer(service), this.editMode)
             .subscribe(service => {

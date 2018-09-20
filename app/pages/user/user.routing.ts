@@ -24,12 +24,12 @@ const userRoutes: Routes = [
         canActivate: [CanActivateViaPubGuard]
     },
     {
-        path: "dashboard",
+        path: "dashboard/:provider",
         component: DashboardComponent,
         canActivate: [CanActivateViaAuthGuard]
     },
     {
-        path: "dashboard/:id",
+        path: "dashboard/:provider/:id",
         component: ServiceDashboardComponent,
         canActivate: [CanActivateViaAuthGuard]
     },

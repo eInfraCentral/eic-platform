@@ -2,11 +2,12 @@ import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs/Observable";
 import {Subscription} from "rxjs/Subscription";
-import {Service} from "../../../domain/eic-model";
+import { Provider, Service } from '../../../domain/eic-model';
 import {AuthenticationService} from "../../../services/authentication.service";
 import {NavigationService} from "../../../services/navigation.service";
 import {ResourceService} from "../../../services/resource.service";
 import {UserService} from "../../../services/user.service";
+import { ServiceProviderService } from '../../../services/service-provider.service';
 
 @Component({
     selector: "service-landing-page",
@@ -21,16 +22,18 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
     public EU: string[];
     public WW: string[];
     private sub: Subscription;
-    private providers: any = {};
     private vocabularies: any = [];
     public stats: any = {visits: 0, favourites: 0, externals: 0};
 
     serviceMapOptions: any = null;
     isUserFavourite: boolean;
     userRating = 0;
+    myProviders: Provider[] = [];
+    canEditService: boolean = false;
 
     constructor(public route: ActivatedRoute, public router: NavigationService, public resourceService: ResourceService,
-                public authenticationService: AuthenticationService, public userService: UserService) {
+                public authenticationService: AuthenticationService, public userService: UserService,
+                private providerService: ServiceProviderService) {
     }
 
     ngOnInit() {
@@ -39,23 +42,26 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
                 this.resourceService.getEU(),
                 this.resourceService.getWW(),
                 this.resourceService.getService(params["id"], params['version']),
-                this.resourceService.getProvidersNames(),
                 this.resourceService.getVocabularies(),
                 this.resourceService.getVisitsForService(params["id"]),
                 this.resourceService.getFavouritesForService(params["id"]),
                 this.resourceService.getExternalsForService(params["id"]),
+                this.providerService.getMyServiceProviders(),
                 this.resourceService.recordEvent(params["id"], "INTERNAL")
             ).subscribe(suc => {
                 this.EU = suc[0];
                 this.WW = suc[1];
                 this.service = suc[2];
-                this.providers = suc[3];
-                this.vocabularies = suc[4];
-                this.stats.visits = Object.values(suc[5]).reduce((acc, v) => acc + v, 0);
-                this.stats.favourites = Object.values(suc[6]).reduce((acc, v) => acc + v, 0);
-                this.stats.externals = Object.values(suc[7]).reduce((acc, v) => acc + v, 0);
+                this.vocabularies = suc[3];
+                this.stats.visits = Object.values(suc[4]).reduce((acc, v) => acc + v, 0);
+                this.stats.favourites = Object.values(suc[5]).reduce((acc, v) => acc + v, 0);
+                this.stats.externals = Object.values(suc[6]).reduce((acc, v) => acc + v, 0);
+                this.myProviders = suc[7];
                 this.router.breadcrumbs = this.service.name;
                 this.setCountriesForService(this.service.place);
+
+                /* check if the current user can edit the service */
+                this.canEditService = this.myProviders.some( p => this.service.providers.some(x => x === p.id) );
 
                 let serviceIDs = (this.service.requiredService || []).concat(this.service.relatedService || [])
                 .filter((e, i, a) => a.indexOf(e) === i);

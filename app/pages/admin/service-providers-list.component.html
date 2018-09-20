@@ -33,14 +33,20 @@
                                                 <th>Name</th>
                                                 <th>Current Status</th>
                                                 <th>service template</th>
-                                                <th></th>
+                                                <th>Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody *ngIf="providers">
                                             <tr *ngFor="let provider of providers">
                                                 <td>{{ provider.name }}</td>
                                                 <td>{{ provider.status }}</td>
-                                                <td>link-to-under-review-service</td>
+                                                <td>
+                                                    <a  *ngIf="hasCreatedFirstService(provider.id)"
+                                                        routerLink="{{ getLinkToFirstService(provider.id) }}">
+
+                                                        See the service page
+                                                    </a>
+                                                </td>
                                                 <td class="uk-text-right">
                                                     <button *ngIf="provider.status !== 'approved'"
                                                             class="uk-button uk-button-blue"

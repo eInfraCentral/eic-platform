@@ -4,13 +4,14 @@
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs/Subscription";
-import { Service, ServiceHistory } from "../../../domain/eic-model";
+import { Provider, Service, ServiceHistory } from '../../../domain/eic-model';
 import {AuthenticationService} from "../../../services/authentication.service";
 import {NavigationService} from "../../../services/navigation.service";
 import {ResourceService} from "../../../services/resource.service";
 import {UserService} from "../../../services/user.service";
 import {Observable} from "rxjs/Observable";
 import { SearchResults } from "../../../domain/search-results";
+import { ServiceProviderService } from '../../../services/service-provider.service';
 
 @Component({
     selector: "service-dashboard",
@@ -32,9 +33,12 @@ export class ServiceDashboardComponent implements OnInit {
     serviceMapOptions: any = null;
 
     serviceHistory: SearchResults<ServiceHistory>;
+    myProviders: Provider[] = [];
+    canEditService: boolean = false;
 
     constructor(private route: ActivatedRoute, private router: NavigationService, private resourceService: ResourceService,
-                private authenticationService: AuthenticationService, private userService: UserService) {
+                private authenticationService: AuthenticationService, private userService: UserService,
+                private providerService: ServiceProviderService) {
     }
 
     ngOnInit() {
@@ -42,13 +46,17 @@ export class ServiceDashboardComponent implements OnInit {
             Observable.zip(
                 this.resourceService.getEU(),
                 this.resourceService.getWW(),
-                this.resourceService.getService(params["id"])
+                this.resourceService.getService(params["id"]),
+                this.providerService.getMyServiceProviders()
             ).subscribe(suc => {
                 this.EU = suc[0];
                 this.WW = suc[1];
                 this.service = suc[2];
+                this.myProviders = suc[3];
                 this.getDataForService(this.service);
-            });
+
+                /* check if the current user can edit the service */
+                this.canEditService = this.myProviders.some( p => this.service.providers.some(x => x === p.id) );            });
         });
     }
 

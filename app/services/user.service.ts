@@ -16,10 +16,11 @@ export class UserService {
                 public resourceService: ResourceService) {
     }
 
-    addFavourite(serviceID: string) {
+    addFavourite(serviceID: string, value?:string) {
         if (this.authenticationService.isLoggedIn()) {
-            return this.http.put(`/event/favourite/service/${serviceID}/user/${this.authenticationService.getUserProperty("id")}`,{});
-            // return this.resourceService.recordEvent(serviceID, "FAVOURITE", 1).subscribe(console.log);
+            return this.http.put(`/event/favourite/service/${serviceID}`,{});
+            //new addFavourite method
+            /*return this.http.post(`/event/favourite/service/${serviceID}?value=${value}`,{});*/
         } else {
             this.router.login();
         }
@@ -27,7 +28,7 @@ export class UserService {
 
     public getFavouritesOfUser() {
         if (this.authenticationService.isLoggedIn()) {
-            return this.http.get(`/event/favourite/all/user/${this.authenticationService.getUserProperty("id")}`);
+            return this.http.get(`/event/favourite/all`);
         } else {
             return null;
         }
@@ -35,7 +36,7 @@ export class UserService {
 
     getIfFavouriteOfUser(service: string) {
         if (this.authenticationService.isLoggedIn()) {
-            return this.http.get(`/event/favourite/service/${service}/user/${this.authenticationService.getUserProperty("id")}`);
+            return this.http.get(`/event/favourite/service/${service}`);
         } else {
             this.router.login();
         }
@@ -50,13 +51,14 @@ export class UserService {
     }
 
     public canEditService(service: Service) {
-        return this.authenticationService.isLoggedIn() && service.provider && service.provider.length > 0 &&
-            service.provider.indexOf(this.authenticationService.getUser()) > -1;
+        /*return this.authenticationService.isLoggedIn() && service.providers && service.providers.length > 0 &&
+            service.providers.indexOf(this.authenticationService.getUser()) > -1;*/
+        return false;
     }
 
     public rateService(serviceID: string, rating: any) {
         if (this.authenticationService.isLoggedIn()) {
-            return this.http.put(`/event/rating/service/${serviceID}/user/${this.authenticationService.getUserProperty("id")}?rating=${rating}`,{});
+            return this.http.put(`/event/rating/service/${serviceID}?rating=${rating}`,{});
             // return this.resourceService.recordEvent(serviceID, "RATING", value).subscribe(console.log);
         } else {
             this.router.login();
@@ -65,7 +67,7 @@ export class UserService {
 
     public getRatingsOfUser() {
         if (this.authenticationService.isLoggedIn()) {
-            return this.http.get(`/event/rating/all/user/${this.authenticationService.getUserProperty("id")}`);
+            return this.http.get(`/event/ratings`);
         } else {
             return null;
         }
@@ -73,7 +75,7 @@ export class UserService {
 
     getUserRating(service: string) {
         if (this.authenticationService.isLoggedIn()) {
-            return this.http.get(`/event/rating/service/${service}/user/${this.authenticationService.getUserProperty("id")}`);
+            return this.http.get(`/event/rating/service/${service}`);
         } else {
             this.router.login();
         }
