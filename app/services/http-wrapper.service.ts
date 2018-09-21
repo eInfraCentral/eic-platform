@@ -13,20 +13,24 @@ export class HTTPWrapper extends Http {
 
     public post(url: string, body: any, options?: RequestOptionsArgs): Observable<any> {
         // console.log(`calling ${url}`);
+        options = options || {withCredentials: true};
         return super.post(this.base + url, this.parse(body), options).map(this.getJSON).catch(this.handleError);
     }
 
     public put(url: string, body: any, options?: RequestOptionsArgs): Observable<any> {
         // console.log(`calling ${url}`);
+        options = options || {withCredentials: true};
         return super.put(this.base + url, this.parse(body), options).map(this.getJSON).catch(this.handleError);
     }
 
     public getAny(url: string, options?: RequestOptionsArgs): Observable<any> {
         console.log(`calling ${url}`);
+        options = options || {withCredentials: true};
         return super.get(url, options).map(this.getJSON).catch(this.handleError);
     }
 
     public get(url: string, options?: RequestOptionsArgs): Observable<any> {
+        options = options || {withCredentials: true};
         return this.getAny(this.base + url, options);
     }
 
