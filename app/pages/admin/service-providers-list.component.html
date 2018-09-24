@@ -38,17 +38,21 @@
                                         </thead>
                                         <tbody *ngIf="providers">
                                             <tr *ngFor="let provider of providers">
-                                                <td>{{ provider.name }}</td>
+                                                <td><a [routerLink]="['/dashboard',provider.id]" title="Go to provider dashboard">
+                                                    {{ provider.name }}
+                                                </a></td>
                                                 <td>{{ provider.status }}</td>
                                                 <td>
-                                                    <a  *ngIf="hasCreatedFirstService(provider.id)"
-                                                        routerLink="{{ getLinkToFirstService(provider.id) }}">
+                                                    <a *ngIf="hasCreatedFirstService(provider.id)"
+                                                       routerLink="{{ getLinkToFirstService(provider.id) }}">
 
                                                         See the service page
                                                     </a>
                                                 </td>
                                                 <td class="uk-text-right">
-                                                    <button *ngIf="provider.status !== 'approved'"
+                                                    <button *ngIf="(provider.status === 'pending initial approval') ||
+                                                                   ((provider.status === 'pending service template approval') &&
+                                                                     hasCreatedFirstService(provider.id))"
                                                             class="uk-button uk-button-blue"
                                                             (click)="approveStatusChange(provider)">Approve</button>
                                                 </td>

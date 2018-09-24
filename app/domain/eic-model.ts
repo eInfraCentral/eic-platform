@@ -1,4 +1,4 @@
-// Generated using typescript-generator version 1.27.339 on 2018-09-18 12:53:47.
+// Generated using typescript-generator version 1.27.339 on 2018-09-24 17:11:32.
 
 export class Dimension {
 }
@@ -101,14 +101,13 @@ export class Provider implements Identifiable {
     website: URL;
 }
 
-export class RichService {
+export class RichService extends Service {
     categoryName: string;
     favourites: number;
     hasRate: number;
     isFavourite: boolean;
     languageNames: string[];
     ratings: number;
-    service: Service;
     serviceMetadata: ServiceMetadata;
     subCategoryName: string;
     views: number;
@@ -140,11 +139,16 @@ export class User implements Identifiable {
 }
 
 export class Vocabulary implements Identifiable {
-    extra: string[];
+    entry: { [index: string]: VocabularyEntry };
     id: string;
     name: string;
-    parent: string;
-    type: string;
+}
+
+export class VocabularyEntry {
+    child: VocabularyEntry[];
+    extra: { [index: string]: string };
+    id: string;
+    name: string;
 }
 
 export class URL implements Serializable {

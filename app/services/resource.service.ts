@@ -5,7 +5,7 @@ import {Injectable} from "@angular/core";
 import {RequestOptions, URLSearchParams} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import {BrowseResults} from "../domain/browse-results";
-import { Service, ServiceHistory } from "../domain/eic-model";
+import { RichService, Service, ServiceHistory } from '../domain/eic-model';
 import {SearchResults} from "../domain/search-results";
 import {URLParameter} from "../domain/url-parameter";
 import {AuthenticationService} from "./authentication.service";
@@ -64,7 +64,8 @@ export class ResourceService {
         }
         searchQuery.delete("to");
         let questionMark = urlParameters.length > 0 ? "?" : "";
-        return this.http.get(`/service/all${questionMark}${searchQuery.toString()}`).map(res => <SearchResults<Service>> <any> res);
+        /*return this.http.get(`/service/all${questionMark}${searchQuery.toString()}`).map(res => <SearchResults<Service>> <any> res);*/
+        return this.http.get(`/service/rich/all${questionMark}${searchQuery.toString()}`).map(res => <SearchResults<RichService>> <any> res);
     }
 
     getVocabularies(type?: string) {

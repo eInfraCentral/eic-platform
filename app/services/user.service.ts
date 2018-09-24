@@ -16,11 +16,11 @@ export class UserService {
                 public resourceService: ResourceService) {
     }
 
-    addFavourite(serviceID: string, value?:string) {
+    addFavourite(serviceID: string, value?:boolean) {
         if (this.authenticationService.isLoggedIn()) {
-            return this.http.put(`/event/favourite/service/${serviceID}`,{});
+            /*return this.http.put(`/event/favourite/service/${serviceID}`,{});*/
             //new addFavourite method
-            /*return this.http.post(`/event/favourite/service/${serviceID}?value=${value}`,{});*/
+            return this.http.post(`/event/favourite/service/${serviceID}?value=${value}`,{});
         } else {
             this.router.login();
         }
