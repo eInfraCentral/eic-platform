@@ -20,7 +20,6 @@
                                 <h2 class="uk-h2 uk-inline" style="margin-bottom: 5px">
                                     {{service.name || "Not Available"}}
 
-                                    <!--TODO: UNCOMMENT WHEN NEW SERVICE SCHEMA WORKS !!!-->
                                     <span class="uk-margin-left" *ngIf="canEditService">
                                         <a (click)="this.router.edit(service.id)" routerLinkActive="active"><i class="fa fa-pencil"></i></a>
                                     </span>

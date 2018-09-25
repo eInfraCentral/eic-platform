@@ -29,9 +29,9 @@ export class NavigationService {
         return this.router.navigate(["/search",any]);
     }
 
-    login() {
+    /*login() {
         return this.router.navigate(["/signIn"]);
-    }
+    }*/
 
     home() {
         return this.router.navigate(["/home"]);

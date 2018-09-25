@@ -13,7 +13,7 @@ import {SignUpComponent} from "./register/sign-up.component";
 import { NewServiceProviderComponent } from '../serviceprovider/new-service-provider.component';
 
 const userRoutes: Routes = [
-    {
+/*    {
         path: "signIn",
         component: LoginComponent,
         canActivate: [CanActivateViaPubGuard]
@@ -22,7 +22,7 @@ const userRoutes: Routes = [
         path: "signUp",
         component: SignUpComponent,
         canActivate: [CanActivateViaPubGuard]
-    },
+    },*/
     {
         path: "dashboard/:provider",
         component: DashboardComponent,
@@ -33,10 +33,10 @@ const userRoutes: Routes = [
         component: ServiceDashboardComponent,
         canActivate: [CanActivateViaAuthGuard]
     },
-    {
+/*    {
         path: "activate/:id",
         component: ActivateComponent,
         canActivate: [CanActivateViaPubGuard]
-    }
+    }*/
 ];
 export const userRouting: ModuleWithProviders = RouterModule.forChild(userRoutes);

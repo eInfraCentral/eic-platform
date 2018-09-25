@@ -54,12 +54,15 @@
                             <th class="uk-width-1-4"></th>
                             <th *ngFor="let service of services; let i = index;" class="uk-width-1-4" [ngClass]="{evenColumn: i%2==1}">
                                 <div class="uk-margin-bottom">
-                                    <star-rating-comp #rating (click)="rateService(service.id, rating.rating)"
-                                                      [starType]="'svg'" [rating]="getUserRating(service.id)" [step]="1"
+                                    <star-rating-comp #rating (click)="rateService(service, rating.rating)"
+                                                      [starType]="'svg'" [rating]="service.hasRate" [step]="1"
                                                       [showHalfStars]="true" [readOnly]=!this.authenticationService.isLoggedIn() [size]="'medium'"
-                                                      [staticColor]="'ok'" class="uk-inline starRating"></star-rating-comp>
+                                                      [staticColor]="'ok'" class="uk-inline starRating"
+                                                      labelText="({{ service.ratings }})" [labelVisible]="true" [labelPosition]="'right'">
+                                    </star-rating-comp>
                                     <span class="uk-margin-medium-left">
-                                        <span class="statsNumbers">(0)</span>
+                                        <img src="../../../../assets/images/icons/ic_visit_icon.svg">
+                                        <span class="statsNumbers">&nbsp;&nbsp;({{ service.views }})</span>
                                     </span>
                                 </div>
                             </th>
@@ -201,9 +204,11 @@
                         <tr class="noBorderTop">
                             <td class="uk-width-1-4"></td>
                             <td *ngFor="let service of services; let i = index;" class="uk-width-1-4" [ngClass]="{evenColumn: i%2==1}">
-                                <button (click)="addToFavourites(service.id)"
+                                <button (click)="addToFavourites(service)"
                                         class="uk-button uk-button-default uk-width-1-1 favoriteButton" title="Favourites" uk-tooltip="delay: 500">
-                                <i [ngClass]="getIfUserFavourite(service.id)?'fa fa-heart':'fa fa-heart-o'"></i>&nbsp;  Favorite
+                                <i [ngClass]="service.isFavourite?'fa fa-heart':'fa fa-heart-o'"></i>
+                                <span> ({{ service.favourites }})</span>
+                                 &nbsp;  Favorite
                                 </button>
                             </td>
                         </tr>

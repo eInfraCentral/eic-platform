@@ -223,7 +223,8 @@
                                                                       [starType]="'svg'"
                                                                       [rating]="resourceInfo.hasRate" [step]="1"
                                                                       [showHalfStars]="true" [readOnly]=!this.authenticationService.isLoggedIn() [size]="'small'"
-                                                                      [staticColor]="'ok'" title="Rate this service" uk-tooltip="delay: 500">
+                                                                      [staticColor]="'ok'" title="Rate this service" uk-tooltip="delay: 500"
+                                                                      labelText="({{ resourceInfo.ratings }})" [labelVisible]="true" [labelPosition]="'right'">
                                                     </star-rating-comp>
                                                 </span>
                                             </div>
@@ -249,7 +250,7 @@
                                                     <a (click)="addToFavourites(resourceInfo)">
                                                         <i [ngClass]="resourceInfo.isFavourite?'fa fa-heart':'fa fa-heart-o'"></i>
                                                     </a>
-                                                    <span class="statsNumbers">{{ 0 }}</span>
+                                                    <span class="statsNumbers">&nbsp;{{ resourceInfo.favourites }}</span>
                                                 </span>
                                                 <span class="uk-margin-medium-right">
                                                     <input type="checkbox" class="uk-margin-small-right"
@@ -259,7 +260,7 @@
                                                 </span>
                                                 <span class="uk-float-right">
                                                     <img src="../../../../assets/images/icons/ic_visit_icon.svg">
-                                                    <span class="statsNumbers">{{ 0 }}</span>
+                                                    <span class="statsNumbers">&nbsp;{{ resourceInfo.views }}</span>
                                                 </span>
                                             </div>
 
@@ -544,7 +545,8 @@
                                                 <star-rating-comp #rating2 (click)="rateService(resourceInfo, rating2.rating)" [starType]="'svg'"
                                                                   [rating]="resourceInfo.hasRate" [step]="1"
                                                                   [showHalfStars]="true" [readOnly]=!this.authenticationService.isLoggedIn() [size]="'small'"
-                                                                  [staticColor]="'ok'" title="Rate this service" uk-tooltip="delay: 500">
+                                                                  [staticColor]="'ok'" title="Rate this service" uk-tooltip="delay: 500"
+                                                                  labelText="({{ resourceInfo.ratings }})" [labelVisible]="true" [labelPosition]="'right'">
                                                 </star-rating-comp>
                                             </div>
                                         </div>
@@ -577,7 +579,7 @@
                                                 <a (click)="addToFavourites(resourceInfo)">
                                                     <i [ngClass]="resourceInfo.isFavourite?'fa fa-heart':'fa fa-heart-o'"></i>
                                                 </a>
-                                                <span class="statsNumbers">{{ 0 }}</span>
+                                                <span class="statsNumbers">&nbsp;{{ resourceInfo.favourites }}</span>
                                             </span>
                                             <span class="uk-margin-medium-right">
                                                 <input type="checkbox" class="uk-margin-small-right"
@@ -588,7 +590,7 @@
                                             </span>
                                             <span class="uk-float-right">
                                                 <img src="../../../../assets/images/icons/ic_visit_icon.svg">
-                                                <span class="statsNumbers">{{0}}</span>
+                                                <span class="statsNumbers">&nbsp;;{{ resourceInfo.views }}</span>
                                             </span>
                                         </div>
 

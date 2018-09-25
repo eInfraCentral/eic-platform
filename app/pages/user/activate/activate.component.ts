@@ -20,7 +20,7 @@ export class ActivateComponent implements OnInit {
 
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
-            this.resourceService.activateUserAccount(params["id"]).subscribe(this.router.login);
+            this.resourceService.activateUserAccount(params["id"]).subscribe(/*this.router.login*/);
         });
     }
 

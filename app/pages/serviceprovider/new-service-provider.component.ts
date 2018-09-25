@@ -68,7 +68,7 @@ export class NewServiceProviderComponent implements OnInit {
     }
 
     registerProvider() {
-        // TODO: post the user id when it becomes available
+        // TODO: add the user id to post when it becomes available
         this.errorMessage = '';
         if (this.newProviderForm.valid) {
             console.log(JSON.stringify(this.newProviderForm.value));

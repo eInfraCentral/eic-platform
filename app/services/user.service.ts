@@ -22,7 +22,7 @@ export class UserService {
             //new addFavourite method
             return this.http.post(`/event/favourite/service/${serviceID}?value=${value}`,{});
         } else {
-            this.router.login();
+            this.authenticationService.login();
         }
     }
 
@@ -38,7 +38,7 @@ export class UserService {
         if (this.authenticationService.isLoggedIn()) {
             return this.http.get(`/event/favourite/service/${service}`);
         } else {
-            this.router.login();
+            this.authenticationService.login();
         }
     }
 
@@ -61,7 +61,7 @@ export class UserService {
             return this.http.put(`/event/rating/service/${serviceID}?rating=${rating}`,{});
             // return this.resourceService.recordEvent(serviceID, "RATING", value).subscribe(console.log);
         } else {
-            this.router.login();
+            this.authenticationService.login();
         }
     }
 
@@ -77,7 +77,7 @@ export class UserService {
         if (this.authenticationService.isLoggedIn()) {
             return this.http.get(`/event/rating/service/${service}`);
         } else {
-            this.router.login();
+            this.authenticationService.login();
         }
     }
 
