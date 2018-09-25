@@ -90,7 +90,7 @@ export class CompareServicesComponent implements OnInit, OnDestroy {
 
 
     addToFavourites(service: RichService) {
-        this.userService.addFavourite(service.id, !service.isFavourite).subscribe(
+        this.userService.addFavourite(service.id, +service.isFavourite).subscribe(
             res => {
                 service.isFavourite = !service.isFavourite;
             }

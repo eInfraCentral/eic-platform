@@ -126,7 +126,9 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
     }
 
     addToFavourites() {
-        this.userService.addFavourite(this.service.id).subscribe(
+        let favourite = 0;
+        if (this.isUserFavourite === true) { favourite = 1; }
+        this.userService.addFavourite(this.service.id, favourite).subscribe(
             res => {
                 this.isUserFavourite = ( res['value'] === '1' );
                 console.log('res is', JSON.stringify(res));

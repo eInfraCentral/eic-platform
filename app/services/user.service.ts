@@ -16,7 +16,7 @@ export class UserService {
                 public resourceService: ResourceService) {
     }
 
-    addFavourite(serviceID: string, value?:boolean) {
+    addFavourite(serviceID: string, value:number) {
         if (this.authenticationService.isLoggedIn()) {
             /*return this.http.put(`/event/favourite/service/${serviceID}`,{});*/
             //new addFavourite method
