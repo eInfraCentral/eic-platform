@@ -58,7 +58,7 @@ export class UserService {
 
     public rateService(serviceID: string, rating: any) {
         if (this.authenticationService.isLoggedIn()) {
-            return this.http.put(`/event/rating/service/${serviceID}?rating=${rating}`,{});
+            return this.http.post(`/event/rating/service/${serviceID}?rating=${rating}`,{});
             // return this.resourceService.recordEvent(serviceID, "RATING", value).subscribe(console.log);
         } else {
             this.authenticationService.login();
