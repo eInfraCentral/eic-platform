@@ -25,24 +25,38 @@
                             <div *ngIf="errorMessage" class="uk-alert uk-alert-danger">{{errorMessage}}</div>
 
                             <div class="middle-box animated fadeInDown ">
-
+                                <div class="uk-padding-small uk-border-rounded uk-margin-bottom uk-width-2-3" style="border: 1px solid gray;">
+                                <!--<div class="uk-margin-bottom uk-width-2-3">-->
+                                    <div class="uk-margin-small-bottom">
+                                        <h5>An administrator will be added using your user information</h5>
+                                    </div>
+                                    <div class="uk-grid uk-grid-margin-small uk-child-width-1-2@m gridView">
+                                        <div class="serviceDetails uk-margin-small-bottom">
+                                            <label class="uk-form-label">{{ firstNameDesc.label }}:</label>
+                                        </div>
+                                        <div class="serviceDetails uk-margin-small-bottom">
+                                            <span>{{ userInfo.given_name }}</span>
+                                        </div>
+                                        <div class="serviceDetails uk-margin-small-bottom">
+                                            <label class="uk-form-label">{{ lastNameDesc.label }}:</label>
+                                        </div>
+                                        <div class="serviceDetails uk-margin-small-bottom">
+                                            <span>{{ userInfo.family_name }}</span>
+                                        </div>
+                                        <div class="serviceDetails">
+                                            <label class="uk-form-label">{{ emailDesc.label }}:</label>
+                                        </div>
+                                        <div class="serviceDetails">
+                                            <span>{{ userInfo.email }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--<hr>-->
                                 <div [formGroup]="newProviderForm" class="uk-form">
                                     <div class="uk-margin-medium-bottom">
                                         <label class="uk-form-label" for="name">{{ organizationNameDesc.label }}</label>
                                         <input id="name" class="uk-input" type="text" formControlName="name"
                                                [ngClass]="{'uk-form-danger': !newProviderForm.get('name').valid && newProviderForm.get('name').dirty}">
-                                    </div>
-                                    <div class="uk-margin-medium-bottom">
-                                        <label class="uk-form-label">{{ firstNameDesc.label }}</label>
-                                        <span class="uk-input">{{ userInfo.given_name }}</span>
-                                    </div>
-                                    <div class="uk-margin-medium-bottom">
-                                        <label class="uk-form-label">{{ lastNameDesc.label }}</label>
-                                        <span class="uk-input">{{ userInfo.family_name }}</span>
-                                    </div>
-                                    <div class="uk-margin-medium-bottom">
-                                        <label class="uk-form-label">{{ emailDesc.label }}</label>
-                                        <span class="uk-input">{{ userInfo.email }}</span>
                                     </div>
                                     <div class="uk-margin-medium-bottom">
                                         <label class="uk-form-label" for="contactInformation">{{ phoneNumberDesc.label }}</label>

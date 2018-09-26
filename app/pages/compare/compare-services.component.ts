@@ -14,6 +14,7 @@ import {NavigationService} from "../../services/navigation.service";
 import {ResourceService} from "../../services/resource.service";
 import {UserService} from "../../services/user.service";
 import { URLParameter } from '../../domain/url-parameter';
+import { isNullOrUndefined } from "util";
 
 @Component({
     selector: "compare-services",
@@ -90,18 +91,20 @@ export class CompareServicesComponent implements OnInit, OnDestroy {
 
 
     addToFavourites(service: RichService) {
-        this.userService.addFavourite(service.id, +service.isFavourite).subscribe(
-            res => {
-                service.isFavourite = !service.isFavourite;
-            }
-        );
+        if ( !isNullOrUndefined(service.isFavourite) ) {
+            this.userService.addFavourite(service.id, !service.isFavourite).subscribe(
+                res => {
+                    service.isFavourite = !service.isFavourite;
+                }
+            );
+        }
 
     }
 
     rateService(service: RichService, rating: number) {
         this.userService.rateService(service.id, rating).subscribe(
             res => {
-                service.hasRate = rating;
+                // service.hasRate = rating;
             }
         );
     }

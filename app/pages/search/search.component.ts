@@ -18,6 +18,7 @@ import {UserService} from "../../services/user.service";
 import {URLParameter} from "../../domain/url-parameter";
 import { Event, RichService, Service } from '../../domain/eic-model';
 import { IStarRatingOnClickEvent } from 'angular-star-rating';
+import { isNullOrUndefined } from 'util';
 
 declare var UIkit: any;
 
@@ -334,18 +335,20 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
 
     addToFavourites(service: RichService) {
-        this.userService.addFavourite(service.id, +service.isFavourite).subscribe(
-            res => {
-                service.isFavourite = !service.isFavourite;
-            }
-        );
+        if ( !isNullOrUndefined(service.isFavourite) ) {
+            this.userService.addFavourite(service.id, !service.isFavourite).subscribe(
+                res => {
+                    service.isFavourite = !service.isFavourite;
+                }
+            );
+        }
 
     }
 
     rateService(service: RichService, rating: number) {
         this.userService.rateService(service.id, rating).subscribe(
             res => {
-                service.hasRate = rating;
+                //service.hasRate = rating;
             }
         );
     }

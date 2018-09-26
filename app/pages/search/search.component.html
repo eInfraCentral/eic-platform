@@ -221,10 +221,10 @@
                                                 <span class="uk-inline uk-float-right" style="margin-top:5px;">
                                                     <star-rating-comp #rating (click)="rateService(resourceInfo, rating.rating)"
                                                                       [starType]="'svg'"
-                                                                      [rating]="resourceInfo.hasRate" [step]="1"
+                                                                      [rating]="resourceInfo.userRate" [step]="1"
                                                                       [showHalfStars]="true" [readOnly]=!this.authenticationService.isLoggedIn() [size]="'small'"
                                                                       [staticColor]="'ok'" title="Rate this service" uk-tooltip="delay: 500"
-                                                                      labelText="({{ resourceInfo.ratings }})" [labelVisible]="true" [labelPosition]="'right'">
+                                                                      labelText="{{resourceInfo.hasRate}} ({{ resourceInfo.ratings }})" [labelVisible]="true" [labelPosition]="'right'">
                                                     </star-rating-comp>
                                                 </span>
                                             </div>
@@ -543,10 +543,10 @@
                                         <div style="position: relative">
                                             <div style="position: absolute;left: -5px;height: 20px;">
                                                 <star-rating-comp #rating2 (click)="rateService(resourceInfo, rating2.rating)" [starType]="'svg'"
-                                                                  [rating]="resourceInfo.hasRate" [step]="1"
+                                                                  [rating]="resourceInfo.userRate" [step]="1"
                                                                   [showHalfStars]="true" [readOnly]=!this.authenticationService.isLoggedIn() [size]="'small'"
                                                                   [staticColor]="'ok'" title="Rate this service" uk-tooltip="delay: 500"
-                                                                  labelText="({{ resourceInfo.ratings }})" [labelVisible]="true" [labelPosition]="'right'">
+                                                                  labelText="{{resourceInfo.hasRate}} ({{ resourceInfo.ratings }})" [labelVisible]="true" [labelPosition]="'right'">
                                                 </star-rating-comp>
                                             </div>
                                         </div>

@@ -41,7 +41,7 @@ export class AuthenticationService {
             this.user.id = this.user.eduperson_unique_id;
 
             // TODO: comment before push
-            // this.user.roles.push('ROLE_ADMIN');
+            this.user.roles.push('ROLE_ADMIN');
             // this.user.roles.push('ROLE_PROVIDER');
 
             sessionStorage.setItem('userInfo', JSON.stringify(this.user));

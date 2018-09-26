@@ -40,10 +40,10 @@ export const fundingDesc = {label: "funding Sources", mandatory: false, desc: "S
 
 // new service provider form fields
 export const organizationNameDesc = {label: "Which organisation do you represent?", mandatory: true, desc: ""};
-export const firstNameDesc = {label: "Your first name", mandatory: true, desc: ""};
-export const lastNameDesc = {label: "Your last name", mandatory: true, desc: ""};
-export const emailDesc = {label: "Your email", mandatory: true, desc: ""};
-export const phoneNumberDesc = {label: "Contact information (your phone number)", mandatory: false, desc: ""};
+export const firstNameDesc = {label: "First name", mandatory: true, desc: ""};
+export const lastNameDesc = {label: "Last name", mandatory: true, desc: ""};
+export const emailDesc = {label: "Email address", mandatory: true, desc: ""};
+export const phoneNumberDesc = {label: "Contact information (phone number)", mandatory: false, desc: ""};
 export const organizationWebsiteDesc = {label: "The website of your organisation?", mandatory: true, desc: ""};
 export const catalogueOfResourcesDesc = {label: "Do you have a public catalogue of resources (services, data, apps, software, etc.) you are providing/offering? If yes, what is its public URL? If not publicly available, can you send us a link to the catalogue in any form?", mandatory: false, desc: ""};
 export const publicDescOfResourcesDesc = {label: "Do you maintain publicly a detailed description of resources (services, data, apps, software, etc.) you are providing/offering? If yes, what is its public URL? If not publicly available, can you send us a link to a description of a service or resource in any form?", mandatory: false, desc: ""};

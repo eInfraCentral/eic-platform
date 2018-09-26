@@ -105,6 +105,7 @@ export class RichService extends Service {
     categoryName: string;
     favourites: number;
     hasRate: number;
+    userRate: number;
     isFavourite: boolean;
     languageNames: string[];
     ratings: number;

@@ -55,10 +55,10 @@
                             <th *ngFor="let service of services; let i = index;" class="uk-width-1-4" [ngClass]="{evenColumn: i%2==1}">
                                 <div class="uk-margin-bottom">
                                     <star-rating-comp #rating (click)="rateService(service, rating.rating)"
-                                                      [starType]="'svg'" [rating]="service.hasRate" [step]="1"
+                                                      [starType]="'svg'" [rating]="service.userRate" [step]="1"
                                                       [showHalfStars]="true" [readOnly]=!this.authenticationService.isLoggedIn() [size]="'medium'"
                                                       [staticColor]="'ok'" class="uk-inline starRating"
-                                                      labelText="({{ service.ratings }})" [labelVisible]="true" [labelPosition]="'right'">
+                                                      labelText="{{service.hasRate}} ({{ service.ratings }})" [labelVisible]="true" [labelPosition]="'right'">
                                     </star-rating-comp>
                                     <span class="uk-margin-medium-left">
                                         <img src="../../../../assets/images/icons/ic_visit_icon.svg">

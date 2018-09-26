@@ -16,11 +16,11 @@ export class UserService {
                 public resourceService: ResourceService) {
     }
 
-    addFavourite(serviceID: string, value:number) {
+    addFavourite(serviceID: string, value:boolean) {
         if (this.authenticationService.isLoggedIn()) {
             /*return this.http.put(`/event/favourite/service/${serviceID}`,{});*/
             //new addFavourite method
-            return this.http.post(`/event/favourite/service/${serviceID}?value=${value.toString()}`,{});
+            return this.http.post(`/event/favourite/service/${serviceID}?value=${value}`,{});
         } else {
             this.authenticationService.login();
         }
@@ -58,7 +58,7 @@ export class UserService {
 
     public rateService(serviceID: string, rating: number) {
         if (this.authenticationService.isLoggedIn()) {
-            return this.http.post(`/event/rating/service/${serviceID}?rating=${rating.toString()}`,{});
+            return this.http.post(`/event/rating/service/${serviceID}?rating=${rating}`,{});
             // return this.resourceService.recordEvent(serviceID, "RATING", value).subscribe(console.log);
         } else {
             this.authenticationService.login();
