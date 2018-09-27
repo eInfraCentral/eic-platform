@@ -62,7 +62,7 @@ export class ServiceDashboardComponent implements OnInit {
 
     getDataForService(service) {
 
-        this.setCountriesForService(this.service.place);
+        this.setCountriesForService(this.service.places);
 
         this.resourceService.getVisitsForService(this.service.id).map(data => {
 

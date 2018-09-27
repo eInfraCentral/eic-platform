@@ -427,3 +427,9 @@ a:hover, a:focus {
     color: #D1303A;
 }
 
+
+/* star-rating on hover style */
+.star-container .star {
+    cursor: pointer;
+}
+

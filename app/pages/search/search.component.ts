@@ -19,6 +19,7 @@ import {URLParameter} from "../../domain/url-parameter";
 import { Event, RichService, Service } from '../../domain/eic-model';
 import { IStarRatingOnClickEvent } from 'angular-star-rating';
 import { isNullOrUndefined } from 'util';
+import { timer } from 'rxjs/observable/timer';
 
 declare var UIkit: any;
 
@@ -48,6 +49,8 @@ export class SearchComponent implements OnInit, OnDestroy {
     vocabularies: any;
 
     listViewActive: boolean = true;
+
+    obsTimer = timer(1000);
 
     constructor(public fb: FormBuilder, public router: NavigationService, public route: ActivatedRoute,
                 public userService: UserService, public resourceService: ResourceService,
@@ -334,23 +337,46 @@ export class SearchComponent implements OnInit, OnDestroy {
         }
     }
 
-    addToFavourites(service: RichService) {
-        if ( !isNullOrUndefined(service.isFavourite) ) {
-            this.userService.addFavourite(service.id, !service.isFavourite).subscribe(
-                res => {
-                    service.isFavourite = !service.isFavourite;
-                }
-            );
-        }
-
-    }
-
-    rateService(service: RichService, rating: number) {
-        this.userService.rateService(service.id, rating).subscribe(
-            res => {
-                //service.hasRate = rating;
+    addToFavourites(i: number) {
+        const service = this.searchResults.results[i];
+        this.userService.addFavourite(service.id, !service.isFavourite).subscribe(
+            res => console.log(res),
+            err => console.log(err),
+            () => {
+                /*console.log('going to', window.location.pathname);
+                window.location.href = window.location.pathname;*/
+                setTimeout(() => {
+                    this.resourceService.getSelectedServices([service.id]).subscribe (
+                        res => {
+                            this.searchResults.results[i] = res[0];
+                            console.log(this.searchResults.results[i].isFavourite);
+                        }
+                    );
+                }, 1000);
             }
         );
     }
+
+    rateService(i: number, rating: number) {
+        const service = this.searchResults.results[i];
+        this.userService.rateService(service.id, rating).subscribe(
+            res => console.log(res),
+            err => console.log(err),
+            () => {
+                /*console.log('going to', window.location.pathname);
+                window.location.href = window.location.pathname;*/
+                setTimeout(() => {
+                    this.resourceService.getSelectedServices([service.id]).subscribe (
+                        res => {
+                            this.searchResults.results[i] = res[0];
+                            console.log(this.searchResults.results[i].hasRate);
+                        }
+                    );
+                }, 1000);
+            }
+        );
+    }
+
+    getIsFavourite(i:number) { return this.searchResults.results[i].isFavourite; }
 
 }

@@ -7,6 +7,7 @@ import {UserService} from "../../../services/user.service";
 import {Observable} from "rxjs/Observable";
 import { ActivatedRoute } from '@angular/router';
 import { ServiceProviderService } from '../../../services/service-provider.service';
+import { isNullOrUndefined } from 'util';
 
 declare var require: any;
 
@@ -42,17 +43,40 @@ export class DashboardComponent implements OnInit {
 
     ngOnInit() {
         this.providerId = this.route.snapshot.paramMap.get('provider');
-        Observable.zip(
-            this.resourceService.getEU(),
-            this.resourceService.getWW(),
-            this.providerService.getServiceProviderById(this.providerId)
-            /*this.resourceService.getProvidersNames()*/
-        ).subscribe(suc => {
-            this.EU = suc[0];
-            this.WW = suc[1];
-            this.provider = suc[2];
-            this.getDataForProvider();
-        });
+        if (!isNullOrUndefined(this.providerId) && (this.providerId !== '')) {
+            Observable.zip(
+                this.resourceService.getEU(),
+                this.resourceService.getWW(),
+                this.providerService.getServiceProviderById(this.providerId)
+                /*this.resourceService.getProvidersNames()*/
+            ).subscribe(suc => {
+                this.EU = suc[0];
+                this.WW = suc[1];
+                this.provider = suc[2];
+                this.getDataForProvider();
+            });
+        } else {
+            this.providerService.getMyServiceProviders().subscribe(
+                res => this.providerId = res[0].id,
+                err => {
+                    console.log(err);
+                    this.errorMessage = 'An error occurred!';
+                },
+                () => {
+                    Observable.zip(
+                        this.resourceService.getEU(),
+                        this.resourceService.getWW(),
+                        this.providerService.getServiceProviderById(this.providerId)
+                        /*this.resourceService.getProvidersNames()*/
+                    ).subscribe(suc => {
+                        this.EU = suc[0];
+                        this.WW = suc[1];
+                        this.provider = suc[2];
+                        this.getDataForProvider();
+                    });
+                }
+            );
+        }
     }
 
     getDataForProvider() {
@@ -118,7 +142,7 @@ export class DashboardComponent implements OnInit {
         let ret = {};
         if (this.providerServices && this.providerServices.length > 0) {
             for (let service of services) {
-                for (let place of service.place) {
+                for (let place of service.places) {
                     if (ret[place]) {
                         ret[place].push(this.providerServices);
                     } else {

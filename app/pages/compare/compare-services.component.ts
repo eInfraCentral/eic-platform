@@ -1,20 +1,18 @@
 /**
  * Created by stefania on 8/1/17.
  */
-import {Component, OnDestroy, OnInit} from "@angular/core";
+import { Component, DoCheck, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs/Observable";
 import {Subscription} from "rxjs/Subscription";
-import { Event, RichService, Service } from '../../domain/eic-model';
+import { RichService } from '../../domain/eic-model';
 import {SearchQuery} from "../../domain/search-query";
 import {AuthenticationService} from "../../services/authentication.service";
 import {ComparisonService} from "../../services/comparison.service";
 import {NavigationService} from "../../services/navigation.service";
 import {ResourceService} from "../../services/resource.service";
 import {UserService} from "../../services/user.service";
-import { URLParameter } from '../../domain/url-parameter';
-import { isNullOrUndefined } from "util";
 
 @Component({
     selector: "compare-services",
@@ -23,9 +21,12 @@ import { isNullOrUndefined } from "util";
 })
 export class CompareServicesComponent implements OnInit, OnDestroy {
     searchForm: FormGroup;
-    public services: RichService[] = [];
+
+    services: RichService[] = [];
+
     public errorMessage: string;
-    providers: any;
+    ids: string[] = [];
+    /*providers: any;*/
     nologo: URL = new URL("http://fvtelibrary.com/img/user/NoLogo.png");
     vocabularies: any;
     private sub: Subscription;
@@ -38,24 +39,16 @@ export class CompareServicesComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         Observable.zip(
-            this.resourceService.getProvidersNames(),
+            /*this.resourceService.getProvidersNames(),*/
             this.resourceService.getVocabularies(),
         ).subscribe(suc => {
-            this.providers = suc[0];
-            this.vocabularies = this.transformVocabularies(suc[1]);
+            /*this.providers = suc[0];*/
+            this.vocabularies = this.transformVocabularies(suc[0]);
             this.sub = this.route.params.subscribe(params => {
-                let ids = (params.services || "").split(",");
-                if (ids.length > 1) {
-                    const urlParameters = [];
-                    this.resourceService.search(urlParameters).subscribe(
-                        services => {
-                            for (let id of ids) {
-                                let i = services.results.findIndex(x => x.id === id);
-                                if (i>-1) {
-                                    this.services.push(services.results[i]);
-                                }
-                            }
-                        }
+                this.ids = (params.services || "").split(",");
+                if (this.ids.length > 1) {
+                    this.resourceService.getSelectedServices(this.ids).subscribe (
+                        services => this.services = services
                     );
                 } else {
                     this.router.search({});
@@ -90,23 +83,58 @@ export class CompareServicesComponent implements OnInit, OnDestroy {
     }
 
 
-    addToFavourites(service: RichService) {
-        if ( !isNullOrUndefined(service.isFavourite) ) {
-            this.userService.addFavourite(service.id, !service.isFavourite).subscribe(
-                res => {
-                    service.isFavourite = !service.isFavourite;
-                }
-            );
-        }
-
-    }
-
-    rateService(service: RichService, rating: number) {
-        this.userService.rateService(service.id, rating).subscribe(
-            res => {
-                // service.hasRate = rating;
+    addToFavourites(i:number) {
+        const service = this.services[i];
+        this.userService.addFavourite(service.id, !service.isFavourite).subscribe(
+            res => console.log(res),
+            err => console.log(err),
+            () => {
+                /*console.log('going to', window.location.pathname);
+                window.location.href = window.location.pathname;*/
+                setTimeout(() => {
+                    this.resourceService.getSelectedServices([service.id]).subscribe (
+                        res => {
+                            this.services[i] = res[0];
+                            console.log(this.services[i].isFavourite);
+                        }
+                    );
+                }, 1000);
             }
         );
     }
+
+    rateService(i:number, rating: number) {
+        console.log('BOOM');
+        const service = this.services[i];
+        this.userService.rateService(service.id, rating).subscribe (
+            res => console.log(res),
+            err => console.log(err),
+            () => {
+                /*console.log('going to', window.location.pathname);
+                window.location.href = window.location.pathname;*/
+                setTimeout(() => {
+                    this.resourceService.getSelectedServices([service.id]).subscribe (
+                        res => {
+                            this.services[i] = res[0];
+                            console.log(this.services[i].hasRate);
+                        }
+                    );
+                }, 1000);
+            }
+        );
+    }
+
+    getIsFavourite(i: number) {
+        return this.services[i].isFavourite;
+    }
+
+    getHasRate(i: number) {
+        return this.services[i].hasRate;
+    }
+
+    getRatings(i:number) {
+        return this.services[i].ratings;
+    }
+
 
 }

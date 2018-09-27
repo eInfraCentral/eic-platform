@@ -24,6 +24,11 @@ const userRoutes: Routes = [
         canActivate: [CanActivateViaPubGuard]
     },*/
     {
+        path: "dashboard",
+        component: DashboardComponent,
+        canActivate: [CanActivateViaAuthGuard]
+    },
+    {
         path: "dashboard/:provider",
         component: DashboardComponent,
         canActivate: [CanActivateViaAuthGuard]

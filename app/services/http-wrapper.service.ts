@@ -12,7 +12,7 @@ export class HTTPWrapper extends Http {
     }
 
     public post(url: string, body: any, options?: RequestOptionsArgs): Observable<any> {
-        // console.log(`calling ${url}`);
+        console.log(`posting to ${this.base + url}`);
         options = options || {withCredentials: true};
         return super.post(this.base + url, this.parse(body), options).map(this.getJSON).catch(this.handleError);
     }

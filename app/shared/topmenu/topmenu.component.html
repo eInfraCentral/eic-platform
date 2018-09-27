@@ -48,10 +48,10 @@
                                   <span> {{this.authenticationService.user.name}} {{this.authenticationService.user.surname}} <span class="uk-margin-small-right uk-icon" ><svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" ratio="1"><circle fill="none" stroke="#000" stroke-width="1.1" cx="9.9" cy="6.4" r="4.4"></circle><path fill="none" stroke="#000" stroke-width="1.1" d="M1.5,19 C2.3,14.5 5.8,11.2 10,11.2 C14.2,11.2 17.7,14.6 18.5,19.2"></path></svg></span></span>
                                 </span>
                                 <span *ngIf="!authenticationService.isLoggedIn()">
-                                    <!--Sign in | Register <span class="uk-margin-small-right uk-icon" ></span>-->
+                                    <!--Log in | Register <span class="uk-margin-small-right uk-icon" ></span>-->
                                     <span style="color: rgb(255, 255, 255); border: medium none rgb(255, 255, 255);" class="btl-dropdown">
-                                        <!--<a class="loginLink" [routerLink]="['/signIn']"> Sign In   </a>-->
-                                        <a class="loginLink" (click)="goToLoginAAI()"> Sign In   </a>
+                                        <!--<a class="loginLink" [routerLink]="['/signIn']"> Log In   </a>-->
+                                        <a class="loginLink" (click)="goToLoginAAI()"> SLog In   </a>
                                     </span>
                                     <!--|
                                         &lt;!&ndash; Registration button &ndash;&gt;
@@ -68,7 +68,7 @@
 
                                 <ul *ngIf="isLoggedIn()" class="uk-nav-sub">
                                     <!--<li><a [routerLink]="['/dashboard']" routerLinkActive="uk-active">Monitoring Dashboard</a></li>-->
-                                    <li><a routerLink="/home" (click)="this.authenticationService.logout()">Sign out</a></li>
+                                    <li><a routerLink="/home" (click)="this.authenticationService.logout()">Log out</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -191,16 +191,16 @@
                                 <div class="uk-navbar-dropdown-grid uk-child-width-1-1 uk-grid uk-grid-stack" uk-grid="">
                                     <div class="uk-first-column">
                                         <ul class="uk-nav uk-navbar-dropdown-nav">
-                                            <!--<li *ngIf="isProvider() || isAdmin()"><a [routerLink]="['/dashboard']" routerLinkActive="uk-active">Monitoring Dashboard</a></li>-->
+                                            <li *ngIf="isProvider() || isAdmin()"><a [routerLink]="['dashboard']" routerLinkActive="uk-active">Monitoring Dashboard</a></li>
 
-                                            <!-- If user is serviceProvider admin -->
-                                            <li><a [routerLink]="['/newServiceProvider']" routerLinkActive="uk-active">New Service Provider</a></li>
+                                            <!-- If user has logged in -->
+                                            <!--<li><a [routerLink]="['/newServiceProvider']" routerLinkActive="uk-active">New Service Provider</a></li>-->
 
-                                            <!-- If user is serviceProvider and has at least 1 serviceProvider -->
-                                            <li *ngIf="isProvider() || isAdmin()"><a [routerLink]="['/myServiceProviders']" routerLinkActive="uk-active">My Service Providers</a></li>
+                                            <!-- If user is serviceProvider admin and has at least 1 serviceProvider -->
+                                            <!--<li *ngIf="isProvider() || isAdmin()"><a [routerLink]="['/myServiceProviders']" routerLinkActive="uk-active">My Service Providers</a></li>-->
 
                                             <!-- If user is admin -->
-                                            <li *ngIf="isAdmin()"><a [routerLink]="['/serviceProvidersList']" routerLinkActive="uk-active">View Service Providers</a></li>
+                                            <!--<li *ngIf="isAdmin()"><a [routerLink]="['/serviceProvidersList']" routerLinkActive="uk-active">View Service Providers</a></li>-->
 
                                             <li><a routerLink="/home" (click)="this.authenticationService.logout()">Log out</a></li>
                                         </ul>
@@ -213,7 +213,7 @@
                                 <!--Log In-->
                                 <!--&lt;!&ndash;<img class="uk-responsive-height" src="./imgs/Icons/Home_24white.svg" alt="home">&ndash;&gt;-->
                             <!--</a>-->
-                            <a class="loginLink" (click)="goToLoginAAI()">Sign In</a>
+                            <a class="loginLink" (click)="goToLoginAAI()">Log In</a>
                         </li>
                         <!--<li *ngIf="!isLoggedIn()" class="uk-parent" [routerLinkActive]="['uk-active']">
                             &lt;!&ndash;<a [routerLink]="['/signUp']" routerLinkActive="uk-active" class="signUp">&ndash;&gt;
@@ -262,8 +262,8 @@
                             <!--<div *ngIf="!authenticationService.isLoggedIn()" class="btl-panel" style="float: right;">-->
                                 <!--&lt;!&ndash; Login button &ndash;&gt;-->
 			                    <!--<span style="color: rgb(255, 255, 255); border: medium none rgb(255, 255, 255);" id="btl-panel-login" class="btl-dropdown">-->
-			                        <!--&lt;!&ndash;<a class="loginLink" (click)="loginWithState()"> SIGN IN   </a>&ndash;&gt;-->
-                                    <!--<a class="loginLink" [routerLink]="['/signIn']"> SIGN IN   </a>-->
+			                        <!--&lt;!&ndash;<a class="loginLink" (click)="loginWithState()"> LOG IN   </a>&ndash;&gt;-->
+                                    <!--<a class="loginLink" [routerLink]="['/signIn']"> LOG IN   </a>-->
                                 <!--</span>-->
                                 <!--|-->
                                 <!--&lt;!&ndash; Registration button &ndash;&gt;-->
@@ -277,14 +277,14 @@
                             <!--<div *ngIf="authenticationService.isLoggedIn()" class="btl-panel" style="float: right;">-->
                                 <!--&lt;!&ndash; Login button &ndash;&gt;-->
 			                    <!--<span style="color: rgb(255, 255, 255); border: medium none rgb(255, 255, 255);" class="btl-dropdown">-->
-			                        <!--<a routerLinkActive="uk-active" (click)="this.authenticationService.logout()" class="loginLink">SIGN OUT {{this.authenticationService.user.email}}</a>-->
+			                        <!--<a routerLinkActive="uk-active" (click)="this.authenticationService.logout()" class="loginLink">LOG OUT {{this.authenticationService.user.email}}</a>-->
                                 <!--</span>-->
                             <!--</div>-->
 
                             <!--&lt;!&ndash;<div class="btl-panel" style="float: right;">&ndash;&gt;-->
                                 <!--&lt;!&ndash;&lt;!&ndash; Login button &ndash;&gt;&ndash;&gt;-->
                                 <!--&lt;!&ndash;<span style="color: rgb(255, 255, 255); border: medium none rgb(255, 255, 255);" class="btl-dropdown">&ndash;&gt;-->
-			                        <!--&lt;!&ndash;<a routerLink="/home" routerLinkActive="uk-active" (click)="logout()" class="loginLink">SIGN OUT Jane Doe</a>&ndash;&gt;-->
+			                        <!--&lt;!&ndash;<a routerLink="/home" routerLinkActive="uk-active" (click)="logout()" class="loginLink">Log OUT Jane Doe</a>&ndash;&gt;-->
                                 <!--&lt;!&ndash;</span>&ndash;&gt;-->
                             <!--&lt;!&ndash;</div>&ndash;&gt;-->
 
