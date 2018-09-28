@@ -98,7 +98,7 @@ export class CompareServicesComponent implements OnInit, OnDestroy {
                             console.log(this.services[i].isFavourite);
                         }
                     );
-                }, 1000);
+                }, 500);
             }
         );
     }
@@ -119,7 +119,7 @@ export class CompareServicesComponent implements OnInit, OnDestroy {
                             console.log(this.services[i].hasRate);
                         }
                     );
-                }, 1000);
+                }, 500);
             }
         );
     }

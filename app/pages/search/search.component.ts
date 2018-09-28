@@ -352,7 +352,7 @@ export class SearchComponent implements OnInit, OnDestroy {
                             console.log(this.searchResults.results[i].isFavourite);
                         }
                     );
-                }, 1000);
+                }, 500);
             }
         );
     }
@@ -372,7 +372,7 @@ export class SearchComponent implements OnInit, OnDestroy {
                             console.log(this.searchResults.results[i].hasRate);
                         }
                     );
-                }, 1000);
+                }, 500);
             }
         );
     }

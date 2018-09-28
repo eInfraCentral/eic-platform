@@ -121,7 +121,7 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
                             console.log(this.service.isFavourite);
                         }
                     );
-                }, 1000);
+                }, 500);
             }
         );
 
@@ -141,7 +141,7 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
                             console.log(this.service.hasRate);
                         }
                     );
-                }, 1000);
+                }, 500);
             }
         );
     }
