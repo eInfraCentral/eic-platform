@@ -13,7 +13,7 @@ export class ServiceProviderService {
     constructor(public http: HTTPWrapper, public authenticationService: AuthenticationService) {}
 
     createNewServiceProvider(newProvider: any) {
-        return this.http.post('/provider',newProvider);
+        return this.http.post('/provider', newProvider);
     }
 
     updateServiceProvider(updatedFields: any) {

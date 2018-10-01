@@ -92,12 +92,18 @@ const appRoutes: Routes = [
     {
         path: "newServiceProvider/:id/addFirstService",
         component: AddFirstServiceComponent,
-        canActivate: [CanActivateViaAuthGuard]
+        canActivate: [CanActivateViaAuthGuard],
+        data: {
+            breadcrumb : "First Service Form"
+        }
     },
     {
         path: "myServiceProviders",
         component: MyServiceProvidersComponent,
-        canActivate: [CanActivateViaAuthGuard]
+        canActivate: [CanActivateViaAuthGuard],
+        data: {
+            breadcrumb : "My Service Providers"
+        }
     },
     {
         path: "serviceProvidersList",

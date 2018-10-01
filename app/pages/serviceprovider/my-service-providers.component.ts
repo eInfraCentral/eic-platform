@@ -8,6 +8,8 @@ import { ServiceProviderService } from '../../services/service-provider.service'
 })
 export class MyServiceProvidersComponent implements OnInit {
     errorMessage: string;
+    noProvidersMessage: string;
+    tilesView: boolean;
 
     myProviders: Provider[];
     pendingFirstServicePerProvider: any[] = [];
@@ -15,6 +17,7 @@ export class MyServiceProvidersComponent implements OnInit {
     constructor(private serviceProviderService: ServiceProviderService) {}
 
     ngOnInit() {
+        this.tilesView = true;
         this.getServiceProviders();
     }
 
@@ -27,7 +30,7 @@ export class MyServiceProvidersComponent implements OnInit {
                     this.errorMessage = 'An error occurred!';
                 },
                 () => {
-                    this.myProviders.forEach(
+                    this.myProviders.forEach (
                         p => {
                             if (p.status === 'pending service template approval') {
                                 this.serviceProviderService.getPendingServicesOfProvider(p.id).subscribe(
@@ -40,6 +43,9 @@ export class MyServiceProvidersComponent implements OnInit {
                             }
                         }
                     );
+                    if (this.myProviders.length === 0) {
+                        this.noProvidersMessage = 'You have not yet registered any service providers.';
+                    }
                 }
             );
         }, 1000);
@@ -56,4 +62,17 @@ export class MyServiceProvidersComponent implements OnInit {
             return '/newServiceProvider/' + id + '/addFirstService';
         }
     }
+
+    toggleTiles(choseTilesMode: boolean) {
+        this.tilesView = choseTilesMode;
+    }
+
+    getTooltipText(status: string) {
+        return 'lalala';
+    }
+
+    getIfDisabled(status: string) {
+        return (status !== 'approved') ? 'uk-vertical-align-middle uk-disabled':'uk-vertical-align-middle';
+    }
+
 }

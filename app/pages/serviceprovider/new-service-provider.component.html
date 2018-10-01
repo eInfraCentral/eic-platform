@@ -22,10 +22,8 @@
                         <!-- MIDDLE -->
                         <div class=" uk-width-expand@m">
 
-                            <div *ngIf="errorMessage" class="uk-alert uk-alert-danger">{{errorMessage}}</div>
-
                             <div class="middle-box animated fadeInDown ">
-                                <div class="uk-padding-small uk-border-rounded uk-margin-bottom uk-width-2-3" style="border: 1px solid gray;">
+                                <div class="uk-padding-small uk-border-rounded uk-margin-large-bottom uk-width-2-3" style="border: 1px solid gray;">
                                 <!--<div class="uk-margin-bottom uk-width-2-3">-->
                                     <div class="uk-margin-small-bottom">
                                         <h5>An administrator will be added using your user information</h5>
@@ -51,12 +49,22 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!--<hr>-->
+
+                                <div *ngIf="errorMessage" class="uk-alert uk-alert-danger">{{errorMessage}}</div>
+
                                 <div [formGroup]="newProviderForm" class="uk-form">
                                     <div class="uk-margin-medium-bottom">
-                                        <label class="uk-form-label" for="name">{{ organizationNameDesc.label }}</label>
+                                        <label class="uk-form-label" for="name">{{ organizationNameDesc.label }} (*)</label>
                                         <input id="name" class="uk-input" type="text" formControlName="name"
                                                [ngClass]="{'uk-form-danger': !newProviderForm.get('name').valid && newProviderForm.get('name').dirty}">
+                                    </div>
+                                    <div class="uk-margin-medium-bottom">
+                                        <label class="uk-form-label" for="id">{{ organizationIdDesc.label }} (*)</label>
+                                        <input id="id" class="uk-input" type="text" formControlName="id"
+                                               [ngClass]="{'uk-form-danger': !newProviderForm.get('id').valid && newProviderForm.get('id').dirty}">
+                                        <div class="form-group">
+                                            <div><i><small>{{organizationIdDesc.desc}}</small></i></div>
+                                        </div>
                                     </div>
                                     <div class="uk-margin-medium-bottom">
                                         <label class="uk-form-label" for="contactInformation">{{ phoneNumberDesc.label }}</label>
@@ -64,9 +72,13 @@
                                                [ngClass]="{'uk-form-danger': !newProviderForm.get('contactInformation').valid && newProviderForm.get('contactInformation').dirty}">
                                     </div>
                                     <div class="uk-margin-medium-bottom">
-                                        <label class="uk-form-label" for="website">{{ organizationWebsiteDesc.label }}</label>
+                                        <label class="uk-form-label" for="website">
+                                            {{ organizationWebsiteDesc.label }} (*)</label>
                                         <input id="website" class="uk-input" type="text" formControlName="website"
                                                [ngClass]="{'uk-form-danger': !newProviderForm.get('website').valid && newProviderForm.get('website').dirty}">
+                                        <div class="form-group">
+                                            <div><i><small>{{organizationWebsiteDesc.desc}}</small></i></div>
+                                        </div>
                                     </div>
                                     <div class="uk-margin-medium-bottom">
                                         <label class="uk-form-label" for="catalogueOfResources">{{ catalogueOfResourcesDesc.label }}</label>
@@ -79,15 +91,15 @@
                                                [ngClass]="{'uk-form-danger': !newProviderForm.get('publicDescOfResources').valid && newProviderForm.get('publicDescOfResources').dirty}">
                                     </div>
                                     <div class="uk-margin-medium-bottom">
-                                        <label class="uk-form-label" for="additionalInfo">{{ additionalInfoDesc.label }}</label>
-                                        <input id="additionalInfo" class="uk-input" type="text" formControlName="additionalInfo"
-                                               [ngClass]="{'uk-form-danger': !newProviderForm.get('additionalInfo').valid && newProviderForm.get('additionalInfo').dirty}">
+                                        <label class="uk-form-label" for="additionalInfo">{{ additionalInfoDesc.label }} (*)</label>
+                                        <textarea id="additionalInfo" class="uk-input" type="text" formControlName="additionalInfo"
+                                                  [ngClass]="{'uk-form-danger': !newProviderForm.get('additionalInfo').valid && newProviderForm.get('additionalInfo').dirty}">
+
+                                        </textarea>
                                     </div>
 
                                     <div>
-                                        <button class="uk-button uk-bu uk-button-blue" (click)="registerProvider()">
-                                            Submit
-                                        </button>
+                                        <button class="uk-button uk-bu uk-button-blue" type="submit" (click)="registerProvider()">Submit</button>
                                     </div>
                                 </div>
                             </div>

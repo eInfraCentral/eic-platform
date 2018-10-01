@@ -38,23 +38,36 @@
                                         </thead>
                                         <tbody *ngIf="providers">
                                             <tr *ngFor="let provider of providers">
-                                                <td><a [routerLink]="['/dashboard',provider.id]" title="Go to provider dashboard">
-                                                    {{ provider.name }}
-                                                </a></td>
-                                                <td>{{ provider.status }}</td>
+                                                <td>
+                                                    <a [routerLink]="['/dashboard',provider.id]" data-uk-tooltip
+                                                       title="{{(provider.status !== 'approved') ?
+                                                                'Your service provider is not yet active, therefore you cannot access its monitoring dashboard':
+                                                                'Go to the service provider monitoring dashboard'}}">
+                                                        {{ provider.name }}
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <span class="{{ (provider.status === 'pending initial approval') ? 'uk-badge uk-badge-danger' :
+                                                                   ((provider.status === 'pending service template approval') ? 'uk-badge uk-badge-warning' : 'uk-badge uk-badge-success') }}">
+                                                        {{ provider.status }}
+                                                    </span>
+                                                </td>
                                                 <td>
                                                     <a *ngIf="hasCreatedFirstService(provider.id)"
                                                        routerLink="{{ getLinkToFirstService(provider.id) }}">
-
-                                                        See the service page
+                                                        <i class="fa fa-eye"></i> View service template
                                                     </a>
                                                 </td>
-                                                <td class="uk-text-right">
+                                                <td>
                                                     <button *ngIf="(provider.status === 'pending initial approval') ||
                                                                    ((provider.status === 'pending service template approval') &&
                                                                      hasCreatedFirstService(provider.id))"
                                                             class="uk-button uk-button-blue"
                                                             (click)="approveStatusChange(provider)">Approve</button>
+                                                    <button *ngIf="(provider.status === 'pending initial approval') ||
+                                                                   ((provider.status === 'pending service template approval') &&
+                                                                     hasCreatedFirstService(provider.id))"
+                                                            class="uk-button uk-button-blue" style="background-color: #c14136!important;">Reject</button>
                                                 </td>
                                             </tr>
                                         </tbody>
