@@ -43,7 +43,7 @@
                                         <p>Registers a new service resource in the eInfraCentral Catalogue.</p>
                                         <div class="admonition note">
                                             <p class="first admonition-title"><span style="text-decoration: underline;"><strong>Note</strong></span></p>
-                                            <p class="last">This method requires the user to be authenticated. Learn how to <a class="reference internal" (click)="scrollTo('#login')"><span class="std std-ref">Log in / obtain token</span></a>.</p>
+                                            <p class="last">This method requires the user to be authenticated. Learn how to <a class="reference internal" (click)="scrollTo('#login')"><span class="std std-ref">obtain and use API token</span></a>.</p>
                                         </div>
                                         <!--<div id="id9" class="section">-->
                                             <!--<div class="admonition note">-->
@@ -57,7 +57,7 @@
                                         <p>Updates a service resource description.</p>
                                         <div class="admonition note">
                                             <p class="first admonition-title"><strong><span style="text-decoration: underline;">Note</span></strong></p>
-                                            <p class="last">This method requires the user to be authenticated. Learn how to <a class="reference internal" (click)="scrollTo('#login')"><span class="std std-ref">Log in / obtain token</span></a>.</p>
+                                            <p class="last">This method requires the user to be authenticated. Learn how to <a class="reference internal" (click)="scrollTo('#login')"><span class="std std-ref">obtain and use API token</span></a>.</p>
                                         </div>
                                     </div>
                                     <div id="validate-updating-a-resource" class="section">
@@ -65,7 +65,7 @@
                                         <p class="first admonition-title">Validates registering or updating a service resource without it actually being added \ modified in the registry.</p>
                                         <p class="first admonition-title"><strong><span style="text-decoration: underline;">Note</span></strong></p>
                                         <div class="admonition note">
-                                            <p class="last">This method requires the user to be authenticated. Learn how to <a class="reference internal" (click)="scrollTo('#login')"><span class="std std-ref">Log in / obtain token</span></a>.</p>
+                                            <p class="last">This method requires the user to be authenticated. Learn how to <a class="reference internal" (click)="scrollTo('#login')"><span class="std std-ref">obtain and use API token</span></a>.</p>
                                         </div>
                                     </div>
                                     <!--<div id="resource-versioning" class="section">-->
@@ -81,8 +81,11 @@
                                         <!--</div>-->
                                     <!--</div>-->
                                     <div id="list-used-terms" class="section">
-                                        <h2 id="login">Log in / obtain token</h2>
-                                        <p>Logs the user in and returns an authentication token. To use edit methods of the REST API, one needs an account with eInfraCentral. A subsequent POST request to {{this.getModifiedURL(8080)}}/login with a JSON body containing fields email and password issues a jwt cookie. Any subsequent request to the API using that cookie, is authenticated.</p>
+                                        <h2 id="login">Obtain and Use API Token</h2>
+                                        <p>You can obtain an API token for the secured methods <a href="https://aai.eosc-portal.eu/eic-api/token.php" target="_blank">here</a>.<br>
+                                        The obtained token can be used in a bearer authorization header like this: 'Authorization: Bearer [token]'<br>
+                                        To use the token in the <a href="../openapi">api page</a>, you must click 'Authorize' and fill in the apiKey field with the following: 'Bearer [token]'.</p>
+                                        <!--<p>Logs the user in and returns an authentication token. To use edit methods of the REST API, one needs an account with eInfraCentral. A subsequent POST request to {{this.getModifiedURL(8080)}}/login with a JSON body containing fields email and password issues a jwt cookie. Any subsequent request to the API using that cookie, is authenticated.</p>-->
                                         <!--<h2>Log out</h2>-->
                                         <!--<div class="admonition note">-->
                                             <!--<p class="first admonition-title"><a href="_top">Logs out the current user</a> and destroys the session</p>-->

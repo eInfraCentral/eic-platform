@@ -339,42 +339,23 @@ export class SearchComponent implements OnInit, OnDestroy {
 
     addToFavourites(i: number) {
         const service = this.searchResults.results[i];
-        this.userService.addFavourite(service.id, !service.isFavourite).subscribe(
-            res => console.log(res),
-            err => console.log(err),
-            () => {
-                /*console.log('going to', window.location.pathname);
-                window.location.href = window.location.pathname;*/
-                setTimeout(() => {
-                    this.resourceService.getSelectedServices([service.id]).subscribe (
-                        res => {
-                            this.searchResults.results[i] = res[0];
-                            console.log(this.searchResults.results[i].isFavourite);
-                        }
-                    );
-                }, 500);
-            }
-        );
+        this.userService.addFavourite(service.id, !service.isFavourite)
+            .flatMap( e => this.resourceService.getSelectedServices([e.service]))
+            .subscribe(
+                s => Object.assign(this.searchResults.results[i],s[0]),
+                err => console.log(err)
+            );
+
     }
 
     rateService(i: number, rating: number) {
         const service = this.searchResults.results[i];
-        this.userService.rateService(service.id, rating).subscribe(
-            res => console.log(res),
-            err => console.log(err),
-            () => {
-                /*console.log('going to', window.location.pathname);
-                window.location.href = window.location.pathname;*/
-                setTimeout(() => {
-                    this.resourceService.getSelectedServices([service.id]).subscribe (
-                        res => {
-                            this.searchResults.results[i] = res[0];
-                            console.log(this.searchResults.results[i].hasRate);
-                        }
-                    );
-                }, 500);
-            }
-        );
+        this.userService.rateService(service.id, rating)
+            .flatMap(e => this.resourceService.getSelectedServices([e.service]))
+            .subscribe(
+                s => Object.assign(this.searchResults.results[i],s[0]),
+                err => console.log(err)
+            );
     }
 
     getIsFavourite(i:number) { return this.searchResults.results[i].isFavourite; }

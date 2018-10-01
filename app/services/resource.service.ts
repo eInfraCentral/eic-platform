@@ -5,12 +5,13 @@ import {Injectable} from "@angular/core";
 import {RequestOptions, URLSearchParams} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import {BrowseResults} from "../domain/browse-results";
-import { RichService, Service, ServiceHistory } from '../domain/eic-model';
+import { RichService, Service, ServiceHistory, Vocabulary } from '../domain/eic-model';
 import {SearchResults} from "../domain/search-results";
 import {URLParameter} from "../domain/url-parameter";
 import {AuthenticationService} from "./authentication.service";
 import {HTTPWrapper} from "./http-wrapper.service";
 import {stringify} from "querystring";
+import {shareReplay} from "rxjs/operators";
 @Injectable()
 export class ResourceService {
     constructor(public http: HTTPWrapper, public authenticationService: AuthenticationService) {
@@ -69,11 +70,11 @@ export class ResourceService {
     }
 
     getVocabularies(type?: string) {
-        return this.getVocabulariesRaw(type).map(e => e.results.reduce(type ? this.idToName : this.idToObject, {}));
+        return this.getVocabulariesRaw(type).map(e => e.results.reduce(type ? this.idToName : this.idToObject, {})).pipe(shareReplay(1));
     }
 
 
-    getVocabulariesRaw(type?: string) {
+    getVocabulariesRaw(type?: string): Observable<SearchResults<Vocabulary>> {
         return this.http.get(`/vocabulary/all?from=0&quantity=1000${type ? "&type=" + type : ""}`);
     }
 

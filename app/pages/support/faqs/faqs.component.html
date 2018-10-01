@@ -23,53 +23,37 @@
                         <!-- MIDDLE -->
                         <div class=" uk-width-expand@m">
 
-                            <div>Under construction ...</div>
+                            <div *ngIf="errorMessage" class="uk-alert uk-alert-danger">{{errorMessage}}</div>
 
-                            <!--<div *ngIf="errorMessage" class="uk-alert uk-alert-danger">{{errorMessage}}</div>-->
+                            <div *ngIf="activeTopicQuestions && !errorMessage">
 
-                            <!--<div *ngIf="activeTopicQuestions && !errorMessage">-->
+                                <div *ngIf="activeTopicQuestions.length==0" class="uk-alert uk-alert-warning">
+                                    There are no active FAQs at the moment
+                                </div>
 
-                                <!--<div *ngIf="activeTopicQuestions.length==0" class="uk-alert uk-alert-warning">-->
-                                    <!--There are no active FAQs at the moment-->
-                                <!--</div>-->
+                                <div *ngIf="activeTopicQuestions.length>0">
 
-                                <!--<div *ngIf="activeTopicQuestions.length>0">-->
+                                    <div *ngFor="let activeTopicQuestion of activeTopicQuestions" class="uk-margin-large-bottom">
 
+                                        <h4>{{activeTopicQuestion.name}}</h4>
+                                        <p *ngIf="activeTopicQuestion.description">{{activeTopicQuestion.description}}</p>
 
-                                    <!--<ul class=" uk-tab uk-visible@m" uk-tab="connect: #faqTopicTabs; animation: uk-animation-fade">-->
-                                        <!--<li *ngFor="let activeTopicQuestion of activeTopicQuestions"><a>{{activeTopicQuestion.name}}</a></li>-->
-                                    <!--</ul>-->
+                                        <ul *ngIf="activeTopicQuestion.questions.length>0" uk-accordion>
+                                            <li *ngFor="let question of activeTopicQuestion.questions" class="uk-margin-bottom">
+                                                <h3 class="uk-accordion-title">{{question.question}}</h3>
+                                                <div class="uk-accordion-content">
+                                                    <p>{{question.answer}}</p>
+                                                </div>
+                                            </li>
+                                        </ul>
 
-                                    <!--<button class="uk-button uk-button-default uk-hidden@m" type="button">-->
-                                        <!--<span uk-navbar-toggle-icon></span> <span class="uk-margin-small-left">{{activeTab}}</span>-->
-                                    <!--</button>-->
+                                    </div>
 
-                                    <!--<ul id="toggle-small-tabs" class="uk-subnav uk-subnav-pill uk-dropdown uk-hidden@m"-->
-                                        <!--uk-switcher="{connect: #faqTopicTabs; animation: uk-animation-fade}" uk-dropdown="mode: click"-->
-                                        <!--uk-toggle="target: #toggle-small-tabs">-->
-                                        <!--<li *ngFor="let activeTopicQuestion of activeTopicQuestions"><a>{{activeTopicQuestion.name}}</a></li>-->
-                                    <!--</ul>-->
+                                </div>
 
-                                    <!--<ul id="faqTopicTabs" class="uk-switcher  uk-width-1-1 uk-margin-top custom-tab-content-large">-->
-                                        <!--<li *ngFor="let activeTopicQuestion of activeTopicQuestions">-->
-                                            <!--<p *ngIf="activeTopicQuestion.description">{{activeTopicQuestion.description}}</p>-->
+                            </div>
 
-                                            <!--<ul *ngIf="activeTopicQuestion.questions.length>0" uk-accordion>-->
-                                                <!--<li *ngFor="let question of activeTopicQuestion.questions" class="uk-margin-bottom">-->
-                                                    <!--<h3 class="uk-accordion-title">{{question.question}}</h3>-->
-                                                    <!--<div class="uk-accordion-content">-->
-                                                        <!--<p>{{question.answer}}</p>-->
-                                                    <!--</div>-->
-                                                <!--</li>-->
-                                            <!--</ul>-->
-                                        <!--</li>-->
-                                    <!--</ul>-->
-
-                                <!--</div>-->
-
-                            <!--</div>-->
-
-                        <!--</div>-->
+                        </div>
 
 
                         <!-- RIGHT HELP CONTENT -->

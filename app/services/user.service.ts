@@ -4,7 +4,7 @@
 
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs/Rx";
-import {Service, User} from "../domain/eic-model";
+import {Service, User, Event as EicEvent} from "../domain/eic-model";
 import {AuthenticationService} from "./authentication.service";
 import {HTTPWrapper} from "./http-wrapper.service";
 import {NavigationService} from "./navigation.service";
@@ -16,7 +16,7 @@ export class UserService {
                 public resourceService: ResourceService) {
     }
 
-    addFavourite(serviceID: string, value:boolean) {
+    addFavourite(serviceID: string, value:boolean) : Observable<EicEvent> {
         if (this.authenticationService.isLoggedIn()) {
             /*return this.http.put(`/event/favourite/service/${serviceID}`,{});*/
             //new addFavourite method
@@ -56,7 +56,7 @@ export class UserService {
         return false;
     }
 
-    public rateService(serviceID: string, rating: number) {
+    public rateService(serviceID: string, rating: number) : Observable<EicEvent> {
         if (this.authenticationService.isLoggedIn()) {
             return this.http.post(`/event/rating/service/${serviceID}?rating=${rating}`,{});
             // return this.resourceService.recordEvent(serviceID, "RATING", value).subscribe(console.log);

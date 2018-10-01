@@ -142,8 +142,12 @@
                         </form-inline>
                         <form-inline [description]="validForDesc" [params]="'inline'"
                                      [valid]="serviceForm.get('validFor').valid && serviceForm.get('validFor').dirty">
-                          <input class="uk-input" type="text" formControlName="validFor"
-                                 [ngClass]="{'uk-form-danger': !serviceForm.get('validFor').valid && serviceForm.get('validFor').dirty}">
+                          <input class="uk-input"
+                                 type="text"
+                                 onfocus="(this.type='date')"
+                                 formControlName=validFor>
+                          <!--<input class="uk-input" type="text" formControlName="validFor"-->
+                                 <!--[ngClass]="{'uk-form-danger': !serviceForm.get('validFor').valid && serviceForm.get('validFor').dirty}">-->
                         </form-inline>
                         <form-inline *ngIf="this.vocabularies" [description]="lifeCycleStatusDesc"
                                      [params]="'inline'"
@@ -222,10 +226,10 @@
                       </li>
 
                       <li accordionSection class="uk-margin-large-bottom" [title]="'Support Information'">
-                        <form-inline [description]="requestDesc" [params]="'inline'"
-                                     [valid]="serviceForm.get('request').valid && serviceForm.get('request').dirty">
-                          <input class="uk-input" type="text" formControlName="request"
-                                 [ngClass]="{'uk-form-danger': !serviceForm.get('request').valid && serviceForm.get('request').dirty}">
+                        <form-inline [description]="orderDesc" [params]="'inline'"
+                                     [valid]="serviceForm.get('order').valid && serviceForm.get('order').dirty">
+                          <input class="uk-input" type="text" formControlName="order"
+                                 [ngClass]="{'uk-form-danger': !serviceForm.get('order').valid && serviceForm.get('order').dirty}">
                         </form-inline>
                         <form-inline [description]="helpdeskDesc" [params]="'inline'"
                                      [valid]="serviceForm.get('helpdesk').valid && serviceForm.get('helpdesk').dirty">
