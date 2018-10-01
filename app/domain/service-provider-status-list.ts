@@ -1,0 +1,1 @@
+export const statusList = ['pending initial approval', 'pending service template approval','approved'];

@@ -10,10 +10,10 @@ import {DashboardComponent} from "./dashboard/dashboard.component";
 import {ServiceDashboardComponent} from "./dashboard/service-dashboard.component";
 import {LoginComponent} from "./login/login.component";
 import {SignUpComponent} from "./register/sign-up.component";
-import { NewServiceProviderComponent } from './addServiceProvider/new-service-provider.component';
+import { NewServiceProviderComponent } from '../serviceprovider/new-service-provider.component';
 
 const userRoutes: Routes = [
-    {
+/*    {
         path: "signIn",
         component: LoginComponent,
         canActivate: [CanActivateViaPubGuard]
@@ -22,21 +22,26 @@ const userRoutes: Routes = [
         path: "signUp",
         component: SignUpComponent,
         canActivate: [CanActivateViaPubGuard]
-    },
+    },*/
     {
         path: "dashboard",
         component: DashboardComponent,
         canActivate: [CanActivateViaAuthGuard]
     },
     {
-        path: "dashboard/:id",
-        component: ServiceDashboardComponent,
+        path: "dashboard/:provider",
+        component: DashboardComponent,
         canActivate: [CanActivateViaAuthGuard]
     },
     {
+        path: "dashboard/:provider/:id",
+        component: ServiceDashboardComponent,
+        canActivate: [CanActivateViaAuthGuard]
+    },
+/*    {
         path: "activate/:id",
         component: ActivateComponent,
         canActivate: [CanActivateViaPubGuard]
-    }
+    }*/
 ];
 export const userRouting: ModuleWithProviders = RouterModule.forChild(userRoutes);

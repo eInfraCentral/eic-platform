@@ -17,8 +17,8 @@ export class NavigationService {
         return this.router.navigate(["/service", id]);
     }
 
-    dashboard(id: string) {
-        return this.router.navigate(["/dashboard", id]);
+    dashboard(provider:string, id: string) {
+        return this.router.navigate([`/dashboard/${provider}`, id]);
     }
 
     edit(id: string) {
@@ -29,9 +29,9 @@ export class NavigationService {
         return this.router.navigate(["/search",any]);
     }
 
-    login() {
+    /*login() {
         return this.router.navigate(["/signIn"]);
-    }
+    }*/
 
     home() {
         return this.router.navigate(["/home"]);

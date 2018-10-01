@@ -19,7 +19,8 @@
                             <div class="uk-display-inline-block uk-vertical-align-top">
                                 <h2 class="uk-h2 uk-inline" style="margin-bottom: 5px">
                                     {{service.name || "Not Available"}}
-                                    <span class="uk-margin-left" *ngIf="this.userService.canEditService(service)">
+
+                                    <span class="uk-margin-left" *ngIf="canEditService">
                                         <a (click)="this.router.edit(service.id)" routerLinkActive="active"><i class="fa fa-pencil"></i></a>
                                     </span>
                                 </h2>
@@ -27,18 +28,22 @@
                                     {{service.tagline}}
                                 </div>
                                 <div>
-                                    <star-rating-comp #rating (click)="rateService(rating.rating)" [starType]="'svg'" [rating]="userRating" [step]="1"
+                                    <star-rating-comp #rating (click)="rateService(rating.rating)"
+                                                      [starType]="'svg'" [rating]="service.hasRate" [step]="1"
                                                       [showHalfStars]="true" [readOnly]=!this.authenticationService.isLoggedIn() [size]="'medium'"
-                                                      [staticColor]="'ok'" class="uk-inline starRating"></star-rating-comp>
+                                                      [staticColor]="'ok'" title="Rate this service" uk-tooltip="delay: 500" class="uk-inline starRating"
+                                                      labelText="{{service.hasRate}} ({{ service.ratings }})" [labelVisible]="true" [labelPosition]="'right'"
+                                                      [hoverEnabled]="true">
+                                    </star-rating-comp>
                                     <span class="uk-margin-medium-left">
                                         <a (click)="addToFavourites()">
-                                            <i [ngClass]="isUserFavourite?'fa fa-heart':'fa fa-heart-o'"></i>
+                                            <i [ngClass]="service.isFavourite?'fa fa-heart':'fa fa-heart-o'"></i>
                                         </a>
-                                        <span class="statsNumbers">{{stats.favourites || 0}}</span>
+                                        <span class="statsNumbers">{{service.favourites || 0}}</span>
                                     </span>
                                     <span class="uk-margin-medium-left">
                                         <img src="../../../../assets/images/icons/ic_visit_icon.svg">
-                                        <span class="statsNumbers">{{stats.visits || 0}}</span>
+                                        <span class="statsNumbers">{{service.views || 0}}</span>
                                     </span>
                                 </div>
                             </div>
@@ -48,7 +53,9 @@
                             <div class="uk-card uk-card-body uk-card-custom providerCard">
                                 <img src="{{service.symbol || 'http://fvtelibrary.com/img/user/NoLogo.png'}}"
                                      style="max-width: 67px;">
-                                <span class="provider">{{service.providerName | uppercase}}</span>
+                                <span class="provider" *ngFor="let provider of service.providers; let i = index">
+                                    <br *ngIf="i > 0">{{ provider | uppercase }}
+                                </span>
                             </div>
                         </div>
 
@@ -108,7 +115,7 @@
                             <div class="uk-card uk-card-body uk-card-basic-info">
                                 <h2 class="uk-h2">Required / Related services</h2>
                                 <dl class="uk-description-list">
-                                    <ng-container *ngIf="service.requiredServices && service.requiredServices.length > 0">
+                                    <ng-container *ngIf="service.requiredServices && (service.requiredServices.length > 0)">
                                         <dt class="uk-margin-small-bottom">Required services</dt>
                                         <dd *ngFor="let requiredService of service.requiredServices">
                                             <a (click)="this.router.service(getPrettyService(requiredService).id)">{{getPrettyService(requiredService).name}}</a>
@@ -190,8 +197,8 @@
                         <a class="uk-width-1-1 uk-button uk-button-primary visitButton" (click)="visit()" routerLinkActive="active">
                             <strong>Service Homepage</strong>
                         </a>
-                        <a *ngIf="service.request" class="uk-width-1-1 uk-button uk-button-primary visitButton uk-margin-top"
-                                href="{{service.request}}" routerLinkActive="active" target="_blank">
+                        <a *ngIf="service.order" class="uk-width-1-1 uk-button uk-button-primary visitButton uk-margin-top"
+                                href="{{service.order}}" routerLinkActive="active" target="_blank">
                             <strong>Service order</strong>
                         </a>
                     </div>

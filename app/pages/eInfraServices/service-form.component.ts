@@ -17,6 +17,7 @@ import {TermsOfUseComponent} from "./multivalue-components/termsOfUse.component"
 import * as sd from "./services.description";
 import {AuthenticationService} from "../../services/authentication.service";
 import {categoriesAndSubcategories} from "../../domain/categories";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: "service-form",
@@ -24,6 +25,8 @@ import {categoriesAndSubcategories} from "../../domain/categories";
     styleUrls: ["./service-form.component.css"]
 })
 export class ServiceFormComponent {
+    firstServiceForm: boolean = false;
+    providerId: string;
     editMode: boolean;
     serviceForm: FormGroup;
     service: Service;
@@ -121,7 +124,8 @@ export class ServiceFormComponent {
     router: NavigationService = this.injector.get(NavigationService);
     userService: UserService = this.injector.get(UserService);
 
-    constructor(protected injector: Injector, protected authenticationService: AuthenticationService) {
+    constructor(protected injector: Injector,
+                protected authenticationService: AuthenticationService) {
         this.resourceService = this.injector.get(ResourceService);
         this.fb = this.injector.get(FormBuilder);
         this.router = this.injector.get(NavigationService);
@@ -158,7 +162,10 @@ export class ServiceFormComponent {
     onSubmit(service: Service, isValid: boolean) {
         //TODO: check if model is valid
         if (isValid) {
-            service.providerName = this.authenticationService.getUserId();
+            if ( (this.firstServiceForm === true) && this.providerId) {
+                service.providers = [];
+                service.providers.push(this.providerId);
+            }
             this.resourceService.uploadService(this.toServer(service), this.editMode)
             .subscribe(service => {
                 setTimeout(() => this.router.service(service.id), 1000);

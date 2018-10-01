@@ -10,11 +10,12 @@ import {FAQService} from "../../../services/faq.service";
 @Component({
     selector: "faqs",
     templateUrl: "./faqs.component.html",
-    styles: ["h3.uk-accordion-title { text-transform: none; } .uk-tab > * > a, .nav-tabs > li > a { font-size: 14px;}"]
+    styleUrls: ["./faqs.component.css"]
 })
 export class FAQsComponent implements OnInit {
-    private activeTopicQuestions: ActiveTopicQuestions[] = [];
-    private errorMessage: string;
+
+    public activeTopicQuestions: ActiveTopicQuestions[] = [];
+    public errorMessage: string;
 
     constructor(public route: ActivatedRoute,
                 public router: Router,
@@ -23,14 +24,16 @@ export class FAQsComponent implements OnInit {
 
     ngOnInit() {
         this.faqService.getActiveTopicQuestions().subscribe(
-            activeTopicQuestions => this.shiftThroughTopics(activeTopicQuestions));
+            activeTopicQuestions => this.activeTopicQuestions = activeTopicQuestions,
+            err => this.handleError(err)
+        );
     }
 
-    shiftThroughTopics(activeTopicQuestions: ActiveTopicQuestions[]) {
-        this.activeTopicQuestions = activeTopicQuestions.filter(_ => _.name === "Legal");
-    }
-
-    // handleError(error) {
-    //     this.errorMessage = 'System error retrieving FAQs (Server responded: ' + error + ')';
+    // shiftThroughTopics(activeTopicQuestions: ActiveTopicQuestions[]) {
+    //     this.activeTopicQuestions = activeTopicQuestions.filter(_ => _.name === "Legal");
     // }
+
+    handleError(error) {
+        this.errorMessage = 'System error retrieving FAQs (Server responded: ' + error + ')';
+    }
 }

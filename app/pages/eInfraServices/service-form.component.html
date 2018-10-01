@@ -100,11 +100,23 @@
                       </li>
 
                       <li accordionSection class="uk-margin-large-bottom" [title]="'Classification Information'">
-                        <form-repeat-inline [component]="providersComponent" [parentGroup]="serviceForm"
-                                            [name]="'providers'" [required]="true"
-                                            [description]="providersDesc">
-                        </form-repeat-inline>
-                        <div></div>
+
+                        <!--IF NOT IN THE AddFirstService PAGE - SHOW THE LIST OF PROVIDERS-->
+                        <div *ngIf="!firstServiceForm">
+                          <form-repeat-inline
+                                  [component]="providersComponent" [parentGroup]="serviceForm"
+                                  [name]="'providers'" [required]="true"
+                                  [description]="providersDesc">
+                          </form-repeat-inline>
+                        </div>
+
+                        <!--IF IN THE AddFirstService PAGE - SHOW THE CURRENT PROVIDER-->
+                        <div *ngIf="firstServiceForm">
+                          <form-inline [description]="providersDesc" [params]="'inline'">
+                            <span class="uk-input">{{ providerId }}</span>
+                          </form-inline>
+                        </div>
+
                         <form-inline [description]="versionDesc" [params]="'inline'"
                                      [valid]="serviceForm.get('version').valid && serviceForm.get('version').dirty">
                           <input class="uk-input" type="text" formControlName="version"
@@ -130,8 +142,12 @@
                         </form-inline>
                         <form-inline [description]="validForDesc" [params]="'inline'"
                                      [valid]="serviceForm.get('validFor').valid && serviceForm.get('validFor').dirty">
-                          <input class="uk-input" type="text" formControlName="validFor"
-                                 [ngClass]="{'uk-form-danger': !serviceForm.get('validFor').valid && serviceForm.get('validFor').dirty}">
+                          <input class="uk-input"
+                                 type="text"
+                                 onfocus="(this.type='date')"
+                                 formControlName=validFor>
+                          <!--<input class="uk-input" type="text" formControlName="validFor"-->
+                                 <!--[ngClass]="{'uk-form-danger': !serviceForm.get('validFor').valid && serviceForm.get('validFor').dirty}">-->
                         </form-inline>
                         <form-inline *ngIf="this.vocabularies" [description]="lifeCycleStatusDesc"
                                      [params]="'inline'"
