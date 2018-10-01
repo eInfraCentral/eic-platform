@@ -140,7 +140,7 @@ export class User implements Identifiable {
 }
 
 export class Vocabulary implements Identifiable {
-    extra: string[];
+    extras: string[];
     id: string;
     name: string;
     parent: string;
