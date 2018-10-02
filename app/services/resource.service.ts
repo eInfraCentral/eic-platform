@@ -70,7 +70,8 @@ export class ResourceService {
     }
 
     getVocabularies(type?: string) {
-        return this.getVocabulariesRaw(type).map(e => e.results.reduce(type ? this.idToName : this.idToObject, {})).pipe(shareReplay(1));
+        /*return this.getVocabulariesRaw(type).map(e => e.results.reduce(type ? this.idToName : this.idToObject, {})).pipe(shareReplay(1));*/
+        return this.getVocabulariesRaw(type).map(e => e.results.reduce(type ? this.idToName : this.idToObject, {}));
     }
 
 

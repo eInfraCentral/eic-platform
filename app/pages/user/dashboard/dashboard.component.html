@@ -4,11 +4,9 @@
             <div class="uk-width-1-1@m uk-first-column">
 
                 <h1 class="uk-h3">
-                    <!--<img class="el-image uk-border-rounded" width="100"
-                             src="{{ (provider && provider.logoUrl) ? provider.logoUrl : '/assets/imgs/yourLogoHere.jpg' }}"
-                             alt="Service Provider Logo">-->
-                    <!--<img class="el-image uk-border-rounded"
-                         src="/imgs/yourLogoHere.jpg" width="100" alt="Service Provider Logo">-->
+                    <img class="el-image uk-border-rounded" width="90"
+                             src="{{ (provider && provider.logo) ? provider.logo : '/imgs/yourLogoHere.jpg' }}"
+                             alt="Service Provider Logo">
                     {{provider ? provider.name : providerId }} Dashboard
                 </h1>
 

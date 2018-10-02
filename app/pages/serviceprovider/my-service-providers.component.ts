@@ -67,12 +67,4 @@ export class MyServiceProvidersComponent implements OnInit {
         this.tilesView = choseTilesMode;
     }
 
-    getTooltipText(status: string) {
-        return 'lalala';
-    }
-
-    getIfDisabled(status: string) {
-        return (status !== 'approved') ? 'uk-vertical-align-middle uk-disabled':'uk-vertical-align-middle';
-    }
-
 }

@@ -80,11 +80,8 @@
                                                                  uk-scrollspy-class="">
                                                                 <div class="uk-grid uk-child-width-expand uk-grid-collapse" uk-grid>
                                                                     <div class="uk-margin-remove-right">
-                                                                        <!-- TODO: Show logo when it becomes available -->
-                                                                        <!--<img class="el-image uk-border-rounded"
-                                                                             src="{{ provider.logoUrl ? provider.logoUrl : '/imgs/yourLogoHere.jpg' }}" alt="Service Provider Logo">-->
-                                                                        <img class="uk-border-rounded" width="100"
-                                                                             src="/imgs/yourLogoHere.jpg" alt="Service Provider Logo">
+                                                                        <img class="el-image uk-border-rounded" width="100"
+                                                                             src="{{ provider.logo ? provider.logo : '/imgs/yourLogoHere.jpg' }}" alt="Service Provider Logo">
                                                                     </div>
                                                                     <div class="uk-margin-auto-vertical">
                                                                         <span>{{ provider.name }}</span>
@@ -136,10 +133,8 @@
                                                                 <tbody>
                                                                 <tr class="el-item" *ngFor="let provider of myProviders">
                                                                     <td class="uk-text-nowrap uk-table-shrink">
-                                                                        <!--<img class="el-image uk-border-rounded"
-                                                                                     src="{{ provider.logoUrl ? provider.logoUrl : '/assets/imgs/yourLogoHere.jpg' }}" alt="Service Provider Logo">-->
                                                                         <img class="el-image uk-border-rounded"
-                                                                             src="/imgs/yourLogoHere.jpg" alt="Service Provider Logo">
+                                                                             src="{{ provider.logo ? provider.logo : '/assets/imgs/yourLogoHere.jpg' }}" alt="Service Provider Logo">
                                                                     </td>
                                                                     <td class="uk-text-nowrap uk-table-shrink">
                                                                         <span data-uk-tooltip title="{{(provider.status !== 'approved') ?

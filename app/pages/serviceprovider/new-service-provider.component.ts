@@ -6,7 +6,7 @@ import {
     Description,
     emailDesc,
     firstNameDesc,
-    lastNameDesc,
+    lastNameDesc, logoUrlDesc,
     organizationIdDesc,
     organizationNameDesc,
     organizationWebsiteDesc,
@@ -16,7 +16,8 @@ import {
 import { AuthenticationService } from '../../services/authentication.service';
 import { ServiceProviderService } from '../../services/service-provider.service';
 import { Router } from '@angular/router';
-import { Provider } from '../../domain/eic-model';
+
+declare var UIkit: any;
 
 @Component({
     selector: 'new-service-provider',
@@ -25,33 +26,14 @@ import { Provider } from '../../domain/eic-model';
 export class NewServiceProviderComponent implements OnInit {
     errorMessage: string;
     userInfo = { family_name: '', given_name: '', email: '' };
-
-/*
-* {
-  "additionalInfo": "string",
-  "catalogueOfResources": "string",
-  "contactInformation": "string",
-  "id": "string",
-  "name": "string",
-  "publicDescOfResources": "string",
-  "users": [
-    {
-      "email": "string",
-      "id": "string",
-      "name": "string",
-      "surname": "string"
-    }
-  ],
-  "website": "string"
-}
-* */
-
-
     newProviderForm: FormGroup;
+    logoUrl: string = '';
+
     /* TODO: add logo field to the form */
     readonly formDefinition = {
         id: ['', Validators.required],
         name: ['', Validators.required],
+        logo: [''],
         contactInformation: [''],
         website: ['', Validators.required],
         catalogueOfResources: [''],
@@ -68,6 +50,7 @@ export class NewServiceProviderComponent implements OnInit {
     catalogueOfResourcesDesc: Description = catalogueOfResourcesDesc;
     publicDescOfResourcesDesc: Description = publicDescOfResourcesDesc;
     additionalInfoDesc: Description = additionalInfoDesc;
+    logoUrlDesc: Description = logoUrlDesc;
 
 
     constructor(private fb: FormBuilder,
@@ -116,6 +99,20 @@ export class NewServiceProviderComponent implements OnInit {
             }
             window.scrollTo(0, 0);
         }
+    }
+
+    showLogoUrlModal() {
+        if (this.newProviderForm && this.newProviderForm.get('logo').value) {
+            this.logoUrl = this.newProviderForm.get('logo').value;
+        }
+        UIkit.modal('#logoUrlModal').show();
+    }
+
+    addLogoUrl(logoUrl: string) {
+        this.logoUrl = logoUrl;
+        this.newProviderForm.get('logo').setValue(logoUrl);
+        this.newProviderForm.get('logo').updateValueAndValidity();
+        UIkit.modal('#logoUrlModal').hide();
     }
 
 }

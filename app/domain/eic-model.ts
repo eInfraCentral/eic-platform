@@ -95,6 +95,7 @@ export class Provider implements Identifiable {
     contactInformation: string;
     id: string;
     name: string;
+    logo: string;
     publicDescOfResources: URL;
     status: string;
     user: User[];

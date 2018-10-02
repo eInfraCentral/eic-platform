@@ -39,12 +39,15 @@
                                         <tbody *ngIf="providers">
                                             <tr *ngFor="let provider of providers">
                                                 <td>
-                                                    <a [routerLink]="['/dashboard',provider.id]" data-uk-tooltip
-                                                       title="{{(provider.status !== 'approved') ?
-                                                                'Your service provider is not yet active, therefore you cannot access its monitoring dashboard':
+                                                    <span data-uk-tooltip
+                                                          title="{{(provider.status !== 'approved') ?
+                                                                'The service provider is not yet active, therefore you cannot access its monitoring dashboard':
                                                                 'Go to the service provider monitoring dashboard'}}">
-                                                        {{ provider.name }}
-                                                    </a>
+                                                        <a [routerLink]="['/dashboard',provider.id]"
+                                                           class="{{(provider.status !== 'approved') ? 'uk-disabled':''}}">
+                                                            {{ provider.name }}
+                                                        </a>
+                                                    </span>
                                                 </td>
                                                 <td>
                                                     <span class="{{ (provider.status === 'pending initial approval') ? 'uk-badge uk-badge-danger' :
