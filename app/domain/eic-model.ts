@@ -95,6 +95,7 @@ export class Provider implements Identifiable {
     contactInformation: string;
     id: string;
     name: string;
+    logo: string;
     publicDescOfResources: URL;
     status: string;
     user: User[];
@@ -140,17 +141,25 @@ export class User implements Identifiable {
 }
 
 export class Vocabulary implements Identifiable {
-    entry: { [index: string]: VocabularyEntry };
+    extras: string[];
     id: string;
     name: string;
+    parent: string;
+    type: string;
 }
 
-export class VocabularyEntry {
-    child: VocabularyEntry[];
-    extra: { [index: string]: string };
-    id: string;
-    name: string;
-}
+// export class Vocabulary implements Identifiable {
+//     entry: { [index: string]: VocabularyEntry };
+//     id: string;
+//     name: string;
+// }
+//
+// export class VocabularyEntry {
+//     child: VocabularyEntry[];
+//     extra: { [index: string]: string };
+//     id: string;
+//     name: string;
+// }
 
 export class URL implements Serializable {
 }

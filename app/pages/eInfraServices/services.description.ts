@@ -28,7 +28,7 @@ export const languagesDesc = {label: "languages", mandatory: true, desc: "List o
 export const tagsDesc = {label: "tags", mandatory: false, desc: "Field to facilitate searching based on keywords"};
 export const requiredServicesDesc = {label: "required Services", mandatory: false, desc: "Other services that are required with this service"};
 export const relatedServicesDesc = {label: "related Services", mandatory: false, desc: "Other services that are commonly used with this service"};
-export const requestDesc = {label: "order", mandatory: true, desc: "URL for requesting the service from the service providers"};
+export const orderDesc = {label: "order", mandatory: true, desc: "URL for requesting the service from the service providers"};
 export const helpdeskDesc = {label: "helpdesk", mandatory: false, desc: "URL of the contact page to ask more information from the service providers about this service. A contact person or helpdesk within the organization must be assigned for communications, questions and issues relating to the service"};
 export const userManualDesc = {label: "user Manual", mandatory: false, desc: "URL for the user manual and documentation"};
 export const trainingInformationDesc = {label: "Training", mandatory: false, desc: "URL for training information"};
@@ -39,12 +39,14 @@ export const termsOfUseDesc = {label: "terms Of Use", mandatory: false, desc: "U
 export const fundingDesc = {label: "funding Sources", mandatory: false, desc: "Sources of funding for the development and operation of the service"};
 
 // new service provider form fields
-export const organizationNameDesc = {label: "Which organisation do you represent?", mandatory: true, desc: ""};
+export const organizationNameDesc = {label: "Name of your service provider", mandatory: true, desc: ""};
+export const organizationIdDesc = {label: "Choose an id for your service provider", mandatory: true, desc: "e.g. openaire, egi etc."};
 export const firstNameDesc = {label: "First name", mandatory: true, desc: ""};
 export const lastNameDesc = {label: "Last name", mandatory: true, desc: ""};
 export const emailDesc = {label: "Email address", mandatory: true, desc: ""};
 export const phoneNumberDesc = {label: "Contact information (phone number)", mandatory: false, desc: ""};
-export const organizationWebsiteDesc = {label: "The website of your organisation?", mandatory: true, desc: ""};
+export const organizationWebsiteDesc = {label: "The website of your organisation", mandatory: true, desc: "note. Include \'http://\' or \'https://\' to the url."};
 export const catalogueOfResourcesDesc = {label: "Do you have a public catalogue of resources (services, data, apps, software, etc.) you are providing/offering? If yes, what is its public URL? If not publicly available, can you send us a link to the catalogue in any form?", mandatory: false, desc: ""};
 export const publicDescOfResourcesDesc = {label: "Do you maintain publicly a detailed description of resources (services, data, apps, software, etc.) you are providing/offering? If yes, what is its public URL? If not publicly available, can you send us a link to a description of a service or resource in any form?", mandatory: false, desc: ""};
 export const additionalInfoDesc = {label: "Would you like to provide us with any additional information about your organisation or the services/resources your provide/offer?", mandatory: true, desc: ""};
+export const logoUrlDesc = {label: "Logo Url", mandatory: false, desc: ""};

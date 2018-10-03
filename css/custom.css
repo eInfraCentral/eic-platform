@@ -440,3 +440,14 @@ a:hover, a:focus {
 
 }
 
+.uk-badge-danger {
+    background-color: #c14136;
+}
+
+.uk-badge-warning {
+    background-color: #e9ab54;
+}
+
+.uk-badge-success {
+    background-color: #84a162;
+}
