@@ -7,7 +7,7 @@ import * as sd from "../services.description";
     selector: "relatedServicesInfo-form",
     template: `
         <div [formGroup]="group">
-            <select formControlName="entry">
+            <select formControlName="entry" class="uk-select">
                 <option *ngFor="let c of relatedServices | keys" [ngValue]="c">{{relatedServices[c]}}</option>
             </select>
         </div>

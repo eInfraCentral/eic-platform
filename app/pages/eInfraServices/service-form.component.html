@@ -38,10 +38,14 @@
 
                       <li accordionSection class="uk-open uk-margin-large-bottom" [title]="'Basic Information'">
                         <form-inline [description]="urlDesc" [params]="'inline'"
-                                     [valid]="serviceForm.get('url').valid && serviceForm.get('url').dirty">
-                          <input class="uk-input" type="text" formControlName="url"
-                                 [ngClass]="{'uk-form-danger': !serviceForm.get('url').valid && serviceForm.get('url').dirty}">
+                                     [valid]="serviceForm.get('url').valid">
+                          <input class="uk-input" type="text" formControlName="url">
                         </form-inline>
+                        <!--<form-inline [description]="urlDesc" [params]="'inline'"-->
+                                     <!--[valid]="serviceForm.get('url').valid && serviceForm.get('url').dirty">-->
+                          <!--<input class="uk-input" type="text" formControlName="url"-->
+                                 <!--[ngClass]="{'uk-form-danger': !serviceForm.get('url').valid && serviceForm.get('url').dirty}">-->
+                        <!--</form-inline>-->
                         <form-inline [description]="nameDesc" [params]="'inline'"
                                      [valid]="serviceForm.get('name').valid && serviceForm.get('name').dirty">
                           <input class="uk-input" type="text" formControlName="name"

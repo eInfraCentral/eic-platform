@@ -433,3 +433,10 @@ a:hover, a:focus {
     cursor: pointer;
 }
 
+.uk-input.ng-invalid.ng-touched, .uk-select.ng-invalid.ng-touched, .uk-textarea.ng-invalid.ng-touched {
+
+    color: #f0506e !important;
+    border-color: #f0506e !important;
+
+}
+

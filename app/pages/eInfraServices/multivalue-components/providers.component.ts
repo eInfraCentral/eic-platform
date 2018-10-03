@@ -9,7 +9,7 @@ import * as sd from "../services.description";
     selector: "providersInfo-form",
     template: `
         <div [formGroup]="group">
-            <select formControlName="entry">
+            <select formControlName="entry" class="uk-select">
                 <option *ngFor="let c of providers | keys | premiumsort:this.weights" [ngValue]="c">
                     {{providers[c]}}
                 </option>
