@@ -26,7 +26,7 @@
 
                             <div class="middle-box animated fadeInDown">
 
-                                <div id="serviceForm">
+                                <div *ngIf="providers && (providers.length>0)" id="serviceForm">
                                     <table class="uk-table uk-table-striped">
                                         <thead>
                                             <tr>
@@ -36,7 +36,7 @@
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
-                                        <tbody *ngIf="providers">
+                                        <tbody>
                                             <tr *ngFor="let provider of providers">
                                                 <td>
                                                     <span data-uk-tooltip
@@ -61,16 +61,17 @@
                                                         <i class="fa fa-eye"></i> View service template
                                                     </a>
                                                 </td>
-                                                <td>
+                                                <td class="uk-text-right">
                                                     <button *ngIf="(provider.status === 'pending initial approval') ||
                                                                    ((provider.status === 'pending service template approval') &&
                                                                      hasCreatedFirstService(provider.id))"
                                                             class="uk-button uk-button-blue"
                                                             (click)="approveStatusChange(provider)">Approve</button>
-                                                    <button *ngIf="(provider.status === 'pending initial approval') ||
-                                                                   ((provider.status === 'pending service template approval') &&
-                                                                     hasCreatedFirstService(provider.id))"
-                                                            class="uk-button uk-button-blue" style="background-color: #c14136!important;">Reject</button>
+                                                    <button *ngIf="provider.status !== 'approved'"
+                                                            class="uk-button uk-button-blue" style="background-color: #c14136!important;"
+                                                            (click)="showVerifyModal(provider)">Reject</button>
+                                                    <a *ngIf="provider.status === 'approved'" class="uk-link uk-text-uppercase"
+                                                       (click)="showVerifyModal(provider)">Deactivate</a>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -103,6 +104,14 @@
     <div class="uk-modal-dialog uk-modal-body">
         <h4>Approve the change of status?</h4>
         <button class="uk-button uk-button-primary" type="button" (click)="updateSelectedProvider()">OK</button>
+        <button class="uk-button uk-button-primary uk-modal-close" type="button">Cancel</button>
+    </div>
+</div>
+
+<div id="verifyModal" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+        <h4>Proceed with the deactivation {{ selectedProvider ? 'of ' + selectedProvider.name : '' }}?</h4>
+        <button class="uk-button uk-button-danger" type="button" (click)="verifySelectedProvider(false)">Deactivate</button>
         <button class="uk-button uk-button-primary uk-modal-close" type="button">Cancel</button>
     </div>
 </div>

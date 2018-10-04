@@ -25,7 +25,7 @@ export class ServiceProvidersListComponent implements OnInit {
     }
 
     getProviders() {
-        setTimeout( () => {
+        /*setTimeout( () => {*/
             this.resourceService.getProviders().subscribe(
                 res => this.providers = res['results'],
                 err => {
@@ -49,7 +49,7 @@ export class ServiceProvidersListComponent implements OnInit {
                 }
 
             );
-        }, 1000);
+        /*}, 1000);*/
     }
 
     approveStatusChange(provider: Provider) {
@@ -68,22 +68,51 @@ export class ServiceProvidersListComponent implements OnInit {
                                                         status: this.statusList[i+1],
                                                         active: active});
 
-            this.serviceProviderService.updateServiceProvider(updatedFields).subscribe(
-                res => console.log(res),
-                err => {
-                        console.log(err);
+            this.serviceProviderService.updateServiceProvider(updatedFields)
+                .flatMap( res => this.serviceProviderService.getServiceProviderById(res.id) )
+                .subscribe(
+                    res => {
+                        const i = this.providers.findIndex( p => p.id === res.id );
+                        if (i>-1) {
+                            Object.assign(this.providers[i], res);
+                        }
                     },
-                () => {
-                    UIkit.modal('#approveModal').hide();
-                    this.providers = [];
-                    this.getProviders();
-                }
-            );
+                    err => console.log(err),
+                    () => {
+                        UIkit.modal('#approveModal').hide();
+                        this.selectedProvider = null;
+                    }
+                );
         }
 
     }
 
-    hasCreatedFirstService(id: string) {
+    showVerifyModal(provider: Provider) {
+        this.selectedProvider = provider;
+        UIkit.modal('#verifyModal').show();
+    }
+
+    verifySelectedProvider(approved: boolean) {
+        if (this.selectedProvider) {
+            this.serviceProviderService.verifyServiceProvider(this.selectedProvider.id, approved)
+                .flatMap( res => this.serviceProviderService.getServiceProviderById(res['id']) )
+                .subscribe(
+                    res => {
+                        const i = this.providers.findIndex( p => p.id === res['id'] );
+                        if (i>-1) {
+                            Object.assign(this.providers[i], res);
+                        }
+                    },
+                    err => console.log(err),
+                    () => {
+                        UIkit.modal('#verifyModal').hide();
+                        this.selectedProvider = null;
+                    }
+                );
+        }
+    }
+
+        hasCreatedFirstService(id: string) {
         return this.pendingFirstServicePerProvider.some(x => x.providerId === id);
     }
 
