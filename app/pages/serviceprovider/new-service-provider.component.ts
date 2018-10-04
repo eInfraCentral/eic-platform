@@ -66,6 +66,10 @@ export class NewServiceProviderComponent implements OnInit {
     }
 
     registerProvider() {
+        /*
+        * {"id":"serviceProvider1","name":"Test Provider 1","logo":"https://brandmark.io/logo-rank/random/beats.png","contactInformation":"321654654","website":"https://testProvider1.gr","catalogueOfResources":"https://testProvider1.gr","publicDescOfResources":"https://testProvider1.gr","additionalInfo":"Test Service Provider other info"}
+        * */
+
         // TODO: add the user id to post when it becomes available
         this.errorMessage = '';
         if (this.newProviderForm.valid) {
@@ -80,7 +84,7 @@ export class NewServiceProviderComponent implements OnInit {
                 });
             console.log(JSON.stringify(newProvider));
 
-            this.serviceProviderService.createNewServiceProvider(newProvider).subscribe(
+            this.serviceProviderService.createNewServiceProvider(newProvider).subscribe (
                 res => console.log(res),
                 err => {
                     console.log(err);

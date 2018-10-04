@@ -32,6 +32,7 @@
                                             <tr>
                                                 <th>Name</th>
                                                 <th>Current Status</th>
+                                                <th class="uk-text-center">Active</th>
                                                 <th>service template</th>
                                                 <th>Actions</th>
                                             </tr>
@@ -50,10 +51,15 @@
                                                     </span>
                                                 </td>
                                                 <td>
-                                                    <span class="{{ (provider.status === 'pending initial approval') ? 'uk-badge uk-badge-danger' :
-                                                                   ((provider.status === 'pending service template approval') ? 'uk-badge uk-badge-warning' : 'uk-badge uk-badge-success') }}">
+                                                    <!--<span class="{{ (provider.status === 'pending initial approval') ? 'uk-badge uk-badge-danger' :
+                                                                   ((provider.status === 'pending service template approval') ? 'uk-badge uk-badge-warning' : 'uk-badge uk-badge-success') }}">-->
+                                                        <!--<i class="fa {{ (provider.status === 'pending initial approval') ? 'fa-times' :
+                                                                   ((provider.status === 'pending service template approval') ? 'fa-exclamation' : 'fa-check') }}"></i>-->
                                                         {{ provider.status }}
-                                                    </span>
+                                                    <!--</span>-->
+                                                </td>
+                                                <td class="uk-text-center">
+                                                    <i class="fa fa-{{ provider.active ? 'check':'close' }}"></i>
                                                 </td>
                                                 <td>
                                                     <a *ngIf="hasCreatedFirstService(provider.id)"
@@ -61,8 +67,8 @@
                                                         <i class="fa fa-eye"></i> View service template
                                                     </a>
                                                 </td>
-                                                <td class="uk-text-right">
-                                                    <button *ngIf="(provider.status === 'pending initial approval') ||
+                                                <td>
+                                                    <!--<button *ngIf="(provider.status === 'pending initial approval') ||
                                                                    ((provider.status === 'pending service template approval') &&
                                                                      hasCreatedFirstService(provider.id))"
                                                             class="uk-button uk-button-blue"
@@ -71,7 +77,22 @@
                                                             class="uk-button uk-button-blue" style="background-color: #c14136!important;"
                                                             (click)="showVerifyModal(provider)">Reject</button>
                                                     <a *ngIf="provider.status === 'approved'" class="uk-link uk-text-uppercase"
-                                                       (click)="showVerifyModal(provider)">Deactivate</a>
+                                                       (click)="showVerifyModal(provider)">Deactivate</a>-->
+                                                    <div *ngIf="((provider.status !== 'pending service template approval') &&
+                                                                 (provider.status !== 'rejected service template')) ||
+                                                                 (hasCreatedFirstService(provider.id))">
+                                                        <a *ngIf="adminActionsMap[provider.status] && adminActionsMap[provider.status].appButtonTitle"
+                                                           class="uk-margin-right"
+                                                           (click)="showActionModal(provider, adminActionsMap[provider.status].onApprove, true)">
+                                                            <i aria-hidden="true" class="fa fa-thumbs-up uk-margin-small-right"></i>
+                                                            {{ adminActionsMap[provider.status].appButtonTitle }}
+                                                        </a>
+                                                        <a *ngIf="adminActionsMap[provider.status] && adminActionsMap[provider.status].rejButtonTitle"
+                                                           (click)="showActionModal(provider, adminActionsMap[provider.status].onReject, false)">
+                                                            <i class="fa fa-thumbs-down uk-margin-small-right" aria-hidden="true"></i>
+                                                            {{ adminActionsMap[provider.status].rejButtonTitle }}
+                                                        </a>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -100,18 +121,22 @@
     </div>
 </div>
 
-<div id="approveModal" uk-modal>
+<!--<div id="approveModal" uk-modal>
     <div class="uk-modal-dialog uk-modal-body">
         <h4>Approve the change of status?</h4>
         <button class="uk-button uk-button-primary" type="button" (click)="updateSelectedProvider()">OK</button>
         <button class="uk-button uk-button-primary uk-modal-close" type="button">Cancel</button>
     </div>
-</div>
+</div>-->
 
-<div id="verifyModal" uk-modal>
+<div id="actionModal" uk-modal>
     <div class="uk-modal-dialog uk-modal-body">
-        <h4>Proceed with the deactivation {{ selectedProvider ? 'of ' + selectedProvider.name : '' }}?</h4>
-        <button class="uk-button uk-button-danger" type="button" (click)="verifySelectedProvider(false)">Deactivate</button>
+        <div *ngIf="selectedProvider">
+            <h6>Proceed with changing the status of "{{ selectedProvider.name }}"</h6>
+            <p *ngIf="selectedProvider.status !== newStatus">The status will change from "{{ selectedProvider.status }}" to "{{ newStatus }}"</p>
+            <p *ngIf="selectedProvider.status === newStatus">The service provider will be deactivated.</p>
+        </div>
+        <button class="uk-button uk-button-primary" type="button" (click)="statusChangeAction()">Proceed</button>
         <button class="uk-button uk-button-primary uk-modal-close" type="button">Cancel</button>
     </div>
 </div>

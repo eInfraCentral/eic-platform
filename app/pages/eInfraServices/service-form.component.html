@@ -109,7 +109,7 @@
                         <div *ngIf="!firstServiceForm">
                           <form-repeat-inline
                                   [component]="providersComponent" [parentGroup]="serviceForm"
-                                  [name]="'providers'" [required]="true"
+                                  [name]="'providers'" [required]="!firstServiceForm"
                                   [description]="providersDesc">
                           </form-repeat-inline>
                         </div>

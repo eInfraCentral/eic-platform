@@ -20,8 +20,8 @@ export class ServiceProviderService {
         return this.http.put('/provider', updatedFields);
     }
 
-    verifyServiceProvider(id: string, active: boolean) {
-        return this.http.patch(`/provider/verifyProvider/${id}?active=${active}`, {});
+    verifyServiceProvider(id: string, active: boolean, status: string) {
+        return this.http.patch(`/provider/verifyProvider/${id}?active=${active}&status=${status}`, {});
     }
 
     getMyServiceProviders() {
