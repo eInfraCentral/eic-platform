@@ -8,7 +8,7 @@ import * as sd from "../services.description";
     selector: "placesInfo-form",
     template: `
         <div [formGroup]="group">
-            <select formControlName="entry">
+            <select formControlName="entry" class="uk-select">
                 <option *ngFor="let c of places | keys | premiumsort:this.weights" [ngValue]="c">{{places[c]}}</option>
             </select>
         </div>
