@@ -32,7 +32,8 @@ export class MyServiceProvidersComponent implements OnInit {
                 () => {
                     this.myProviders.forEach (
                         p => {
-                            if (p.status === 'pending service template approval') {
+                            if ( (p.status === 'pending service template approval') ||
+                                 (p.status === 'rejected service template')) {
                                 this.serviceProviderService.getPendingServicesOfProvider(p.id).subscribe(
                                     res => {
                                         if (res && (res.length > 0) ) {
@@ -57,7 +58,7 @@ export class MyServiceProvidersComponent implements OnInit {
 
     getLinkToFirstService(id: string) {
         if (this.hasCreatedFirstService(id)) {
-            return '/edit/' + this.pendingFirstServicePerProvider.filter(x => x.providerId === id)[0].serviceId;
+            return '/newServiceProvider/' + id + '/editFirstService/' + this.pendingFirstServicePerProvider.filter(x => x.providerId === id)[0].serviceId;
         } else {
             return '/newServiceProvider/' + id + '/addFirstService';
         }

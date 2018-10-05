@@ -170,11 +170,6 @@ export class ServiceFormComponent {
 
         //TODO: check if model is valid
         if (isValid) {
-            /*if ( (this.firstServiceForm === true) && this.providerId) {
-                service.providers = [];
-                service.providers.push(this.providerId);
-            }*/
-            //console.log('service.providers is:', service.providers);
             this.resourceService.uploadService(this.toServer(service), this.editMode)
             .subscribe(service => {
                 setTimeout(() => this.router.service(service.id), 1000);
