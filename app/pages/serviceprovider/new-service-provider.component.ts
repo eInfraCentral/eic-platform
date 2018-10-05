@@ -17,6 +17,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { ServiceProviderService } from '../../services/service-provider.service';
 import { Router } from '@angular/router';
 import { URLValidator } from '../../shared/validators/generic.validator';
+import { Provider, Service } from '../../domain/eic-model';
 
 declare var UIkit: any;
 
@@ -77,14 +78,13 @@ export class NewServiceProviderComponent implements OnInit {
             console.log(JSON.stringify(this.newProviderForm.value));
             let newProvider = Object.assign(
                 this.newProviderForm.value
-                /*{ users: [{ email: this.userInfo.email,
-                                   id: null,
-                                   name: this.userInfo.given_name,
-                                   surname: this.userInfo.family_name
-                                 }]
-                }*/);
+                );
             console.log(JSON.stringify(newProvider));
-
+            /*{ users: [{ email: this.userInfo.email,
+                             id: null,
+                           name: this.userInfo.given_name,
+                        surname: this.userInfo.family_name
+                     }]}*/
             this.serviceProviderService.createNewServiceProvider(newProvider).subscribe (
                 res => console.log(res),
                 err => {
@@ -119,5 +119,4 @@ export class NewServiceProviderComponent implements OnInit {
         this.newProviderForm.get('logo').setValue(logoUrl);
         this.newProviderForm.get('logo').updateValueAndValidity();
     }
-
 }
