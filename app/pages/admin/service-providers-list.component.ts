@@ -107,8 +107,9 @@ export class ServiceProvidersListComponent implements OnInit {
         this.serviceProviderService.verifyServiceProvider(this.selectedProvider.id, active, this.adminActionsMap[this.newStatus].statusId)
             .subscribe(
                 res => {
-                    this.providers = [];
-                    this.providers = res;
+                    /*this.providers = [];
+                    this.providers = res;*/
+                    console.log(res);
                 },
                 err => console.log(err),
                 () => {

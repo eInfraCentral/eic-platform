@@ -87,7 +87,14 @@
                                                             <i aria-hidden="true" class="fa fa-thumbs-up uk-margin-small-right"></i>
                                                             {{ adminActionsMap[provider.status].appButtonTitle }}
                                                         </a>
-                                                        <a *ngIf="adminActionsMap[provider.status] && adminActionsMap[provider.status].rejButtonTitle"
+                                                        <a *ngIf="(provider.status === 'approved') && (!provider.active)"
+                                                           class="uk-margin-right"
+                                                           (click)="showActionModal(provider, 'approved', true)">
+                                                            <i aria-hidden="true" class="fa fa-thumbs-up uk-margin-small-right"></i>
+                                                            Activate
+                                                        </a>
+                                                        <a *ngIf="((provider.status === 'approved') && (provider.active)) ||
+                                                                  ((provider.status !== 'approved') && (adminActionsMap[provider.status] && adminActionsMap[provider.status].rejButtonTitle))"
                                                            (click)="showActionModal(provider, adminActionsMap[provider.status].onReject, false)">
                                                             <i class="fa fa-thumbs-down uk-margin-small-right" aria-hidden="true"></i>
                                                             {{ adminActionsMap[provider.status].rejButtonTitle }}
@@ -134,7 +141,11 @@
         <div *ngIf="selectedProvider">
             <h6>Proceed with changing the status of "{{ selectedProvider.name }}"</h6>
             <p *ngIf="selectedProvider.status !== newStatus">The status will change from "{{ selectedProvider.status }}" to "{{ newStatus }}"</p>
-            <p *ngIf="selectedProvider.status === newStatus">The service provider will be deactivated.</p>
+            <p *ngIf="selectedProvider.status === newStatus">
+                {{ ((selectedProvider.status === 'approved') && !pushedApprove) ? 'The service provider will be deactivated.':
+                    (((selectedProvider.status === 'approved') && pushedApprove) ? 'The service provider will be activated.':
+                    'The sp will be prompted to update the service template.')}}
+            </p>
         </div>
         <button class="uk-button uk-button-primary" type="button" (click)="statusChangeAction()">Proceed</button>
         <button class="uk-button uk-button-primary uk-modal-close" type="button">Cancel</button>
