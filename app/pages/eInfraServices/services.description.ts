@@ -40,7 +40,7 @@ export const fundingDesc = {label: "funding Sources", mandatory: false, desc: "S
 
 // new service provider form fields
 export const organizationNameDesc = {label: "Name of your service provider", mandatory: true, desc: ""};
-export const organizationIdDesc = {label: "Choose an id for your service provider", mandatory: true, desc: "e.g. openaire, egi etc."};
+export const organizationIdDesc = {label: "Choose an id for your service provider", mandatory: true, desc: "e.g. openaire, egi etc (a short id without spaces)."};
 export const firstNameDesc = {label: "First name", mandatory: true, desc: ""};
 export const lastNameDesc = {label: "Last name", mandatory: true, desc: ""};
 export const emailDesc = {label: "Email address", mandatory: true, desc: ""};
