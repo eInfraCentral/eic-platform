@@ -427,3 +427,27 @@ a:hover, a:focus {
     color: #D1303A;
 }
 
+
+/* star-rating on hover style */
+.star-container .star {
+    cursor: pointer;
+}
+
+.uk-input.ng-invalid.ng-touched, .uk-select.ng-invalid.ng-touched, .uk-textarea.ng-invalid.ng-touched {
+
+    color: #f0506e !important;
+    border-color: #f0506e !important;
+
+}
+
+.uk-badge-danger {
+    background-color: #c14136;
+}
+
+.uk-badge-warning {
+    background-color: #e9ab54;
+}
+
+.uk-badge-success {
+    background-color: #84a162;
+}

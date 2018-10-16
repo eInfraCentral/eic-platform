@@ -8,7 +8,7 @@ import * as sd from "../services.description";
     selector: "languagesInfo-form",
     template: `
         <div [formGroup]="group">
-            <select formControlName="entry">
+            <select formControlName="entry" class="uk-select">
                 <option *ngFor="let c of languages | keys | premiumsort:this.weights" [ngValue]="c">
                     {{languages[c]}}
                 </option>

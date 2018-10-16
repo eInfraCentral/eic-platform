@@ -37,23 +37,23 @@ export class SignUpComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.resourceService.getProviders().subscribe(providers => this.providers = providers);
+        this.resourceService.getProvidersNames().subscribe(providers => this.providers = providers);
     }
 
     onSubmit(myUser: User, isValid: boolean) {
-        this.pass = myUser.password;
+        /*this.pass = myUser.password;
         if (isValid) {
             this.userService.registerUser(myUser).subscribe(this.onRegisterFinished);
         } else {
             this.errorMessage = "Form not valid";
-        }
+        }*/
     }
 
-    onRegisterFinished(user: User) {
+    /*onRegisterFinished(user: User) {
         this.submitted = true;
         this.successMessage = "Activation e-mail was sent to " + user.email;
         setTimeout(this.router.login, 5000);
-    }
+    }*/
 
     // areEqual(group: FormGroup) {
     //     let val;

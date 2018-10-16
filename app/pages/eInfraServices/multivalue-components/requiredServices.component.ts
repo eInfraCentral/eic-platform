@@ -7,7 +7,7 @@ import * as sd from "../services.description";
     selector: "requiredServicesInfo-form",
     template: `
         <div [formGroup]="group">
-            <select formControlName="entry">
+            <select formControlName="entry" class="uk-select">
                 <option *ngFor="let c of requiredServices | keys" [ngValue]="c">{{requiredServices[c]}}</option>
             </select>
         </div>
@@ -29,7 +29,7 @@ export class RequiredServicesComponent extends MyGroup {
 
     transformInput(input) {
         return Object.keys(input).reduce((accumulator, value) => {
-            accumulator[value] = input[value][0].providers + " - " + input[value][0].name;
+            accumulator[value] = input[value][0].providers[0] + " - " + input[value][0].name;
             return accumulator;
         }, {});
     }

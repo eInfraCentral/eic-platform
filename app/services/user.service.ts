@@ -4,7 +4,7 @@
 
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs/Rx";
-import {Service, User} from "../domain/eic-model";
+import {Service, User, Event as EicEvent} from "../domain/eic-model";
 import {AuthenticationService} from "./authentication.service";
 import {HTTPWrapper} from "./http-wrapper.service";
 import {NavigationService} from "./navigation.service";
@@ -16,18 +16,19 @@ export class UserService {
                 public resourceService: ResourceService) {
     }
 
-    addFavourite(serviceID: string) {
+    addFavourite(serviceID: string, value:boolean) : Observable<EicEvent> {
         if (this.authenticationService.isLoggedIn()) {
-            return this.http.put(`/event/favourite/service/${serviceID}/user/${this.authenticationService.getUserId()}`,{});
-            // return this.resourceService.recordEvent(serviceID, "FAVOURITE", 1).subscribe(console.log);
+            /*return this.http.put(`/event/favourite/service/${serviceID}`,{});*/
+            //new addFavourite method
+            return this.http.post(`/event/favourite/service/${serviceID}?value=${value}`,{});
         } else {
-            this.router.login();
+            this.authenticationService.login();
         }
     }
 
     public getFavouritesOfUser() {
         if (this.authenticationService.isLoggedIn()) {
-            return this.http.get(`/event/favourite/all/user/${this.authenticationService.getUserId()}`);
+            return this.http.get(`/event/favourite/all`);
         } else {
             return null;
         }
@@ -35,9 +36,9 @@ export class UserService {
 
     getIfFavouriteOfUser(service: string) {
         if (this.authenticationService.isLoggedIn()) {
-            return this.http.get(`/event/favourite/service/${service}/user/${this.authenticationService.getUserId()}`);
+            return this.http.get(`/event/favourite/service/${service}`);
         } else {
-            this.router.login();
+            this.authenticationService.login();
         }
     }
 
@@ -50,22 +51,23 @@ export class UserService {
     }
 
     public canEditService(service: Service) {
-        return this.authenticationService.isLoggedIn() && service.providerName && service.providerName.length > 0 &&
-            service.providerName.indexOf(this.authenticationService.user.email.split("@")[0]) > -1;
+        /*return this.authenticationService.isLoggedIn() && service.providers && service.providers.length > 0 &&
+            service.providers.indexOf(this.authenticationService.getUser()) > -1;*/
+        return false;
     }
 
-    public rateService(serviceID: string, rating: any) {
+    public rateService(serviceID: string, rating: number) : Observable<EicEvent> {
         if (this.authenticationService.isLoggedIn()) {
-            return this.http.put(`/event/rating/service/${serviceID}/user/${this.authenticationService.getUserId()}?rating=${rating}`,{});
+            return this.http.post(`/event/rating/service/${serviceID}?rating=${rating}`,{});
             // return this.resourceService.recordEvent(serviceID, "RATING", value).subscribe(console.log);
         } else {
-            this.router.login();
+            this.authenticationService.login();
         }
     }
 
     public getRatingsOfUser() {
         if (this.authenticationService.isLoggedIn()) {
-            return this.http.get(`/event/rating/all/user/${this.authenticationService.getUserId()}`);
+            return this.http.get(`/event/ratings`);
         } else {
             return null;
         }
@@ -73,9 +75,9 @@ export class UserService {
 
     getUserRating(service: string) {
         if (this.authenticationService.isLoggedIn()) {
-            return this.http.get(`/event/rating/service/${service}/user/${this.authenticationService.getUserId()}`);
+            return this.http.get(`/event/rating/service/${service}`);
         } else {
-            this.router.login();
+            this.authenticationService.login();
         }
     }
 

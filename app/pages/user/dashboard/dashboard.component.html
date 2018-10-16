@@ -3,7 +3,13 @@
         <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid="">
             <div class="uk-width-1-1@m uk-first-column">
 
-                <h1 class="uk-h3">{{provider}} Dashboard</h1>
+                <h1 class="uk-h3">
+                    <!--src="{{ (provider && provider.logo) ? provider.logo : '/imgs/yourLogoHere.jpg' }}"-->
+                    <img class="el-image uk-border-rounded" width="90"
+                             src="{{ (provider && provider.logo) ? provider.logo : 'http://fvtelibrary.com/img/user/NoLogo.png' }}"
+                             alt="Service Provider Logo">
+                    {{provider ? provider.name : providerId }} Dashboard
+                </h1>
 
                 <!-- TOP HELP CONTENT -->
                 <help-content #topHelperContent [position]="'top'"
@@ -26,18 +32,21 @@
 
                             <div class="uk-grid">
                                 <div class="uk-width-1-1">
-                                    <div class="uk-float-right">
+                                    <div *ngIf="provider && (provider.status === 'approved')" class="uk-float-right">
                                         <button routerLink="/upload" class="uk-button uk-button-secondary">Add new service</button>
+                                    </div>
+                                    <div *ngIf="provider && (provider.status === 'pending service template approval')" class="uk-float-right">
+                                        <button routerLink="{{ '/newServiceProvider/' + providerId + '/addFirstService' }}" class="uk-button uk-button-secondary">Add first service</button>
                                     </div>
                                 </div>
                             </div>
 
-                            <div *ngIf="providerServices" class="uk-grid uk-grid-divider">
+                            <div class="uk-grid uk-grid-divider">
 
 
                                 <!--<div class="uk-width-1-1">-->
 
-                                    <div class="uk-width-1-5@m uk-first-column">
+                                    <div *ngIf="providerServices" class="uk-width-1-5@m uk-first-column">
 
                                         <div *ngFor="let providerService of providerServices" class="uk-card uk-card-hover uk-margin-bottom service">
                                             <a (click)="goToServiceDashboard(providerService.id)" class="el-link">

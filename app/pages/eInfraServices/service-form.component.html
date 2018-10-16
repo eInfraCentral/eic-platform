@@ -38,10 +38,14 @@
 
                       <li accordionSection class="uk-open uk-margin-large-bottom" [title]="'Basic Information'">
                         <form-inline [description]="urlDesc" [params]="'inline'"
-                                     [valid]="serviceForm.get('url').valid && serviceForm.get('url').dirty">
-                          <input class="uk-input" type="text" formControlName="url"
-                                 [ngClass]="{'uk-form-danger': !serviceForm.get('url').valid && serviceForm.get('url').dirty}">
+                                     [valid]="serviceForm.get('url').valid">
+                          <input class="uk-input" type="text" formControlName="url">
                         </form-inline>
+                        <!--<form-inline [description]="urlDesc" [params]="'inline'"-->
+                                     <!--[valid]="serviceForm.get('url').valid && serviceForm.get('url').dirty">-->
+                          <!--<input class="uk-input" type="text" formControlName="url"-->
+                                 <!--[ngClass]="{'uk-form-danger': !serviceForm.get('url').valid && serviceForm.get('url').dirty}">-->
+                        <!--</form-inline>-->
                         <form-inline [description]="nameDesc" [params]="'inline'"
                                      [valid]="serviceForm.get('name').valid && serviceForm.get('name').dirty">
                           <input class="uk-input" type="text" formControlName="name"
@@ -100,11 +104,23 @@
                       </li>
 
                       <li accordionSection class="uk-margin-large-bottom" [title]="'Classification Information'">
-                        <form-repeat-inline [component]="providersComponent" [parentGroup]="serviceForm"
-                                            [name]="'providers'" [required]="true"
-                                            [description]="providersDesc">
-                        </form-repeat-inline>
-                        <div></div>
+
+                        <!--IF NOT IN THE AddFirstService PAGE - SHOW THE LIST OF PROVIDERS-->
+                        <div *ngIf="!firstServiceForm">
+                          <form-repeat-inline
+                                  [component]="providersComponent" [parentGroup]="serviceForm"
+                                  [name]="'providers'" [required]="!firstServiceForm"
+                                  [description]="providersDesc">
+                          </form-repeat-inline>
+                        </div>
+
+                        <!--IF IN THE AddFirstService PAGE - SHOW THE CURRENT PROVIDER-->
+                        <div *ngIf="firstServiceForm">
+                          <form-inline [description]="providersDesc" [params]="'inline'">
+                            <span class="uk-input">{{ providerId }}</span>
+                          </form-inline>
+                        </div>
+
                         <form-inline [description]="versionDesc" [params]="'inline'"
                                      [valid]="serviceForm.get('version').valid && serviceForm.get('version').dirty">
                           <input class="uk-input" type="text" formControlName="version"
@@ -112,8 +128,13 @@
                         </form-inline>
                         <form-inline [description]="lastUpdateDesc" [params]="'inline'"
                                      [valid]="serviceForm.get('lastUpdate').valid && serviceForm.get('lastUpdate').dirty">
-                          <input class="uk-input" type="text" formControlName="lastUpdate"
-                                 [ngClass]="{'uk-form-danger': !serviceForm.get('lastUpdate').valid && serviceForm.get('lastUpdate').dirty}">
+                          <input class="uk-input"
+                                 type="text"
+                                 onfocus="(this.type='date')"
+                                 formControlName=lastUpdate>
+
+                          <!--<input class="uk-input" type="text" formControlName="lastUpdate"-->
+                                 <!--[ngClass]="{'uk-form-danger': !serviceForm.get('lastUpdate').valid && serviceForm.get('lastUpdate').dirty}">-->
                         </form-inline>
                         <!--<form #myForm="ngForm" novalidate>-->
                         <!--<my-date-picker name="mydate" [options]="dp.options" [(ngModel)]="dp.default"></my-date-picker>-->
@@ -123,7 +144,15 @@
                           <input class="uk-input" type="text" formControlName="changeLog"
                                  [ngClass]="{'uk-form-danger': !serviceForm.get('changeLog').valid && serviceForm.get('changeLog').dirty}">
                         </form-inline>
-                        <!--validFor goes here-->
+                        <form-inline [description]="validForDesc" [params]="'inline'"
+                                     [valid]="serviceForm.get('validFor').valid && serviceForm.get('validFor').dirty">
+                          <input class="uk-input"
+                                 type="text"
+                                 onfocus="(this.type='date')"
+                                 formControlName=validFor>
+                          <!--<input class="uk-input" type="text" formControlName="validFor"-->
+                                 <!--[ngClass]="{'uk-form-danger': !serviceForm.get('validFor').valid && serviceForm.get('validFor').dirty}">-->
+                        </form-inline>
                         <form-inline *ngIf="this.vocabularies" [description]="lifeCycleStatusDesc"
                                      [params]="'inline'"
                                      [valid]="serviceForm.get('lifeCycleStatus').valid && serviceForm.get('lifeCycleStatus').dirty">
@@ -183,7 +212,7 @@
                         </form-repeat-inline>
                         <div></div>
                         <form-repeat-inline [component]="tagsComponent" [parentGroup]="serviceForm"
-                                            [name]="'tags'" [required]="true" [description]="tagsDesc">
+                                            [name]="'tags'" [required]="false" [description]="tagsDesc">
                         </form-repeat-inline>
                         <div></div>
                         <form-repeat-inline [component]="requiredServicesComponent"
@@ -201,10 +230,10 @@
                       </li>
 
                       <li accordionSection class="uk-margin-large-bottom" [title]="'Support Information'">
-                        <form-inline [description]="requestDesc" [params]="'inline'"
-                                     [valid]="serviceForm.get('request').valid && serviceForm.get('request').dirty">
-                          <input class="uk-input" type="text" formControlName="request"
-                                 [ngClass]="{'uk-form-danger': !serviceForm.get('request').valid && serviceForm.get('request').dirty}">
+                        <form-inline [description]="orderDesc" [params]="'inline'"
+                                     [valid]="serviceForm.get('order').valid && serviceForm.get('order').dirty">
+                          <input class="uk-input" type="text" formControlName="order"
+                                 [ngClass]="{'uk-form-danger': !serviceForm.get('order').valid && serviceForm.get('order').dirty}">
                         </form-inline>
                         <form-inline [description]="helpdeskDesc" [params]="'inline'"
                                      [valid]="serviceForm.get('helpdesk').valid && serviceForm.get('helpdesk').dirty">

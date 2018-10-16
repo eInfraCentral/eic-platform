@@ -17,6 +17,8 @@ import {TermsOfUseComponent} from "./multivalue-components/termsOfUse.component"
 import * as sd from "./services.description";
 import {AuthenticationService} from "../../services/authentication.service";
 import {categoriesAndSubcategories} from "../../domain/categories";
+import { ActivatedRoute } from '@angular/router';
+import {priceDesc} from "./services.description";
 
 @Component({
     selector: "service-form",
@@ -24,6 +26,8 @@ import {categoriesAndSubcategories} from "../../domain/categories";
     styleUrls: ["./service-form.component.css"]
 })
 export class ServiceFormComponent {
+    firstServiceForm: boolean = false;
+    providerId: string;
     editMode: boolean;
     serviceForm: FormGroup;
     service: Service;
@@ -44,7 +48,7 @@ export class ServiceFormComponent {
     readonly versionDesc: sd.Description = sd.versionDesc;
     readonly lastUpdateDesc: sd.Description = sd.lastUpdateDesc;
     readonly changeLogDesc: sd.Description = sd.changeLogDesc;
-    //whereis validForDesc
+    readonly validForDesc: sd.Description = sd.validForDesc;
     readonly lifeCycleStatusDesc: sd.Description = sd.lifeCycleStatusDesc;
     readonly trlDesc: sd.Description = sd.trlDesc;
     readonly categoryDesc: sd.Description = sd.categoryDesc;
@@ -54,12 +58,12 @@ export class ServiceFormComponent {
     readonly tagsDesc: sd.Description = sd.tagsDesc;
     readonly requiredServicesDesc: sd.Description = sd.requiredServicesDesc;
     readonly relatedServicesDesc: sd.Description = sd.relatedServicesDesc;
-    readonly requestDesc: sd.Description = sd.requestDesc;
+    readonly orderDesc: sd.Description = sd.orderDesc;
     readonly helpdeskDesc: sd.Description = sd.helpdeskDesc;
     readonly userManualDesc: sd.Description = sd.userManualDesc;
     readonly trainingInformationDesc: sd.Description = sd.trainingInformationDesc;
     readonly feedbackDesc: sd.Description = sd.feedbackDesc;
-    readonly priceDesc: sd.Description = sd.priceDesc;
+    readonly priceDesc: sd.Description = Object.assign({ mandatory : false }, sd.priceDesc);
     readonly serviceLevelAgreementDesc: sd.Description = sd.serviceLevelAgreementDesc;
     readonly termsOfUseDesc: sd.Description = sd.termsOfUseDesc;
     readonly fundingDesc: sd.Description = sd.fundingDesc;
@@ -79,13 +83,13 @@ export class ServiceFormComponent {
         "targetUsers": [""],
         "userValue": [""],
         "userBase": [""],
-        "symbol": ["", URLValidator],
+        "symbol": ["", Validators.compose([Validators.required, URLValidator])],
         "multimediaURL": ["", URLValidator],
         //providers is defined in component
-        "version": [""],
-        "lastUpdate": [""],
+        "version": ["", Validators.required],
+        "lastUpdate": ["", Validators.required],
         "changeLog": [""],
-        //"validFor": [""],
+        "validFor": [""],
         "lifeCycleStatus": ["", Validators.compose([Validators.required, LifeCycleStatusValidator])],
         "trl": ["", Validators.compose([Validators.required, TRLValidator])],
         "category": ["", Validators.required],
@@ -95,12 +99,12 @@ export class ServiceFormComponent {
         //tags is defined in component
         //requiredServices is defined in component
         //relatedServices is defined in component
-        "request": ["", Validators.compose([Validators.required, URLValidator])],
+        "order": ["", Validators.compose([Validators.required, URLValidator])],
         "helpdesk": ["", URLValidator],
         "userManual": ["", URLValidator],
         "trainingInformation": ["", URLValidator],
         "feedback": ["", URLValidator],
-        "price": ["", Validators.compose([Validators.required, URLValidator])],
+        "price": [""],
         "serviceLevelAgreement": ["", Validators.compose([Validators.required, URLValidator])],
         //TOS is defined in component
         "funding": [""]
@@ -121,7 +125,8 @@ export class ServiceFormComponent {
     router: NavigationService = this.injector.get(NavigationService);
     userService: UserService = this.injector.get(UserService);
 
-    constructor(protected injector: Injector, protected authenticationService: AuthenticationService) {
+    constructor(protected injector: Injector,
+                protected authenticationService: AuthenticationService) {
         this.resourceService = this.injector.get(ResourceService);
         this.fb = this.injector.get(FormBuilder);
         this.router = this.injector.get(NavigationService);
@@ -152,13 +157,19 @@ export class ServiceFormComponent {
             }
             ret[name] = newValues;
         });
+        if ( (this.firstServiceForm === true) && this.providerId) {
+            ret['providers'] = [];
+            ret['providers'].push(this.providerId);
+        }
         return <Service>ret;
     }
 
     onSubmit(service: Service, isValid: boolean) {
+
+        this.setAsTouched();
+
         //TODO: check if model is valid
         if (isValid) {
-            service.providerName = this.authenticationService.getUserId();
             this.resourceService.uploadService(this.toServer(service), this.editMode)
             .subscribe(service => {
                 setTimeout(() => this.router.service(service.id), 1000);
@@ -173,9 +184,10 @@ export class ServiceFormComponent {
 
     ngOnInit() {
         Observable.zip(
-            this.resourceService.getProviders(),
+            this.resourceService.getProvidersNames(),
             this.resourceService.getVocabularies()
         ).subscribe(suc => {
+            console.log(priceDesc);
             this.providers = suc[0];
             this.vocabularies = this.transformVocabularies(suc[1]);
         });
@@ -185,5 +197,33 @@ export class ServiceFormComponent {
             subscription.unsubscribe();
         });
 
+    }
+
+    public setAsTouched() {
+        let ret = {};
+        console.log(this.serviceForm);
+        this.setAsTouched_(this.serviceForm, ret);
+        console.log(ret);
+    }
+
+    private setAsTouched_(form : FormGroup, ret : any) {
+        Object.keys(form.controls).forEach(control =>{
+            let control_ = form.controls[control];
+            console.log(control,control_);
+            if( !control_.valid) {
+                ret[control] = {};
+                if (control_.hasOwnProperty('controls')) {
+                    this.setAsTouched_(control_ as FormGroup, ret[control]);
+                } else {
+                    if (control_.enabled && !control_.valid) {
+                        console.log(control);
+                        ret[control] = control_.valid;
+                        (control_ as FormGroup).markAsDirty();
+                        (control_ as FormGroup).markAsTouched();
+                        console.log(control, form.controls[control].valid);
+                    }
+                }
+            }
+        });
     }
 }
