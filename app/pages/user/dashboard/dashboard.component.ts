@@ -57,23 +57,23 @@ export class DashboardComponent implements OnInit {
             });
         } else {
             this.providerService.getMyServiceProviders().subscribe(
-                res => this.providerId = res[0].id,
+                res => {
+                        this.providerId = res[0].id;
+                        Observable.zip(
+                            this.resourceService.getEU(),
+                            this.resourceService.getWW(),
+                            this.providerService.getServiceProviderById(this.providerId)
+                            /*this.resourceService.getProvidersNames()*/
+                        ).subscribe(suc => {
+                            this.EU = suc[0];
+                            this.WW = suc[1];
+                            this.provider = suc[2];
+                            this.getDataForProvider();
+                        });
+                    },
                 err => {
                     console.log(err);
                     this.errorMessage = 'An error occurred!';
-                },
-                () => {
-                    Observable.zip(
-                        this.resourceService.getEU(),
-                        this.resourceService.getWW(),
-                        this.providerService.getServiceProviderById(this.providerId)
-                        /*this.resourceService.getProvidersNames()*/
-                    ).subscribe(suc => {
-                        this.EU = suc[0];
-                        this.WW = suc[1];
-                        this.provider = suc[2];
-                        this.getDataForProvider();
-                    });
                 }
             );
         }

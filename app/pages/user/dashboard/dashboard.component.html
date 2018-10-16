@@ -3,7 +3,13 @@
         <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid="">
             <div class="uk-width-1-1@m uk-first-column">
 
-                <h1 class="uk-h3">{{provider ? provider.name : providerId }} Dashboard</h1>
+                <h1 class="uk-h3">
+                    <!--src="{{ (provider && provider.logo) ? provider.logo : '/imgs/yourLogoHere.jpg' }}"-->
+                    <img class="el-image uk-border-rounded" width="90"
+                             src="{{ (provider && provider.logo) ? provider.logo : 'http://fvtelibrary.com/img/user/NoLogo.png' }}"
+                             alt="Service Provider Logo">
+                    {{provider ? provider.name : providerId }} Dashboard
+                </h1>
 
                 <!-- TOP HELP CONTENT -->
                 <help-content #topHelperContent [position]="'top'"

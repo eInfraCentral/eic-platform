@@ -18,6 +18,7 @@ import * as sd from "./services.description";
 import {AuthenticationService} from "../../services/authentication.service";
 import {categoriesAndSubcategories} from "../../domain/categories";
 import { ActivatedRoute } from '@angular/router';
+import {priceDesc} from "./services.description";
 
 @Component({
     selector: "service-form",
@@ -62,7 +63,7 @@ export class ServiceFormComponent {
     readonly userManualDesc: sd.Description = sd.userManualDesc;
     readonly trainingInformationDesc: sd.Description = sd.trainingInformationDesc;
     readonly feedbackDesc: sd.Description = sd.feedbackDesc;
-    readonly priceDesc: sd.Description = sd.priceDesc;
+    readonly priceDesc: sd.Description = Object.assign({ mandatory : false }, sd.priceDesc);
     readonly serviceLevelAgreementDesc: sd.Description = sd.serviceLevelAgreementDesc;
     readonly termsOfUseDesc: sd.Description = sd.termsOfUseDesc;
     readonly fundingDesc: sd.Description = sd.fundingDesc;
@@ -82,11 +83,11 @@ export class ServiceFormComponent {
         "targetUsers": [""],
         "userValue": [""],
         "userBase": [""],
-        "symbol": ["", URLValidator],
+        "symbol": ["", Validators.compose([Validators.required, URLValidator])],
         "multimediaURL": ["", URLValidator],
         //providers is defined in component
-        "version": [""],
-        "lastUpdate": [""],
+        "version": ["", Validators.required],
+        "lastUpdate": ["", Validators.required],
         "changeLog": [""],
         "validFor": [""],
         "lifeCycleStatus": ["", Validators.compose([Validators.required, LifeCycleStatusValidator])],
@@ -103,7 +104,7 @@ export class ServiceFormComponent {
         "userManual": ["", URLValidator],
         "trainingInformation": ["", URLValidator],
         "feedback": ["", URLValidator],
-        "price": ["", Validators.compose([Validators.required, URLValidator])],
+        "price": [""],
         "serviceLevelAgreement": ["", Validators.compose([Validators.required, URLValidator])],
         //TOS is defined in component
         "funding": [""]
@@ -156,16 +157,19 @@ export class ServiceFormComponent {
             }
             ret[name] = newValues;
         });
+        if ( (this.firstServiceForm === true) && this.providerId) {
+            ret['providers'] = [];
+            ret['providers'].push(this.providerId);
+        }
         return <Service>ret;
     }
 
     onSubmit(service: Service, isValid: boolean) {
+
+        this.setAsTouched();
+
         //TODO: check if model is valid
         if (isValid) {
-            if ( (this.firstServiceForm === true) && this.providerId) {
-                service.providers = [];
-                service.providers.push(this.providerId);
-            }
             this.resourceService.uploadService(this.toServer(service), this.editMode)
             .subscribe(service => {
                 setTimeout(() => this.router.service(service.id), 1000);
@@ -183,6 +187,7 @@ export class ServiceFormComponent {
             this.resourceService.getProvidersNames(),
             this.resourceService.getVocabularies()
         ).subscribe(suc => {
+            console.log(priceDesc);
             this.providers = suc[0];
             this.vocabularies = this.transformVocabularies(suc[1]);
         });
@@ -192,5 +197,33 @@ export class ServiceFormComponent {
             subscription.unsubscribe();
         });
 
+    }
+
+    public setAsTouched() {
+        let ret = {};
+        console.log(this.serviceForm);
+        this.setAsTouched_(this.serviceForm, ret);
+        console.log(ret);
+    }
+
+    private setAsTouched_(form : FormGroup, ret : any) {
+        Object.keys(form.controls).forEach(control =>{
+            let control_ = form.controls[control];
+            console.log(control,control_);
+            if( !control_.valid) {
+                ret[control] = {};
+                if (control_.hasOwnProperty('controls')) {
+                    this.setAsTouched_(control_ as FormGroup, ret[control]);
+                } else {
+                    if (control_.enabled && !control_.valid) {
+                        console.log(control);
+                        ret[control] = control_.valid;
+                        (control_ as FormGroup).markAsDirty();
+                        (control_ as FormGroup).markAsTouched();
+                        console.log(control, form.controls[control].valid);
+                    }
+                }
+            }
+        });
     }
 }

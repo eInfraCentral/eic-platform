@@ -8,6 +8,8 @@ import { ServiceProviderService } from '../../services/service-provider.service'
 })
 export class MyServiceProvidersComponent implements OnInit {
     errorMessage: string;
+    noProvidersMessage: string;
+    tilesView: boolean;
 
     myProviders: Provider[];
     pendingFirstServicePerProvider: any[] = [];
@@ -15,6 +17,7 @@ export class MyServiceProvidersComponent implements OnInit {
     constructor(private serviceProviderService: ServiceProviderService) {}
 
     ngOnInit() {
+        this.tilesView = true;
         this.getServiceProviders();
     }
 
@@ -27,9 +30,10 @@ export class MyServiceProvidersComponent implements OnInit {
                     this.errorMessage = 'An error occurred!';
                 },
                 () => {
-                    this.myProviders.forEach(
+                    this.myProviders.forEach (
                         p => {
-                            if (p.status === 'pending service template approval') {
+                            if ( (p.status === 'pending service template approval') ||
+                                 (p.status === 'rejected service template')) {
                                 this.serviceProviderService.getPendingServicesOfProvider(p.id).subscribe(
                                     res => {
                                         if (res && (res.length > 0) ) {
@@ -40,6 +44,9 @@ export class MyServiceProvidersComponent implements OnInit {
                             }
                         }
                     );
+                    if (this.myProviders.length === 0) {
+                        this.noProvidersMessage = 'You have not yet registered any service providers.';
+                    }
                 }
             );
         }, 1000);
@@ -51,9 +58,14 @@ export class MyServiceProvidersComponent implements OnInit {
 
     getLinkToFirstService(id: string) {
         if (this.hasCreatedFirstService(id)) {
-            return '/service/' + this.pendingFirstServicePerProvider.filter(x => x.providerId === id)[0].serviceId;
+            return '/newServiceProvider/' + id + '/editFirstService/' + this.pendingFirstServicePerProvider.filter(x => x.providerId === id)[0].serviceId;
         } else {
             return '/newServiceProvider/' + id + '/addFirstService';
         }
     }
+
+    toggleTiles(choseTilesMode: boolean) {
+        this.tilesView = choseTilesMode;
+    }
+
 }

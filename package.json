@@ -6,7 +6,7 @@
     "build": "webpack --progress -p",
     "deploy": "npm run build && docker-compose up -d --build",
     "watch": "npm run build -- --watch",
-    "server": "webpack-dev-server --inline --progress --host localhost --port 3000 --content-base .",
+    "server": "webpack-dev-server --inline --progress --port 3000 --content-base .",
     "stats": "webpack --progress -p --json > stats.json",
     "start": "npm run server"
   },

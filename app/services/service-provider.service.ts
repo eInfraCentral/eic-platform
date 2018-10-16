@@ -13,11 +13,15 @@ export class ServiceProviderService {
     constructor(public http: HTTPWrapper, public authenticationService: AuthenticationService) {}
 
     createNewServiceProvider(newProvider: any) {
-        return this.http.post('/provider',newProvider);
+        return this.http.post('/provider', newProvider);
     }
 
     updateServiceProvider(updatedFields: any) {
         return this.http.put('/provider', updatedFields);
+    }
+
+    verifyServiceProvider(id: string, active: boolean, status: string) {
+        return this.http.patch(`/provider/verifyProvider/${id}?active=${active}&status=${status}`, {});
     }
 
     getMyServiceProviders() {
@@ -32,7 +36,7 @@ export class ServiceProviderService {
         return this.http.get(`/provider/services/${id}`);
     }
 
-    getPendingServicesOfProvider(id: string): Observable<Service[]> {
+    getPendingServicesOfProvider(id: string) {
         return this.http.get(`/provider/services/pending/${id}`);
     }
 

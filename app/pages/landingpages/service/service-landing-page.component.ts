@@ -108,42 +108,27 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
     }
 
     addToFavourites() {
-        this.userService.addFavourite(this.service.id, !this.service.isFavourite).subscribe(
-            res => console.log(res),
-            err => console.log(err),
-            () => {
-                /*console.log('going to', window.location.pathname);
-                window.location.href = window.location.pathname;*/
-                setTimeout(() => {
-                    this.resourceService.getSelectedServices([this.service.id]).subscribe (
-                        res => {
-                            this.service = res[0];
-                            console.log(this.service.isFavourite);
-                        }
-                    );
-                }, 500);
-            }
-        );
-
+        this.userService.addFavourite(this.service.id, !this.service.isFavourite)
+            .flatMap( e => this.resourceService.getSelectedServices([e.service]) )
+            .subscribe(
+            res => {
+                    Object.assign(this.service, res[0]);
+                    console.log(this.service.isFavourite);
+                },
+                err => console.log(err)
+            );
     }
 
     rateService(rating: number) {
-        this.userService.rateService(this.service.id, rating).subscribe(
-            res => console.log(res),
-            err => console.log(err),
-            () => {
-                /*console.log('going to', window.location.pathname);
-                window.location.href = window.location.pathname;*/
-                setTimeout(() => {
-                    this.resourceService.getSelectedServices([this.service.id]).subscribe (
-                        res => {
-                            this.service = res[0];
-                            console.log(this.service.hasRate);
-                        }
-                    );
-                }, 500);
-            }
-        );
+        this.userService.rateService(this.service.id, rating)
+            .flatMap( e => this.resourceService.getSelectedServices([e.service]) )
+            .subscribe(
+                res => {
+                    Object.assign(this.service, res[0]);
+                    console.log(this.service.isFavourite);
+                },
+                err => console.log(err)
+            );
     }
 
     getPrettyService(id) {
