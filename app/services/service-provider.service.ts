@@ -20,6 +20,10 @@ export class ServiceProviderService {
         return this.http.put('/provider', updatedFields);
     }
 
+    verifyServiceProvider(id: string, active: boolean, status: string) {
+        return this.http.patch(`/provider/verifyProvider/${id}?active=${active}&status=${status}`, {});
+    }
+
     getMyServiceProviders() {
         return this.http.get(`/provider/getMyServiceProviders?email=${this.authenticationService.getUserProperty('email')}`);
     }
@@ -32,7 +36,7 @@ export class ServiceProviderService {
         return this.http.get(`/provider/services/${id}`);
     }
 
-    getPendingServicesOfProvider(id: string): Observable<Service[]> {
+    getPendingServicesOfProvider(id: string) {
         return this.http.get(`/provider/services/pending/${id}`);
     }
 

@@ -16,6 +16,8 @@ import {
 import { AuthenticationService } from '../../services/authentication.service';
 import { ServiceProviderService } from '../../services/service-provider.service';
 import { Router } from '@angular/router';
+import { URLValidator } from '../../shared/validators/generic.validator';
+import { Provider, Service } from '../../domain/eic-model';
 
 declare var UIkit: any;
 
@@ -33,11 +35,11 @@ export class NewServiceProviderComponent implements OnInit {
     readonly formDefinition = {
         id: ['', Validators.required],
         name: ['', Validators.required],
-        logo: [''],
+        logo: ['', URLValidator],
         contactInformation: [''],
-        website: ['', Validators.required],
-        catalogueOfResources: [''],
-        publicDescOfResources: [''],
+        website: ['', [Validators.required, URLValidator]],
+        catalogueOfResources: ['', URLValidator],
+        publicDescOfResources: ['', URLValidator],
         additionalInfo: ['', Validators.required]
     };
     organizationIdDesc: Description = organizationIdDesc;
@@ -66,21 +68,24 @@ export class NewServiceProviderComponent implements OnInit {
     }
 
     registerProvider() {
+        /*
+        * {"id":"serviceProvider1","name":"Test Provider 1","logo":"https://brandmark.io/logo-rank/random/beats.png","contactInformation":"321654654","website":"https://testProvider1.gr","catalogueOfResources":"https://testProvider1.gr","publicDescOfResources":"https://testProvider1.gr","additionalInfo":"Test Service Provider other info"}
+        * */
+
         // TODO: add the user id to post when it becomes available
         this.errorMessage = '';
         if (this.newProviderForm.valid) {
             console.log(JSON.stringify(this.newProviderForm.value));
             let newProvider = Object.assign(
-                this.newProviderForm.value,
-                { users: [{ email: this.userInfo.email,
-                                   id: null,
-                                   name: this.userInfo.given_name,
-                                   surname: this.userInfo.family_name
-                                 }]
-                });
+                this.newProviderForm.value
+                );
             console.log(JSON.stringify(newProvider));
-
-            this.serviceProviderService.createNewServiceProvider(newProvider).subscribe(
+            /*{ users: [{ email: this.userInfo.email,
+                             id: null,
+                           name: this.userInfo.given_name,
+                        surname: this.userInfo.family_name
+                     }]}*/
+            this.serviceProviderService.createNewServiceProvider(newProvider).subscribe (
                 res => console.log(res),
                 err => {
                     console.log(err);
@@ -109,10 +114,9 @@ export class NewServiceProviderComponent implements OnInit {
     }
 
     addLogoUrl(logoUrl: string) {
+        UIkit.modal('#logoUrlModal').hide();
         this.logoUrl = logoUrl;
         this.newProviderForm.get('logo').setValue(logoUrl);
         this.newProviderForm.get('logo').updateValueAndValidity();
-        UIkit.modal('#logoUrlModal').hide();
     }
-
 }

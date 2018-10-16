@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ResourceService } from '../../services/resource.service';
 import { Provider } from '../../domain/eic-model';
-import { statusList } from '../../domain/service-provider-status-list';
+import { statusChangeMap, statusList } from '../../domain/service-provider-status-list';
 import { ServiceProviderService } from '../../services/service-provider.service';
 
 declare var UIkit: any;
@@ -15,8 +15,12 @@ export class ServiceProvidersListComponent implements OnInit {
 
     providers: Provider[] = [];
     selectedProvider: Provider;
+    newStatus: string;
+    pushedApprove: boolean;
+
     statusList = statusList;
     pendingFirstServicePerProvider: any[] = [];
+    adminActionsMap = statusChangeMap;
 
     constructor(private resourceService: ResourceService, private serviceProviderService: ServiceProviderService) {}
 
@@ -25,31 +29,33 @@ export class ServiceProvidersListComponent implements OnInit {
     }
 
     getProviders() {
-        setTimeout( () => {
-            this.resourceService.getProviders().subscribe(
-                res => this.providers = res['results'],
-                err => {
-                    console.log(err);
-                    this.errorMessage = 'The list could not be retrieved';
-                },
-                () => {
-                    this.providers.forEach(
-                        p => {
-                            if (p.status === 'pending service template approval') {
-                                this.serviceProviderService.getPendingServicesOfProvider(p.id).subscribe(
-                                    res => {
-                                        if (res && (res.length > 0) ) {
-                                            this.pendingFirstServicePerProvider.push({ providerId: p.id, serviceId: res[0].id })
-                                        }
+        /*setTimeout( () => {*/
+        this.providers = [];
+        this.resourceService.getProviders().subscribe(
+            res => this.providers = res['results'],
+            err => {
+                console.log(err);
+                this.errorMessage = 'The list could not be retrieved';
+            },
+            () => {
+                this.providers.forEach(
+                    p => {
+                        if ( (p.status === 'pending service template approval') ||
+                             (p.status === 'rejected service template')) {
+                            this.serviceProviderService.getPendingServicesOfProvider(p.id).subscribe(
+                                res => {
+                                    if (res && (res.length > 0) ) {
+                                        this.pendingFirstServicePerProvider.push({ providerId: p.id, serviceId: res[0].id })
                                     }
-                                );
-                            }
+                                }
+                            );
                         }
-                    );
-                }
+                    }
+                );
+            }
 
-            );
-        }, 1000);
+        );
+        /*}, 1000);*/
     }
 
     approveStatusChange(provider: Provider) {
@@ -68,19 +74,49 @@ export class ServiceProvidersListComponent implements OnInit {
                                                         status: this.statusList[i+1],
                                                         active: active});
 
-            this.serviceProviderService.updateServiceProvider(updatedFields).subscribe(
-                res => console.log(res),
-                err => {
-                        console.log(err);
+            this.serviceProviderService.updateServiceProvider(updatedFields)
+                .flatMap( res => this.serviceProviderService.getServiceProviderById(res.id) )
+                .subscribe(
+                    res => {
+                        const i = this.providers.findIndex( p => p.id === res.id );
+                        if (i>-1) {
+                            Object.assign(this.providers[i], res);
+                        }
                     },
+                    err => console.log(err),
+                    () => {
+                        UIkit.modal('#approveModal').hide();
+                        this.selectedProvider = null;
+                    }
+                );
+        }
+
+    }
+
+    showActionModal(provider: Provider, newStatus: string, pushedApprove: boolean) {
+        this.selectedProvider = provider;
+        this.newStatus = newStatus;
+        this.pushedApprove = pushedApprove;
+        if (this.selectedProvider) {
+            UIkit.modal('#actionModal').show();
+        }
+    }
+
+    statusChangeAction() {
+        const active = this.pushedApprove && (this.newStatus === 'approved');
+        this.serviceProviderService.verifyServiceProvider(this.selectedProvider.id, active, this.adminActionsMap[this.newStatus].statusId)
+            .subscribe(
+                res => {
+                    /*this.providers = [];
+                    this.providers = res;*/
+                    console.log(res);
+                },
+                err => console.log(err),
                 () => {
-                    UIkit.modal('#approveModal').hide();
-                    this.providers = [];
+                    UIkit.modal('#actionModal').hide();
                     this.getProviders();
                 }
             );
-        }
-
     }
 
     hasCreatedFirstService(id: string) {

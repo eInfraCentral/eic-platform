@@ -23,6 +23,12 @@ export class HTTPWrapper extends Http {
         return super.put(this.base + url, this.parse(body), options).map(this.getJSON).catch(this.handleError);
     }
 
+    public patch(url: string, body: any, options?: RequestOptionsArgs): Observable<any> {
+        // console.log(`calling ${url}`);
+        options = options || {withCredentials: true};
+        return super.patch(this.base + url, this.parse(body), options).map(this.getJSON).catch(this.handleError);
+    }
+
     public getAny(url: string, options?: RequestOptionsArgs): Observable<any> {
         console.log(`calling ${url}`);
         options = options || {withCredentials: true};
@@ -37,7 +43,10 @@ export class HTTPWrapper extends Http {
     public handleError(error: Response) {
         let message = "Server error";
         try {
-            message = JSON.parse(error.text()).error;
+            if (JSON.parse(error.text()).error) {
+                message = JSON.parse(error.text()).error;
+            }
+
         } catch (e) {
             console.error("HTTPWrapper", e);
         }

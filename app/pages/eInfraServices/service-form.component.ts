@@ -157,6 +157,10 @@ export class ServiceFormComponent {
             }
             ret[name] = newValues;
         });
+        if ( (this.firstServiceForm === true) && this.providerId) {
+            ret['providers'] = [];
+            ret['providers'].push(this.providerId);
+        }
         return <Service>ret;
     }
 
@@ -166,10 +170,6 @@ export class ServiceFormComponent {
 
         //TODO: check if model is valid
         if (isValid) {
-            if ( (this.firstServiceForm === true) && this.providerId) {
-                service.providers = [];
-                service.providers.push(this.providerId);
-            }
             this.resourceService.uploadService(this.toServer(service), this.editMode)
             .subscribe(service => {
                 setTimeout(() => this.router.service(service.id), 1000);

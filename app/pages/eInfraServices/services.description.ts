@@ -40,7 +40,7 @@ export const fundingDesc = {label: "funding Sources", mandatory: false, desc: "S
 
 // new service provider form fields
 export const organizationNameDesc = {label: "Name of your service provider", mandatory: true, desc: ""};
-export const organizationIdDesc = {label: "Choose an id for your service provider", mandatory: true, desc: "e.g. openaire, egi etc."};
+export const organizationIdDesc = {label: "Choose an id for your service provider", mandatory: true, desc: "e.g. openaire, egi etc (a short id without spaces)."};
 export const firstNameDesc = {label: "First name", mandatory: true, desc: ""};
 export const lastNameDesc = {label: "Last name", mandatory: true, desc: ""};
 export const emailDesc = {label: "Email address", mandatory: true, desc: ""};
@@ -49,4 +49,5 @@ export const organizationWebsiteDesc = {label: "The website of your organisation
 export const catalogueOfResourcesDesc = {label: "Do you have a public catalogue of resources (services, data, apps, software, etc.) you are providing/offering? If yes, what is its public URL? If not publicly available, can you send us a link to the catalogue in any form?", mandatory: false, desc: ""};
 export const publicDescOfResourcesDesc = {label: "Do you maintain publicly a detailed description of resources (services, data, apps, software, etc.) you are providing/offering? If yes, what is its public URL? If not publicly available, can you send us a link to a description of a service or resource in any form?", mandatory: false, desc: ""};
 export const additionalInfoDesc = {label: "Would you like to provide us with any additional information about your organisation or the services/resources your provide/offer?", mandatory: true, desc: ""};
-export const logoUrlDesc = {label: "Logo Url", mandatory: false, desc: ""};
+export const logoUrlDesc = {label: "Logo Url", mandatory: false, desc: "note. Include \'http://\' or \'https://\' to the url."};
+/*export const logoUrlDesc = {label: "Logo Url", mandatory: false, desc: "Please enter a valid url address and make sure that the maximum size of the uploaded image is width=360px, height=240px"};*/
