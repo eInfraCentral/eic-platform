@@ -194,7 +194,7 @@
                 <div class="tm-sidebar uk-width-1-4@m">
 
                     <div>
-                        <a class="uk-width-1-1 uk-button uk-button-primary visitButton" (click)="visit()" routerLinkActive="active">
+                        <a class="uk-width-1-1 uk-button uk-button-primary visitButton" href="{{service.url}}" target="_blank" routerLinkActive="active">
                             <strong>Service Homepage</strong>
                         </a>
                         <a *ngIf="service.order" class="uk-width-1-1 uk-button uk-button-primary visitButton uk-margin-top"
