@@ -1,20 +1,24 @@
 .uk-navbar-nav > li > a , .uk-navbar-nav > li > a:focus, .uk-navbar-nav > li > a:active{
-    color: #0047BA;
+    /*color: #0047BA;*/
+    color: #555555;
     font-size: 15px;
     font-weight: bold;
 }
 
 .uk-navbar-nav > li > a:hover {
-    color: #D1303A;
+    /*color: #D1303A;*/
+    color: #203349;
 }
 
 .uk-navbar-dropdown-nav > li > a, .uk-navbar-dropdown-nav > li > a:focus, .uk-navbar-dropdown-nav > li > a:active {
-    color: #0047BA;
+    /*color: #0047BA;*/
+    color: #555555;
     font-size: 16px;
 }
 
 .uk-navbar-dropdown-nav > li > a:hover {
-    color: #D1303A;
+    /*color: #D1303A;*/
+    color: #203349;
 }
 
 .signUp {
@@ -86,4 +90,8 @@ a.signUp, a:hover.signUp {
 
 .uk-navbar-right > .uk-navbar-nav > li > a {
     white-space: nowrap;
+}
+
+.uk-navbar-nav > li > a {
+    text-transform: none;
 }
