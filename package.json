@@ -4,7 +4,11 @@
   "scripts": {
     "clean": "rm -rf dist/ && mkdir dist",
     "build": "webpack --progress -p",
+    "build:prod": "webpack --progress -p --env.release=true",
     "deploy": "npm run build && docker-compose up -d --build",
+    "build:docker": "npm run build:prod && docker build -t omtd-platform -t docker.openminted.eu/omtd-platform .",
+    "deploy:server": "docker rm -f omtd-platform && docker run --name omtd-platform -d -p 80:80 omtd-platform",
+    "deploy:complete": "npm run build:docker && npm run deploy:server",
     "watch": "npm run build -- --watch",
     "server": "webpack-dev-server --inline --progress --host 0.0.0.0 --port 3000 --content-base .",
     "stats": "webpack --progress -p --json > stats.json",
