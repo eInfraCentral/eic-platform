@@ -205,7 +205,7 @@
 
                         <div *ngIf="listViewActive" class="uk-grid-margin-small">
 
-                            <ng-container *ngFor="let resourceInfo of searchResults.results">
+                            <ng-container *ngFor="let resourceInfo of searchResults.results; let i = index">
 
                                 <div class="serviceDetails uk-margin-small-bottom">
 
@@ -219,11 +219,12 @@
                                                     </a>
                                                 </h3>
                                                 <span class="uk-inline uk-float-right" style="margin-top:5px;">
-                                                    <star-rating-comp #rating (click)="rateService(resourceInfo.id, rating.rating)"
-                                                                      [starType]="'svg'"
-                                                                      [rating]="getUserRating(resourceInfo.id)" [step]="1"
+                                                    <star-rating-comp #rating (click)="rateService(i, rating.rating)"
+                                                                      [starType]="'svg'" [rating]="resourceInfo.hasRate" [step]="1"
                                                                       [showHalfStars]="true" [readOnly]=!this.authenticationService.isLoggedIn() [size]="'small'"
-                                                                      [staticColor]="'ok'" title="Rate this service" uk-tooltip="delay: 500">
+                                                                      [staticColor]="'ok'" title="Rate this service" uk-tooltip="delay: 500"
+                                                                      labelText="{{resourceInfo.hasRate}} ({{ resourceInfo.ratings }})" [labelVisible]="true" [labelPosition]="'right'"
+                                                                      [hoverEnabled]="true">
                                                     </star-rating-comp>
                                                 </span>
                                             </div>
@@ -246,10 +247,10 @@
 
                                             <div class="addenda uk-margin-small-top">
                                                 <span class="uk-margin-medium-right">
-                                                    <a (click)="addToFavourites(resourceInfo.id)">
-                                                        <i [ngClass]="getIfUserFavourite(resourceInfo.id)?'fa fa-heart':'fa fa-heart-o'"></i>
+                                                    <a (click)="addToFavourites(i)">
+                                                        <i [ngClass]="resourceInfo.isFavourite?'fa fa-heart':'fa fa-heart-o'"></i>
                                                     </a>
-                                                    <span class="statsNumbers">{{ 0 }}</span>
+                                                    <span class="statsNumbers">&nbsp;{{ resourceInfo.favourites }}</span>
                                                 </span>
                                                 <span class="uk-margin-medium-right">
                                                     <input type="checkbox" class="uk-margin-small-right"
@@ -259,7 +260,7 @@
                                                 </span>
                                                 <span class="uk-float-right">
                                                     <img src="../../../../assets/images/icons/ic_visit_icon.svg">
-                                                    <span class="statsNumbers">{{ 0 }}</span>
+                                                    <span class="statsNumbers">&nbsp;{{ resourceInfo.views }}</span>
                                                 </span>
                                             </div>
 
@@ -534,17 +535,19 @@
 
                         <div class="uk-grid uk-grid-margin-small uk-child-width-1-3@m gridView">
 
-                            <ng-container *ngFor="let resourceInfo of searchResults.results">
+                            <ng-container *ngFor="let resourceInfo of searchResults.results; let i = index">
 
                                 <div class="serviceDetails uk-margin-small-bottom">
 
                                     <div class="uk-first-column uk-card-body serviceInfo">
                                         <div style="position: relative">
                                             <div style="position: absolute;left: -5px;height: 20px;">
-                                                <star-rating-comp #rating2 (click)="rateService(resourceInfo.id, rating2.rating)" [starType]="'svg'"
-                                                                  [rating]="getUserRating(resourceInfo.id)" [step]="1"
+                                                <star-rating-comp #rating2 (click)="rateService(i, rating2.rating)" [starType]="'svg'"
+                                                                  [rating]="resourceInfo.hasRate" [step]="1"
                                                                   [showHalfStars]="true" [readOnly]=!this.authenticationService.isLoggedIn() [size]="'small'"
-                                                                  [staticColor]="'ok'" title="Rate this service" uk-tooltip="delay: 500">
+                                                                  [staticColor]="'ok'" title="Rate this service" uk-tooltip="delay: 500"
+                                                                  labelText="{{resourceInfo.hasRate}} ({{ resourceInfo.ratings }})" [labelVisible]="true" [labelPosition]="'right'"
+                                                                  [hoverEnabled]="true">
                                                 </star-rating-comp>
                                             </div>
                                         </div>
@@ -574,10 +577,10 @@
 
                                         <div class="addenda uk-margin-small-top">
                                             <span class="uk-margin-medium-right">
-                                                <a (click)="addToFavourites(resourceInfo.id)">
-                                                    <i [ngClass]="getIfUserFavourite(resourceInfo.id)?'fa fa-heart':'fa fa-heart-o'"></i>
+                                                <a (click)="addToFavourites(i)">
+                                                    <i [ngClass]="resourceInfo.isFavourite?'fa fa-heart':'fa fa-heart-o'"></i>
                                                 </a>
-                                                <span class="statsNumbers">{{ 0 }}</span>
+                                                <span class="statsNumbers">&nbsp;{{ resourceInfo.favourites }}</span>
                                             </span>
                                             <span class="uk-margin-medium-right">
                                                 <input type="checkbox" class="uk-margin-small-right"
@@ -588,7 +591,7 @@
                                             </span>
                                             <span class="uk-float-right">
                                                 <img src="../../../../assets/images/icons/ic_visit_icon.svg">
-                                                <span class="statsNumbers">{{0}}</span>
+                                                <span class="statsNumbers">&nbsp;;{{ resourceInfo.views }}</span>
                                             </span>
                                         </div>
 

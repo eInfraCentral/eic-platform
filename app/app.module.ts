@@ -58,6 +58,11 @@ import { Angulartics2Module } from 'angulartics2';
 import { Angulartics2Piwik } from 'angulartics2/dist/providers/';
 import { BreadcrumbsComponent } from "./shared/breadcrumbs/breadcrumbs.component";
 import { SlickModule } from "ngx-slick";
+import { ServiceProvidersListComponent } from './pages/admin/service-providers-list.component';
+import { NewServiceProviderComponent } from './pages/serviceprovider/new-service-provider.component';
+import { AddFirstServiceComponent } from './pages/serviceprovider/add-first-service.component';
+import { MyServiceProvidersComponent } from './pages/serviceprovider/my-service-providers.component';
+import { ServiceProviderService } from './services/service-provider.service';
 
 const eicForms = [
     ProvidersComponent, PlacesComponent, LanguagesComponent, TagsComponent,
@@ -119,6 +124,12 @@ export function highchartsFactory() {
         ActivateComponent,
         DashboardComponent,
         ServiceDashboardComponent,
+        //SERVICE PROVIDER ADMIN
+        NewServiceProviderComponent,
+        AddFirstServiceComponent,
+        MyServiceProvidersComponent,
+        //ADMIN
+        ServiceProvidersListComponent,
         //FORMS
         ServiceEditComponent,
         ServiceFormComponent,
@@ -150,6 +161,7 @@ export function highchartsFactory() {
         NavigationService,
         ResourceService,
         UserService,
+        ServiceProviderService,
         {
             provide: HighchartsStatic,
             useFactory: highchartsFactory

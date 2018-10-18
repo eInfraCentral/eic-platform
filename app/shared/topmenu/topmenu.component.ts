@@ -12,6 +12,7 @@ import { SearchQuery } from "../../domain/search-query";
 import { NavigationService } from "../../services/navigation.service";
 import { Subscription } from "rxjs/Subscription";
 import { URLParameter } from "../../domain/url-parameter";
+import {equal} from "assert";
 
 @Component({
     selector: "top-menu",
@@ -45,6 +46,10 @@ export class TopMenuComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+        this.isLoggedIn();
+        this.getUsername();
+        this.getUsersurname();
+
         this.navigationService.paramsObservable.subscribe(params => {
 
             if(params!=null) {
@@ -64,6 +69,34 @@ export class TopMenuComponent implements OnInit, OnDestroy {
         if (this.authenticationService.isLoggedIn()) {
             this.sub.unsubscribe();
         }
+    }
+
+    goToLoginAAI(): void {
+        this.authenticationService.login();
+    }
+
+    isLoggedIn() {
+        return this.authenticationService.isLoggedIn();
+    }
+
+    getUsername() {
+        if (this.authenticationService.isLoggedIn()) {
+            return this.authenticationService.getUserProperty('given_name');
+        }
+    }
+
+    getUsersurname() {
+        if (this.authenticationService.isLoggedIn()) {
+            return this.authenticationService.getUserProperty('family_name');
+        }
+    }
+
+    isProvider() {
+        return this.authenticationService.getUserProperty('roles').some(x => x === "ROLE_PROVIDER");
+    }
+
+    isAdmin() {
+        return this.authenticationService.getUserProperty('roles').some(x => x === "ROLE_ADMIN");
     }
 
     // ngDoCheck(): void {

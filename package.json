@@ -10,7 +10,7 @@
     "deploy:server": "docker rm -f omtd-platform && docker run --name omtd-platform -d -p 80:80 omtd-platform",
     "deploy:complete": "npm run build:docker && npm run deploy:server",
     "watch": "npm run build -- --watch",
-    "server": "webpack-dev-server --inline --progress --host 0.0.0.0 --port 3000 --content-base .",
+    "server": "webpack-dev-server --inline --progress --port 3000 --content-base .",
     "stats": "webpack --progress -p --json > stats.json",
     "start": "npm run server"
   },
@@ -38,7 +38,7 @@
     "ngx-bootstrap": "2.0.0-beta.11",
     "ngx-slick": "^0.1.3",
     "reflect-metadata": "0.1.10",
-    "rxjs": "5.4.3",
+    "rxjs": "5.5.2",
     "zone.js": "0.8.14"
   },
   "devDependencies": {

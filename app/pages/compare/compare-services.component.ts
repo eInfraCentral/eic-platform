@@ -1,12 +1,12 @@
 /**
  * Created by stefania on 8/1/17.
  */
-import {Component, OnDestroy, OnInit} from "@angular/core";
+import { Component, DoCheck, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs/Observable";
 import {Subscription} from "rxjs/Subscription";
-import {Service} from "../../domain/eic-model";
+import { RichService } from '../../domain/eic-model';
 import {SearchQuery} from "../../domain/search-query";
 import {AuthenticationService} from "../../services/authentication.service";
 import {ComparisonService} from "../../services/comparison.service";
@@ -21,15 +21,15 @@ import {UserService} from "../../services/user.service";
 })
 export class CompareServicesComponent implements OnInit, OnDestroy {
     searchForm: FormGroup;
-    public services: Service[] = [];
+
+    services: RichService[] = [];
+
     public errorMessage: string;
-    providers: any;
+    ids: string[] = [];
+    /*providers: any;*/
     nologo: URL = new URL("http://fvtelibrary.com/img/user/NoLogo.png");
     vocabularies: any;
     private sub: Subscription;
-
-    userFavourites = [];
-    userRatings: Event[] = [];
 
     constructor(public fb: FormBuilder, public route: ActivatedRoute, public router: NavigationService,
                 public resourceService: ResourceService, public authenticationService: AuthenticationService,
@@ -39,33 +39,22 @@ export class CompareServicesComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         Observable.zip(
-            this.resourceService.getProviders(),
+            /*this.resourceService.getProvidersNames(),*/
             this.resourceService.getVocabularies(),
         ).subscribe(suc => {
-            this.providers = suc[0];
-            this.vocabularies = this.transformVocabularies(suc[1]);
+            /*this.providers = suc[0];*/
+            this.vocabularies = this.transformVocabularies(suc[0]);
             this.sub = this.route.params.subscribe(params => {
-                let ids = (params.services || "").split(",");
-                if (ids.length > 1) {
-                    this.resourceService.getSelectedServices(ids).subscribe(
+                this.ids = (params.services || "").split(",");
+                if (this.ids.length > 1) {
+                    this.resourceService.getSelectedServices(this.ids).subscribe (
                         services => this.services = services
                     );
                 } else {
                     this.router.search({});
                 }
             });
-        },
-            err => console.log(err),
-            () => {
-                if (this.authenticationService.isLoggedIn()) {
-                    this.userService.getRatingsOfUser().subscribe(
-                        ratings => this.userRatings = ratings
-                    );
-                    this.userService.getFavouritesOfUser().subscribe(
-                        favs => this.userFavourites = favs
-                    );
-                }
-            });
+        });
     }
 
     ngOnDestroy() {
@@ -94,53 +83,41 @@ export class CompareServicesComponent implements OnInit, OnDestroy {
     }
 
 
-    getUserRating(serviceID: string) {
-        if ( this.userRatings && this.userRatings.filter(x => x['service'] === serviceID).length > 0) {
-            return +this.userRatings.filter(x => x['service'] === serviceID)[0]['value'];
-        }
-        return 0;
+    addToFavourites(i:number) {
+        this.userService.addFavourite(this.services[i].id, !this.services[i].isFavourite)
+            .flatMap( e => this.resourceService.getSelectedServices([e.service]))
+            .subscribe(
+                res => {
+                    Object.assign(this.services[i], res[0]);
+                    console.log(this.services[i].isFavourite);
+                },
+                err => console.log(err)
+            );
     }
 
-    getIfUserFavourite(serviceID: string) {
-        if (this.userFavourites &&
-            this.userFavourites.some(x => x['service'] === serviceID)) {
-            let i = this.userFavourites.findIndex(x => x['service'] === serviceID);
-
-            return (this.userFavourites[i]['value'] === '1');
-        } else {
-            return false;
-        }
+    rateService(i:number, rating: number) {
+        this.userService.rateService(this.services[i].id, rating)
+            .flatMap( e => this.resourceService.getSelectedServices([e.service]))
+            .subscribe (
+                res => {
+                    Object.assign(this.services[i], res[0]);
+                    console.log(this.services[i].hasRate);
+                },
+                err => console.log(err)
+            );
     }
 
-    addToFavourites(serviceID: string) {
-        this.userService.addFavourite(serviceID).subscribe(
-            res => {
-                // console.log(res['value']);
-                if (this.userFavourites &&
-                    this.userFavourites.some(x => x['service'] === serviceID)) {
-                    let i = this.userFavourites.findIndex(x => x['service'] === serviceID);
-                    this.userFavourites[i]['value'] = res['value'];
-                } else {
-                    this.userFavourites.push(res);
-                }
-            },
-            err => console.log(err),
-            () => this.getIfUserFavourite(serviceID)
-        );
-
+    getIsFavourite(i: number) {
+        return this.services[i].isFavourite;
     }
 
-    rateService(serviceID: string, rating: number) {
-        this.userService.rateService(serviceID, rating).subscribe(
-            res => console.log,
-            err => console.log(err),
-            () => {
-                this.userService.getRatingsOfUser().subscribe(
-                    res => this.userRatings = res,
-                    err => console.log(err),
-                    () => this.getUserRating(serviceID)
-                );
-            }
-        );
+    getHasRate(i: number) {
+        return this.services[i].hasRate;
     }
+
+    getRatings(i:number) {
+        return this.services[i].ratings;
+    }
+
+
 }

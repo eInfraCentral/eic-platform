@@ -28,8 +28,9 @@
 
                             <div *ngIf="service" class="uk-grid">
                                 <div class="uk-width-1-1">
-                                    <div class="uk-float-right">
-                                        <a href="/edit/{{service.id}}" class="uk-button uk-button-secondary uk-display-block" style="width: 170px">Update</a>
+                                    <div class="uk-float-right" *ngIf="canEditService">
+                                        <a href="/edit/{{service.id}}" class="uk-button uk-button-secondary uk-display-block"
+                                           style="width: 170px">Update</a>
                                     </div>
                                 </div>
                             </div>
