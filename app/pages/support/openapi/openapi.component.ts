@@ -1,5 +1,6 @@
 
 import {Component} from "@angular/core";
+import {API_ENDPOINT} from "../../../shared/environments";
 
 @Component({
     selector: "openapi",
@@ -10,11 +11,11 @@ export class OpenAPIComponent {
 
     //use this for now
     getUI() {
-        return `${process.env.API_ENDPOINT}/swagger-ui.html`;
+        return `${API_ENDPOINT}/swagger-ui.html`;
     }
 
     //this needs consuming code/libraries; too much effort, not agile enough
     getJSON() {
-        return `${process.env.API_ENDPOINT}/v2/api-docs`;
+        return `${API_ENDPOINT}/v2/api-docs`;
     }
 }
