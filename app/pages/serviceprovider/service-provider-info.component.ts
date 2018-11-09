@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {ServiceProviderService} from "../../services/service-provider.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {Provider} from "../../domain/eic-model";
 
 declare var UIKit: any;
@@ -10,14 +10,16 @@ declare var UIKit: any;
     templateUrl: './service-provider-info.component.html'
 })
 
-export class ServiceProviderInfoComponent implements OnInit{
+export class ServiceProviderInfoComponent implements OnInit {
     errorMessage: string;
+    myProviders: Provider[] = [];
     provider: Provider;
+    isUserAdmin: boolean = false;
 
 
     constructor(private serviceProviderService: ServiceProviderService,
-                private route: ActivatedRoute,
-                private router: Router) {}
+                private route: ActivatedRoute) {
+    }
 
     ngOnInit() {
         this.getProvider();
@@ -29,27 +31,29 @@ export class ServiceProviderInfoComponent implements OnInit{
         this.serviceProviderService.getServiceProviderById(id).subscribe(
             provider => {
                 this.provider = provider;
+                this.getMyServiceProviders(this.provider.id);
             },
+            err => {
+                console.log(err);
+                this.errorMessage = "Something went wrong.";
+            }
+        );
+    }
+
+    getMyServiceProviders(id: string) {
+        this.serviceProviderService.getMyServiceProviders().subscribe(
+            providers => this.myProviders = providers,
             err => {
                 console.log(err);
                 this.errorMessage = "Something went wrong.";
             },
             () => {
-                // this.updateProviderForm.patchValue(this.provider);
-                // // let users: User[] = [];
-                // for (let i = 0; i < this.provider.users.length; i++) {
-                //     this.users.push(this.user(this.provider.users[i].email, this.provider.users[i].id,
-                //         this.provider.users[i].name, this.provider.users[i].surname));
-                //     // console.log(this.provider.users[i]);
-                //
-                //     // this.user.patchValue(this.provider.users[i]);
-                //     // console.log(this.user.value);
-                //     // this.users.push(this.User);
-                //     // console.log(this.users.value);
-                // }
-                // this.updateProviderForm.get('id').disable();
-                // this.updateProviderForm.updateValueAndValidity();
-                // console.log(this.updateProviderForm.value);
+                for (let i = 0; i < this.myProviders.length; i++) {
+                    if (this.myProviders[i].id === id) {
+                        this.isUserAdmin = true;
+                        break;
+                    }
+                }
             }
         );
     }
