@@ -34,8 +34,7 @@ export class AuthenticationService {
     public getUserInfo() {
         // retrieve user information from cookie
         if (!this.isLoggedIn() && getCookie(this.cookieName) !== null) {
-            console.log(this.b64DecodeUnicode(getCookie(this.cookieName)));
-            this.b64DecodeUnicode(getCookie(this.cookieName));
+            // console.log(this.b64DecodeUnicode(getCookie(this.cookieName)));/
 
             this.user = JSON.parse(this.b64DecodeUnicode(getCookie(this.cookieName)));
             this.user.id = this.user.eduperson_unique_id;

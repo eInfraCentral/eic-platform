@@ -97,6 +97,7 @@
                                                                 <div>
                                                                     {{ provider.status }}
                                                                 </div>
+                                                                <a *ngIf="(provider.status === 'approved')" routerLink="/updateServiceProvider/{{provider.id}}">Update provider</a>
                                                             </div>
                                                             <div>
                                                                 <a *ngIf="(provider.status === 'pending service template approval') || (provider.status === 'rejected service template')"
@@ -193,6 +194,7 @@
                                                                         <div>
                                                                             {{ provider.status }}
                                                                         </div>
+                                                                        <a *ngIf="(provider.status === 'approved')" routerLink="/updateServiceProvider/{{provider.id}}">Update provider</a>
                                                                     </td>
                                                                     <td>
                                                                         <a *ngIf="(provider.status === 'pending service template approval') || (provider.status === 'rejected service template')"
@@ -200,6 +202,7 @@
                                                                             <i class="fa {{hasCreatedFirstService(provider.id) ? 'fa-pencil': 'fa-plus'}}"></i>
                                                                             {{ hasCreatedFirstService(provider.id) ? 'Update': 'Add'}} service template
                                                                         </a>
+                                                                        <a *ngIf="(provider.status === 'approved')" routerLink="/updateServiceProvider/{{provider.id}}">Update provider</a>
                                                                     </td>
                                                                 </tr>
                                                                 </tbody>
