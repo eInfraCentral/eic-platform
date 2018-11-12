@@ -59,5 +59,10 @@ export class HomeComponent implements OnInit {
     afterChange(e) {
         console.log('afterChange');
     }
+
+    signUpAndRegisterAservice() {
+        sessionStorage.setItem('forward_url', '/newServiceProvider');
+        this.router.router.navigateByUrl('/newServiceProvider');
+    }
 }
 

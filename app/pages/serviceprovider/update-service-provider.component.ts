@@ -186,6 +186,7 @@ export class UpdateServiceProviderComponent implements OnInit {
     deleteUser(index) {
         if (this.users.length === 1) {
             this.errorMessage = 'There must be at least one user!';
+            window.scrollTo(0, 0);
             return;
         }
         let i = 0;
