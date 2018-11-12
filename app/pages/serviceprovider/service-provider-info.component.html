@@ -16,55 +16,79 @@
                     <div class="uk-padding-small uk-border-rounded uk-width-2-3@m" style="border: 1px solid gray;">
                         <!--<div class="uk-width-expand@m">-->
                             <div class="middle-box animated fadeInDown ">
-                                <div class="uk-grid uk-grid-margin-small uk-child-width-1-2@m gridView uk-text-center">
-                                    <div class="serviceDetails uk-margin-small-bottom">
+                                <div class="uk-grid uk-grid-margin-small uk-child-width-1-2@m gridView">
+                                    <div class="serviceDetails uk-margin-small-bottom uk-text-right">
                                         <label class="uk-form-label">Service Provider ID: </label>
                                     </div>
-                                    <div class="serviceDetails uk-margin-small-bottom">
+                                    <div class="serviceDetails uk-margin-small-bottom uk-text-center">
                                         <span>{{provider.id}}</span>
                                     </div>
-                                    <div class="serviceDetails uk-margin-small-bottom">
+                                    <div class="serviceDetails uk-margin-small-bottom uk-text-right">
                                         <label class="uk-form-label">Website: </label>
                                     </div>
-                                    <div class="serviceDetails uk-margin-small-bottom">
+                                    <div class="serviceDetails uk-margin-small-bottom uk-text-center">
                                         <span>{{provider.website}}</span>
                                     </div>
-                                    <div class="serviceDetails uk-margin-small-bottom">
+                                    <div class="serviceDetails uk-margin-small-bottom uk-text-right">
                                         <label class="uk-form-label">Additional Information: </label>
                                     </div>
-                                    <div class="serviceDetails uk-margin-small-bottom">
+                                    <div class="serviceDetails uk-margin-small-bottom uk-text-center">
                                         <span>{{provider.additionalInfo}}</span>
                                     </div>
-                                    <div class="serviceDetails uk-margin-small-bottom">
+                                    <div class="serviceDetails uk-margin-small-bottom uk-text-right">
                                         <label class="uk-form-label">Status: </label>
                                     </div>
-                                    <div class="serviceDetails uk-margin-small-bottom">
+                                    <div class="serviceDetails uk-margin-small-bottom uk-text-center">
                                         <span>{{provider.status}}</span>
                                     </div>
-                                    <div *ngIf="provider.contactInformation">
-                                        <div class="serviceDetails uk-margin-small-bottom">
+                                    <div *ngIf="provider.contactInformation; else NoContactInfo">
+                                        <div class="serviceDetails uk-margin-small-bottom uk-text-right">
                                             <label class="uk-form-label">Contact Information: </label>
                                         </div>
-                                        <div class="serviceDetails uk-margin-small-bottom">
+                                        <div class="serviceDetails uk-margin-small-bottom uk-text-center">
                                             <span>{{provider.contactInformation}}</span>
                                         </div>
                                     </div>
-                                    <div *ngIf="provider.catalogueOfResources">
-                                        <div class="serviceDetails uk-margin-small-bottom">
+                                    <ng-template #NoContactInfo>
+                                        <div class="serviceDetails uk-margin-small-bottom uk-text-right">
+                                            <label class="uk-form-label">Contact Information: </label>
+                                        </div>
+                                        <div class="serviceDetails uk-margin-small-bottom uk-text-center">
+                                            <span>-</span>
+                                        </div>
+                                    </ng-template>
+                                    <div *ngIf="provider.catalogueOfResources; else NoCatalogue">
+                                        <div class="serviceDetails uk-margin-small-bottom uk-text-right">
                                             <label class="uk-form-label">Catalogue of Resources: </label>
                                         </div>
-                                        <div class="serviceDetails uk-margin-small-bottom">
+                                        <div class="serviceDetails uk-margin-small-bottom uk-text-center">
                                             <span>{{provider.catalogueOfResources}}</span>
                                         </div>
                                     </div>
-                                    <div *ngIf="provider.publicDescOfResources">
-                                        <div class="serviceDetails uk-margin-small-bottom">
+                                    <ng-template #NoCatalogue>
+                                        <div class="serviceDetails uk-margin-small-bottom uk-text-right">
+                                            <label class="uk-form-label">Catalogue of Resources: </label>
+                                        </div>
+                                        <div class="serviceDetails uk-margin-small-bottom uk-text-center">
+                                            <span>-</span>
+                                        </div>
+                                    </ng-template>
+                                    <div *ngIf="provider.publicDescOfResources; else NoPublicDescription">
+                                        <div class="serviceDetails uk-margin-small-bottom uk-text-right">
                                             <label class="uk-form-label">Public Description of Resources: </label>
                                         </div>
-                                        <div class="serviceDetails uk-margin-small-bottom">
+                                        <div class="serviceDetails uk-margin-small-bottom uk-text-center">
                                             <span>{{provider.publicDescOfResources}}</span>
                                         </div>
                                     </div>
+                                    <ng-template #NoPublicDescription>
+                                        <div class="serviceDetails uk-margin-small-bottom uk-text-right">
+                                            <label class="uk-form-label">Public Description of Resources: </label>
+                                        </div>
+                                        <div class="serviceDetails uk-margin-small-bottom uk-text-center">
+                                            <span>-</span>
+                                        </div>
+                                    </ng-template>
                                     <div class="uk-align-center">
                                         <table *ngIf="provider.users && (provider.users.length>0)"
                                                class="uk-table uk-table-small uk-table-middle ">

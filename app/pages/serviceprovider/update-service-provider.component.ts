@@ -36,21 +36,12 @@ export class UpdateServiceProviderComponent implements OnInit {
 
     user(email:string, id: string, name: string, surname: string): FormGroup {
         return this.fb.group({
-            email: [email],
+            email: [email,[Validators.required, Validators.email]],
             id: [id],
-            name: [name],
-            surname: [surname]
+            name: [name, Validators.required],
+            surname: [surname, Validators.required]
         });
     }
-
-
-    userFormDefinition = {
-        email: ['', [Validators.required, Validators.email]],
-        id: [null],
-        name: ['',Validators.required],
-        surname: ['',Validators.required]
-    };
-
 
     /* TODO: add logo field to the form */
     formDefinition = {
@@ -91,7 +82,6 @@ export class UpdateServiceProviderComponent implements OnInit {
     ngOnInit() {
         this.updateProviderForm = this.fb.group(this.formDefinition);
         this.getProvider();
-        this.newUserForm = this.fb.group(this.userFormDefinition);
         this.userInfo.given_name = this.authService.getUserProperty('given_name');
         this.userInfo.family_name = this.authService.getUserProperty('family_name');
         this.userInfo.email = this.authService.getUserProperty('email');
@@ -176,19 +166,21 @@ export class UpdateServiceProviderComponent implements OnInit {
     }
 
     addUser() {
-        if (this.newUserForm.valid){
-            this.users.push(this.user(this.newUserForm.get('email').value, this.newUserForm.get('id').value,
-                                    this.newUserForm.get('name').value, this.newUserForm.get('surname').value));
-            this.newUserForm.reset();
-        } else {
-            this.errorMessage = "Please fill in all fields, and fix the data format in fields underlined with a red colour.";
-            this.newUserForm.markAsDirty();
-            this.newUserForm.updateValueAndValidity();
-            for (const i in this.newUserForm.controls) {
-                this.newUserForm.controls[i].markAsDirty();
-            }
-            //window.scrollTo(0, 0);
+        this.users.push(this.user('', null, '', ''));
+        this.users.markAsDirty();
+        this.users.updateValueAndValidity();
+        for (const i in this.users.controls) {
+            this.users.controls[i].markAsDirty();
+            this.users.controls[i].updateValueAndValidity();
         }
+        // this.newUserForm.reset();
+
+        // this.errorMessage = "Please fill in all fields, and fix the data format in fields underlined with a red colour.";
+        // this.newUserForm.markAsDirty();
+        // this.newUserForm.updateValueAndValidity();
+        // for (const i in this.newUserForm.controls) {
+        //     this.newUserForm.controls[i].markAsDirty();
+        // }
     }
 
     deleteUser(index) {

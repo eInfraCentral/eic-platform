@@ -6,6 +6,7 @@ import {Injectable} from "@angular/core";
 import {deleteCookie, getCookie, setCookie} from "../domain/utils";
 import {NavigationService} from "./navigation.service";
 import {isNullOrUndefined} from "util";
+import {Router} from "@angular/router";
 
 @Injectable()
 export class AuthenticationService {
@@ -40,6 +41,11 @@ export class AuthenticationService {
             this.user.id = this.user.eduperson_unique_id;
 
             sessionStorage.setItem('userInfo', JSON.stringify(this.user));
+
+            let url = sessionStorage.getItem('redirect_url');
+            sessionStorage.removeItem('redirect_url');
+            console.log(url);
+            this.router.router.navigateByUrl(url);
         }
     }
 
@@ -64,6 +70,7 @@ export class AuthenticationService {
             console.log('found cookie');
             this.getUserInfo();
         } else {
+            sessionStorage.setItem('redirect_url', window.location.pathname)
             window.location.href = process.env.API_ENDPOINT + "/openid_connect_login";
         }
     }
