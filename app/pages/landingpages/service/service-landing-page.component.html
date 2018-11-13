@@ -84,11 +84,11 @@
                                 <dl class="uk-description-list">
                                     <div *ngIf="service.trl" class="uk-margin-small-bottom">
                                         <dt class="uk-margin-small-right uk-inline">Technology readiness level</dt>
-                                        <dd class="uk-inline">{{this.vocabularies[service.trl].name.charAt(0)}}</dd>
+                                        <dd class="uk-inline">{{service.trlName}}</dd>
                                     </div>
                                     <div *ngIf="service.lifeCycleStatus" class="uk-margin-small-bottom">
                                         <dt class="uk-margin-small-right uk-inline">Lifecycle Status</dt>
-                                        <dd class="uk-inline">{{this.vocabularies[service.lifeCycleStatus].name}}</dd>
+                                        <dd class="uk-inline">{{service.lifeCycleStatusName}}</dd>
                                     </div>
                                 </dl>
                                 <hr class="customDivider">
@@ -161,17 +161,16 @@
                                     <chart type="Map" [options]="serviceMapOptions"></chart>
                                 </div>
                                 <dl class="uk-description-list">
-                                    <ng-container *ngIf="service.places && service.places.length>0">
+                                    <ng-container *ngIf="service.placeNames && service.placeNames.length>0">
                                         <dt class="uk-margin-small-bottom">Places</dt>
                                         <dd>
-                                            <!--<span *ngFor="let place of service.places">{{place}}, </span>-->
-                                            <span>{{this.getPrettyList(service.places)}}</span>
+                                            <span>{{service.placeNames | join:", "}}</span>
                                         </dd>
                                     </ng-container>
-                                    <ng-container *ngIf="service.languages && service.languages.length>0">
+                                    <ng-container *ngIf="service.languageNames && service.languageNames.length>0">
                                         <dt class="uk-margin-small-bottom">Languages</dt>
                                         <dd>
-                                            <span>{{this.getPrettyList(service.languages)}}</span>
+                                            <span>{{service.languageNames | join:", "}}</span>
                                         </dd>
                                     </ng-container>
                                 </dl>

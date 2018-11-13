@@ -46,7 +46,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     foundResults = true;
     advanced: boolean = false;
     providers: any;
-    vocabularies: any;
+    // vocabularies: any;
 
     listViewActive: boolean = true;
 
@@ -65,10 +65,8 @@ export class SearchComponent implements OnInit, OnDestroy {
 
         Observable.zip(
             this.resourceService.getProvidersNames(),
-            this.resourceService.getVocabularies(),
         ).subscribe(suc => {
             this.providers = suc[0];
-            this.vocabularies = suc[1];
             this.sub = this.route.params.subscribe(params => {
                 this.urlParameters.splice(0, this.urlParameters.length);
                 this.foundResults = true;
@@ -164,9 +162,9 @@ export class SearchComponent implements OnInit, OnDestroy {
         });
     }
 
-    getFacetLabel(facet: Facet, facetValue: FacetValue) {
-        return facet.label === "Provider" ? this.providers[facetValue.value] || "N/A" : (this.vocabularies[facetValue.value] || {name:"N/A"}).name || "N/A";
-    }
+    // getFacetLabel(facet: Facet, facetValue: FacetValue) {
+    //     return facet.label === "Provider" ? this.providers[facetValue.value] || "N/A" : (this.vocabularies[facetValue.value] || {name:"N/A"}).name || "N/A";
+    // }
 
     onSubmit(searchValue: SearchQuery) {
         var foundQuery = false;
