@@ -7,6 +7,7 @@ import { Service, Vocabulary } from "../../domain/eic-model";
 import {SearchQuery} from "../../domain/search-query";
 import {NavigationService} from "../../services/navigation.service";
 import {ResourceService} from "../../services/resource.service";
+import {SearchResults} from "../../domain/search-results";
 
 @Component({
     selector: "home",
@@ -16,7 +17,8 @@ import {ResourceService} from "../../services/resource.service";
 export class HomeComponent implements OnInit {
 
     public searchForm: FormGroup;
-    public categories: Vocabulary[];
+    public categoriesResults: SearchResults<Vocabulary> = null;
+    public categories: Vocabulary = null;
     public baseIconURI = "./assets/images/icons/";
 
     public featuredServices: Service[];
@@ -34,11 +36,19 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.resourceService.getVocabulariesRaw("Category").subscribe(suc => {
-            this.categories = suc.results
-            .map(e => Object.assign(e, {extras: e.extras || ["no_icon.svg", "no_icon.svg"]}))
-            .filter(e => e.id !== "Category-Other" && e.extras && e.extras.length && e.extras.length === 2);
-        });
+
+        this.resourceService.getVocabulariesByType("CATEGORIES").subscribe(
+            suc => {
+                this.categoriesResults = suc;
+                this.categories = this.categoriesResults.results[0];
+            }
+        );
+
+        // this.resourceService.getVocabulariesRaw("Category").subscribe(suc => {
+        //     this.categories = suc.results
+        //     .map(e => Object.assign(e, {extras: e.extras || ["no_icon.svg", "no_icon.svg"]}))
+        //     .filter(e => e.id !== "Category-Other" && e.extras && e.extras.length && e.extras.length === 2);
+        // });
 
         this.resourceService.getFeaturedServices().subscribe(
             res => {this.featuredServices = res})

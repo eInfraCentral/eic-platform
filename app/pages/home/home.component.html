@@ -95,7 +95,7 @@
 
         </div>
     </div>
-    <div class="uk-container serviceicon">
+    <div *ngIf="categories" class="uk-container serviceicon">
         <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid="">
             <div class="uk-width-1-1@m uk-first-column">
                 <h1 class="uk-margin-medium uk-text-center uk-h2">
@@ -105,23 +105,25 @@
         </div>
 
         <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid="">
-            <div *ngFor="let c of this.categories" class="uk-width-1-6@m" (click)="this.router.search({category:c.id})">
-                <div class="wk-panel wk-overlay-hover" style="min-height: 100px;">
+            <ng-container *ngFor="let entry of categories.entries | values">
+                <div *ngIf="entry!='other'" class="uk-width-1-6@m" (click)="this.router.search({category:entry})">
+                    <div class="wk-panel wk-overlay-hover" style="min-height: 100px;">
 
-                    <div class="wk-text-center wk-margin wk-margin-top-remove">
-                        <div class="wk-overlay">
-                            <img src={{this.baseIconURI+c.extras[0]}} alt={{c.name}} height="70" style="max-width:70px">
-                            <img src={{this.baseIconURI+c.extras[1]}} alt={{c.name}} height="70" style="max-width:70px"
-                                 class=" wk-overlay-panel wk-overlay-image wk-overlay-fade" >
+                        <div class="wk-text-center wk-margin wk-margin-top-remove">
+                            <div class="wk-overlay">
+                                <img src="{{baseIconURI+categories.entries[entry].extras['icon']}}" alt="{{categories.entries[entry].name}}" height="70" style="max-width:70px">
+                                <img src="{{baseIconURI+categories.entries[entry].extras['icon_active']}}" alt="{{categories.entries[entry].name}}" height="70" style="max-width:70px" class="wk-overlay-panel wk-overlay-image wk-overlay-fade">
+                            </div>
                         </div>
+                        <h3 class="wk-h4 wk-margin-top-remove uk-text-center">
+                            <a class="wk-link-reset" type="button">
+                                {{categories.entries[entry].name}}
+                            </a>
+                        </h3>
                     </div>
-                    <h3 class="wk-h4 wk-margin-top-remove uk-text-center">
-                        <a class="wk-link-reset" type="button">
-                            {{c.name}}
-                        </a>
-                    </h3>
                 </div>
-            </div>
+            </ng-container>
+
         </div>
         <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid="">
             <div class="uk-width-1-1@m uk-first-column">
