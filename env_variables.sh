@@ -4,7 +4,7 @@ IFS=$'\n'
 DIST=${1:-.}
 
 function replace() {
-    sed -i "s|$1=\"[/_a-zA-Z]*\"|$1=\"$2\"|g" ${DIST}/main.bundle.js
+    sed  -i  "s|$1=\"[-/_:a-zA-Z0-9]*\"|$1=\"$2\"|g" ${DIST}/main.bundle.js
 }
 
 function sortVars() {
