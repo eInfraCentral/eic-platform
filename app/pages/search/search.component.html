@@ -59,7 +59,7 @@
                                         <input type="checkbox" name="vehicle" value="Bike" data-md-icheck
                                                (change)="this.onSelection($event, facet.field, facetValue.value)"
                                                [checked]="facetValue.isChecked">
-                                        {{this.getFacetLabel(facet, facetValue)}}
+                                        {{facetValue.label}}
                                         <span>({{facetValue.count}})</span>
                                     </div>
                                 </read-more>
@@ -82,7 +82,7 @@
                                         <!--<input type="checkbox" name="vehicle" value="Bike" data-md-icheck-->
                                                <!--(change)="this.onSelection($event, facet.field, facetValue.value)"-->
                                                <!--[checked]="facetValue.isChecked">-->
-                                        <!--{{this.getFacetLabel(facet, facetValue)}}-->
+                                                <!--{{facetValue.label}}-->
                                         <!--<span>({{facetValue.count}})</span>-->
                                     <!--</div>-->
                                 <!--</read-more>-->
@@ -135,7 +135,7 @@
                                                         <ul class="uk-nav uk-navbar-dropdown-nav">
                                                             <li *ngFor="let facetValue of facet.values">
                                                                 <a (click)="this.selectFacet(facet.field, facetValue.value)">
-                                                                    {{ getFacetLabel(facet, facetValue) }}
+                                                                    {{facetValue.label}}
                                                                     <span>({{facetValue.count}})</span>
                                                                 </a>
                                                             </li>
@@ -374,7 +374,7 @@
                                         <!--<input type="checkbox" name="vehicle" value="Bike" data-md-icheck-->
                                                <!--(change)="this.onSelection($event, facet.field, facetValue.value)"-->
                                                <!--[checked]="facetValue.isChecked">-->
-                                        <!--{{this.getFacetLabel(facet, facetValue)}}-->
+                                                <!--{{facetValue.label}}-->
                                         <!--<span>({{facetValue.count}})</span>-->
                                     <!--</div>-->
                                 <!--</read-more>-->
@@ -397,7 +397,7 @@
                 <!--&lt;!&ndash;<input type="checkbox" name="vehicle" value="Bike" data-md-icheck&ndash;&gt;-->
                 <!--&lt;!&ndash;(change)="this.onSelection($event, facet.field, facetValue.value)"&ndash;&gt;-->
                 <!--&lt;!&ndash;[checked]="facetValue.isChecked">&ndash;&gt;-->
-                <!--&lt;!&ndash;{{this.getFacetLabel(facet, facetValue)}}&ndash;&gt;-->
+                <!--{{facetValue.label}}-->
                 <!--&lt;!&ndash;<span>({{facetValue.count}})</span>&ndash;&gt;-->
                 <!--&lt;!&ndash;</div>&ndash;&gt;-->
                 <!--&lt;!&ndash;</read-more>&ndash;&gt;-->
@@ -445,12 +445,12 @@
                                         <ng-container *ngFor="let facet of searchResults.facets">
                                             <ng-container *ngIf="facet.field=='category'">
                                                 <li class="uk-parent uk-margin-medium-right">
-                                                    <a href="#">{{facet.label | uppercase}}</a>
+                                                    <a href="#">{{facet.label}}</a>
                                                     <div class="uk-navbar-dropdown">
                                                         <ul class="uk-nav uk-navbar-dropdown-nav">
                                                             <li *ngFor="let facetValue of facet.values">
                                                                 <a (click)="this.selectFacet(facet.field, facetValue.value)">
-                                                                    {{this.getFacetLabel(facet, facetValue)}}
+                                                                    {{facetValue.label}}
                                                                     <span>({{facetValue.count}})</span>
                                                                 </a>
                                                             </li>
@@ -465,7 +465,7 @@
                                                         <ul class="uk-nav uk-navbar-dropdown-nav">
                                                             <li *ngFor="let facetValue of facet.values">
                                                                 <a (click)="this.selectFacet(facet.field, facetValue.value)">
-                                                                    {{this.getFacetLabel(facet, facetValue)}}
+                                                                    {{facetValue.label}}
                                                                     <span>({{facetValue.count}})</span>
                                                                 </a>
                                                             </li>
@@ -591,7 +591,7 @@
                                             </span>
                                             <span class="uk-float-right">
                                                 <img src="../../../../assets/images/icons/ic_visit_icon.svg">
-                                                <span class="statsNumbers">&nbsp;;{{ resourceInfo.views }}</span>
+                                                <span class="statsNumbers">&nbsp;{{ resourceInfo.views }}</span>
                                             </span>
                                         </div>
 

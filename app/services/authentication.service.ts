@@ -7,6 +7,8 @@ import {deleteCookie, getCookie, setCookie} from "../domain/utils";
 import {NavigationService} from "./navigation.service";
 import {isNullOrUndefined} from "util";
 import {Router} from "@angular/router";
+import {API_ENDPOINT} from "../shared/environments";
+
 
 @Injectable()
 export class AuthenticationService {
@@ -46,9 +48,9 @@ export class AuthenticationService {
             sessionStorage.removeItem('redirect_url');
             // console.log(sessionStorage.getItem('forward_url'));
             if (!(sessionStorage.getItem('forward_url') === null)) {
-                console.log('boomShakalaka');
+                // console.log('boomShakalaka');
                 url = sessionStorage.getItem('forward_url');
-                console.log('first print ' + url);
+                // console.log('first print ' + url);
                 sessionStorage.removeItem('forward_url');
             }
             console.log(url);
@@ -77,8 +79,8 @@ export class AuthenticationService {
             console.log('found cookie');
             this.getUserInfo();
         } else {
-            sessionStorage.setItem('redirect_url', window.location.pathname)
-            window.location.href = process.env.API_ENDPOINT + "/openid_connect_login";
+            sessionStorage.setItem('redirect_url', window.location.pathname);
+            window.location.href = API_ENDPOINT + "/openid_connect_login";
         }
     }
 
@@ -87,7 +89,7 @@ export class AuthenticationService {
             deleteCookie(this.cookieName);
             this.user = null;
             sessionStorage.clear();
-            window.location.href = process.env.API_ENDPOINT + "/openid_logout";
+            window.location.href = API_ENDPOINT + "/openid_logout";
             // this.router.home();
         }
     }

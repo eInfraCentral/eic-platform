@@ -28,7 +28,6 @@ export class CompareServicesComponent implements OnInit, OnDestroy {
     ids: string[] = [];
     /*providers: any;*/
     nologo: URL = new URL("http://fvtelibrary.com/img/user/NoLogo.png");
-    vocabularies: any;
     private sub: Subscription;
 
     constructor(public fb: FormBuilder, public route: ActivatedRoute, public router: NavigationService,
@@ -38,39 +37,21 @@ export class CompareServicesComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        Observable.zip(
-            /*this.resourceService.getProvidersNames(),*/
-            this.resourceService.getVocabularies(),
-        ).subscribe(suc => {
-            /*this.providers = suc[0];*/
-            this.vocabularies = this.transformVocabularies(suc[0]);
-            this.sub = this.route.params.subscribe(params => {
-                this.ids = (params.services || "").split(",");
-                if (this.ids.length > 1) {
-                    this.resourceService.getSelectedServices(this.ids).subscribe (
-                        services => this.services = services
-                    );
-                } else {
-                    this.router.search({});
-                }
-            });
+
+        this.sub = this.route.params.subscribe(params => {
+            this.ids = (params.services || "").split(",");
+            if (this.ids.length > 1) {
+                this.resourceService.getSelectedServices(this.ids).subscribe (
+                    services => this.services = services
+                );
+            } else {
+                this.router.search({});
+            }
         });
     }
 
     ngOnDestroy() {
         this.sub.unsubscribe();
-    }
-
-    transformVocabularies(vocabularies) {
-        let ret = {};
-        Object.entries(vocabularies).forEach(([key, value]) => {
-            let item = {};
-            item[key] = String(value.name);
-            let prefix = value.type;
-            ret[prefix] = ret[prefix] || {};
-            Object.assign(ret[prefix], item);
-        });
-        return ret;
     }
 
     onSubmit(searchValue: SearchQuery) {

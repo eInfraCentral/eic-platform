@@ -10,6 +10,5 @@ COPY warp/	/usr/share/nginx/html/warp
 COPY assets/ /usr/share/nginx/html/assets
 COPY env_variables.sh /usr/share/nginx/
 RUN apk update && apk add bash
-#ENV PLATFORM_API_ENDPOINT "endpoint_url_here"
 ENTRYPOINT ["/bin/bash", "/usr/share/nginx/env_variables.sh", "/usr/share/nginx/html/dist"]
 EXPOSE 80

@@ -1,7 +1,7 @@
 import {Component, Injector, Type} from "@angular/core";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Observable} from "rxjs/Observable";
-import {Service} from "../../domain/eic-model";
+import {Service, Vocabulary} from "../../domain/eic-model";
 import {NavigationService} from "../../services/navigation.service";
 import {ResourceService} from "../../services/resource.service";
 import {UserService} from "../../services/user.service";
@@ -19,6 +19,7 @@ import {AuthenticationService} from "../../services/authentication.service";
 import {categoriesAndSubcategories} from "../../domain/categories";
 import { ActivatedRoute } from '@angular/router';
 import {priceDesc} from "./services.description";
+import {SearchResults} from "../../domain/search-results";
 
 @Component({
     selector: "service-form",
@@ -110,8 +111,8 @@ export class ServiceFormComponent {
         "funding": [""]
     };
     providers: any = null;
-    vocabularies: any = null;
-    categories = categoriesAndSubcategories;
+    vocabularies: SearchResults<Vocabulary> = null;
+
     // dp: any = {
     //     options: {
     //         dateFormat: "dd.mm.yyyy"
@@ -124,6 +125,12 @@ export class ServiceFormComponent {
     fb: FormBuilder = this.injector.get(FormBuilder);
     router: NavigationService = this.injector.get(NavigationService);
     userService: UserService = this.injector.get(UserService);
+
+    public lifeCycleStatusVocabulary: Vocabulary = null;
+    public trlVocabulary: Vocabulary = null;
+    public categoriesVocabulary: Vocabulary = null;
+    public placesVocabulary: Vocabulary = null;
+    public languagesVocabulary: Vocabulary = null;
 
     constructor(protected injector: Injector,
                 protected authenticationService: AuthenticationService) {
@@ -189,8 +196,15 @@ export class ServiceFormComponent {
         ).subscribe(suc => {
             console.log(priceDesc);
             this.providers = suc[0];
-            this.vocabularies = this.transformVocabularies(suc[1]);
+            this.vocabularies = suc[1];
+
+            this.lifeCycleStatusVocabulary = this.vocabularies.results.filter(x => x.id == 'lifecyclestatus')[0];
+            this.trlVocabulary = this.vocabularies.results.filter(x => x.id == 'trl')[0];
+            this.categoriesVocabulary = this.vocabularies.results.filter(x => x.id == 'categories')[0];
+            this.placesVocabulary = this.vocabularies.results.filter(x => x.id == 'places')[0];
+            this.languagesVocabulary = this.vocabularies.results.filter(x => x.id == 'languages')[0];
         });
+
         this.serviceForm.get('subcategory').disable();
         let subscription = this.serviceForm.get('category').valueChanges.subscribe(() => {
             this.serviceForm.get('subcategory').enable();

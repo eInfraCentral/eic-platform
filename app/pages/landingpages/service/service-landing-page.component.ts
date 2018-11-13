@@ -22,7 +22,6 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
     public EU: string[];
     public WW: string[];
     private sub: Subscription;
-    private vocabularies: any = [];
 
     serviceMapOptions: any = null;
     myProviders: Provider[] = [];
@@ -34,34 +33,58 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.sub = this.route.params.subscribe(params => {
-            Observable.zip(
-                this.resourceService.getEU(),
-                this.resourceService.getWW(),
-                this.resourceService.getSelectedServices([params["id"]]),
-                this.resourceService.getVocabularies(),
-                this.providerService.getMyServiceProviders(),
-                this.resourceService.recordEvent(params["id"], "INTERNAL")
-            ).subscribe(suc => {
-                this.EU = suc[0];
-                this.WW = suc[1];
-                this.service = suc[2][0];
-                this.vocabularies = suc[3];
-                this.myProviders = suc[4];
-                this.router.breadcrumbs = this.service.name;
-                this.setCountriesForService(this.service.places);
+        this.canEditService = false;
 
-                /* check if the current user can edit the service */
-                this.canEditService = this.myProviders.some( p => this.service.providers.some(x => x === p.id) );
+        if(this.authenticationService.isLoggedIn()) {
+            this.sub = this.route.params.subscribe(params => {
+                Observable.zip(
+                    this.resourceService.getEU(),
+                    this.resourceService.getWW(),
+                    this.resourceService.getSelectedServices([params["id"]]),
+                    this.providerService.getMyServiceProviders(),
+                    this.resourceService.recordEvent(params["id"], "INTERNAL")
+                ).subscribe(suc => {
+                    this.EU = suc[0];
+                    this.WW = suc[1];
+                    this.service = suc[2][0];
+                    this.myProviders = suc[3];
+                    this.router.breadcrumbs = this.service.name;
+                    this.setCountriesForService(this.service.places);
 
-                let serviceIDs = (this.service.requiredServices || []).concat(this.service.relatedServices || [])
-                .filter((e, i, a) => a.indexOf(e) === i);
-                if (serviceIDs.length > 0) {
-                    this.resourceService.getSelectedServices(serviceIDs)
-                    .subscribe(services => this.services = services);
-                }
+                    /* check if the current user can edit the service */
+                    this.canEditService = this.myProviders.some(p => this.service.providers.some(x => x === p.id));
+
+                    let serviceIDs = (this.service.requiredServices || []).concat(this.service.relatedServices || [])
+                        .filter((e, i, a) => a.indexOf(e) === i);
+                    if (serviceIDs.length > 0) {
+                        this.resourceService.getSelectedServices(serviceIDs)
+                            .subscribe(services => this.services = services);
+                    }
+                });
             });
-        });
+        } else {
+            this.sub = this.route.params.subscribe(params => {
+                Observable.zip(
+                    this.resourceService.getEU(),
+                    this.resourceService.getWW(),
+                    this.resourceService.getSelectedServices([params["id"]]),
+                    this.resourceService.recordEvent(params["id"], "INTERNAL")
+                ).subscribe(suc => {
+                    this.EU = suc[0];
+                    this.WW = suc[1];
+                    this.service = suc[2][0];
+                    this.router.breadcrumbs = this.service.name;
+                    this.setCountriesForService(this.service.places);
+
+                    let serviceIDs = (this.service.requiredServices || []).concat(this.service.relatedServices || [])
+                        .filter((e, i, a) => a.indexOf(e) === i);
+                    if (serviceIDs.length > 0) {
+                        this.resourceService.getSelectedServices(serviceIDs)
+                            .subscribe(services => this.services = services);
+                    }
+                });
+            });
+        }
     }
 
     ngOnDestroy(): void {
@@ -133,10 +156,6 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
 
     getPrettyService(id) {
         return (this.services || []).find(e => e.id == id) || {id, name: "Name not found!"};
-    }
-
-    getPrettyList(list) {
-        return list.map(e => this.vocabularies[e].name).join();
     }
 
     visit() {
