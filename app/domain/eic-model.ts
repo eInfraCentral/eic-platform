@@ -98,7 +98,7 @@ export class Provider implements Identifiable {
     logo: string;
     publicDescOfResources: URL;
     status: string;
-    user: User[];
+    users: User[];
     website: URL;
 }
 

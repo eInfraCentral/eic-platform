@@ -43,8 +43,8 @@
                                                     <span data-uk-tooltip
                                                           title="{{(provider.status !== 'approved') ?
                                                                 'The service provider is not yet active, therefore you cannot access its monitoring dashboard':
-                                                                'Go to the service provider monitoring dashboard'}}">
-                                                        <a [routerLink]="['/dashboard',provider.id]"
+                                                                'Go to the service provider information page'}}">
+                                                        <a [routerLink]="['/serviceProviderInfo',provider.id]"
                                                            class="{{(provider.status !== 'approved') ? 'uk-disabled':''}}">
                                                             {{ provider.name }}
                                                         </a>

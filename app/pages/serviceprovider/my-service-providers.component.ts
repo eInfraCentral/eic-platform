@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from "@angular/router";
 import { Provider, Service } from '../../domain/eic-model';
 import { ServiceProviderService } from '../../services/service-provider.service';
+import {AuthenticationService} from "../../services/authentication.service";
 
 @Component({
     selector: 'my-service-providers',
@@ -14,7 +16,10 @@ export class MyServiceProvidersComponent implements OnInit {
     myProviders: Provider[];
     pendingFirstServicePerProvider: any[] = [];
 
-    constructor(private serviceProviderService: ServiceProviderService) {}
+    constructor(
+        private serviceProviderService: ServiceProviderService,
+        public authenticationService: AuthenticationService
+    ) {}
 
     ngOnInit() {
         this.tilesView = true;
@@ -28,6 +33,10 @@ export class MyServiceProvidersComponent implements OnInit {
                 err => {
                     console.log(err);
                     this.errorMessage = 'An error occurred!';
+                    console.log(err);
+                    if (err['status'] === 401) {
+                        this.authenticationService.login();
+                    }
                 },
                 () => {
                     this.myProviders.forEach (
