@@ -175,12 +175,12 @@ h2 {
 .aboutUs a, .personas a {
     font-weight: bold;
     font-size: 15px;
-    color: #0047BA;
+    /*color: #0047BA;*/
     letter-spacing: 0.36px;
 }
 
 .aboutUs a:hover, .personas a:hover {
-    color: #d1303a;
+    /*color: #d1303a;*/
 }
 
 
@@ -229,11 +229,11 @@ h2 {
 /*}*/
 
 a.serviceLink {
-    color: #214c9c;
+    /*color: #214c9c;*/
 }
 
 a.serviceLink:hover {
-    color: #D1303A;
+    /*color: #D1303A;*/
 }
 
 

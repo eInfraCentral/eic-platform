@@ -1,5 +1,8 @@
 .uk-tooltip {
-    background: rgb(209,48,58);
+    /*background: rgb(209,48,58);*/
+    /*background: #fff;*/
+    background-color: #004494;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.2);
 }
 
 #feedback {
@@ -13,7 +16,7 @@
 
 #feedback a {
     /*background: #666;*/
-    background: rgba(209,48,58,0.01);
+    /*background: rgba(209,48,58,0.01);*/
     border-radius: 5px 0 0 5px;
     box-shadow: none;
     border: none !important;

@@ -1,7 +1,8 @@
 .breadcrumbs {
     padding-top: 20px;
     padding-bottom: 20px;
-    background: rgba(103,118,144,0.04);
+    /*background: rgba(103,118,144,0.04);*/
+    background-color: #004494;
 }
 
 .uk-breadcrumb {
@@ -11,13 +12,15 @@
 .uk-breadcrumb li a {
     font-size: 13px;
     font-weight: bold;
-    color: #2B4371;
+    /*color: #2B4371;*/
+    color: #fff;
     letter-spacing: 0;
 }
 
 .uk-breadcrumb li span {
     font-size: 13px;
-    color: #4D586A;
+    /*color: #4D586A;*/
+    color: #fff;
     letter-spacing: 0;
 }
 
@@ -25,12 +28,14 @@
     content: ">";
     display: inline-block;
     margin: 0 10px;
-    color: #2B4371;
+    /*color: #2B4371;*/
+    color: #fff;
 }
 
 .goBackLink {
     font-size: 15px;
-    color: #0047BA;
+    /*color: #0047BA;*/
+    color: #fff;
     letter-spacing: 0.36px;
     font-weight: 700;
 }

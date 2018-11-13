@@ -6,13 +6,47 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,700');
 
 body {
-    font-family: Montserrat, sans-serif;
-    font-weight: 300;
+    /*font-family: Montserrat, sans-serif;*/
+    font-family: 'Open Sans', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
     /*font-family: "Open Sans";*/
 }
 
 h1, .uk-h1, h2, .uk-h2, h3, .uk-h3, h4, .uk-h4, h5, .uk-h5, h6, .uk-h6 {
-    font-family: Montserrat, sans-serif;
+    /*font-family: Montserrat, sans-serif;*/
+    font-family: 'Teko', sans-serif;
+}
+
+.uk-section-default {
+    background: #F4F4F4 url("http://eoscportal.trust-itservices.com/sites/all/themes/theme1/images/bg-page.png") no-repeat 0% 20%;
+}
+
+.uk-navbar-nav > li > a {
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.uk-navbar-dropdown-nav {
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.uk-button {
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.uk-navbar-nav > li.uk-active > a {
+    color: #555555;
+}
+
+.uk-button-secondary {
+    background: #004494;
+}
+
+.uk-button-secondary:hover {
+    background: #0885df;
+    border-color: #0885df;
+    color: #fff;
 }
 
 .uk-section-primary {
@@ -420,11 +454,13 @@ a[class*="wk-"]:hover {
 /******************************************************/
 
 a {
-    color: #214c9c;
+    /*color: #214c9c;*/
+    color: #337ab7;
 }
 
 a:hover, a:focus {
-    color: #D1303A;
+    /*color: #D1303A;*/
+    color: #23527c;
 }
 
 
