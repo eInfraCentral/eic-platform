@@ -6,6 +6,7 @@ import {Injectable} from "@angular/core";
 import {deleteCookie, getCookie, setCookie} from "../domain/utils";
 import {NavigationService} from "./navigation.service";
 import {isNullOrUndefined} from "util";
+import {API_ENDPOINT} from "../shared/environments";
 
 @Injectable()
 export class AuthenticationService {
@@ -65,7 +66,7 @@ export class AuthenticationService {
             console.log('found cookie');
             this.getUserInfo();
         } else {
-            window.location.href = process.env.API_ENDPOINT + "/openid_connect_login";
+            window.location.href = API_ENDPOINT + "/openid_connect_login";
         }
     }
 
@@ -74,7 +75,7 @@ export class AuthenticationService {
             deleteCookie(this.cookieName);
             this.user = null;
             sessionStorage.clear();
-            window.location.href = process.env.API_ENDPOINT + "/openid_logout";
+            window.location.href = API_ENDPOINT + "/openid_logout";
             // this.router.home();
         }
     }
