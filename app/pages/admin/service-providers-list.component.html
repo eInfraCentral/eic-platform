@@ -32,6 +32,7 @@
                                             <tr>
                                                 <th>Name</th>
                                                 <th>Current Status</th>
+                                                <th>Info</th>
                                                 <th class="uk-text-center">Active</th>
                                                 <th>service template</th>
                                                 <th>Actions</th>
@@ -43,8 +44,8 @@
                                                     <span data-uk-tooltip
                                                           title="{{(provider.status !== 'approved') ?
                                                                 'The service provider is not yet active, therefore you cannot access its monitoring dashboard':
-                                                                'Go to the service provider information page'}}">
-                                                        <a [routerLink]="['/serviceProviderInfo',provider.id]"
+                                                                'Go to the service provider monitoring dashboard'}}">
+                                                        <a [routerLink]="['/dashboard',provider.id]"
                                                            class="{{(provider.status !== 'approved') ? 'uk-disabled':''}}">
                                                             {{ provider.name }}
                                                         </a>
@@ -57,6 +58,11 @@
                                                                    ((provider.status === 'pending service template approval') ? 'fa-exclamation' : 'fa-check') }}"></i>-->
                                                         {{ provider.status }}
                                                     <!--</span>-->
+                                                </td>
+                                                <td class="uk-text-center">
+                                                    <a [routerLink]="['/serviceProviderInfo',provider.id]">
+                                                    <i aria-hidden="true" class="fa fa-info uk-margin-small-right"></i>
+                                                    </a>
                                                 </td>
                                                 <td class="uk-text-center">
                                                     <i class="fa fa-{{ provider.active ? 'check':'close' }}"></i>
@@ -84,7 +90,7 @@
                                                         <a *ngIf="adminActionsMap[provider.status] && adminActionsMap[provider.status].appButtonTitle"
                                                            class="uk-margin-right"
                                                            (click)="showActionModal(provider, adminActionsMap[provider.status].onApprove, true)">
-                                                            <i aria-hidden="true" class="fa fa-thumbs-up uk-margin-small-right"></i>
+                                                            <i aria-hidden="true" class="fa fa-thumbs-up uk-icon-align-center"></i>
                                                             {{ adminActionsMap[provider.status].appButtonTitle }}
                                                         </a>
                                                         <a *ngIf="(provider.status === 'approved') && (!provider.active)"
