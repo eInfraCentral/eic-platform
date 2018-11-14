@@ -179,15 +179,15 @@
                             I need a service to
                         </h3>
                         <div class="uk-margin-small-bottom">
-                            <a class="uk-margin-small-right" [routerLink]="['/search']">Use network, computing and security resources</a>
+                            <a class="uk-margin-small-right" [routerLink]="['/search', {category : 'networking,compute,security'}]">Use network, computing and security resources</a>
                             <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
                         </div>
                         <div class="uk-margin-small-bottom">
-                            <a class="uk-margin-small-right" [routerLink]="['/search']">Store, share and analyze data</a>
+                            <a class="uk-margin-small-right" [routerLink]="['/search', {category : 'storage,data,aggregator'}]" >Store, share and analyze data</a>
                             <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
                         </div>
                         <div class="uk-margin-small-bottom">
-                            <a class="uk-margin-small-right" [routerLink]="['/search']">Use and share software</a>
+                            <a class="uk-margin-small-right" [routerLink]="['/search', {category : 'software,aggregator'}]">Use and share software</a>
                             <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
                         </div>
                     </div>
@@ -196,11 +196,11 @@
                             I am interested in research
                         </h3>
                         <div class="uk-margin-small-bottom">
-                            <a class="uk-margin-small-right" [routerLink]="['/search']">Administration and training services</a>
+                            <a class="uk-margin-small-right" [routerLink]="['/search', {category : 'training'}]">Administration and training services</a>
                             <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
                         </div>
                         <div class="uk-margin-small-bottom">
-                            <a class="uk-margin-small-right" [routerLink]="['/search']">Monitoring and funding</a>
+                            <a class="uk-margin-small-right" [routerLink]="['/search', {category : 'operations'}]">Monitoring and funding</a>
                             <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
                         </div>
                     </div>
