@@ -1,4 +1,4 @@
-<div class="tm-header-placeholder uk-margin-remove-adjacent" style="height: 110px;"></div>
+<div class="tm-header-placeholder uk-margin-remove-adjacent" style="height: 120px;"></div>
 <div class="uk-section-secondary uk-position-relative" uk-scrollspy="{&quot;target&quot;:&quot;[uk-scrollspy-class]&quot;,&quot;cls&quot;:&quot;uk-animation-fade&quot;,&quot;delay&quot;:false}">
     <div style="background-image: url('http://eoscportal.trust-itservices.com/sites/default/files/banner_22_augu_2018-04.jpg'); background-color: rgb(255, 255, 255); box-sizing: border-box; min-height: calc(100vh - 229.5px);" class="uk-background-norepeat uk-background-cover uk-background-fixed uk-section uk-padding-remove-bottom uk-flex uk-flex-middle" uk-height-viewport="offset-top: true;offset-bottom: 20">
         <div class="uk-position-cover" style="background-color: rgba(31, 55, 97, 0.53);"></div>
@@ -168,7 +168,8 @@
                             I would like to register a service
                         </h3>
                         <div class="uk-margin-small-bottom">
-                            <a class="uk-margin-small-right" (click)="signUpAndRegisterAservice()">Sign up and register a service</a>
+                            <!--<a class="uk-margin-small-right" (click)="signUpAndRegisterAservice()">Sign up and register a service</a>-->
+                            <a class="uk-margin-small-right" [routerLink]="['/becomeAProvider']">Sign up and register a service</a>
                             <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
                         </div>
                     </div>

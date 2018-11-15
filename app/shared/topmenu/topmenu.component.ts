@@ -71,6 +71,25 @@ export class TopMenuComponent implements OnInit, OnDestroy {
         }
     }
 
+    navigate(categories: string[]) {
+
+        var map: { [name: string]: string; } = { };
+        map['category'] = categories.join(',');
+        // for (let category of categories) {
+        //     var concatValue = '';
+        //     var counter = 0;
+        //     for(let value of urlParameter.values) {
+        //         if(counter!=0)
+        //             concatValue += ',';
+        //         concatValue += value;
+        //         counter++;
+        //     }
+        //     map[urlParameter.key] = concatValue;
+        // }
+
+        this.router.navigate(['/search', map]);
+    }
+
     goToLoginAAI(): void {
         this.authenticationService.login();
     }
@@ -92,11 +111,15 @@ export class TopMenuComponent implements OnInit, OnDestroy {
     }
 
     isProvider() {
-        return this.authenticationService.getUserProperty('roles').some(x => x === "ROLE_PROVIDER");
+        if (this.authenticationService.isLoggedIn()) {
+            return this.authenticationService.getUserProperty('roles').some(x => x === "ROLE_PROVIDER");
+        }
     }
 
     isAdmin() {
-        return this.authenticationService.getUserProperty('roles').some(x => x === "ROLE_ADMIN");
+        if (this.authenticationService.isLoggedIn()) {
+            return this.authenticationService.getUserProperty('roles').some(x => x === "ROLE_ADMIN");
+        }
     }
 
     // ngDoCheck(): void {
@@ -137,5 +160,10 @@ export class TopMenuComponent implements OnInit, OnDestroy {
     onClick(id: string) {
         var el: HTMLElement = document.getElementById(id);
         el.classList.remove("uk-open");
+    }
+
+    signUpAndRegisterAservice() {
+        sessionStorage.setItem('forward_url', '/newServiceProvider');
+        this.navigationService.router.navigateByUrl('/newServiceProvider');
     }
 }

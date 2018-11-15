@@ -18,6 +18,7 @@ import { AddFirstServiceComponent } from './pages/serviceprovider/add-first-serv
 import { MyServiceProvidersComponent } from './pages/serviceprovider/my-service-providers.component';
 import { UpdateServiceProviderComponent } from "./pages/serviceprovider/update-service-provider.component";
 import { ServiceProviderInfoComponent } from "./pages/serviceprovider/service-provider-info.component";
+import {BecomeAProviderComponent} from "./pages/serviceprovider/become-a-provider.component";
 
 const appRoutes: Routes = [
     {
@@ -81,6 +82,14 @@ const appRoutes: Routes = [
         canActivate: [CanActivateViaAuthGuard],
         data: {
             breadcrumb : "Edit"
+        }
+    },
+    {
+        path: "becomeAProvider",
+        component: BecomeAProviderComponent,
+        // canActivate: [CanActivateViaAuthGuard],
+        data: {
+            breadcrumb : "Become A Provider"
         }
     },
     {

@@ -1,12 +1,16 @@
 h2.uk-h2 {
-    font-size: 27px;
-    color: #2B4371;
-    letter-spacing: 0.61px;
+    font-size: 28px !important;
+    font-family: 'Teko', sans-serif;
+    font-weight: 600;
+    color: #444;
+    /*font-size: 27px;*/
+    /*color: #2B4371;*/
+    /*letter-spacing: 0.61px;*/
     /*font-family: 'Montserrat Light';*/
 }
 
 .tagLine {
-    font-size: 15px;
+    font-size: 16px;
     color: #0047BA;
     letter-spacing: 0;
     line-height: 22px;
@@ -19,7 +23,7 @@ h2.uk-h2 {
 }
 
 .statsNumbers {
-    font-size: 12px;
+    font-size: 16px;
     color: #4D586A;
     letter-spacing: 0;
     margin-left: 5px;
@@ -32,6 +36,7 @@ h2.uk-h2 {
 
 .uk-card-custom {
     background: #EFF1F3;
+    background: #fff;
     border-radius: 2px;
 }
 
@@ -49,9 +54,9 @@ h2.uk-h2 {
 
 .serviceDescription {
     font-size: 15px;
-    color: #4D586A;
-    letter-spacing: 0.36px;
-    line-height: 23px;
+    /*color: #4D586A;*/
+    letter-spacing: 0.32px;
+    line-height: 22.4px;
 }
 
 .uk-grid + .uk-grid, .uk-grid > .uk-grid-margin, * + .uk-grid-margin {
@@ -94,7 +99,7 @@ h2.uk-h2 {
 }
 
 .sidebarHeaders {
-    font-size: 15px;
+    font-size: 28px;
     color: #2B4371;
     letter-spacing: 0;
 }
@@ -134,7 +139,8 @@ a:hover, .uk-link:hover {
 }
 
 .uk-card-basic-info {
-    background: rgba(103,118,144,0.05);
+    /*background: rgba(103,118,144,0.05);*/
+    background: #f9f9f9;
     border-radius: 2px;
     padding: 44px 42px;
 }
