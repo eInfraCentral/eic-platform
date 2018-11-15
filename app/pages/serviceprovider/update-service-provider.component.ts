@@ -103,6 +103,7 @@ export class UpdateServiceProviderComponent implements OnInit {
             this.updateProviderForm.get('catalogueOfResources').setValue('');
         }
         if (this.updateProviderForm.valid) {
+            this.updateProviderForm.get('id').enable();
             console.log(JSON.stringify(this.updateProviderForm.value));
             let updatedProvider = Object.assign(
                 this.updateProviderForm.value
