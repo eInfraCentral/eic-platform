@@ -95,7 +95,7 @@
 
         </div>
     </div>
-    <div class="uk-container serviceicon">
+    <div *ngIf="categories" class="uk-container serviceicon">
         <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid="">
             <div class="uk-width-1-1@m uk-first-column">
                 <h1 class="uk-margin-medium uk-text-center uk-h2">
@@ -105,23 +105,25 @@
         </div>
 
         <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid="">
-            <div *ngFor="let c of this.categories" class="uk-width-1-6@m" (click)="this.router.search({category:c.id})">
-                <div class="wk-panel wk-overlay-hover" style="min-height: 100px;">
+            <ng-container *ngFor="let entry of categories.entries | values">
+                <div *ngIf="entry!='other'" class="uk-width-1-6@m" (click)="this.router.search({category:entry})">
+                    <div class="wk-panel wk-overlay-hover" style="min-height: 100px;">
 
-                    <div class="wk-text-center wk-margin wk-margin-top-remove">
-                        <div class="wk-overlay">
-                            <img src={{this.baseIconURI+c.extras[0]}} alt={{c.name}} height="70" style="max-width:70px">
-                            <img src={{this.baseIconURI+c.extras[1]}} alt={{c.name}} height="70" style="max-width:70px"
-                                 class=" wk-overlay-panel wk-overlay-image wk-overlay-fade" >
+                        <div class="wk-text-center wk-margin wk-margin-top-remove">
+                            <div class="wk-overlay">
+                                <img src="{{baseIconURI+categories.entries[entry].extras['icon']}}" alt="{{categories.entries[entry].name}}" height="70" style="max-width:70px">
+                                <img src="{{baseIconURI+categories.entries[entry].extras['icon_active']}}" alt="{{categories.entries[entry].name}}" height="70" style="max-width:70px" class="wk-overlay-panel wk-overlay-image wk-overlay-fade">
+                            </div>
                         </div>
+                        <h3 class="wk-h4 wk-margin-top-remove uk-text-center">
+                            <a class="wk-link-reset" type="button">
+                                {{categories.entries[entry].name}}
+                            </a>
+                        </h3>
                     </div>
-                    <h3 class="wk-h4 wk-margin-top-remove uk-text-center">
-                        <a class="wk-link-reset" type="button">
-                            {{c.name}}
-                        </a>
-                    </h3>
                 </div>
-            </div>
+            </ng-container>
+
         </div>
         <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid="">
             <div class="uk-width-1-1@m uk-first-column">
@@ -166,8 +168,7 @@
                             I would like to register a service
                         </h3>
                         <div class="uk-margin-small-bottom">
-                            <!-- TODO: remove "uk-disabled class when we enable signUp -->
-                            <a class="uk-margin-small-right uk-disabled" [routerLink]="['/signUp']">Sign up and register a service</a>
+                            <a class="uk-margin-small-right" (click)="signUpAndRegisterAservice()">Sign up and register a service</a>
                             <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
                         </div>
                     </div>
@@ -178,15 +179,15 @@
                             I need a service to
                         </h3>
                         <div class="uk-margin-small-bottom">
-                            <a class="uk-margin-small-right" [routerLink]="['/search']">Use network, computing and security resources</a>
+                            <a class="uk-margin-small-right" [routerLink]="['/search', {category : 'networking,compute,security'}]">Use network, computing and security resources</a>
                             <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
                         </div>
                         <div class="uk-margin-small-bottom">
-                            <a class="uk-margin-small-right" [routerLink]="['/search']">Store, share and analyze data</a>
+                            <a class="uk-margin-small-right" [routerLink]="['/search', {category : 'storage,data,aggregator'}]" >Store, share and analyze data</a>
                             <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
                         </div>
                         <div class="uk-margin-small-bottom">
-                            <a class="uk-margin-small-right" [routerLink]="['/search']">Use and share software</a>
+                            <a class="uk-margin-small-right" [routerLink]="['/search', {category : 'software,aggregator'}]">Use and share software</a>
                             <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
                         </div>
                     </div>
@@ -195,11 +196,11 @@
                             I am interested in research
                         </h3>
                         <div class="uk-margin-small-bottom">
-                            <a class="uk-margin-small-right" [routerLink]="['/search']">Administration and training services</a>
+                            <a class="uk-margin-small-right" [routerLink]="['/search', {category : 'training'}]">Administration and training services</a>
                             <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
                         </div>
                         <div class="uk-margin-small-bottom">
-                            <a class="uk-margin-small-right" [routerLink]="['/search']">Monitoring and funding</a>
+                            <a class="uk-margin-small-right" [routerLink]="['/search', {category : 'operations'}]">Monitoring and funding</a>
                             <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
                         </div>
                     </div>
