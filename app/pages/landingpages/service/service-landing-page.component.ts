@@ -40,13 +40,14 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
                 Observable.zip(
                     this.resourceService.getEU(),
                     this.resourceService.getWW(),
-                    this.resourceService.getSelectedServices([params["id"]]),
+                    // this.resourceService.getSelectedServices([params["id"]]),
+                    this.resourceService.getRichService(params["id"]),
                     this.providerService.getMyServiceProviders(),
                     this.resourceService.recordEvent(params["id"], "INTERNAL")
                 ).subscribe(suc => {
                     this.EU = suc[0];
                     this.WW = suc[1];
-                    this.service = suc[2][0];
+                    this.service = suc[2];
                     this.myProviders = suc[3];
                     this.router.breadcrumbs = this.service.name;
                     this.setCountriesForService(this.service.places);
@@ -67,12 +68,12 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
                 Observable.zip(
                     this.resourceService.getEU(),
                     this.resourceService.getWW(),
-                    this.resourceService.getSelectedServices([params["id"]]),
+                    this.resourceService.getRichService(params["id"]),
                     this.resourceService.recordEvent(params["id"], "INTERNAL")
                 ).subscribe(suc => {
                     this.EU = suc[0];
                     this.WW = suc[1];
-                    this.service = suc[2][0];
+                    this.service = suc[2];
                     this.router.breadcrumbs = this.service.name;
                     this.setCountriesForService(this.service.places);
 
