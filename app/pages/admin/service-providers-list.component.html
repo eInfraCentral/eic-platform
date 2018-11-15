@@ -90,7 +90,7 @@
                                                         <a *ngIf="adminActionsMap[provider.status] && adminActionsMap[provider.status].appButtonTitle"
                                                            class="uk-margin-right"
                                                            (click)="showActionModal(provider, adminActionsMap[provider.status].onApprove, true)">
-                                                            <i aria-hidden="true" class="fa fa-thumbs-up uk-icon-align-center"></i>
+                                                            <i aria-hidden="true" class="fa fa-thumbs-up uk-margin-small-right"></i>
                                                             {{ adminActionsMap[provider.status].appButtonTitle }}
                                                         </a>
                                                         <a *ngIf="(provider.status === 'approved') && (!provider.active)"

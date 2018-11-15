@@ -91,8 +91,10 @@ export class ServiceFormComponent {
         "lastUpdate": ["", Validators.required],
         "changeLog": [""],
         "validFor": [""],
-        "lifeCycleStatus": ["", Validators.compose([Validators.required, LifeCycleStatusValidator])],
-        "trl": ["", Validators.compose([Validators.required, TRLValidator])],
+        "lifeCycleStatus": ["", Validators.compose([Validators.required])],
+        // "lifeCycleStatus": ["", Validators.compose([Validators.required, LifeCycleStatusValidator])],
+        "trl": ["", Validators.compose([Validators.required])],
+        // "trl": ["", Validators.compose([Validators.required, TRLValidator])],
         "category": ["", Validators.required],
         "subcategory": ["", Validators.required],
         //place is defined in component
