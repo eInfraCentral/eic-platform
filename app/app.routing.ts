@@ -16,6 +16,9 @@ import { NewServiceProviderComponent } from './pages/serviceprovider/new-service
 import { ServiceProvidersListComponent } from './pages/admin/service-providers-list.component';
 import { AddFirstServiceComponent } from './pages/serviceprovider/add-first-service.component';
 import { MyServiceProvidersComponent } from './pages/serviceprovider/my-service-providers.component';
+import { UpdateServiceProviderComponent } from "./pages/serviceprovider/update-service-provider.component";
+import { ServiceProviderInfoComponent } from "./pages/serviceprovider/service-provider-info.component";
+import {BecomeAProviderComponent} from "./pages/serviceprovider/become-a-provider.component";
 
 const appRoutes: Routes = [
     {
@@ -82,11 +85,35 @@ const appRoutes: Routes = [
         }
     },
     {
+        path: "becomeAProvider",
+        component: BecomeAProviderComponent,
+        // canActivate: [CanActivateViaAuthGuard],
+        data: {
+            breadcrumb : "Become A Provider"
+        }
+    },
+    {
         path: "newServiceProvider",
         component: NewServiceProviderComponent,
         canActivate: [CanActivateViaAuthGuard],
         data: {
             breadcrumb : "New Service Provider"
+        }
+    },
+    {
+        path: "serviceProviderInfo/:id",
+        component: ServiceProviderInfoComponent,
+        canActivate: [CanActivateViaAuthGuard],
+        data: {
+            breadcrumb : "Service Provider Info"
+        }
+    },
+    {
+        path: "updateServiceProvider/:id",
+        component: UpdateServiceProviderComponent,
+        canActivate: [CanActivateViaAuthGuard],
+        data: {
+            breadcrumb : "Update Service Provider"
         }
     },
     {

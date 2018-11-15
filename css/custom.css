@@ -4,19 +4,50 @@
    Use this file to add custom CSS easily
  ========================================================================== */
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,700');
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
 
 body {
     /*font-family: Montserrat, sans-serif;*/
     font-family: 'Open Sans', sans-serif;
     font-family: 'Ubuntu', sans-serif;
-    font-weight: 400;
+    /*font-weight: 400;*/
+    font-weight: 500;
     font-size: 14px;
     /*font-family: "Open Sans";*/
+    background: #F4F4F4 url("http://eoscportal.trust-itservices.com/sites/all/themes/theme1/images/bg-page.png") no-repeat 0% 20%;
+}
+
+.uk-container {
+    width: 1170px;
 }
 
 h1, .uk-h1, h2, .uk-h2, h3, .uk-h3, h4, .uk-h4, h5, .uk-h5, h6, .uk-h6 {
     /*font-family: Montserrat, sans-serif;*/
     font-family: 'Teko', sans-serif;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+}
+
+.h1, .h2, .h3, h1, h2, h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 1.0em 0 0.5em;
+    font-weight: inherit;
+}
+
+h2 {
+    font-size: 28px !important;
+    font-family: 'Teko', sans-serif;
+    font-weight: 600;
+    color: #444;
 }
 
 .uk-section-default {
@@ -32,6 +63,33 @@ h1, .uk-h1, h2, .uk-h2, h3, .uk-h3, h4, .uk-h4, h5, .uk-h5, h6, .uk-h6 {
 }
 
 .uk-button {
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.uk-button-primary {
+    flex: 1 1 auto;
+    margin: 5px;
+    /*padding: 7px 30px;*/
+    padding: 3px 30px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    border-radius: 30px;
+    border: 0;
+    background-image: linear-gradient(to right, #00d2ff 0%, #3a7bd5 51%, #00d2ff 100%);
+    color: #fff !important;
+}
+
+.uk-button-primary:hover {
+    color: #fff;
+    border-color: #204d74;
+    background-color: #265a88;
+    background-position: right center;
+}
+
+.uk-table th {
     font-family: 'Ubuntu', sans-serif;
 }
 

@@ -1,3 +1,11 @@
+.rating.medium .label-value {
+    font-size: 15px !important;
+}
+
+.statsNumbers {
+    font-size: 16px;
+}
+
 .uk-section {
     padding-top: 30px;
 }
@@ -71,11 +79,11 @@
 }
 
 .refines .uk-h3 {
-    font-size: 16px;
+    font-size: 25px;
     color: #2B4371;
     letter-spacing: 0;
     text-transform: uppercase;
-    margin-top: 5px;
+    margin-top: 0px;
 }
 
 /* dropdown width override */
@@ -92,7 +100,8 @@
 
 
 .serviceDetails {
-    background: rgba(103,118,144,0.05);
+    /*background: rgba(103,118,144,0.05);*/
+    background: #f9f9f9;
     border-radius: 2px;
 }
 
@@ -124,24 +133,46 @@
 }
 
 .gridView .serviceInfo {
-    background: rgba(103,118,144,0.05);
+    /*background: rgba(103,118,144,0.05);*/
+    background: #f9f9f9;
 }
 
-.serviceInfo h3 {
-    font-weight: 400;
-    font-size: 18px;
-    color: #2B4371;
+.serviceInfo h2 {
+    font-size: 28px !important;
+    font-family: 'Teko', sans-serif;
+    font-weight: 600;
+    color: #444;
+    /*font-weight: 400;*/
+    /*font-size: 18px;*/
+    /*color: #2B4371;*/
     letter-spacing: 0.41px;
     text-transform: none;
 }
 
-.serviceInfo h3 a {
-    color: #2B4371;
+.serviceInfo h2 a {
+    color: #444;
+    /*color: #2B4371;*/
 }
 
-.gridView .serviceInfo h3 {
+.gridView .serviceInfo h2 {
     height: 2.5em;
 }
+
+/*.serviceInfo h3 {*/
+    /*font-weight: 400;*/
+    /*font-size: 18px;*/
+    /*color: #2B4371;*/
+    /*letter-spacing: 0.41px;*/
+    /*text-transform: none;*/
+/*}*/
+
+/*.serviceInfo h3 a {*/
+    /*color: #2B4371;*/
+/*}*/
+
+/*.gridView .serviceInfo h3 {*/
+    /*height: 2.5em;*/
+/*}*/
 
 .serviceTagLine {
     font-weight: 700;
@@ -156,10 +187,10 @@
 }
 
 .serviceDescription {
-    font-size: 14px;
-    color: #4D586A;
+    font-size: 15px;
+    /*color: #4D586A;*/
     letter-spacing: 0.32px;
-    line-height: 19px;
+    line-height: 22.4px;
 }
 
 .gridView .serviceDescription {
@@ -168,7 +199,7 @@
 
 .addenda a {
     font-weight: 400;
-    font-size: 13px;
+    font-size: 14px;
     color: #0047BA;
     letter-spacing: 0;
     text-transform: uppercase;

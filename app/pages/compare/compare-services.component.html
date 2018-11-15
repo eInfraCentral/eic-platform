@@ -139,10 +139,10 @@
                        <tr>
                             <td class="uk-width-1-4 fieldName">Lifecycle Status</td>
                             <td *ngFor="let service of services; let i = index;" class="uk-width-1-4 fieldValue" [ngClass]="{evenColumn: i%2==1}">
-                                <ng-template [ngIf]="service.lifeCycleStatus && service.lifeCycleStatus!=''">
-                                    {{service.lifeCycleStatus | lookup:vocabularies.LifeCycleStatus}}
+                                <ng-template [ngIf]="service.lifeCycleStatusName && service.lifeCycleStatusName!=''">
+                                    {{service.lifeCycleStatusName}}
                                 </ng-template>
-                                <ng-template [ngIf]="!service.lifeCycleStatus || service.lifeCycleStatus==''">
+                                <ng-template [ngIf]="!service.lifeCycleStatusName || service.lifeCycleStatusName==''">
                                     /
                                 </ng-template>
                             </td>
@@ -150,10 +150,10 @@
                         <tr>
                             <td class="uk-width-1-4 fieldName">TRL</td>
                             <td *ngFor="let service of services; let i = index;" class="uk-width-1-4 fieldValue" [ngClass]="{evenColumn: i%2==1}">
-                                <ng-template [ngIf]="service.trl && service.trl!=''">
-                                    {{service.trl | lookup:this.vocabularies.TRL}}
+                                <ng-template [ngIf]="service.trlName && service.trlName!=''">
+                                    {{service.trlName}}
                                 </ng-template>
-                                <ng-template [ngIf]="!service.trl || service.trl==''">
+                                <ng-template [ngIf]="!service.trlName || service.trlName==''">
                                     /
                                 </ng-template>
                             </td>
@@ -161,10 +161,10 @@
                         <tr>
                             <td class="uk-width-1-4 fieldName">Category</td>
                             <td *ngFor="let service of services; let i = index;" class="uk-width-1-4 fieldValue" [ngClass]="{evenColumn: i%2==1}">
-                                <ng-template [ngIf]="service.category && service.category!=''">
-                                    {{service.category | lookup:this.vocabularies.Category }}
+                                <ng-template [ngIf]="service.categoryName && service.categoryName!=''">
+                                    {{service.categoryName}}
                                 </ng-template>
-                                <ng-template [ngIf]="!service.category || service.category==''">
+                                <ng-template [ngIf]="!service.categoryName || service.categoryName==''">
                                     /
                                 </ng-template>
                             </td>
@@ -172,10 +172,10 @@
                         <tr>
                             <td class="uk-width-1-4 fieldName">Subcategory</td>
                             <td *ngFor="let service of services; let i = index;" class="uk-width-1-4 fieldValue" [ngClass]="{evenColumn: i%2==1}">
-                                <ng-template [ngIf]="service.subcategory && service.subcategory!=''">
-                                    {{service.subcategory | lookup:this.vocabularies.Subcategory }}
+                                <ng-template [ngIf]="service.subCategoryName && service.subCategoryName!=''">
+                                    {{service.subCategoryName}}
                                 </ng-template>
-                                <ng-template [ngIf]="!service.subcategory || service.subcategory==''">
+                                <ng-template [ngIf]="!service.subCategoryName || service.subCategoryName==''">
                                     /
                                 </ng-template>
                             </td>
@@ -183,10 +183,10 @@
                         <tr>
                             <td class="uk-width-1-4 fieldName">Places</td>
                             <td *ngFor="let service of services; let i = index;" class="uk-width-1-4 fieldValue" [ngClass]="{evenColumn: i%2==1}">
-                                <ng-template [ngIf]="service.places && service.places!=''">
-                                    {{service.places | lookup:this.vocabularies.Place | join:", "}}
+                                <ng-template [ngIf]="service.placeNames && service.placeNames!=''">
+                                    {{service.placeNames | join:", "}}
                                 </ng-template>
-                                <ng-template [ngIf]="!service.places || service.places==''">
+                                <ng-template [ngIf]="!service.placeNames || service.placeNames==''">
                                     /
                                 </ng-template>
                             </td>
@@ -194,10 +194,10 @@
                         <tr>
                             <td class="uk-width-1-4 fieldName">Languages</td>
                             <td *ngFor="let service of services; let i = index;" class="uk-width-1-4 fieldValue" [ngClass]="{evenColumn: i%2==1}">
-                                <ng-template [ngIf]="service.languages && service.languages!=''">
-                                    {{service.languages | lookup:this.vocabularies.Language | join:", "}}
+                                <ng-template [ngIf]="service.languageNames && service.languageNames!=''">
+                                    {{service.languageNames | join:", "}}
                                 </ng-template>
-                                <ng-template [ngIf]="!service.languages || service.languages==''">
+                                <ng-template [ngIf]="!service.languageNames || service.languageNames==''">
                                     /
                                 </ng-template>
                             </td>
@@ -206,7 +206,7 @@
                             <td class="uk-width-1-4"></td>
                             <td *ngFor="let service of services; let i = index;" class="uk-width-1-4" [ngClass]="{evenColumn: i%2==1}">
                                 <button (click)="addToFavourites(i)"
-                                        class="uk-button uk-button-default uk-width-1-1 favoriteButton" title="Favourites" uk-tooltip="delay: 500">
+                                        class="uk-button uk-button-primary uk-width-1-1 favoriteButton" title="Favourites" uk-tooltip="delay: 500">
                                 <i [ngClass]="service.isFavourite?'fa fa-heart':'fa fa-heart-o'"></i>
                                 <!--<span> ({{ service.favourites }})</span>-->
                                  &nbsp;  Favorite

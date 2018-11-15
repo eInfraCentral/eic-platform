@@ -123,7 +123,7 @@
 
                         <form-inline [description]="versionDesc" [params]="'inline'"
                                      [valid]="serviceForm.get('version').valid && serviceForm.get('version').dirty">
-                          <input class="uk-input" type="text" formControlName="version"
+                          <input maxlength="10" class="uk-input" type="text" formControlName="version"
                                  [ngClass]="{'uk-form-danger': !serviceForm.get('version').valid && serviceForm.get('version').dirty}">
                         </form-inline>
                         <form-inline [description]="lastUpdateDesc" [params]="'inline'"
@@ -153,51 +153,46 @@
                           <!--<input class="uk-input" type="text" formControlName="validFor"-->
                                  <!--[ngClass]="{'uk-form-danger': !serviceForm.get('validFor').valid && serviceForm.get('validFor').dirty}">-->
                         </form-inline>
-                        <form-inline *ngIf="this.vocabularies" [description]="lifeCycleStatusDesc"
+                        <form-inline *ngIf="lifeCycleStatusVocabulary" [description]="lifeCycleStatusDesc"
                                      [params]="'inline'"
                                      [valid]="serviceForm.get('lifeCycleStatus').valid && serviceForm.get('lifeCycleStatus').dirty">
-                          <select formControlName="lifeCycleStatus" class="uk-select"
-                                  [ngClass]="{'uk-form-danger': !serviceForm.get('lifeCycleStatus').valid && serviceForm.get('lifeCycleStatus').dirty}">
-                            <option *ngFor="let c of (this.vocabularies.LifeCycleStatus | keys | sort )" [ngValue]="c">
-                              {{this.vocabularies.LifeCycleStatus[c]}}
+                          <select formControlName="lifeCycleStatus" class="uk-select">
+                            <option *ngFor="let entry of lifeCycleStatusVocabulary.entries | values | sort" value="{{entry}}">
+                              {{lifeCycleStatusVocabulary.entries[entry].name}}
                             </option>
                           </select>
                         </form-inline>
                         <div></div>
-                        <form-inline *ngIf="this.vocabularies" [description]="trlDesc"
+                        <form-inline *ngIf="trlVocabulary" [description]="trlDesc"
                                      [params]="'inline'"
                                      [valid]="serviceForm.get('trl').valid && serviceForm.get('trl').dirty">
-                          <select formControlName="trl" class="uk-select"
-                                  [ngClass]="{'uk-form-danger': !serviceForm.get('trl').valid && serviceForm.get('trl').dirty}">
-                            <option *ngFor="let c of (this.vocabularies.TRL | keys | sort )"
-                                    [ngValue]="c">{{this.vocabularies.TRL[c]}}
+                          <select formControlName="trl" class="uk-select">
+                            <option *ngFor="let entry of trlVocabulary.entries | values | sort" value="{{entry}}">
+                              {{trlVocabulary.entries[entry].name}}
                             </option>
                           </select>
                         </form-inline>
                         <div></div>
-                        <form-inline *ngIf="this.vocabularies" [description]="categoryDesc"
+                        <form-inline *ngIf="categoriesVocabulary" [description]="categoryDesc"
                                      [params]="'inline'"
                                      [valid]="serviceForm.get('category').valid && serviceForm.get('category').dirty">
-                          <select formControlName="category" class="uk-select"
-                                  [ngClass]="{'uk-form-danger': !serviceForm.get('category').valid && serviceForm.get('category').dirty}">
-                            <!-- FIXME: change getting categories from the categories.ts file and save them to vocabularies -->
-                            <option *ngFor="let c of (this.categories | keys | sort )"
-                                    [ngValue]="'Category-'+c">{{c}}
+                          <select formControlName="category" class="uk-select">
+                            <option *ngFor="let entry of categoriesVocabulary.entries | values | sort" value="{{entry}}">
+                              {{categoriesVocabulary.entries[entry].name}}
                             </option>
                           </select>
                         </form-inline>
                         <div></div>
-                        <!--<form-inline *ngIf="this.vocabularies" [description]="subcategoryDesc"-->
-                        <form-inline [description]="subcategoryDesc"
+                        <form-inline *ngIf="categoriesVocabulary" [description]="subcategoryDesc"
                                      [params]="'inline'"
                                      [valid]="serviceForm.get('subcategory').valid && serviceForm.get('subcategory').dirty">
-                          <select formControlName="subcategory" class="uk-select"
-                                  [ngClass]="{'uk-form-danger': !serviceForm.get('subcategory').valid && serviceForm.get('subcategory').dirty}">
-                            <!-- FIXME: change getting subcategories from the categories.ts file and save them to vocabularies -->
-                            <!-- FIXME: remove monstrosity below!! -->
-                            <option *ngFor="let c of ( categories[(serviceForm.get('category').value).split('-')[1]] | sort )"
-                                    [ngValue]="'Subcategory-'+ c.split(' ').join('_')">{{c}}
-                            </option>
+                          <select formControlName="subcategory" class="uk-select">
+                            <option *ngIf="!serviceForm.get('category').value">-- no category selected --</option>
+                            <ng-container *ngIf="serviceForm.get('category').value">
+                              <option *ngFor="let entry of categoriesVocabulary.entries[serviceForm.get('category').value].children" value="{{entry.id}}">
+                                {{entry.name}}
+                              </option>
+                            </ng-container>
                           </select>
                         </form-inline>
                         <div></div>

@@ -1,3 +1,176 @@
+.ue-flag {
+    color: #839295;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.footer {
+    background: #52636B;
+    color: #A6AEB1;
+}
+.footer {
+    margin-top: 100px;
+}
+
+svg:not(:root) {
+    overflow: hidden;
+}
+
+.footer svg {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left: -96px;
+    margin-top: -50px;
+}
+
+.footer svg path {
+    fill: #52636B;
+}
+
+.footer a {
+    color: #FFF !important;
+}
+
+.btn--top .btn__arrow {
+    display: block;
+    position: absolute;
+    left: 50%;
+    height: 10px;
+    width: 10px;
+    border-left: 2px solid white;
+    border-top: 2px solid white;
+    -webkit-transform: translateX(-50%) rotate(45deg);
+    transform: translateX(-50%) rotate(45deg);
+}
+
+.btn--top .arrow--top {
+    top: 2px;
+}
+
+.btn--top .arrow--bottom {
+    top: 8px;
+}
+
+.nopadding {
+    padding: 0;
+}
+
+.pdt30 {
+    padding-top: 30px !important;
+}
+
+.line {
+    height: 1px;
+    background: #A6AEB1;
+    width: 100%;
+}
+
+.row {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+p {
+    margin: 0 0 1.2em;
+}
+
+.uk-grid > * {
+    padding-left: 0px;
+}
+
+#footer-sitemap {
+    margin: 0;
+}
+
+#footer-sitemap ul {
+    margin: 0;
+    padding: 0;
+}
+
+#footer-sitemap ul li {
+    float: left;
+    list-style: none;
+}
+
+#footer-sitemap ul li {
+    margin-right: 30px;
+}
+
+#footer-sitemap ul li a, #footer-sitemap ul li span, #footer-sitemap ul li span.nolink {
+    font-size: .8em;
+    font-weight: 200;
+}
+
+#footer-sitemap ul li span.fs-root-link.nolink {
+    text-transform: uppercase !important;
+    font-weight: 700;
+}
+
+#footer-sitemap ul li ul {
+    margin: 0;
+    padding: 0;
+}
+
+#footer-sitemap ul li li {
+    float: none;
+    margin: 0;
+    padding: 0;
+}
+
+#footer-sitemap ul li ul li a {
+    text-transform: inherit;
+    font-weight: inherit;
+}
+
+#footer-sitemap a.fs-root-link {
+    font-size: 1em;
+    line-height: 1.5em;
+}
+
+.footer i {
+    color: #52636B;
+    background: #FFF;
+    border-radius: 50%;
+    padding: 8px;
+    width: 21px;
+    height: 21px;
+    text-align: center;
+    font-size: 18px !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.color-secondary {
+    background: #bfcdde;
+}
+
+.margin-bottom-20px {
+    margin-bottom: 20px;
+}
+
+.margin-top-20px {
+    margin-top: 20px;
+}
+
+
+
+
+
+
+
+
+
 .uk-section-footer {
     background: #52636B;
     color: #A6AEB1;
