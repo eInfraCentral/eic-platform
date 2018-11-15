@@ -123,7 +123,7 @@
 
                         <form-inline [description]="versionDesc" [params]="'inline'"
                                      [valid]="serviceForm.get('version').valid && serviceForm.get('version').dirty">
-                          <input class="uk-input" type="text" formControlName="version"
+                          <input maxlength="10" class="uk-input" type="text" formControlName="version"
                                  [ngClass]="{'uk-form-danger': !serviceForm.get('version').valid && serviceForm.get('version').dirty}">
                         </form-inline>
                         <form-inline [description]="lastUpdateDesc" [params]="'inline'"
