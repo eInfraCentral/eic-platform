@@ -1,10 +1,11 @@
 import {Injectable} from "@angular/core";
 import {Headers, Http, RequestOptions, RequestOptionsArgs, Response, XHRBackend} from "@angular/http";
 import {Observable} from "rxjs/Rx";
+import {API_ENDPOINT} from "../shared/environments";
 declare var UIkit: any;
 @Injectable()
 export class HTTPWrapper extends Http {
-    private base = process.env.API_ENDPOINT;
+    private base = API_ENDPOINT;
     private static jsonHeaders = {"Content-Type": "application/json;charset=UTF-8", "Accept": "application/json;charset=UTF-8"};
 
     constructor(public backend: XHRBackend) {

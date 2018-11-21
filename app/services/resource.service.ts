@@ -69,14 +69,26 @@ export class ResourceService {
         return this.http.get(`/service/rich/all${questionMark}${searchQuery.toString()}`).map(res => <SearchResults<RichService>> <any> res);
     }
 
-    getVocabularies(type?: string) {
-        /*return this.getVocabulariesRaw(type).map(e => e.results.reduce(type ? this.idToName : this.idToObject, {})).pipe(shareReplay(1));*/
-        return this.getVocabulariesRaw(type).map(e => e.results.reduce(type ? this.idToName : this.idToObject, {}));
+    // getVocabularies(type?: string) {
+    //     /*return this.getVocabulariesRaw(type).map(e => e.results.reduce(type ? this.idToName : this.idToObject, {})).pipe(shareReplay(1));*/
+    //     return this.getVocabulariesRaw(type).map(e => e.results.reduce(type ? this.idToName : this.idToObject, {}));
+    // }
+    //
+    //
+    // getVocabulariesRaw(type?: string): Observable<SearchResults<Vocabulary>> {
+    //     return this.http.get(`/vocabulary/all?from=0&quantity=1000${type ? "&type=" + type : ""}`);
+    // }
+
+    // getVocabularies(type?: string) {
+    //     return this.http.get(`/vocabulary/all?from=0&quantity=1000${type ? "&type=" + type : ""}`);
+    // }
+
+    getVocabularies() {
+        return this.http.get(`/vocabulary/all?from=0&quantity=1000`);
     }
 
-
-    getVocabulariesRaw(type?: string): Observable<SearchResults<Vocabulary>> {
-        return this.http.get(`/vocabulary/all?from=0&quantity=1000${type ? "&type=" + type : ""}`);
+    getVocabulariesByType(type: string) {
+        return this.http.get(`/vocabulary?type=${type}`);
     }
 
     getVocabulariesUsingGroupBy(type?: string) {
@@ -175,21 +187,21 @@ export class ResourceService {
     }
 
     getEU() {
-        return this.http.get("/vocabulary/getEU");
+        return this.http.get("/vocabulary/countries/EU");
     }
 
     getWW() {
-        return this.http.get("/vocabulary/getWW");
+        return this.http.get("/vocabulary/countries/WW");
     }
 
     //this should be somewhere else, I think
     expandRegion(places, eu, ww) {
-        let iEU = places.indexOf("Place-EU");
+        let iEU = places.indexOf("EU");
         if (iEU > -1) {
             places.splice(iEU, 1);
             places.push(...eu);
         }
-        let iWW = places.indexOf("Place-WW");
+        let iWW = places.indexOf("WW");
         if (iWW > -1) {
             places.splice(iWW, 1);
             places.push(...ww);

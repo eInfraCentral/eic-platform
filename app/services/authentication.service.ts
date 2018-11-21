@@ -6,6 +6,9 @@ import {Injectable} from "@angular/core";
 import {deleteCookie, getCookie, setCookie} from "../domain/utils";
 import {NavigationService} from "./navigation.service";
 import {isNullOrUndefined} from "util";
+import {Router} from "@angular/router";
+import {API_ENDPOINT} from "../shared/environments";
+
 
 @Injectable()
 export class AuthenticationService {
@@ -34,13 +37,24 @@ export class AuthenticationService {
     public getUserInfo() {
         // retrieve user information from cookie
         if (!this.isLoggedIn() && getCookie(this.cookieName) !== null) {
-            console.log(this.b64DecodeUnicode(getCookie(this.cookieName)));
-            this.b64DecodeUnicode(getCookie(this.cookieName));
+            // console.log(this.b64DecodeUnicode(getCookie(this.cookieName)));/
 
             this.user = JSON.parse(this.b64DecodeUnicode(getCookie(this.cookieName)));
             this.user.id = this.user.eduperson_unique_id;
 
             sessionStorage.setItem('userInfo', JSON.stringify(this.user));
+
+            let url = sessionStorage.getItem('redirect_url');
+            sessionStorage.removeItem('redirect_url');
+            // console.log(sessionStorage.getItem('forward_url'));
+            if (!(sessionStorage.getItem('forward_url') === null)) {
+                // console.log('boomShakalaka');
+                url = sessionStorage.getItem('forward_url');
+                // console.log('first print ' + url);
+                sessionStorage.removeItem('forward_url');
+            }
+            console.log(url);
+            this.router.router.navigateByUrl(url);
         }
     }
 
@@ -65,7 +79,8 @@ export class AuthenticationService {
             console.log('found cookie');
             this.getUserInfo();
         } else {
-            window.location.href = process.env.API_ENDPOINT + "/openid_connect_login";
+            sessionStorage.setItem('redirect_url', window.location.pathname);
+            window.location.href = API_ENDPOINT + "/openid_connect_login";
         }
     }
 
@@ -74,7 +89,7 @@ export class AuthenticationService {
             deleteCookie(this.cookieName);
             this.user = null;
             sessionStorage.clear();
-            window.location.href = process.env.API_ENDPOINT + "/openid_logout";
+            window.location.href = API_ENDPOINT + "/openid_logout";
             // this.router.home();
         }
     }

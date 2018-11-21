@@ -6,6 +6,7 @@ import {LookUpPipe} from "./pipes/lookup.pipe";
 import {PremiumSortPipe} from "./pipes/premium-sort.pipe";
 import {SafePipe} from "./pipes/safe.pipe";
 import {StringArraySortPipe} from "./pipes/sort.pipe";
+import {ValuesPipe} from "./pipes/getValues.pipe";
 
 @NgModule({
     imports: [],
@@ -15,7 +16,8 @@ import {StringArraySortPipe} from "./pipes/sort.pipe";
         StringArraySortPipe,
         LookUpPipe,
         PremiumSortPipe,
-        SafePipe
+        SafePipe,
+        ValuesPipe
     ],
     exports: [
         JoinPipe,
@@ -23,7 +25,8 @@ import {StringArraySortPipe} from "./pipes/sort.pipe";
         StringArraySortPipe,
         LookUpPipe,
         PremiumSortPipe,
-        SafePipe
+        SafePipe,
+        ValuesPipe
     ]
 })
 export class SharedModule {
