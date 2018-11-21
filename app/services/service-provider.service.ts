@@ -25,8 +25,12 @@ export class ServiceProviderService {
     }
 
     getMyServiceProviders() {
-        return this.http.get(`/provider/getMyServiceProviders?email=${this.authenticationService.getUserProperty('email')}`);
+        return this.http.get('/provider/getMyServiceProviders');
     }
+
+    // getMyServiceProviders() {
+    //     return this.http.get(`/provider/getMyServiceProviders?email=${this.authenticationService.getUserProperty('email')}`);
+    // }
 
     getServiceProviderById(id: string) {
         return this.http.get(`/provider/${id}`);

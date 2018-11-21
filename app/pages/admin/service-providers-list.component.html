@@ -32,6 +32,7 @@
                                             <tr>
                                                 <th>Name</th>
                                                 <th>Current Status</th>
+                                                <th>Info</th>
                                                 <th class="uk-text-center">Active</th>
                                                 <th>service template</th>
                                                 <th>Actions</th>
@@ -57,6 +58,11 @@
                                                                    ((provider.status === 'pending service template approval') ? 'fa-exclamation' : 'fa-check') }}"></i>-->
                                                         {{ provider.status }}
                                                     <!--</span>-->
+                                                </td>
+                                                <td class="uk-text-center">
+                                                    <a [routerLink]="['/serviceProviderInfo',provider.id]">
+                                                    <i aria-hidden="true" class="fa fa-info uk-margin-small-right"></i>
+                                                    </a>
                                                 </td>
                                                 <td class="uk-text-center">
                                                     <i class="fa fa-{{ provider.active ? 'check':'close' }}"></i>

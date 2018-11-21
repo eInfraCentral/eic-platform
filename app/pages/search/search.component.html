@@ -59,7 +59,7 @@
                                         <input type="checkbox" name="vehicle" value="Bike" data-md-icheck
                                                (change)="this.onSelection($event, facet.field, facetValue.value)"
                                                [checked]="facetValue.isChecked">
-                                        {{this.getFacetLabel(facet, facetValue)}}
+                                        {{facetValue.label}}
                                         <span>({{facetValue.count}})</span>
                                     </div>
                                 </read-more>
@@ -82,7 +82,7 @@
                                         <!--<input type="checkbox" name="vehicle" value="Bike" data-md-icheck-->
                                                <!--(change)="this.onSelection($event, facet.field, facetValue.value)"-->
                                                <!--[checked]="facetValue.isChecked">-->
-                                        <!--{{this.getFacetLabel(facet, facetValue)}}-->
+                                                <!--{{facetValue.label}}-->
                                         <!--<span>({{facetValue.count}})</span>-->
                                     <!--</div>-->
                                 <!--</read-more>-->
@@ -122,7 +122,7 @@
 
                         <div class="uk-width-1-1 uk-row-first uk-margin-bottom">
 
-                            <nav *ngIf="searchResults.facets" class="uk-inline" style="margin-left: -20px;" uk-navbar>
+                            <nav *ngIf="searchResults.facets" class="uk-inline" style="margin-left: -10px;" uk-navbar>
                                 <div class="uk-navbar-left">
 
                                     <ul class="uk-navbar-nav uk-nav-parent-icon filters">
@@ -135,7 +135,7 @@
                                                         <ul class="uk-nav uk-navbar-dropdown-nav">
                                                             <li *ngFor="let facetValue of facet.values">
                                                                 <a (click)="this.selectFacet(facet.field, facetValue.value)">
-                                                                    {{ getFacetLabel(facet, facetValue) }}
+                                                                    {{facetValue.label}}
                                                                     <span>({{facetValue.count}})</span>
                                                                 </a>
                                                             </li>
@@ -213,15 +213,15 @@
 
                                         <div class="uk-width-4-5@m uk-first-column uk-card-body serviceInfo">
                                             <div>
-                                                <h3 class="uk-margin-remove uk-text-left@m uk-text-center uk-h3 uk-scrollspy-inview uk-animation-fade uk-inline" uk-scrollspy-class="" style="">
+                                                <h2 class="uk-margin-remove uk-text-left@m uk-text-center uk-h3 uk-scrollspy-inview uk-animation-fade uk-inline" uk-scrollspy-class="" style="">
                                                     <a (click)="this.router.service(resourceInfo.id)">
                                                         {{resourceInfo.name || "Not Available"}}
                                                     </a>
-                                                </h3>
+                                                </h2>
                                                 <span class="uk-inline uk-float-right" style="margin-top:5px;">
                                                     <star-rating-comp #rating (click)="rateService(i, rating.rating)"
                                                                       [starType]="'svg'" [rating]="resourceInfo.hasRate" [step]="1"
-                                                                      [showHalfStars]="true" [readOnly]=!this.authenticationService.isLoggedIn() [size]="'small'"
+                                                                      [showHalfStars]="true" [readOnly]=!this.authenticationService.isLoggedIn() [size]="'medium'"
                                                                       [staticColor]="'ok'" title="Rate this service" uk-tooltip="delay: 500"
                                                                       labelText="{{resourceInfo.hasRate}} ({{ resourceInfo.ratings }})" [labelVisible]="true" [labelPosition]="'right'"
                                                                       [hoverEnabled]="true">
@@ -241,14 +241,14 @@
                                                 <!--</em>-->
                                             <!--</div>-->
                                             <div class="uk-margin-small-top uk-scrollspy-inview uk-animation-fade serviceDescription" uk-scrollspy-class="" style="">
-                                                <read-more-text [text]="resourceInfo.description" [maxHeight]="38">
+                                                <read-more-text [text]="resourceInfo.description" [maxHeight]="45">
                                                 </read-more-text>
                                             </div>
 
                                             <div class="addenda uk-margin-small-top">
                                                 <span class="uk-margin-medium-right">
                                                     <a (click)="addToFavourites(i)">
-                                                        <i [ngClass]="resourceInfo.isFavourite?'fa fa-heart':'fa fa-heart-o'"></i>
+                                                        <i [ngClass]="resourceInfo.isFavourite?'fa fa-heart fa-lg':'fa fa-heart-o fa-lg'"></i>
                                                     </a>
                                                     <span class="statsNumbers">&nbsp;{{ resourceInfo.favourites }}</span>
                                                 </span>
@@ -301,7 +301,7 @@
                                                     <!--</div>-->
                                                     <!--<div class="uk-margin-small-top">-->
                                                         <!--<star-rating-comp #rating (click)="this.userService.rateService(resourceInfo.id, rating.rating)" [starType]="'svg'" [rating]="0" [step]="1"-->
-                                                                          <!--[showHalfStars]="true" [readOnly]=!this.authenticationService.isLoggedIn() [size]="'small'"-->
+                                                                          <!--[showHalfStars]="true" [readOnly]=!this.authenticationService.isLoggedIn() [size]="'medium'"-->
                                                                           <!--[staticColor]="'ok'" title="Rate this service" uk-tooltip="delay: 500"></star-rating-comp>-->
                                                         <!--<span>(0)</span>-->
                                                     <!--</div>-->
@@ -374,7 +374,7 @@
                                         <!--<input type="checkbox" name="vehicle" value="Bike" data-md-icheck-->
                                                <!--(change)="this.onSelection($event, facet.field, facetValue.value)"-->
                                                <!--[checked]="facetValue.isChecked">-->
-                                        <!--{{this.getFacetLabel(facet, facetValue)}}-->
+                                                <!--{{facetValue.label}}-->
                                         <!--<span>({{facetValue.count}})</span>-->
                                     <!--</div>-->
                                 <!--</read-more>-->
@@ -397,7 +397,7 @@
                 <!--&lt;!&ndash;<input type="checkbox" name="vehicle" value="Bike" data-md-icheck&ndash;&gt;-->
                 <!--&lt;!&ndash;(change)="this.onSelection($event, facet.field, facetValue.value)"&ndash;&gt;-->
                 <!--&lt;!&ndash;[checked]="facetValue.isChecked">&ndash;&gt;-->
-                <!--&lt;!&ndash;{{this.getFacetLabel(facet, facetValue)}}&ndash;&gt;-->
+                <!--{{facetValue.label}}-->
                 <!--&lt;!&ndash;<span>({{facetValue.count}})</span>&ndash;&gt;-->
                 <!--&lt;!&ndash;</div>&ndash;&gt;-->
                 <!--&lt;!&ndash;</read-more>&ndash;&gt;-->
@@ -437,20 +437,20 @@
 
                         <div class="uk-width-1-1 uk-row-first uk-margin-bottom">
 
-                            <nav *ngIf="searchResults.facets" class="uk-inline" style="margin-left: -20px;" uk-navbar>
+                            <nav *ngIf="searchResults.facets" class="uk-inline" style="margin-left: -10px;" uk-navbar>
                                 <div class="uk-navbar-left">
 
                                     <ul class="uk-navbar-nav uk-nav-parent-icon filters">
 
                                         <ng-container *ngFor="let facet of searchResults.facets">
                                             <ng-container *ngIf="facet.field=='category'">
-                                                <li class="uk-parent uk-margin-small-right">
-                                                    <a href="#">{{facet.label | uppercase}}</a>
+                                                <li class="uk-parent uk-margin-medium-right">
+                                                    <a href="#">{{facet.label}}</a>
                                                     <div class="uk-navbar-dropdown">
                                                         <ul class="uk-nav uk-navbar-dropdown-nav">
                                                             <li *ngFor="let facetValue of facet.values">
                                                                 <a (click)="this.selectFacet(facet.field, facetValue.value)">
-                                                                    {{this.getFacetLabel(facet, facetValue)}}
+                                                                    {{facetValue.label}}
                                                                     <span>({{facetValue.count}})</span>
                                                                 </a>
                                                             </li>
@@ -465,7 +465,7 @@
                                                         <ul class="uk-nav uk-navbar-dropdown-nav">
                                                             <li *ngFor="let facetValue of facet.values">
                                                                 <a (click)="this.selectFacet(facet.field, facetValue.value)">
-                                                                    {{this.getFacetLabel(facet, facetValue)}}
+                                                                    {{facetValue.label}}
                                                                     <span>({{facetValue.count}})</span>
                                                                 </a>
                                                             </li>
@@ -544,19 +544,19 @@
                                             <div style="position: absolute;left: -5px;height: 20px;">
                                                 <star-rating-comp #rating2 (click)="rateService(i, rating2.rating)" [starType]="'svg'"
                                                                   [rating]="resourceInfo.hasRate" [step]="1"
-                                                                  [showHalfStars]="true" [readOnly]=!this.authenticationService.isLoggedIn() [size]="'small'"
+                                                                  [showHalfStars]="true" [readOnly]=!this.authenticationService.isLoggedIn() [size]="'medium'"
                                                                   [staticColor]="'ok'" title="Rate this service" uk-tooltip="delay: 500"
                                                                   labelText="{{resourceInfo.hasRate}} ({{ resourceInfo.ratings }})" [labelVisible]="true" [labelPosition]="'right'"
                                                                   [hoverEnabled]="true">
                                                 </star-rating-comp>
                                             </div>
                                         </div>
-                                        <div style="margin-top: 20px;">
-                                            <h3 class="uk-margin-remove uk-h3 uk-scrollspy-inview uk-animation-fade uk-inline" uk-scrollspy-class="">
+                                        <div style="margin-top: 30px;">
+                                            <h2 class="uk-margin-remove uk-h3 uk-scrollspy-inview uk-animation-fade uk-inline" uk-scrollspy-class="">
                                                 <a (click)="this.router.service(resourceInfo.id)">
                                                     {{resourceInfo.name}}
                                                 </a>
-                                            </h3>
+                                            </h2>
                                         </div>
 
                                         <div class="uk-margin-small-top serviceTagLine">
@@ -571,14 +571,14 @@
                                         <!--</em>-->
                                         <!--</div>-->
                                         <div class="uk-margin-small-top uk-scrollspy-inview uk-animation-fade serviceDescription" uk-scrollspy-class="" style="">
-                                            <read-more-text [text]="resourceInfo.description" [maxHeight]="38">
+                                            <read-more-text [text]="resourceInfo.description" [maxHeight]="45">
                                             </read-more-text>
                                         </div>
 
                                         <div class="addenda uk-margin-small-top">
                                             <span class="uk-margin-medium-right">
                                                 <a (click)="addToFavourites(i)">
-                                                    <i [ngClass]="resourceInfo.isFavourite?'fa fa-heart':'fa fa-heart-o'"></i>
+                                                    <i [ngClass]="resourceInfo.isFavourite?'fa fa-heart fa-lg':'fa fa-heart-o fa-lg'"></i>
                                                 </a>
                                                 <span class="statsNumbers">&nbsp;{{ resourceInfo.favourites }}</span>
                                             </span>
@@ -591,7 +591,7 @@
                                             </span>
                                             <span class="uk-float-right">
                                                 <img src="../../../../assets/images/icons/ic_visit_icon.svg">
-                                                <span class="statsNumbers">&nbsp;;{{ resourceInfo.views }}</span>
+                                                <span class="statsNumbers">&nbsp;{{ resourceInfo.views }}</span>
                                             </span>
                                         </div>
 

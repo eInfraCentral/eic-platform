@@ -1,17 +1,65 @@
-<div class="tm-header-placeholder uk-margin-remove-adjacent" style="height: 110px;"></div>
-<div class="breadcrumbs">
-    <div class="uk-container uk-container-expand">
-        <div *ngIf="breadcrumbs">
-            <a class="goBackLink" [routerLink]="['/search']" *ngIf="goBack">
-                <img src="../../../assets/images/icons/ic_back_arrow_link.svg" class="uk-margin-small-right">Go Back to Services
-            </a>
-            <ul *ngIf="!goBack" class="uk-breadcrumb">
-                <li *ngFor="let breadcrumb of breadcrumbs; let isLast = last; let i = index;">
-                    <a [routerLink]="[breadcrumb.url, breadcrumb.params]" *ngIf="!isLast" href="">{{breadcrumb.label}}</a>
-                    <span *ngIf="isLast">{{breadcrumb.label}}</span>
-                </li>
-            </ul>
+<div class="tm-header-placeholder uk-margin-remove-adjacent" style="height: 120px;"></div>
+
+<div class="bgxlight bordertopbottom  z20 pt20">
+    <div class="ptb20 cdark">
+        <div class="breadcrumbs breadcrumb clearfix">
+            <div class="container">
+                <h2 class="element-invisible">You are here</h2>
+                <div class="breadcrumb">
+
+
+                    <ng-container *ngIf="!goBack">
+                        <ng-container *ngFor="let breadcrumb of breadcrumbs; let isLast = last; let i = index;">
+                            <span *ngIf="!isLast">
+                                <a [routerLink]="[breadcrumb.url, breadcrumb.params]">{{breadcrumb.label}}</a>
+                            </span>
+                            <!--<span *ngIf="!isLast">-->
+                                <!--»-->
+                            <!--</span>-->
+                        </ng-container>
+                    </ng-container>
+
+                    <!--<ul *ngIf="!goBack" class="uk-breadcrumb">-->
+                        <!--<li *ngFor="let breadcrumb of breadcrumbs; let isLast = last; let i = index;">-->
+                            <!--<a [routerLink]="[breadcrumb.url, breadcrumb.params]" *ngIf="!isLast" href="">{{breadcrumb.label}}</a>-->
+                            <!--&lt;!&ndash;<span *ngIf="isLast">{{breadcrumb.label}}</span>&ndash;&gt;-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                    <!--<span class="inline odd first">-->
+                        <!--<a href="/">Home</a>-->
+                    <!--</span>-->
+                    <!--<span class="delimiter">»</span>-->
+                    <!--<span class="inline even last">Services &amp; Resources</span>-->
+                </div>
+                <h1 *ngIf="breadcrumbs">
+                    <a class="goBackLink" [routerLink]="['/search']" *ngIf="goBack">
+                        <img src="../../../assets/images/icons/ic_back_arrow_link.svg" class="uk-margin-small-right">Go Back to Services
+                    </a>
+                    <!--For providers-->
+                </h1>
+                <h1 *ngIf="!goBack">
+                    <ng-container *ngFor="let breadcrumb of breadcrumbs; let isLast = last; let i = index;">
+                        <span *ngIf="isLast">{{breadcrumb.label}}</span>
+                    </ng-container>
+                </h1>
+            </div>
         </div>
     </div>
 </div>
+
+<!--<div class="breadcrumbs">-->
+    <!--<div class="uk-container uk-container-expand">-->
+        <!--<div *ngIf="breadcrumbs">-->
+            <!--<a class="goBackLink" [routerLink]="['/search']" *ngIf="goBack">-->
+                <!--<img src="../../../assets/images/icons/ic_back_arrow_link.svg" class="uk-margin-small-right">Go Back to Services-->
+            <!--</a>-->
+            <!--<ul *ngIf="!goBack" class="uk-breadcrumb">-->
+                <!--<li *ngFor="let breadcrumb of breadcrumbs; let isLast = last; let i = index;">-->
+                    <!--<a [routerLink]="[breadcrumb.url, breadcrumb.params]" *ngIf="!isLast" href="">{{breadcrumb.label}}</a>-->
+                    <!--<span *ngIf="isLast">{{breadcrumb.label}}</span>-->
+                <!--</li>-->
+            <!--</ul>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
 

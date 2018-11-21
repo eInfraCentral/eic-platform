@@ -11,18 +11,24 @@ table tbody tr.noBorderTop {
 }
 
 .serviceBrandName {
-    font-size: 18px;
-    color: #2B4371;
+    /*font-size: 18px;*/
+    /*color: #2B4371;*/
+    /*font-weight: 400;*/
     letter-spacing: 0.41px;
-    font-weight: 400;
     padding-bottom: 20px;
+    font-size: 28px !important;
+    font-family: 'Teko', sans-serif;
+    font-weight: 600;
+    color: #444;
 }
 
 .tagLine {
     font-size: 16px;
-    color: #4D586A;
+    /*color: #4D586A;*/
+    color: #0047ba;
     letter-spacing: 0.36px;
     line-height: 23px;
+    font-weight: 700;
 }
 
 .uk-table th {
@@ -40,7 +46,7 @@ table tbody tr.noBorderTop {
 }
 
 .fieldName {
-    font-size: 12px;
+    font-size: 15px;
     color: #0047BA;
     letter-spacing: 0;
     font-weight: 700;
@@ -48,20 +54,22 @@ table tbody tr.noBorderTop {
 }
 
 .fieldValue {
-    font-size: 13px;
-    color: #4D586A;
+    font-size: 15px;
+    /*color: #4D586A;*/
     letter-spacing: 0.32px;
-    line-height: 19px;
+    line-height: 22px;
 }
 
 .evenColumn {
-    background: #EFF1F3;
+    /*background: #EFF1F3;*/
+    background: #f9f9f9;
 }
 
 .favoriteButton {
     font-size: 15px;
     letter-spacing: 0.36px;
     text-align: center;
+    font-weight: 500;
 }
 
 a .removeLink {
