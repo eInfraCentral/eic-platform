@@ -108,19 +108,22 @@
                                             <!--<label class="uk-form-label">{{ firstNameDesc.label }}:</label>-->
                                             <!--</div>-->
                                             <div class="serviceDetails uk-width-1-5@m">
-                                                <input type="text" formControlName="name">
+                                                <input type="text" class="uk-input" formControlName="name"
+                                                       [ngClass]="{'uk-form-danger': !user.get('name').valid && user.get('name').dirty}">
                                             </div>
                                             <!--<div class="serviceDetails uk-margin-small-bottom">-->
                                             <!--<label class="uk-form-label">{{ lastNameDesc.label }}:</label>-->
                                             <!--</div>-->
                                             <div class="serviceDetails uk-width-1-5@m">
-                                                <input type="text" formControlName="surname">
+                                                <input type="text" class="uk-input" formControlName="surname"
+                                                       [ngClass]="{'uk-form-danger': !user.get('surname').valid && user.get('surname').dirty}">
                                             </div>
                                             <!--<div class="serviceDetails">-->
                                             <!--<label class="uk-form-label">{{ emailDesc.label }}:</label>-->
                                             <!--</div>-->
                                             <div class="serviceDetails  uk-width-2-5@m">
-                                                <input type="text" formControlName="email">
+                                                <input type="text" class="uk-input" formControlName="email"
+                                                       [ngClass]="{'uk-form-danger': !user.get('email').valid && user.get('email').dirty}">
                                             </div>
                                             <div class="uk-width-1-5@m">
                                                 <a class=""
@@ -161,9 +164,9 @@
         </div>
     </div>
 </div>
-<div>
-    form value: {{updateProviderForm.value | json}}
-</div>
+<!--<div>-->
+    <!--form value: {{updateProviderForm.value | json}}-->
+<!--</div>-->
 
 <div id="logoUrlModal" uk-modal>
     <div class="uk-modal-dialog uk-modal-body">

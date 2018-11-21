@@ -127,6 +127,20 @@ export class UpdateServiceProviderComponent implements OnInit {
             for (const i in this.updateProviderForm.controls) {
                 this.updateProviderForm.controls[i].markAsDirty();
             }
+            this.users.markAsDirty();
+            this.users.updateValueAndValidity();
+            for (let i in this.users.controls) {
+                this.users.controls[i].get('surname').markAsDirty();
+                this.users.controls[i].get('surname').updateValueAndValidity();
+                console.log(this.users.controls[i].get('surname').value);
+                this.users.controls[i].get('email').markAsDirty();
+                this.users.controls[i].get('email').updateValueAndValidity();
+                console.log(this.users.controls[i].get('email').value);
+                this.users.controls[i].get('name').markAsDirty();
+                this.users.controls[i].get('name').updateValueAndValidity();
+                console.log(this.users.controls[i].get('name').value);
+
+            }
             window.scrollTo(0, 0);
         }
     }
@@ -150,7 +164,7 @@ export class UpdateServiceProviderComponent implements OnInit {
                 this.updateProviderForm.patchValue(this.provider);
                 // let users: User[] = [];
                 for (let i = 0; i < this.provider.users.length; i++) {
-                    this.users.push(this.user(this.provider.users[i].email, this.provider.users[i].id,
+                    this.users.push(this.user(this.provider.users[i].email.trim(), this.provider.users[i].id,
                     this.provider.users[i].name, this.provider.users[i].surname));
                     // console.log(this.provider.users[i]);
 
@@ -168,12 +182,16 @@ export class UpdateServiceProviderComponent implements OnInit {
 
     addUser() {
         this.users.push(this.user('', null, '', ''));
-        this.users.markAsDirty();
-        this.users.updateValueAndValidity();
-        for (const i in this.users.controls) {
-            this.users.controls[i].markAsDirty();
-            this.users.controls[i].updateValueAndValidity();
-        }
+        // this.users.markAsDirty();
+        // this.users.updateValueAndValidity();
+        // for (const i in this.users.controls) {
+        //     this.users.controls[i].get('email').markAsDirty();
+        //     this.users.controls[i].get('email').updateValueAndValidity();
+        //     this.users.controls[i].get('name').markAsDirty();
+        //     this.users.controls[i].get('name').updateValueAndValidity();
+        //     this.users.controls[i].get('surname').markAsDirty();
+        //     this.users.controls[i].get('surname').updateValueAndValidity();
+        // }
         // this.newUserForm.reset();
 
         // this.errorMessage = "Please fill in all fields, and fix the data format in fields underlined with a red colour.";
@@ -191,7 +209,7 @@ export class UpdateServiceProviderComponent implements OnInit {
             return;
         }
         let i = 0;
-        console.log(index.value);
+        // console.log(index.value);
         while ( i < this.users.length) {
             if (this.users.value[i] === index.value) {
                 this.users.removeAt(i);
