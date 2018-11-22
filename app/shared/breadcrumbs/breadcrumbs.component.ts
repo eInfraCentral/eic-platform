@@ -5,6 +5,7 @@ import { AfterViewInit, Component, Input, OnInit } from "@angular/core";
 import { AuthenticationService } from "../../services/authentication.service";
 import { ActivatedRoute, NavigationEnd, Params, PRIMARY_OUTLET, Router } from "@angular/router";
 import { NavigationService } from "../../services/navigation.service";
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 
 interface IBreadcrumb {
@@ -23,6 +24,9 @@ export class BreadcrumbsComponent implements OnInit {
     public breadcrumbs: IBreadcrumb[];
     public goBack : boolean = false;
     readonly ROUTE_DATA_BREADCRUMB: string = "breadcrumb";
+
+    public searchForm: FormGroup;
+
     /**
      * @class DetailComponent
      * @constructor
@@ -30,9 +34,17 @@ export class BreadcrumbsComponent implements OnInit {
     constructor(
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        private navigation : NavigationService
+        private navigation : NavigationService,
+        public fb: FormBuilder
     ) {
         this.breadcrumbs = [];
+        this.searchForm = fb.group({"query": [""]});
+    }
+
+    onSubmit(searchValue: string) {
+        /*let params = Object.assign({},this.activatedRoute.children[0].snapshot.params);
+        params['query'] = searchValue.query;*/
+        return this.navigation.search({query: searchValue});
     }
 
     /**
@@ -47,6 +59,20 @@ export class BreadcrumbsComponent implements OnInit {
         this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => this.handleEvent(event));
         this.navigation.breadcrumbs.subscribe(service => {
             this.breadcrumbs[this.breadcrumbs.length-1].label=service;
+        });
+
+        this.navigation.paramsObservable.subscribe(params => {
+
+            if(params!=null) {
+                for (let urlParameter of params) {
+                    if(urlParameter.key === 'query') {
+                        this.searchForm.get('query').setValue(urlParameter.values[0]);
+                    }
+                }
+            } else {
+                this.searchForm.get('query').setValue('');
+            }
+
         });
     }
 
