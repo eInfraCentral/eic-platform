@@ -8,6 +8,7 @@ import {SearchQuery} from "../../domain/search-query";
 import {NavigationService} from "../../services/navigation.service";
 import {ResourceService} from "../../services/resource.service";
 import {SearchResults} from "../../domain/search-results";
+import {Info} from "../../domain/info";
 
 @Component({
     selector: "home",
@@ -22,6 +23,8 @@ export class HomeComponent implements OnInit {
     public baseIconURI = "./assets/images/icons/";
 
     public featuredServices: Service[];
+
+    public info: Info;
 
     slides = [
         {img: "http://placehold.it/350x150/000000"},
@@ -42,6 +45,10 @@ export class HomeComponent implements OnInit {
                 this.categoriesResults = suc;
                 this.categories = this.categoriesResults.results[0];
             }
+        );
+
+        this.resourceService.getInfo().subscribe(
+            suc => this.info = suc
         );
 
         // this.resourceService.getVocabulariesRaw("Category").subscribe(suc => {
