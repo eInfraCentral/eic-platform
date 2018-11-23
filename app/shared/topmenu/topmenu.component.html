@@ -116,7 +116,7 @@
                                     <!-- If user is serviceProvider admin and has at least 1 serviceProvider -->
                                     <li *ngIf="isProvider() || isAdmin()"><a [routerLink]="['/myServiceProviders']" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">My Providers</a></li>
                                     <!-- If user is admin -->
-                                    <li *ngIf="isAdmin()"><a [routerLink]="['/serviceProvidersList']" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">View Providers</a></li>
+                                    <li *ngIf="isAdmin()"><a [routerLink]="['/serviceProvidersList']" routerLinkActive="uk-active" >View Providers</a></li>
                                 </ul>
                             </li>
 

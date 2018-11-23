@@ -84,7 +84,7 @@
             <!--</ngx-slick>-->
 
 
-                <div *ngFor="let featuredService of featuredServices" class="uk-card uk-card-body uk-card-gray uk-margin-left featuredService">
+                <div *ngFor="let featuredService of featuredServices" class="uk-card uk-card-body uk-card-gray uk-margin-left featuredService uk-margin-small-top">
                     <a (click)="this.router.service(featuredService.id)">
                         <h3>{{featuredService.name}}</h3>
                         <p *ngIf="featuredService.tagline">{{featuredService.tagline}}</p>
@@ -188,7 +188,41 @@
                         </div>
                     </div>
                 </div>
-                <div class="uk-width-2-5@m uk-padding-remove-left">
+                <!--NO MOBILE-->
+                <div class="uk-width-2-5@m uk-padding-remove-left uk-visible@m">
+                    <div class="needService personas">
+                        <h3>
+                            I need a service to
+                        </h3>
+                        <div class="uk-margin-small-bottom">
+                            <a class="uk-margin-small-right" [routerLink]="['/search', {category : 'networking,compute,security'}]">Use network, computing and security resources</a>
+                            <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
+                        </div>
+                        <div class="uk-margin-small-bottom">
+                            <a class="uk-margin-small-right" [routerLink]="['/search', {category : 'storage,data,aggregator'}]" >Store, share and analyze data</a>
+                            <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
+                        </div>
+                        <div class="uk-margin-small-bottom">
+                            <a class="uk-margin-small-right" [routerLink]="['/search', {category : 'software,aggregator'}]">Use and share software</a>
+                            <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
+                        </div>
+                    </div>
+                    <div class="research personas">
+                        <h3>
+                            I am interested in research
+                        </h3>
+                        <div class="uk-margin-small-bottom">
+                            <a class="uk-margin-small-right" [routerLink]="['/search', {category : 'training'}]">Administration and training services</a>
+                            <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
+                        </div>
+                        <div class="uk-margin-small-bottom">
+                            <a class="uk-margin-small-right" [routerLink]="['/search', {category : 'operations'}]">Monitoring and funding</a>
+                            <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
+                        </div>
+                    </div>
+                </div>
+                <!--MOBILE-->
+                <div class="uk-width-2-5@m firstColumn uk-hidden@m">
                     <div class="needService personas">
                         <h3>
                             I need a service to
