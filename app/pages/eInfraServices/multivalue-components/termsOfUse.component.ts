@@ -7,7 +7,8 @@ import * as sd from "../services.description";
     selector: "termsOfUseInfo-form",
     template: `
         <div [formGroup]="group">
-            <input type="text" formControlName="entry"/>
+            <input class="uk-input" type="text" formControlName="entry"
+            [ngClass]="{'uk-form-danger': !group.get('entry').valid && group.get('entry').dirty}"/>
         </div>
     `
 })
