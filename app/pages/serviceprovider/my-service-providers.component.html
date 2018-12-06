@@ -100,7 +100,9 @@
                                                                 <a *ngIf="(provider.status === 'approved')" routerLink="/updateServiceProvider/{{provider.id}}">Update provider</a>
                                                             </div>
                                                             <div>
-                                                                <a *ngIf="(provider.status === 'pending service template approval') || (provider.status === 'rejected service template')"
+                                                                <a *ngIf="(provider.status === 'pending service template submission')
+                                                                        || (provider.status === 'pending service template approval')
+                                                                        || (provider.status === 'rejected service template')"
                                                                    routerLink="{{ getLinkToFirstService(provider.id) }}">
                                                                     <i class="fa {{hasCreatedFirstService(provider.id) ? 'fa-pencil': 'fa-plus'}}"></i>
                                                                     {{ hasCreatedFirstService(provider.id) ? 'Update': 'Add'}} service template
