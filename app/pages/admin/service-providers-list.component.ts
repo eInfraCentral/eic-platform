@@ -18,6 +18,12 @@ export class ServiceProvidersListComponent implements OnInit {
     newStatus: string;
     pushedApprove: boolean;
 
+    total: number;
+    from = 0;
+    itemsPerPage = 15;
+    currentPage = 1;
+    pages: number[] = [];
+
     statusList = statusList;
     pendingFirstServicePerProvider: any[] = [];
     adminActionsMap = statusChangeMap;
@@ -25,14 +31,18 @@ export class ServiceProvidersListComponent implements OnInit {
     constructor(private resourceService: ResourceService, private serviceProviderService: ServiceProviderService) {}
 
     ngOnInit() {
-        this.getProviders();
+        this.getProviders(this.from, this.itemsPerPage);
     }
 
-    getProviders() {
+    getProviders(from: number, itemsPerPage: number) {
         /*setTimeout( () => {*/
         this.providers = [];
-        this.resourceService.getProviders().subscribe(
-            res => this.providers = res['results'],
+        this.resourceService.getProviders(`${from}`, `${itemsPerPage}`).subscribe(
+            res => {
+                this.providers = res['results'];
+                this.total = res['total'];
+                this.paginationInit();
+                },
             err => {
                 console.log(err);
                 this.errorMessage = 'The list could not be retrieved';
@@ -114,7 +124,7 @@ export class ServiceProvidersListComponent implements OnInit {
                 err => console.log(err),
                 () => {
                     UIkit.modal('#actionModal').hide();
-                    this.getProviders();
+                    this.getProviders(this.from, this.itemsPerPage);
                 }
             );
     }
@@ -125,6 +135,35 @@ export class ServiceProvidersListComponent implements OnInit {
 
     getLinkToFirstService(id: string) {
         return '/service/' + this.pendingFirstServicePerProvider.filter(x => x.providerId === id)[0].serviceId;
+    }
+
+    paginationInit() {
+        this.pages = [];
+        for (let i = 0 ; i < Math.ceil(this.total/this.itemsPerPage); i++) {
+            this.pages.push(i+1);
+        }
+    }
+
+    previousPage() {
+        if (this.currentPage > 1) {
+            this.currentPage--;
+            this.from = (this.currentPage - 1) * this.itemsPerPage;
+            this.getProviders(this.from, this.itemsPerPage);
+        }
+    }
+
+    nextPage() {
+        if (this.currentPage < Math.ceil(this.total/this.itemsPerPage)) {
+            this.currentPage++;
+            this.from = (this.currentPage - 1) * this.itemsPerPage;
+            this.getProviders(this.from, this.itemsPerPage);
+        }
+    }
+
+    goToPage(pageNum: number) {
+        this.currentPage = pageNum;
+        this.from = (this.currentPage - 1) * this.itemsPerPage;
+        this.getProviders(this.from, this.itemsPerPage);
     }
 
 }

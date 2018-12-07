@@ -27,6 +27,18 @@
                             <div class="middle-box animated fadeInDown">
 
                                 <div *ngIf="providers && (providers.length>0)" id="serviceForm">
+
+                                    <ul class="uk-pagination uk-flex-center" uk-margin>
+                                        <li><a (click)="previousPage()"><span uk-pagination-previous></span></a></li>
+                                        <li *ngFor="let i of pages" [ngClass]="i === currentPage ? 'uk-active': ''">
+                                            <div *ngIf="i !== currentPage; else deactivate_link">
+                                                <a (click)="goToPage(i)">{{i}}</a>
+                                            </div>
+                                            <ng-template #deactivate_link><span>{{i}}</span></ng-template>
+                                        </li>
+                                        <li><a (click)="nextPage()"><span uk-pagination-next></span></a></li>
+                                    </ul>
+
                                     <table class="uk-table uk-table-small uk-table-striped uk-table-middle">
                                         <thead>
                                             <tr>
@@ -95,19 +107,19 @@
                                                          <div *ngIf="((provider.status !== 'pending service template approval') &&
                                                                  (provider.status !== 'rejected service template')) ||
                                                                  (hasCreatedFirstService(provider.id))">
-                                                        <a *ngIf="adminActionsMap[provider.status] && adminActionsMap[provider.status].appButtonTitle"
-                                                           class="uk-margin-right"
-                                                           (click)="showActionModal(provider, adminActionsMap[provider.status].onApprove, true)">
-                                                            <i aria-hidden="true" class="fa fa-thumbs-up uk-margin-small-right"></i>
-                                                            {{ adminActionsMap[provider.status].appButtonTitle }}
-                                                        </a>
-                                                        <a *ngIf="(provider.status === 'approved') && (!provider.active)"
-                                                           class="uk-margin-right"
-                                                           (click)="showActionModal(provider, 'approved', true)">
-                                                            <i aria-hidden="true" class="fa fa-thumbs-up uk-margin-small-right"></i>
-                                                            Activate
-                                                        </a>
-                                                    </div>
+                                                            <a *ngIf="adminActionsMap[provider.status] && adminActionsMap[provider.status].appButtonTitle"
+                                                               class="uk-margin-right"
+                                                               (click)="showActionModal(provider, adminActionsMap[provider.status].onApprove, true)">
+                                                                <i aria-hidden="true" class="fa fa-thumbs-up uk-margin-small-right"></i>
+                                                                {{ adminActionsMap[provider.status].appButtonTitle }}
+                                                            </a>
+                                                            <a *ngIf="(provider.status === 'approved') && (!provider.active)"
+                                                               class="uk-margin-right"
+                                                               (click)="showActionModal(provider, 'approved', true)">
+                                                                <i aria-hidden="true" class="fa fa-thumbs-up uk-margin-small-right"></i>
+                                                                Activate
+                                                            </a>
+                                                        </div>
                                                     </div>
                                                     <div class="uk-width-1-2@m">
                                                         <a *ngIf="((provider.status === 'approved') && (provider.active)) ||
@@ -121,6 +133,18 @@
                                             </tr>
                                         </tbody>
                                     </table>
+
+                                    <ul class="uk-pagination uk-flex-center" uk-margin>
+                                        <li><a (click)="previousPage()"><span uk-pagination-previous></span></a></li>
+                                        <li *ngFor="let i of pages" [ngClass]="i === currentPage ? 'uk-active': ''">
+                                            <div *ngIf="i !== currentPage; else deactivate_link">
+                                                <a (click)="goToPage(i)">{{i}}</a>
+                                            </div>
+                                            <ng-template #deactivate_link><span>{{i}}</span></ng-template>
+                                        </li>
+                                        <li><a (click)="nextPage()"><span uk-pagination-next></span></a></li>
+                                    </ul>
+
                                 </div>
                             </div>
 
