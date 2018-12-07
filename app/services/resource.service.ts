@@ -183,7 +183,14 @@ export class ResourceService {
     }
 
     getProviders() {
-        return this.getAll("provider");
+        let params : RequestOptions = new RequestOptions();
+        params.params = new URLSearchParams();
+        params.params.append("from","0");
+        params.params.append("quantity","10000");
+        params.params.append("orderField","creation_date");
+        params.params.append("order","desc");
+        return this.http.get(`/provider/all`,params);
+        // return this.getAll("provider");
     }
 
     getEU() {
