@@ -27,20 +27,25 @@
                             <div class="middle-box animated fadeInDown">
 
                                 <div *ngIf="providers && (providers.length>0)" id="serviceForm">
-                                    <table class="uk-table uk-table-striped">
+                                    <table class="uk-table uk-table-small uk-table-striped uk-table-middle">
                                         <thead>
                                             <tr>
-                                                <th>Name</th>
+                                                <th class="">Logo</th>
+                                                <th class="uk-text-center">Name</th>
                                                 <th>Current Status</th>
                                                 <th>Info</th>
                                                 <th class="uk-text-center">Active</th>
-                                                <th>service template</th>
-                                                <th>Actions</th>
+                                                <th class="uk-text-nowrap">service template</th>
+                                                <th class="uk-text-center">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr *ngFor="let provider of providers">
-                                                <td>
+                                                <td class=" uk-table-shrink">
+                                                    <img class="el-image uk-border-rounded"
+                                                         src="{{ provider.logo ? provider.logo : 'http://fvtelibrary.com/img/user/NoLogo.png' }}" alt="SP Logo">
+                                                </td>
+                                                <td class="uk-wi">
                                                     <span data-uk-tooltip
                                                           title="{{(provider.status !== 'approved') ?
                                                                 'The service provider is not yet active, therefore you cannot access its monitoring dashboard':
@@ -48,6 +53,8 @@
                                                         <a [routerLink]="['/dashboard',provider.id]"
                                                            class="{{(provider.status !== 'approved') ? 'uk-disabled':''}}">
                                                             {{ provider.name }}
+                                                            <!--Enable this if provider names are to long-->
+                                                            <!--{{ provider.name.length > 20 ? provider.name.slice(0,20)+'...' : provider.name }}-->
                                                         </a>
                                                     </span>
                                                 </td>
@@ -73,7 +80,7 @@
                                                         <i class="fa fa-eye"></i> View service template
                                                     </a>
                                                 </td>
-                                                <td>
+                                                <td class="uk-text-nowrap uk-grid">
                                                     <!--<button *ngIf="(provider.status === 'pending initial approval') ||
                                                                    ((provider.status === 'pending service template approval') &&
                                                                      hasCreatedFirstService(provider.id))"
@@ -84,7 +91,8 @@
                                                             (click)="showVerifyModal(provider)">Reject</button>
                                                     <a *ngIf="provider.status === 'approved'" class="uk-link uk-text-uppercase"
                                                        (click)="showVerifyModal(provider)">Deactivate</a>-->
-                                                    <div *ngIf="((provider.status !== 'pending service template approval') &&
+                                                    <div class="uk-width-1-2@m">
+                                                         <div *ngIf="((provider.status !== 'pending service template approval') &&
                                                                  (provider.status !== 'rejected service template')) ||
                                                                  (hasCreatedFirstService(provider.id))">
                                                         <a *ngIf="adminActionsMap[provider.status] && adminActionsMap[provider.status].appButtonTitle"
@@ -99,6 +107,9 @@
                                                             <i aria-hidden="true" class="fa fa-thumbs-up uk-margin-small-right"></i>
                                                             Activate
                                                         </a>
+                                                    </div>
+                                                    </div>
+                                                    <div class="uk-width-1-2@m">
                                                         <a *ngIf="((provider.status === 'approved') && (provider.active)) ||
                                                                   ((provider.status !== 'approved') && (adminActionsMap[provider.status] && adminActionsMap[provider.status].rejButtonTitle))"
                                                            (click)="showActionModal(provider, adminActionsMap[provider.status].onReject, false)">

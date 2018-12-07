@@ -51,6 +51,14 @@ h2 {
     /*color: #677690;*/
 /*}*/
 
+.limitRows {
+    height: 250px;
+    /*line-height: 1.2rem;*/
+    /*white-space: nowrap;*/
+    overflow:hidden;
+    text-overflow: ellipsis;
+}
+
 .trendingSearches {
     font-size: 16px;
     color: #C4D0E6;
@@ -107,6 +115,7 @@ h2 {
 
 .featuredService {
     flex: 1;
+    padding: 10px 10px;
     /*position: relative;*/
 }
 
