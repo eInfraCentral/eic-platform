@@ -62,13 +62,7 @@
 
         <div *ngIf="featuredServices" class="uk-grid-margin uk-grid uk-grid-stack uk-child-width-expand@s featuredServicesContainer uk-margin-medium-top" uk-grid="">
 
-            <button class="" style="background-color: Transparent;
-                                    background-repeat:no-repeat;
-                                    color: #214C9C;
-                                    border: none;
-                                    cursor:pointer;
-                                    overflow: hidden;"
-                    (click)="previous()"> <i aria-hidden="true" class="fa fa-angle-left fa-4x"></i></button>
+            <button class="nav-buttons" (click)="previous()"> <i aria-hidden="true" class="fa fa-angle-left fa-4x"></i></button>
 
             <div *ngFor="let featuredService of viewServices" class="uk-card uk-card-body uk-card-gray uk-margin-small-left uk-margin-small-right limitRows featuredService">
                 <a (click)="this.router.service(featuredService.id)">
@@ -80,13 +74,8 @@
                     </div>
                 </a>
             </div>
-            <button class="" style="background-color: Transparent;
-                                    background-repeat:no-repeat;
-                                    color: #214C9C;
-                                    border:none;
-                                    cursor:pointer;
-                                    overflow: hidden;"
-                    (click)="next()"> <i aria-hidden="true" class="fa fa-angle-right fa-4x"></i></button>
+
+            <button class="nav-buttons" (click)="next()"> <i aria-hidden="true" class="fa fa-angle-right fa-4x"></i></button>
         </div>
     </div>
     <div *ngIf="categories" class="uk-container serviceicon">
