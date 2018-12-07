@@ -18,6 +18,7 @@ import { AddFirstServiceComponent } from './pages/serviceprovider/add-first-serv
 import { MyServiceProvidersComponent } from './pages/serviceprovider/my-service-providers.component';
 import { UpdateServiceProviderComponent } from "./pages/serviceprovider/update-service-provider.component";
 import { ServiceProviderInfoComponent } from "./pages/serviceprovider/service-provider-info.component";
+import {MyFavouritesComponent} from "./pages/user/favourites/my-favourites.component";
 
 const appRoutes: Routes = [
     {
@@ -129,6 +130,14 @@ const appRoutes: Routes = [
         canActivate: [CanActivateViaAuthGuard],
         data: {
             breadcrumb : "My Service Providers"
+        }
+    },
+    {
+        path: "myFavourites",
+        component: MyFavouritesComponent,
+        canActivate: [CanActivateViaAuthGuard],
+        data: {
+            breadcrumb : "My Favourites"
         }
     },
     {
