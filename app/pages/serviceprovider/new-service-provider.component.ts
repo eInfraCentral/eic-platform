@@ -33,7 +33,8 @@ export class NewServiceProviderComponent implements OnInit {
 
     /* TODO: add logo field to the form */
     readonly formDefinition = {
-        id: ['', Validators.required],
+        id: ['', Validators.pattern(/^[a-zA-Z0-9]+/)],
+        // id: ['', Validators.required],
         name: ['', Validators.required],
         logo: ['', URLValidator],
         contactInformation: [''],
