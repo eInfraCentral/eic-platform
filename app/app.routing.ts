@@ -142,19 +142,19 @@ const appRoutes: Routes = [
         }
     },
     {
+        path: "myFavourites",
+        component: MyFavouritesComponent,
+        canActivate: [CanActivateViaAuthGuard],
+        data: {
+            breadcrumb : "My Favourites"
+        }
+    },
+    {
         path: "serviceProvidersList",
         component: ServiceProvidersListComponent,
         canActivate: [CanActivateViaAuthGuard],
         data: {
             breadcrumb : "Service Providers"
-        }
-    },
-    {
-        path: "myFavouriteServices",
-        component: MyFavouritesComponent,
-        canActivate: [CanActivateViaAuthGuard],
-        data: {
-            breadcrumb : "Favourites"
         }
     }
 ];
