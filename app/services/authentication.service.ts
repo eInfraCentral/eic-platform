@@ -9,6 +9,8 @@ import {isNullOrUndefined} from "util";
 import {Router} from "@angular/router";
 import {API_ENDPOINT} from "../shared/environments";
 
+import * as moment from "moment";
+
 
 @Injectable()
 export class AuthenticationService {
@@ -40,9 +42,13 @@ export class AuthenticationService {
             // console.log(this.b64DecodeUnicode(getCookie(this.cookieName)));/
 
             this.user = JSON.parse(this.b64DecodeUnicode(getCookie(this.cookieName)));
+            console.log(this.user);
             this.user.id = this.user.eduperson_unique_id;
 
             sessionStorage.setItem('userInfo', JSON.stringify(this.user));
+            const expiresAt = moment().add(JSON.stringify(this.user.expireSec),'second');
+            sessionStorage.setItem('expiresAt', JSON.stringify(expiresAt));
+            console.log(sessionStorage.getItem('expiresAt'));
 
             let url = sessionStorage.getItem('redirect_url');
             sessionStorage.removeItem('redirect_url');
@@ -75,7 +81,7 @@ export class AuthenticationService {
     }
 
     public login() {
-        if (getCookie(this.cookieName) !== null) {
+        if (getCookie(this.cookieName) !== null && moment().isBefore(this.getExpiration())) {
             console.log('found cookie');
             this.getUserInfo();
         } else {
@@ -95,7 +101,13 @@ export class AuthenticationService {
     }
 
     public isLoggedIn(): boolean {
-        return getCookie(this.cookieName) != null && this.user != null;
+        return getCookie(this.cookieName) != null && this.user != null && moment().isBefore(this.getExpiration());
+    }
+
+    getExpiration() {
+        const expiration = sessionStorage.getItem("expiresAt");
+        const expiresAt = JSON.parse(expiration);
+        return moment(expiresAt);
     }
 
     public getUserId(): string {
