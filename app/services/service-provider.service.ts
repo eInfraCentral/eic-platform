@@ -44,4 +44,13 @@ export class ServiceProviderService {
         return this.http.get(`/provider/services/pending/${id}`);
     }
 
+    checkUrl(url: string) {
+        if (url !== '') {
+            if (!url.match(/^(https?:\/\/.+){0,1}$/)) {
+                url = 'http://' + url;
+            }
+        }
+        return url;
+    }
+
 }
