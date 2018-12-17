@@ -36,11 +36,11 @@ export class NewServiceProviderComponent implements OnInit {
         id: ['', Validators.compose([Validators.required, Validators.pattern(/^[a-zA-z][a-zA-Z0-9-_]{1,}$/)])],
         // id: ['', Validators.required],
         name: ['', Validators.required],
-        logo: ['', URLValidator],
+        logo: [''],
         contactInformation: [''],
-        website: ['', [Validators.required, URLValidator]],
-        catalogueOfResources: ['', URLValidator],
-        publicDescOfResources: ['', URLValidator],
+        website: ['', [Validators.required]],
+        catalogueOfResources: [''],
+        publicDescOfResources: [''],
         additionalInfo: ['', Validators.required]
     };
     organizationIdDesc: Description = organizationIdDesc;
@@ -76,16 +76,17 @@ export class NewServiceProviderComponent implements OnInit {
         // TODO: add the user id to post when it becomes available
         this.errorMessage = '';
         if (this.newProviderForm.valid) {
-            console.log(JSON.stringify(this.newProviderForm.value));
+            this.newProviderForm.get('logo').setValue(this.serviceProviderService.checkUrl(this.newProviderForm.get('logo').value));
+            this.newProviderForm.get('website').setValue(this.serviceProviderService.checkUrl(this.newProviderForm.get('website').value));
+            this.newProviderForm.get('catalogueOfResources').setValue(this.serviceProviderService.checkUrl(this.newProviderForm.get('catalogueOfResources').value));
+            this.newProviderForm.get('publicDescOfResources').setValue(this.serviceProviderService.checkUrl(this.newProviderForm.get('publicDescOfResources').value));
+
             let newProvider = Object.assign(
                 this.newProviderForm.value
                 );
             console.log(JSON.stringify(newProvider));
-            /*{ users: [{ email: this.userInfo.email,
-                             id: null,
-                           name: this.userInfo.given_name,
-                        surname: this.userInfo.family_name
-                     }]}*/
+            console.log(JSON.stringify(this.newProviderForm.value));
+
             this.serviceProviderService.createNewServiceProvider(newProvider).subscribe (
                 res => console.log(res),
                 err => {
@@ -120,4 +121,5 @@ export class NewServiceProviderComponent implements OnInit {
         this.newProviderForm.get('logo').setValue(logoUrl);
         this.newProviderForm.get('logo').updateValueAndValidity();
     }
+
 }

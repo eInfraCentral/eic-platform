@@ -103,6 +103,12 @@ export class UpdateServiceProviderComponent implements OnInit {
             this.updateProviderForm.get('catalogueOfResources').setValue('');
         }
         if (this.updateProviderForm.valid) {
+            this.updateProviderForm.get('logo').setValue(this.serviceProviderService.checkUrl(this.updateProviderForm.get('logo').value));
+            this.updateProviderForm.get('website').setValue(this.serviceProviderService.checkUrl(this.updateProviderForm.get('website').value));
+            this.updateProviderForm.get('catalogueOfResources').setValue(this.serviceProviderService.checkUrl(this.updateProviderForm.get('catalogueOfResources').value));
+            this.updateProviderForm.get('publicDescOfResources').setValue(this.serviceProviderService.checkUrl(this.updateProviderForm.get('publicDescOfResources').value));
+
+
             this.updateProviderForm.get('id').enable();
             console.log(JSON.stringify(this.updateProviderForm.value));
             let updatedProvider = Object.assign(
@@ -182,24 +188,6 @@ export class UpdateServiceProviderComponent implements OnInit {
 
     addUser() {
         this.users.push(this.user('', null, '', ''));
-        // this.users.markAsDirty();
-        // this.users.updateValueAndValidity();
-        // for (const i in this.users.controls) {
-        //     this.users.controls[i].get('email').markAsDirty();
-        //     this.users.controls[i].get('email').updateValueAndValidity();
-        //     this.users.controls[i].get('name').markAsDirty();
-        //     this.users.controls[i].get('name').updateValueAndValidity();
-        //     this.users.controls[i].get('surname').markAsDirty();
-        //     this.users.controls[i].get('surname').updateValueAndValidity();
-        // }
-        // this.newUserForm.reset();
-
-        // this.errorMessage = "Please fill in all fields, and fix the data format in fields underlined with a red colour.";
-        // this.newUserForm.markAsDirty();
-        // this.newUserForm.updateValueAndValidity();
-        // for (const i in this.newUserForm.controls) {
-        //     this.newUserForm.controls[i].markAsDirty();
-        // }
     }
 
     deleteUser(index) {
