@@ -4,9 +4,6 @@
 import { Injectable } from '@angular/core';
 import { HTTPWrapper } from './http-wrapper.service';
 import { AuthenticationService } from './authentication.service';
-import { Observable } from 'rxjs';
-import { Provider, Service } from '../domain/eic-model';
-import { URLSearchParams } from '@angular/http';
 
 @Injectable()
 export class ServiceProviderService {
@@ -44,9 +41,9 @@ export class ServiceProviderService {
         return this.http.get(`/provider/services/pending/${id}`);
     }
 
-    checkUrl(url: string) {
+    static checkUrl(url: string) {
         if (url !== '') {
-            if (!url.match(/^(https?:\/\/.+){0,1}$/)) {
+            if (!url.match(/^(https?:\/\/.+)?$/)) {
                 url = 'http://' + url;
             }
         }
