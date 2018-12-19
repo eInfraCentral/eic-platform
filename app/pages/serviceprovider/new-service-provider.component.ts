@@ -76,10 +76,10 @@ export class NewServiceProviderComponent implements OnInit {
         // TODO: add the user id to post when it becomes available
         this.errorMessage = '';
         if (this.newProviderForm.valid) {
-            this.newProviderForm.get('logo').setValue(this.serviceProviderService.checkUrl(this.newProviderForm.get('logo').value));
-            this.newProviderForm.get('website').setValue(this.serviceProviderService.checkUrl(this.newProviderForm.get('website').value));
-            this.newProviderForm.get('catalogueOfResources').setValue(this.serviceProviderService.checkUrl(this.newProviderForm.get('catalogueOfResources').value));
-            this.newProviderForm.get('publicDescOfResources').setValue(this.serviceProviderService.checkUrl(this.newProviderForm.get('publicDescOfResources').value));
+            this.newProviderForm.get('logo').setValue(ServiceProviderService.checkUrl(this.newProviderForm.get('logo').value));
+            this.newProviderForm.get('website').setValue(ServiceProviderService.checkUrl(this.newProviderForm.get('website').value));
+            this.newProviderForm.get('catalogueOfResources').setValue(ServiceProviderService.checkUrl(this.newProviderForm.get('catalogueOfResources').value));
+            this.newProviderForm.get('publicDescOfResources').setValue(ServiceProviderService.checkUrl(this.newProviderForm.get('publicDescOfResources').value));
 
             let newProvider = Object.assign(
                 this.newProviderForm.value

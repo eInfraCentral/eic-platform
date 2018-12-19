@@ -76,7 +76,7 @@ export class ServiceFormComponent {
     relatedServicesComponent: Type<RelatedServicesComponent> = RelatedServicesComponent;
     termsOfUseComponent: Type<TermsOfUseComponent> = TermsOfUseComponent;
     formGroupMeta = {
-        "url": ["", Validators.compose([Validators.required, URLValidator])],
+        "url": ["", Validators.compose([Validators.required, ])],
         "name": ["", Validators.required],
         "tagline": [""],
         "description": ["", Validators.required],
@@ -84,8 +84,8 @@ export class ServiceFormComponent {
         "targetUsers": [""],
         "userValue": [""],
         "userBase": [""],
-        "symbol": ["", Validators.compose([Validators.required, URLValidator])],
-        "multimediaURL": ["", URLValidator],
+        "symbol": ["", Validators.compose([Validators.required, ])],
+        "multimediaURL": ["", ],
         //providers is defined in component
         "version": ["", Validators.required],
         "lastUpdate": ["", Validators.required],
@@ -102,13 +102,13 @@ export class ServiceFormComponent {
         //tags is defined in component
         //requiredServices is defined in component
         //relatedServices is defined in component
-        "order": ["", Validators.compose([Validators.required, URLValidator])],
-        "helpdesk": ["", URLValidator],
-        "userManual": ["", URLValidator],
-        "trainingInformation": ["", URLValidator],
-        "feedback": ["", URLValidator],
+        "order": ["", Validators.compose([Validators.required, ])],
+        "helpdesk": ["", ],
+        "userManual": ["", ],
+        "trainingInformation": ["", ],
+        "feedback": ["", ],
         "price": [""],
-        "serviceLevelAgreement": ["", Validators.compose([Validators.required, URLValidator])],
+        "serviceLevelAgreement": ["", Validators.compose([Validators.required, ])],
         //TOS is defined in component
         "funding": [""]
     };
@@ -179,6 +179,17 @@ export class ServiceFormComponent {
 
         //TODO: check if model is valid
         if (isValid) {
+
+            this.serviceForm.get('url').setValue(ServiceFormComponent.checkUrl(this.serviceForm.get('url').value));
+            this.serviceForm.get('symbol').setValue(ServiceFormComponent.checkUrl(this.serviceForm.get('symbol').value));
+            this.serviceForm.get('multimediaURL').setValue(ServiceFormComponent.checkUrl(this.serviceForm.get('multimediaURL').value));
+            this.serviceForm.get('order').setValue(ServiceFormComponent.checkUrl(this.serviceForm.get('order').value));
+            this.serviceForm.get('helpdesk').setValue(ServiceFormComponent.checkUrl(this.serviceForm.get('helpdesk').value));
+            this.serviceForm.get('userManual').setValue(ServiceFormComponent.checkUrl(this.serviceForm.get('userManual').value));
+            this.serviceForm.get('trainingInformation').setValue(ServiceFormComponent.checkUrl(this.serviceForm.get('trainingInformation').value));
+            this.serviceForm.get('feedback').setValue(ServiceFormComponent.checkUrl(this.serviceForm.get('feedback').value));
+            this.serviceForm.get('serviceLevelAgreement').setValue(ServiceFormComponent.checkUrl(this.serviceForm.get('serviceLevelAgreement').value));
+
             this.resourceService.uploadService(this.toServer(service), this.editMode)
             .subscribe(service => {
                 setTimeout(() => this.router.service(service.id), 1000);
@@ -241,5 +252,14 @@ export class ServiceFormComponent {
                 }
             }
         });
+    }
+
+    static checkUrl(url: string) {
+        if (url !== '') {
+            if (!url.match(/^(https?:\/\/.+)?$/)) {
+                url = 'http://' + url;
+            }
+        }
+        return url;
     }
 }
