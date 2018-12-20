@@ -47,7 +47,7 @@ export class UpdateServiceProviderComponent implements OnInit {
     formDefinition = {
         id: ['', Validators.required],
         name: ['', Validators.required],
-        logo: ['', URLValidator],
+        logo: [''],
         contactInformation: [''],
         users: this.fb.array([
             //this.user()
