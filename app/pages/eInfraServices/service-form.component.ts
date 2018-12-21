@@ -1,5 +1,5 @@
-import {Component, Injector, Type} from "@angular/core";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Component, Injector, Type, ViewChild} from "@angular/core";
+import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Observable} from "rxjs/Observable";
 import {Service, Vocabulary} from "../../domain/eic-model";
 import {NavigationService} from "../../services/navigation.service";
@@ -20,6 +20,7 @@ import {categoriesAndSubcategories} from "../../domain/categories";
 import { ActivatedRoute } from '@angular/router';
 import {priceDesc} from "./services.description";
 import {SearchResults} from "../../domain/search-results";
+import {MyArrayInline} from "../multiforms/my-array";
 
 @Component({
     selector: "service-form",
@@ -68,6 +69,7 @@ export class ServiceFormComponent {
     readonly serviceLevelAgreementDesc: sd.Description = sd.serviceLevelAgreementDesc;
     readonly termsOfUseDesc: sd.Description = sd.termsOfUseDesc;
     readonly fundingDesc: sd.Description = sd.fundingDesc;
+
     placesComponent: Type<PlacesComponent> = PlacesComponent;
     languagesComponent: Type<LanguagesComponent> = LanguagesComponent;
     providersComponent: Type<ProvidersComponent> = ProvidersComponent;
@@ -175,23 +177,27 @@ export class ServiceFormComponent {
 
     onSubmit(service: Service, isValid: boolean) {
 
-        this.serviceForm.get('url').setValue(ServiceFormComponent.checkUrl(this.serviceForm.get('url').value));
-        this.serviceForm.get('symbol').setValue(ServiceFormComponent.checkUrl(this.serviceForm.get('symbol').value));
-        this.serviceForm.get('multimediaURL').setValue(ServiceFormComponent.checkUrl(this.serviceForm.get('multimediaURL').value));
-        this.serviceForm.get('order').setValue(ServiceFormComponent.checkUrl(this.serviceForm.get('order').value));
-        this.serviceForm.get('helpdesk').setValue(ServiceFormComponent.checkUrl(this.serviceForm.get('helpdesk').value));
-        this.serviceForm.get('userManual').setValue(ServiceFormComponent.checkUrl(this.serviceForm.get('userManual').value));
-        this.serviceForm.get('trainingInformation').setValue(ServiceFormComponent.checkUrl(this.serviceForm.get('trainingInformation').value));
-        this.serviceForm.get('feedback').setValue(ServiceFormComponent.checkUrl(this.serviceForm.get('feedback').value));
-        this.serviceForm.get('serviceLevelAgreement').setValue(ServiceFormComponent.checkUrl(this.serviceForm.get('serviceLevelAgreement').value));
+        service.url = ServiceFormComponent.checkUrl(this.serviceForm.get('url').value);
+        service.symbol = ServiceFormComponent.checkUrl(this.serviceForm.get('symbol').value);
+        service.multimediaURL = ServiceFormComponent.checkUrl(this.serviceForm.get('multimediaURL').value);
+        service.order = ServiceFormComponent.checkUrl(this.serviceForm.get('order').value);
+        service.helpdesk = ServiceFormComponent.checkUrl(this.serviceForm.get('helpdesk').value);
+        service.userManual = ServiceFormComponent.checkUrl(this.serviceForm.get('userManual').value);
+        service.trainingInformation = ServiceFormComponent.checkUrl(this.serviceForm.get('trainingInformation').value);
+        service.feedback = ServiceFormComponent.checkUrl(this.serviceForm.get('feedback').value);
+        service.serviceLevelAgreement = ServiceFormComponent.checkUrl(this.serviceForm.get('serviceLevelAgreement').value);
+        for (let i = 0; i < service['termsOfUse'].length; i++) {
+            service['termsOfUse'][i]['entry'] = ServiceFormComponent.checkUrl(service['termsOfUse'][i]['entry']);
+        }
+
 
         this.setAsTouched();
 
         //TODO: check if model is valid
         if (isValid) {
+            console.log(service);
 
-            // this.resourceService.uploadService(this.toServer(service), this.editMode)
-            this.resourceService.uploadService(this.toServer(this.serviceForm.value), this.editMode)
+            this.resourceService.uploadService(this.toServer(service), this.editMode)
             .subscribe(service => {
                 setTimeout(() => this.router.service(service.id), 1000);
             });
