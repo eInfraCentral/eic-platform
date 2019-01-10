@@ -73,15 +73,15 @@
                                                                     {{resourceInfo.name || "Not Available"}}
                                                                 </a>
                                                             </h3>
-                                                            <!--<span class="uk-inline uk-float-right" style="margin-top:5px;">-->
-                                                                <!--<star-rating-comp #rating (click)="rateService(i, rating.rating)"-->
-                                                                                  <!--[starType]="'svg'" [rating]="resourceInfo.hasRate" [step]="1"-->
-                                                                                  <!--[showHalfStars]="true" [readOnly]=!this.authenticationService.isLoggedIn() [size]="'small'"-->
-                                                                                  <!--[staticColor]="'ok'" title="Rate this service" uk-tooltip="delay: 500"-->
-                                                                                  <!--labelText="{{resourceInfo.hasRate}} ({{ resourceInfo.ratings }})" [labelVisible]="true" [labelPosition]="'right'"-->
-                                                                                  <!--[hoverEnabled]="true">-->
-                                                                <!--</star-rating-comp>-->
-                                                            <!--</span>-->
+                                                            <span class="uk-inline uk-float-right" style="margin-top:5px;">
+                                                                <star-rating-comp #rating (click)="rateService(i, rating.rating)"
+                                                                                  [starType]="'svg'" [rating]="resourceInfo.hasRate" [step]="1"
+                                                                                  [showHalfStars]="true" [readOnly]=!this.authenticationService.isLoggedIn() [size]="'small'"
+                                                                                  [staticColor]="'ok'" title="Rate this service" uk-tooltip="delay: 500"
+                                                                                  labelText="{{resourceInfo.hasRate}} ({{ resourceInfo.ratings }})" [labelVisible]="true" [labelPosition]="'right'"
+                                                                                  [hoverEnabled]="true">
+                                                                </star-rating-comp>
+                                                            </span>
                                                         </div>
 
                                                         <div class="uk-margin-small-top serviceTagLine" style="">

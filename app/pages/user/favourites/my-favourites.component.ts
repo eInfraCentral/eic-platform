@@ -3,6 +3,8 @@ import {UserService} from "../../../services/user.service";
 import {RichService, Service} from "../../../domain/eic-model";
 import {ResourceService} from "../../../services/resource.service";
 import {ComparisonService} from "../../../services/comparison.service";
+import {NavigationService} from "../../../services/navigation.service";
+import {AuthenticationService} from "../../../services/authentication.service";
 
 @Component({
     selector: "user-favorites",
@@ -20,7 +22,9 @@ export class MyFavouritesComponent implements OnInit {
     constructor(
         private userService: UserService,
         private resourceService: ResourceService,
-        public comparisonService: ComparisonService
+        public comparisonService: ComparisonService,
+        public router: NavigationService,
+        public authenticationService: AuthenticationService
     ) {}
 
     ngOnInit(): void {
@@ -44,7 +48,7 @@ export class MyFavouritesComponent implements OnInit {
             .subscribe(
                 s => Object.assign(this.searchResults[i],s[0]),
                 err => console.log(err),
-                () => window.location.reload()
+                () => this.getFavorites()
             );
 
     }
