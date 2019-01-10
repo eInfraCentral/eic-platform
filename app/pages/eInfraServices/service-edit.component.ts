@@ -32,6 +32,15 @@ export class ServiceEditComponent extends ServiceFormComponent implements OnInit
                 /*if (this.userService.canEditService(service)) {*/
                     ResourceService.removeNulls(service);
                     this.serviceForm.patchValue(this.toForms(service));
+                    let date = new Date(this.serviceForm.get('lastUpdate').value);
+                    // console.log(date.toString());
+                    // console.log(date);
+                    let day = date.getDate();
+                    let month = date.getMonth()+1;
+                    let year = date.getFullYear();
+                    // if input format changes this should change to match it
+                    // this.serviceForm.get('lastUpdate').setValue(day + '/' + month + '/' + year);
+                    this.serviceForm.get('lastUpdate').setValue(date.toLocaleDateString());
                 /*} else {
                     this.location.back();
                 }*/
