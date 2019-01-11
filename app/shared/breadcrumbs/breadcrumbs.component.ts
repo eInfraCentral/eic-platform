@@ -95,11 +95,11 @@ export class BreadcrumbsComponent implements OnInit {
             if (!child.snapshot.data.hasOwnProperty(ROUTE_DATA_BREADCRUMB)) {
                 return this.getBreadcrumbs(child, url, breadcrumbs);
             } else {
-                console.log("if",child.snapshot);
+                // console.log("if",child.snapshot);
             }
 
             //get the route's URL segment
-            console.log(child.snapshot.url);
+            // console.log(child.snapshot.url);
             let routeURL: string = child.snapshot.url.map(segment => segment.path).join("/");
             // let routeURL: string = child.snapshot.url[0].path;
             //append route URL to URL
@@ -111,7 +111,7 @@ export class BreadcrumbsComponent implements OnInit {
                 params: child.snapshot.params,
                 url: url
             };
-            console.log(breadcrumb);
+            // console.log(breadcrumb);
             breadcrumbs.push(breadcrumb);
 
             //recursive

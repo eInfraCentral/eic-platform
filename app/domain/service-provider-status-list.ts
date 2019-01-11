@@ -1,4 +1,4 @@
-export const statusList = ['pending initial approval', 'pending service template approval','approved'];
+export const statusList = ['pending initial approval', 'pending service template submission', 'pending service template approval','approved'];
 // set 'rejected' when the admin rejects sp and
 // 'rejected st' when the admin rejects the service template
 
@@ -22,8 +22,15 @@ export const statusChangeMap = {
                      statusId: 'PENDING_1',
                      appButtonTitle: 'Approve SP',
                      rejButtonTitle: 'Reject SP',
-                     onApprove: 'pending service template approval',
+                     onApprove: 'pending service template submission',
                      onReject: 'rejected'
+        },
+        'pending service template submission': {
+            statusId: 'ST_SUBMISSION',
+            appButtonTitle: '',
+            rejButtonTitle: 'Reject SP',
+            onApprove: '',
+            onReject: 'rejected'
         },
         'pending service template approval': {
                      statusId: 'PENDING_2',

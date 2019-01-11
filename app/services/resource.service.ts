@@ -182,8 +182,15 @@ export class ResourceService {
         return this.getAll("provider").map(e => e.results.reduce(this.idToName, {}));
     }
 
-    getProviders() {
-        return this.getAll("provider");
+    getProviders(from: string, quantity: string) {
+        let params : RequestOptions = new RequestOptions();
+        params.params = new URLSearchParams();
+        params.params.append("from", from);
+        params.params.append("quantity", quantity);
+        params.params.append("orderField","creation_date");
+        params.params.append("order","desc");
+        return this.http.get(`/provider/all`,params);
+        // return this.getAll("provider");
     }
 
     getEU() {

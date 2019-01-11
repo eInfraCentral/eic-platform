@@ -65,12 +65,20 @@
 
                 <div class="uk-width-expand@m uk-first-column uk-grid-margin-medium">
 
+                    <div class="tags" *ngIf="service.categoryName || service.subCategoryName">
+                        <span><strong>Categorization: </strong></span>
+                        <span *ngIf="service.categoryName" class="uk-label">{{service.categoryName}}</span>
+                        <span> --> </span>
+                        <span *ngIf="service.subCategoryName" class="uk-label">{{service.subCategoryName}}</span>
+                    </div>
+
                     <div class="serviceDescription" *ngIf="service.description">
                         <p [innerHTML]="service.description">
                         </p>
                     </div>
 
                     <div class="tags" *ngIf="service.tags && service.tags.length>0">
+                        <span><strong>Tags: </strong></span>
                         <span *ngFor="let tag of service.tags" class="uk-label">{{tag}}</span>
                     </div>
 
