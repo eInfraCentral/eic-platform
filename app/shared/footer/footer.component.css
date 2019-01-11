@@ -1,3 +1,8 @@
+.footer > .uk-container {
+    padding-left: 80px;
+    padding-right: 80px;
+}
+
 .ue-flag {
     color: #839295;
     margin-top: 40px;
@@ -95,6 +100,7 @@ p {
 
 #footer-sitemap ul li {
     margin-right: 30px;
+    margin-top: 15px;
 }
 
 #footer-sitemap ul li a, #footer-sitemap ul li span, #footer-sitemap ul li span.nolink {
@@ -274,4 +280,8 @@ p {
     font-size: 13px;
     margin-top: 25px !important;
     margin-bottom: 30px !important;
+}
+
+.uk-grid {
+    margin-left: 0px;
 }

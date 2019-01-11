@@ -1,6 +1,6 @@
-<div class="tm-header-placeholder uk-margin-remove-adjacent" style="height: 120px;"></div>
+<div class="tm-header-placeholder uk-margin-remove-adjacent uk-visible@m" style="height: 120px;"></div>
 <div class="uk-section-secondary uk-position-relative" uk-scrollspy="{&quot;target&quot;:&quot;[uk-scrollspy-class]&quot;,&quot;cls&quot;:&quot;uk-animation-fade&quot;,&quot;delay&quot;:false}">
-    <div style="background-image: url('http://eoscportal.trust-itservices.com/sites/default/files/banner_22_augu_2018-04.jpg'); background-color: rgb(255, 255, 255); box-sizing: border-box; min-height: calc(100vh - 229.5px);" class="uk-background-norepeat uk-background-cover uk-background-fixed uk-section uk-padding-remove-bottom uk-flex uk-flex-middle" uk-height-viewport="offset-top: true;offset-bottom: 20">
+    <div style="background-image: url('/imgs/iStock-629814372.jpg'); background-color: rgb(255, 255, 255); box-sizing: border-box; min-height: calc(100vh - 229.5px);" class="uk-background-norepeat uk-background-cover uk-background-fixed uk-section uk-padding-remove-bottom uk-flex uk-flex-middle" uk-height-viewport="offset-top: true;offset-bottom: 20">
         <div class="uk-position-cover" style="background-color: rgba(31, 55, 97, 0.53);"></div>
         <div class="uk-width-1-1">
             <div class="uk-position-relative">
@@ -31,6 +31,20 @@
                         </div>
                     </div>
                 </div>
+                <div class="uk-container uk-margin-medium">
+                    <div class="search_box_bg uk-grid-collapse uk-grid uk-grid-stack" uk-grid="">
+                        <div class="uk-width-1-1@m uk-first-column">
+                            <h1 class="el-title uk-margin uk-h1 uk-text-primary uk-text-center" style="color: #fff !important; font-size: 40px; text-transform: initial;">
+                                <span *ngIf="info && info.services">{{info.services}}</span>
+                                <span *ngIf="!info || !info.services">N/A</span>
+                                services and resources offered by
+                                <span *ngIf="info && info.providers">{{info.providers}}</span>
+                                <span *ngIf="!info || !info.providers">N/A</span>
+                                SPs from the public and private sector
+                            </h1>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -46,53 +60,22 @@
             </div>
         </div>
 
-        <div *ngIf="featuredServices" class="uk-grid-margin uk-grid uk-grid-stack uk-child-width-1-5@m
-        featuredServicesContainer uk-margin-medium-top" uk-grid="">
+        <div *ngIf="featuredServices" class="uk-grid-margin uk-grid uk-grid-stack uk-child-width-expand@s featuredServicesContainer uk-margin-medium-top" uk-grid="">
 
-            <!--<ngx-slick class="carousel" #slickModal="slick-modal" [config]="slideConfig">-->
-                <!--<div ngxSlickItem *ngFor="let slide of slides" class="slide">-->
-                    <!--<img src="{{ slide.img }}" alt="" width="100%">-->
-                <!--</div>-->
-            <!--</ngx-slick>-->
+            <button class="nav-buttons" (click)="previous()"> <i aria-hidden="true" class="fa fa-angle-left fa-4x"></i></button>
 
+            <div *ngFor="let featuredService of viewServices" class="uk-card uk-card-body uk-card-gray uk-margin-small-left uk-margin-small-right limitRows featuredService">
+                <a (click)="this.router.service(featuredService.id)">
+                    <h3 class="uk-text-center">{{featuredService.name.length > 25 ? featuredService.name.slice(0,22) + '...' : featuredService.name}}</h3>
+                    <p class="uk-text-center" *ngIf="featuredService.tagline">{{featuredService.tagline.length > 40 ? featuredService.tagline.slice(0, 37) + '...' : featuredService.tagline}}</p>
+                    <div class="symbolAndProvider">
+                        <img src="{{featuredService.symbol || 'http://fvtelibrary.com/img/user/NoLogo.png'}}" class="serviceSymbol">
+                        <span class="provider">{{featuredService.providers[0] | uppercase}}</span>
+                    </div>
+                </a>
+            </div>
 
-            <!--<ngx-slick class="carousel" #slickModal="slick-modal" [config]="slideConfig">-->
-                <!--&lt;!&ndash;<div ngxSlickItem *ngFor="let c of this.categories" class="slide" style="height: 100%">&ndash;&gt;-->
-                <!--<div ngxSlickItem *ngFor="let c of this.categories" class="slide">-->
-                    <!--<div class="uk-card uk-card-body uk-card-gray">-->
-                        <!--<h3>OpenAIRE Inference</h3>-->
-                        <!--<p>Text and data mining for scholarly communication</p>-->
-                        <!--<div>-->
-
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</ngx-slick>-->
-
-
-                <div *ngFor="let featuredService of featuredServices" class="uk-card uk-card-body uk-card-gray uk-margin-left featuredService">
-                    <a (click)="this.router.service(featuredService.id)">
-                        <h3>{{featuredService.name}}</h3>
-                        <p *ngIf="featuredService.tagline">{{featuredService.tagline}}</p>
-                        <div class="symbolAndProvider">
-                            <img src="{{featuredService.symbol || 'http://fvtelibrary.com/img/user/NoLogo.png'}}" class="serviceSymbol">
-                            <span class="provider">{{featuredService.providers[0] | uppercase}}</span>
-                        </div>
-                    </a>
-                </div>
-
-            <!--<div *ngFor="let featuredService of featuredServices" class="uk-padding-left featuredService">-->
-                <!--<div class="uk-card uk-card-body uk-card-gray"-->
-                     <!--(click)="this.router.search({category:c.id})">-->
-                    <!--<h3>{{featuredService.name}}</h3>-->
-                    <!--<p *ngIf="featuredService.tagline">{{featuredService.tagline}}</p>-->
-                    <!--<div>-->
-                        <!--<img src="{{featuredService.symbol || 'http://fvtelibrary.com/img/user/NoLogo.png'}}" class="serviceSymbol">-->
-                        <!--<span class="provider">{{featuredService.providers[0] | uppercase}}</span>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-
+            <button class="nav-buttons" (click)="next()"> <i aria-hidden="true" class="fa fa-angle-right fa-4x"></i></button>
         </div>
     </div>
     <div *ngIf="categories" class="uk-container serviceicon">
@@ -138,7 +121,7 @@
 </div>
 
 <div class="uk-section-muted uk-section-overlap uk-position-relative" uk-scrollspy="{&quot;target&quot;:&quot;[uk-scrollspy-class]&quot;,&quot;cls&quot;:&quot;uk-animation-fade&quot;,&quot;delay&quot;:false}">
-    <div style="background-image: url('http://eoscportal.trust-itservices.com/sites/default/files/banner_22_augu_2018-04.jpg');" class="uk-background-norepeat uk-background-cover uk-background-center-center uk-background-fixed uk-section uk-section-medium">
+    <div style="background-image: url('/imgs/iStock-629814372.jpg');" class="uk-background-norepeat uk-background-cover uk-background-center-center uk-background-fixed uk-section uk-section-medium">
         <div class="uk-position-cover" style="background-color: rgba(31, 55, 97, 0.53);"></div>
         <div class="uk-container uk-container-large uk-position-relative">
 
@@ -174,7 +157,41 @@
                         </div>
                     </div>
                 </div>
-                <div class="uk-width-2-5@m uk-padding-remove-left">
+                <!--NO MOBILE-->
+                <div class="uk-width-2-5@m uk-padding-remove-left uk-visible@m">
+                    <div class="needService personas">
+                        <h3>
+                            I need a service to
+                        </h3>
+                        <div class="uk-margin-small-bottom">
+                            <a class="uk-margin-small-right" [routerLink]="['/search', {category : 'networking,compute,security'}]">Use network, computing and security resources</a>
+                            <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
+                        </div>
+                        <div class="uk-margin-small-bottom">
+                            <a class="uk-margin-small-right" [routerLink]="['/search', {category : 'storage,data,aggregator'}]" >Store, share and analyze data</a>
+                            <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
+                        </div>
+                        <div class="uk-margin-small-bottom">
+                            <a class="uk-margin-small-right" [routerLink]="['/search', {category : 'software,aggregator'}]">Use and share software</a>
+                            <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
+                        </div>
+                    </div>
+                    <div class="research personas">
+                        <h3>
+                            I am interested in research
+                        </h3>
+                        <div class="uk-margin-small-bottom">
+                            <a class="uk-margin-small-right" [routerLink]="['/search', {category : 'training'}]">Administration and training services</a>
+                            <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
+                        </div>
+                        <div class="uk-margin-small-bottom">
+                            <a class="uk-margin-small-right" [routerLink]="['/search', {category : 'operations'}]">Monitoring and funding</a>
+                            <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
+                        </div>
+                    </div>
+                </div>
+                <!--MOBILE-->
+                <div class="uk-width-2-5@m firstColumn uk-hidden@m">
                     <div class="needService personas">
                         <h3>
                             I need a service to

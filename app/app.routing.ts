@@ -19,6 +19,7 @@ import { MyServiceProvidersComponent } from './pages/serviceprovider/my-service-
 import { UpdateServiceProviderComponent } from "./pages/serviceprovider/update-service-provider.component";
 import { ServiceProviderInfoComponent } from "./pages/serviceprovider/service-provider-info.component";
 import {BecomeAProviderComponent} from "./pages/serviceprovider/become-a-provider.component";
+import {MyFavouritesComponent} from "./pages/user/favourites/my-favourites.component";
 
 const appRoutes: Routes = [
     {
@@ -138,6 +139,14 @@ const appRoutes: Routes = [
         canActivate: [CanActivateViaAuthGuard],
         data: {
             breadcrumb : "My Service Providers"
+        }
+    },
+    {
+        path: "myFavourites",
+        component: MyFavouritesComponent,
+        canActivate: [CanActivateViaAuthGuard],
+        data: {
+            breadcrumb : "My Favourites"
         }
     },
     {

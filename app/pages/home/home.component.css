@@ -51,6 +51,23 @@ h2 {
     /*color: #677690;*/
 /*}*/
 
+.limitRows {
+    height: 250px;
+    /*line-height: 1.2rem;*/
+    /*white-space: nowrap;*/
+    overflow:hidden;
+    text-overflow: ellipsis;
+}
+
+.nav-buttons {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    color: #214C9C;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+}
+
 .trendingSearches {
     font-size: 16px;
     color: #C4D0E6;
@@ -63,7 +80,7 @@ h2 {
 }
 
 .uk-section-default .uk-h2 {
-    font-size: 26px;
+    font-size: 40px;
     color: #2B4371;
     letter-spacing: 0.61px;
 }
@@ -77,21 +94,21 @@ h2 {
 
 .uk-card-gray h3 {
     font-weight: 400;
-    font-size: 16px;
+    font-size: 18px;
     color: #2B4371;
     letter-spacing: 0.41px;
     text-transform: none;
 }
 
 .uk-card-gray p {
-    font-size: 13px;
+    font-size: 14px;
     color: #4D586A;
     letter-spacing: 0.36px;
     line-height: 23px;
 }
 
 .serviceSymbol {
-    width: 44px;
+    width: 45px;
 }
 
 .featuredServicesContainer {
@@ -106,7 +123,9 @@ h2 {
 }
 
 .featuredService {
+    padding: 15px 15px;
     flex: 1;
+    padding: 10px 10px;
     /*position: relative;*/
 }
 
@@ -116,7 +135,7 @@ h2 {
 }
 
 .provider {
-    font-size: 10px;
+    font-size: 12px;
     color: #545454;
     letter-spacing: 0.36px;
     line-height: 23px;

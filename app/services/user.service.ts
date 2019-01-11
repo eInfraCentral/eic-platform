@@ -28,7 +28,7 @@ export class UserService {
 
     public getFavouritesOfUser() {
         if (this.authenticationService.isLoggedIn()) {
-            return this.http.get(`/event/favourite/all`);
+            return this.http.get(`/userEvents/favourites`);
         } else {
             return null;
         }

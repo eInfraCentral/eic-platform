@@ -18,7 +18,7 @@ body {
 }
 
 .uk-container {
-    width: 1170px;
+    max-width: 1170px;
 }
 
 h1, .uk-h1, h2, .uk-h2, h3, .uk-h3, h4, .uk-h4, h5, .uk-h5, h6, .uk-h6 {
@@ -111,10 +111,10 @@ h2 {
     background: #0047BA;
 }
 
-.uk-container, .container {
-    padding-left: 80px;
-    padding-right: 80px;
-}
+/*.uk-container, .container {*/
+    /*padding-left: 80px;*/
+    /*padding-right: 80px;*/
+/*}*/
 
 .uk-navbar-container:not(.uk-navbar-transparent) {
     background: #fff;
@@ -401,7 +401,7 @@ h2, .uk-h2 {
 /******************************************************/
 
 .serviceicon .wk-panel h3 {
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 700;
     text-transform: uppercase;
 }

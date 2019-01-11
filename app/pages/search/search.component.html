@@ -123,6 +123,7 @@
                         <div class="uk-width-1-1 uk-row-first uk-margin-bottom">
 
                             <nav *ngIf="searchResults.facets" class="uk-inline" style="margin-left: -10px;" uk-navbar>
+
                                 <div class="uk-navbar-left">
 
                                     <ul class="uk-navbar-nav uk-nav-parent-icon filters">
@@ -151,9 +152,9 @@
                             </nav>
 
                             <div class="uk-inline uk-float-right">
-                                <a *ngIf="listViewActive" (click)="toggleListGrid('grid')">
-                                    <img src="../../../assets/images/icons/switch_view_list_active.svg">
-                                </a>
+                                        <a *ngIf="listViewActive" (click)="toggleListGrid('grid')">
+                                            <img src="../../../assets/images/icons/switch_view_list_active.svg">
+                                        </a>
                             </div>
 
                         </div>
@@ -161,7 +162,7 @@
                         <div *ngIf="urlParameters && urlParameters.length>0" class="uk-width-1-1 uk-row-first uk-margin-bottom">
                             <ul class="facets-selected cf">
                                 <ng-template ngFor let-urlParameter [ngForOf]="urlParameters">
-                                    <ng-template [ngIf]="urlParameter.key!='from'">
+                                    <ng-template [ngIf]="urlParameter.key!='from' && urlParameter.key!='quantity'">
                                         <li *ngFor="let facet of urlParameter.values" class="search-tag">
                                             <span class="title">{{urlParameter.key}}:</span> {{facet | uppercase}}
                                             <a (click)="this.deselectFacet(urlParameter.key, facet)" data-role="remove"></a>
@@ -171,8 +172,21 @@
                             </ul>
                         </div>
 
-                        <div class="uk-width-1-1 uk-row-first uk-margin-bottom">
-                            <span>Showing {{searchResults.from+1}} - {{searchResults.to}} of {{searchResults.total}} results</span>
+                        <div class="uk-grid uk-row-first uk-margin-bottom">
+                            <div class="uk-width-3-5">
+                                <span>Showing {{searchResults.from+1}} - {{searchResults.to}} of {{searchResults.total}} results</span>
+                            </div>
+                            <div class="uk-width-1-5 uk-text-right">
+                                <label for="pageSize">Items per page: </label>
+                            </div>
+                            <div class="uk-width-1-5">
+                                <select id="pageSize" [ngModel]="pageSize" (change)="onPageSizeChange($event)" style="height: auto">
+                                    <option value="10">10</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                    <option value="10000">All</option>
+                                </select>
+                            </div>
                         </div>
 
                         <!--<div class="uk-width-1-1 uk-row-first">-->
@@ -491,7 +505,7 @@
                         <div *ngIf="urlParameters && urlParameters.length>0" class="uk-width-1-1 uk-row-first uk-margin-bottom">
                             <ul class="facets-selected cf">
                                 <ng-template ngFor let-urlParameter [ngForOf]="urlParameters">
-                                    <ng-template [ngIf]="urlParameter.key!='from'">
+                                    <ng-template [ngIf]="urlParameter.key!='from' && urlParameter.key!='quantity'">
                                         <li *ngFor="let facet of urlParameter.values" class="search-tag">
                                             <span class="title">{{urlParameter.key}}:</span> {{facet | uppercase}}
                                             <a (click)="this.deselectFacet(urlParameter.key, facet)" data-role="remove"></a>
@@ -501,8 +515,21 @@
                             </ul>
                         </div>
 
-                        <div class="uk-width-1-1 uk-row-first uk-margin-bottom">
-                            <span>Showing {{searchResults.from+1}} - {{searchResults.to}} of {{searchResults.total}} results</span>
+                        <div class="uk-grid uk-row-first uk-margin-bottom">
+                            <div class="uk-width-3-5">
+                                <span>Showing {{searchResults.from+1}} - {{searchResults.to}} of {{searchResults.total}} results</span>
+                            </div>
+                            <div class="uk-width-1-5 uk-text-right">
+                                <label for="pageSizeList">Items per page: </label>
+                            </div>
+                            <div class="uk-width-1-5">
+                                <select id="pageSizeList" [ngModel]="pageSize" (change)="onPageSizeChange($event)" style="height: auto">
+                                    <option value="10">10</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                    <option value="10000">All</option>
+                                </select>
+                            </div>
                         </div>
 
                         <!--<div class="uk-width-1-1 uk-row-first">-->

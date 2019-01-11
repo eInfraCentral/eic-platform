@@ -7,12 +7,13 @@ import * as sd from "../services.description";
     selector: "termsOfUseInfo-form",
     template: `
         <div [formGroup]="group">
-            <input type="text" formControlName="entry"/>
+            <input class="uk-input" type="text" formControlName="entry"
+            [ngClass]="{'uk-form-danger': !group.get('entry').valid && group.get('entry').dirty}"/>
         </div>
     `
 })
 export class TermsOfUseComponent extends MyGroup {
-    readonly groupDefinition = {entry: ["", URLValidator]};
+    readonly groupDefinition = {entry: ["", ]};
     readonly termsOfUseDesc: sd.Description = sd.termsOfUseDesc;
 
     ngOnInit() {

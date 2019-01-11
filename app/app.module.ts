@@ -66,6 +66,7 @@ import { ServiceProviderService } from './services/service-provider.service';
 import {UpdateServiceProviderComponent} from "./pages/serviceprovider/update-service-provider.component";
 import {ServiceProviderInfoComponent} from "./pages/serviceprovider/service-provider-info.component";
 import {BecomeAProviderComponent} from "./pages/serviceprovider/become-a-provider.component";
+import {MyFavouritesComponent} from "./pages/user/favourites/my-favourites.component";
 
 const eicForms = [
     ProvidersComponent, PlacesComponent, LanguagesComponent, TagsComponent,
@@ -127,6 +128,7 @@ export function highchartsFactory() {
         ActivateComponent,
         DashboardComponent,
         ServiceDashboardComponent,
+        MyFavouritesComponent,
         //SERVICE PROVIDER ADMIN
         NewServiceProviderComponent,
         ServiceProviderInfoComponent,

@@ -14,8 +14,8 @@
         </div>
         <div class="uk-navbar-center">
             <a class="uk-navbar-item uk-logo" [routerLink]="['/home']">
-                <img src="https://www.eosc-portal.eu/sites/all/themes/theme1/logo.png"
-                     class="uk-responsive-height" alt="eInfraCentral">
+                <img src="../../../assets/images/EOSC_Portal_Catalogue.png"
+                     class="uk-responsive-height" alt="EOSC Catalogue">
             </a>
         </div>
     </nav>
@@ -30,47 +30,109 @@
             <div class="uk-child-width-1-1 uk-grid uk-grid-stack" uk-grid="">
                 <div>
                     <div class="uk-panel" id="module-0">
-                        <ul class="uk-nav uk-nav-default">
+                        <ul class="uk-nav uk-nav-default globalMenu">
                             <li class="uk-nav-header" [routerLinkActive]="['uk-active']">
-                                <a [routerLink]="['/search']" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">Catalogue</a>
+                                <a routerLink="/myFavourites" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">My Services</a>
                             </li>
-                            <li class="uk-nav-header uk-parent" [routerLinkActive]="['uk-active']">Support
-                                <ul class="uk-nav-sub">
-                                    <li><a [routerLink]="['/developers']" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">For developers</a></li>
-                                    <li><a [routerLink]="['/support/faqs']" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">FAQs</a></li>
-                                    <li><a href="http://einfracentral.eu/contact" target="_blank" class="uk-offcanvas-close offcanvas-close">Ask a question</a></li>
-                                </ul>
+                            <li class="uk-nav-header" [routerLinkActive]="['uk-active']">
+                                <a href="https://marketplace.docker-fid.grid.cyf-kr.edu.pl/profile" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">Profile</a>
                             </li>
-
-                            <li class="uk-nav-header uk-parent" [routerLinkActive]="['uk-active']">
-
-                                <span *ngIf="authenticationService.isLoggedIn()" >
-                                  <span> {{this.authenticationService.user.name}} {{this.authenticationService.user.surname}} <span class="uk-margin-small-right uk-icon" ><svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" ratio="1"><circle fill="none" stroke="#000" stroke-width="1.1" cx="9.9" cy="6.4" r="4.4"></circle><path fill="none" stroke="#000" stroke-width="1.1" d="M1.5,19 C2.3,14.5 5.8,11.2 10,11.2 C14.2,11.2 17.7,14.6 18.5,19.2"></path></svg></span></span>
+                            <li class="uk-nav-header" [routerLinkActive]="['uk-active']">
+                                <a href="https://www.eosc-portal.eu/contact-us" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">Contact us</a>
+                            </li>
+                            <li class="uk-nav-header" [routerLinkActive]="['uk-active']">
+                                <a *ngIf="isLoggedIn()" routerLink="/home" (click)="this.authenticationService.logout()">
+                                <span> {{getUsername()}} {{getUsersurname()}} | Logout
+                                    <span class="uk-margin-small-right uk-icon" ><svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" ratio="1"><circle fill="none" stroke="#000" stroke-width="1.1" cx="9.9" cy="6.4" r="4.4"></circle><path fill="none" stroke="#000" stroke-width="1.1" d="M1.5,19 C2.3,14.5 5.8,11.2 10,11.2 C14.2,11.2 17.7,14.6 18.5,19.2"></path></svg></span>
                                 </span>
-                                <span *ngIf="!authenticationService.isLoggedIn()">
-                                    <!--Log in | Register <span class="uk-margin-small-right uk-icon" ></span>-->
-                                    <span style="color: rgb(255, 255, 255); border: medium none rgb(255, 255, 255);" class="btl-dropdown">
-                                        <!--<a class="loginLink" [routerLink]="['/signIn']"> Log In   </a>-->
-                                        <a class="loginLink" (click)="goToLoginAAI()"> SLog In   </a>
-                                    </span>
-                                    <!--|
-                                        &lt;!&ndash; Registration button &ndash;&gt;
-                                    <span style="color: rgb(255, 255, 255); border: medium none rgb(255, 255, 255);" class="btl-dropdown">
-                                        &lt;!&ndash;<a [routerLink]="['/signUp']" routerLinkActive="uk-active" class="loginLink">Register</a>&ndash;&gt;
-                                        &lt;!&ndash; TODO: remove &ndash;&gt;
-                                        <a routerLinkActive="uk-active" class="signUp" title="This will be available in the next release">
-                                            Sign Up
-                                            &lt;!&ndash;<img class="uk-responsive-height" src="./imgs/Icons/Home_24white.svg" alt="home">&ndash;&gt;
-                                        </a>
-                                    </span>-->
-                                    <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" ratio="1"><circle fill="none" stroke="#000" stroke-width="1.1" cx="9.9" cy="6.4" r="4.4"></circle><path fill="none" stroke="#000" stroke-width="1.1" d="M1.5,19 C2.3,14.5 5.8,11.2 10,11.2 C14.2,11.2 17.7,14.6 18.5,19.2"></path></svg>
-                               </span>
+                                </a>
 
-                                <ul *ngIf="isLoggedIn()" class="uk-nav-sub">
-                                    <!--<li><a [routerLink]="['/dashboard']" routerLinkActive="uk-active">Monitoring Dashboard</a></li>-->
-                                    <li><a routerLink="/home" (click)="this.authenticationService.logout()">Log out</a></li>
+                                <a *ngIf="!isLoggedIn()" class="loginLink" (click)="goToLoginAAI()">Log In</a>
+                            </li>
+
+
+                        </ul>
+                        <ul class="uk-nav uk-nav-default mainMenu">
+
+                            <li class="uk-nav-header uk-parent" [routerLinkActive]="['uk-active']">About
+                                <ul class="uk-nav-sub">
+                                    <li><a href="https://www.eosc-portal.eu/about/eosc" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">EOSC</a></li>
+                                    <li><a href="https://www.eosc-portal.eu/about/eosc-doers" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">EOSC Doers</a></li>
+                                    <li><a href="https://www.eosc-portal.eu/about/eosc-projects" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">EOSC Projects</a></li>
+                                    <li><a href="https://www.eosc-portal.eu/about/funding-opportunities" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">Funding Opportunities</a></li>
+                                    <li><a href="https://www.eosc-portal.eu/about/faqs" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">FAQs</a></li>
+                                    <li><a href="https://www.eosc-portal.eu/contact-us" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">Contact us</a></li>
                                 </ul>
                             </li>
+
+                            <li class="uk-nav-header uk-parent" [routerLinkActive]="['uk-active']">Governance
+                                <ul class="uk-nav-sub">
+                                    <li><a href="https://www.eosc-portal.eu/governance" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">EOSC Governance</a></li>
+                                    <li><a href="https://www.eosc-portal.eu/governance/rules-participation" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">Rules of Participation</a></li>
+                                    <li><a href="https://www.eosc-portal.eu/governance/best-practices" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">Best Practices</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="uk-nav-header uk-parent" [routerLinkActive]="['uk-active']">Services & Resources
+                                <ul class="uk-nav-sub">
+                                    <li><a [routerLink]="['/search', {category : 'software,application,aggregator,data'}]" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">Sharing & Discovery</a></li>
+                                    <li><a [routerLink]="['/search', {category : 'analytics'}]" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">Processing & Analysis</a></li>
+                                    <li><a [routerLink]="['/search', {category : 'data'}]" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">Data Management</a></li>
+                                    <li><a [routerLink]="['/search', {category : 'compute'}]" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">Compute</a></li>
+                                    <li><a [routerLink]="['/search', {category : 'storage'}]" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">Storage</a></li>
+                                    <li><a [routerLink]="['/search', {category : 'networking'}]" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">Networking</a></li>
+                                    <li><a [routerLink]="['/search', {category : 'training,consulting'}]" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">Training & Support</a></li>
+                                    <li><a [routerLink]="['/search', {category : 'security,operations'}]" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">Security & Operations</a></li>
+                                    <li><a [routerLink]="['/search']" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">All Services</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="uk-nav-header uk-parent" [routerLinkActive]="['uk-active']">Policy
+                                <ul class="uk-nav-sub">
+                                    <li><a href="https://www.eosc-portal.eu/policy/ec-documents" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">EC Documents</a></li>
+                                    <li><a href="https://www.eosc-portal.eu/policy/europe" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">Europe</a></li>
+                                    <li><a href="https://www.eosc-portal.eu/policy/eu-member-states" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">Member States</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="uk-nav-header uk-parent" [routerLinkActive]="['uk-active']">EOSC in practice
+                                <ul class="uk-nav-sub">
+                                    <li><a href="https://www.eosc-portal.eu/eosc-in-practice/use-cases" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">Use Cases</a></li>
+                                    <li><a href="https://www.eosc-portal.eu/eosc-in-practice/open-call" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">Open Call</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="uk-nav-header uk-parent" [routerLinkActive]="['uk-active']">Media
+                                <ul class="uk-nav-sub">
+                                    <li><a href="https://www.eosc-portal.eu/media/news" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">News</a></li>
+                                    <li><a href="https://www.eosc-portal.eu/media/events" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">Forthcoming Events</a></li>
+                                    <li><a href="https://www.eosc-portal.eu/media/past-events" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">Past Events</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="uk-nav-header uk-parent" [routerLinkActive]="['uk-active']">For Providers
+                                <ul class="uk-nav-sub">
+                                    <li><a [routerLink]="['/becomeAProvider']" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">Become a Provider</a></li>
+                                    <!-- If user is serviceProvider admin and has at least 1 serviceProvider -->
+                                    <li *ngIf="isProvider() || isAdmin()"><a [routerLink]="['/myServiceProviders']" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">My Providers</a></li>
+                                    <!-- If user is admin -->
+                                    <li *ngIf="isAdmin()"><a [routerLink]="['/serviceProvidersList']" routerLinkActive="uk-active" >View Providers</a></li>
+                                </ul>
+                            </li>
+
+
+
+                            <!--<li class="uk-nav-header" [routerLinkActive]="['uk-active']">-->
+                                <!--<a [routerLink]="['/search']" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">Catalogue</a>-->
+                            <!--</li>-->
+                            <!--<li class="uk-nav-header uk-parent" [routerLinkActive]="['uk-active']">Support-->
+                                <!--<ul class="uk-nav-sub">-->
+                                    <!--<li><a [routerLink]="['/developers']" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">For developers</a></li>-->
+                                    <!--<li><a [routerLink]="['/support/faqs']" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">FAQs</a></li>-->
+                                    <!--<li><a href="http://einfracentral.eu/contact" target="_blank" class="uk-offcanvas-close offcanvas-close">Ask a question</a></li>-->
+                                <!--</ul>-->
+                            <!--</li>-->
+
                         </ul>
                     </div>
                 </div>
@@ -114,12 +176,79 @@
 
 
 
+<!--<div id="top-header">-->
+    <!--<div class="container">-->
+        <!--<div class="row">-->
+            <!--<div class="col-md-6 text-right">-->
+
+                <!--<div class="region region-top-header">-->
+                    <!--<div id="block-block-8" class="block block-block social-search block-border text-right">-->
+
+
+                        <!--<div class="content">-->
+                            <!--<ul>-->
+                                <!--<li class="search-block">-->
+                                    <!--<div class="text-center">-->
+                                        <!--<a href="#" class="srclick flip"><i class="fa fa-search"></i></a>-->
+                                    <!--</div>-->
+                                <!--</li>-->
+                                <!--<li class="social-icon">-->
+                                    <!--<div class="text-center">-->
+                                        <!--<a class="social" href="mailto:info@eoscportal.eu?Subject=EOSC Portal">-->
+                                            <!--<span class="fa fa-envelope"></span></a>-->
+                                    <!--</div></li>-->
+                                <!--<li class="social-icon">-->
+                                    <!--<div class="text-center">-->
+                                        <!--<a class="social" href="https://twitter.com/eoscpilot"><span class="fa fa-twitter icon-sm"></span></a>-->
+                                    <!--</div>-->
+                                <!--</li>-->
+                                <!--<li class="social-icon">-->
+                                    <!--<div class="text-center">-->
+                                        <!--<a class="social" href="#"><span class="fa fa-youtube icon-sm"></span></a>-->
+                                    <!--</div>-->
+                                <!--</li>-->
+                                <!--<div class="line"></div>-->
+                            <!--</ul>-->
+
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="col-md-6 text-right">-->
+                <!--<div class="region region-header-right">-->
+                    <!--<div id="block-openid-connect-openid-connect-login" class="block block-openid-connect block-border">-->
+
+
+                        <!--<div class="content">-->
+                            <!--<form action="/join-provider" method="post" id="openid-connect-login-form" accept-charset="UTF-8"><div><input type="submit" id="edit-openid-connect-client-generic-login" name="generic" value="Login" class="form-submit"><input type="hidden" name="form_build_id" value="form-AUfL1QCetY_Q_ZMpHBT1qy8g3Bo8NjrP6emoTzfOAy4">-->
+                                <!--<input type="hidden" name="form_id" value="openid_connect_login_form">-->
+                            <!--</div></form>  </div>-->
+                    <!--</div>-->
+                    <!--<div id="block-system-user-menu" class="block block-system block-border block-menu">-->
+
+
+                        <!--<div class="content">-->
+                            <!--<ul id="globalmenu" class="nav navbar-nav navbar-right pull-right"><li class="first leaf"><a href="https://marketplace.eosc-portal.eu/order-history">My Services</a></li>-->
+                                <!--<li class="leaf"><a href="https://marketplace.eosc-portal.eu/login?back=addresses">Profile</a></li>-->
+                                <!--<li class="last leaf"><a href="/contact-us">Contact Us</a></li>-->
+                            <!--</ul>  </div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+
+
+
+
 
 
 
 <!--NO MOBILE-->
 
-<div id="top-header">
+<div id="top-header" class="uk-visible@m">
     <div class="uk-container">
         <div class="uk-grid">
             <div class="uk-width-1-2@m uk-text-right">
@@ -178,7 +307,7 @@
                     <div id="block-system-user-menu" class="block block-system block-border block-menu">
                         <div class="content">
                             <ul id="globalmenu" class="uk-nav uk-navbar-nav uk-navbar-right uk-float-right">
-                                <li class="first leaf"><a href="https://marketplace.docker-fid.grid.cyf-kr.edu.pl/projects">My Services</a></li>
+                                <li class="first leaf"><a routerLink="/myFavourites">My Services</a></li>
                                 <li class="leaf"><a href="https://marketplace.docker-fid.grid.cyf-kr.edu.pl/profile">Profile</a></li>
                                 <li class="last leaf"><a href="https://www.eosc-portal.eu/contact-us">Contact Us</a></li>
                             </ul>
@@ -203,7 +332,7 @@
 
                 <div class="uk-navbar-left">
                     <a routerLink="/home" class="uk-navbar-item uk-logo">
-                        <img src="https://www.eosc-portal.eu/sites/all/themes/theme1/logo.png"
+                        <img src="../../../assets/images/EOSC_Portal_Catalogue.png"
                              class="uk-responsive-height" alt="EOSC Catalogue" style="width: 250px">
                     </a>
                 </div>
@@ -252,7 +381,7 @@
                                 <div class="uk-navbar-dropdown-grid uk-child-width-1-1 uk-grid uk-grid-stack" uk-grid="">
                                     <div class="uk-first-column">
                                         <ul class="uk-nav uk-navbar-dropdown-nav">
-                                            <li><a [routerLink]="['/search', {category : 'software,application,aggregator'}]" routerLinkActive="uk-active">Sharing & Discovery</a></li>
+                                            <li><a [routerLink]="['/search', {category : 'software,application,aggregator,data'}]" routerLinkActive="uk-active">Sharing & Discovery</a></li>
                                             <li><a [routerLink]="['/search', {category : 'analytics'}]" routerLinkActive="uk-active">Processing & Analysis</a></li>
                                             <li><a [routerLink]="['/search', {category : 'data'}]" routerLinkActive="uk-active">Data Management</a></li>
                                             <li><a [routerLink]="['/search', {category : 'compute'}]" routerLinkActive="uk-active">Compute</a></li>

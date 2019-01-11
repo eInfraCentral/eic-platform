@@ -12,6 +12,7 @@ import {AuthenticationService} from "./authentication.service";
 import {HTTPWrapper} from "./http-wrapper.service";
 import {stringify} from "querystring";
 import {shareReplay} from "rxjs/operators";
+import {Info} from "../domain/info";
 @Injectable()
 export class ResourceService {
     constructor(public http: HTTPWrapper, public authenticationService: AuthenticationService) {
@@ -182,8 +183,15 @@ export class ResourceService {
         return this.getAll("provider").map(e => e.results.reduce(this.idToName, {}));
     }
 
-    getProviders() {
-        return this.getAll("provider");
+    getProviders(from: string, quantity: string) {
+        let params : RequestOptions = new RequestOptions();
+        params.params = new URLSearchParams();
+        params.params.append("from", from);
+        params.params.append("quantity", quantity);
+        params.params.append("orderField","creation_date");
+        params.params.append("order","desc");
+        return this.http.get(`/provider/all`,params);
+        // return this.getAll("provider");
     }
 
     getEU() {
@@ -253,5 +261,9 @@ export class ResourceService {
 
     getServiceHistory(serviceId: string) {
         return this.http.get(`/service/history/${serviceId}`).map(res => <SearchResults<ServiceHistory>> <any> res);
+    }
+
+    getInfo() {
+        return this.http.get(`/info/all`).map(res => <Info> <any> res);
     }
 }

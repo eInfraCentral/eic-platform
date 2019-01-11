@@ -36,7 +36,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     urlParameters: URLParameter[] = [];
     searchResults: SearchResults<RichService>;
     facetOrder = ["category", "trl", "lifeCycleStatus", "provider"];
-    pageSize: number = 0;
+    pageSize: number = 10;
     currentPage: number = 0;
     totalPages: number = 0;
     isPreviousPageDisabled: boolean = false;
@@ -77,6 +77,9 @@ export class SearchComponent implements OnInit, OnDestroy {
                             values: params[obj].split(",")
                         };
                         this.urlParameters.push(urlParameter);
+                        if (urlParameter.key === 'quantity') {
+                            this.pageSize = +urlParameter.values;
+                        }
                     }
                 }
 
@@ -139,7 +142,8 @@ export class SearchComponent implements OnInit, OnDestroy {
                 }
             }
         }
-        this.pageSize = 10;
+        // this.pageSize = 10;
+        this.updatePagingURLParametersQuantity(this.pageSize);
         this.currentPage = (searchResults.from / this.pageSize) + 1;
         this.totalPages = Math.ceil(searchResults.total / this.pageSize);
         if (this.currentPage == 1) {
@@ -317,6 +321,13 @@ export class SearchComponent implements OnInit, OnDestroy {
         return this.navigateUsingParameters();
     }
 
+    onPageSizeChange(event) {
+        this.pageSize = event.target.value;
+        this.updatePagingURLParametersQuantity(this.pageSize);
+        this.updatePagingURLParameters(0);
+        return this.navigateUsingParameters();
+    }
+
     updatePagingURLParameters(from: number) {
         var foundFromCategory = false;
         for (let urlParameter of this.urlParameters) {
@@ -332,6 +343,24 @@ export class SearchComponent implements OnInit, OnDestroy {
                 values: [from + ""]
             };
             this.urlParameters.push(newFromParameter);
+        }
+    }
+
+    updatePagingURLParametersQuantity(quantity: number) {
+        var foundQuantityCategory = false;
+        for (let urlParameter of this.urlParameters) {
+            if (urlParameter.key === "quantity") {
+                foundQuantityCategory = true;
+                urlParameter.values = [];
+                urlParameter.values.push(quantity + "");
+            }
+        }
+        if (!foundQuantityCategory) {
+            var newQuantityParameter: URLParameter = {
+                key: "quantity",
+                values: [quantity + ""]
+            };
+            this.urlParameters.push(newQuantityParameter);
         }
     }
 
