@@ -186,6 +186,7 @@ export class ServiceFormComponent {
         service.trainingInformation = ServiceFormComponent.checkUrl(this.serviceForm.get('trainingInformation').value);
         service.feedback = ServiceFormComponent.checkUrl(this.serviceForm.get('feedback').value);
         service.serviceLevelAgreement = ServiceFormComponent.checkUrl(this.serviceForm.get('serviceLevelAgreement').value);
+        service.price = ServiceFormComponent.checkUrl(this.serviceForm.get('price').value);
         for (let i = 0; i < service['termsOfUse'].length; i++) {
             service['termsOfUse'][i]['entry'] = ServiceFormComponent.checkUrl(service['termsOfUse'][i]['entry']);
         }
