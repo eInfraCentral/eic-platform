@@ -100,12 +100,27 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
 
     toggleListGrid(show: string) {
-        if(show == 'list')
+        if(show == 'list') {
             this.listViewActive = true;
-        else if(show == 'grid')
+            this.pageSize = 10;
+            this.updatePagingURLParametersQuantity(this.pageSize);
+            this.updatePagingURLParameters(0);
+            return this.navigateUsingParameters();
+        }
+        else if(show == 'grid') {
             this.listViewActive = false;
-        else
+            this.pageSize = 9;
+            this.updatePagingURLParametersQuantity(this.pageSize);
+            this.updatePagingURLParameters(0);
+            return this.navigateUsingParameters();
+        }
+        else {
             this.listViewActive = true;
+            this.pageSize = 10;
+            this.updatePagingURLParametersQuantity(this.pageSize);
+            this.updatePagingURLParameters(0);
+            return this.navigateUsingParameters();
+        }
     }
 
     updateSearchResults(searchResults: SearchResults<RichService>) {
