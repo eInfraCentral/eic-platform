@@ -29,7 +29,7 @@ export const statusChangeMap = {
             statusId: 'ST_SUBMISSION',
             appButtonTitle: '',
             rejButtonTitle: 'Reject SP',
-            onApprove: 'pending service template approval',
+            onApprove: '',
             onReject: 'rejected'
         },
         'pending service template approval': {
