@@ -110,11 +110,13 @@ export class ResourceService {
     }
 
     getService(id: string, version? : string) {
-        return this.get("service", [id,version].join('/'));
+        // if version becomes optional this should be reconsidered
+        return this.get("service", version === undefined ? id : [id,version].join('/'));
     }
 
     getRichService(id: string, version? : string) {
-        return this.get("service/rich", [id,version].join('/'));
+        // if version becomes optional this should be reconsidered
+        return this.get("service/rich", version === undefined ? id : [id,version].join('/'));
     }
 
     getSelectedServices(ids: string[]) {
