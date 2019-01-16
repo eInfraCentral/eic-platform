@@ -24,7 +24,7 @@ function replaceVariables() {
     done
 }
 
-#replaceVariables &&
+replaceVariables &&
 
 envsubst '${MATOMO_HOST} ${MATOMO_PORT}' < /usr/share/nginx/html/index.html > /usr/share/nginx/html/index.html &&
 envsubst '${PLATFORM_API_ENDPOINT}' < /etc/nginx/nginx.conf > /etc/nginx/nginx.conf &&
