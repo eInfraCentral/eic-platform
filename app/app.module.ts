@@ -67,6 +67,7 @@ import {UpdateServiceProviderComponent} from "./pages/serviceprovider/update-ser
 import {ServiceProviderInfoComponent} from "./pages/serviceprovider/service-provider-info.component";
 import {BecomeAProviderComponent} from "./pages/serviceprovider/become-a-provider.component";
 import {MyFavouritesComponent} from "./pages/user/favourites/my-favourites.component";
+import {DatePipe} from "@angular/common";
 
 const eicForms = [
     ProvidersComponent, PlacesComponent, LanguagesComponent, TagsComponent,
@@ -173,7 +174,8 @@ export function highchartsFactory() {
         {
             provide: HighchartsStatic,
             useFactory: highchartsFactory
-        }
+        },
+        DatePipe
     ],
     bootstrap: [AppComponent]
 })
