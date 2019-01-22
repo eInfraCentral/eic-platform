@@ -216,6 +216,7 @@ export class SearchComponent implements OnInit, OnDestroy {
             if (urlParameter.key === category) {
                 var valueIndex = urlParameter.values.indexOf(value, 0);
                 if (valueIndex > -1) {
+                    this.updatePagingURLParameters(0);
                     urlParameter.values.splice(valueIndex, 1);
                     if (urlParameter.values.length == 0) {
                         this.urlParameters.splice(categoryIndex, 1);
@@ -236,39 +237,13 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
 
     selectFacet(category: string, value: string) {
-        var foundCategory = false;
-        for (let urlParameter of this.urlParameters) {
-            if (urlParameter.key === category) {
-                foundCategory = true;
-                urlParameter.values.push(value);
-            }
-        }
-        if (!foundCategory) {
-            var newParameter: URLParameter = {
-                key: category,
-                values: [value]
-            };
-            this.urlParameters.push(newParameter);
-        }
+        this.addParameterToURL(category, value);
         return this.navigateUsingParameters();
     }
 
     onSelection(e, category: string, value: string) {
         if (e.target.checked) {
-            var foundCategory = false;
-            for (let urlParameter of this.urlParameters) {
-                if (urlParameter.key === category) {
-                    foundCategory = true;
-                    urlParameter.values.push(value);
-                }
-            }
-            if (!foundCategory) {
-                var newParameter: URLParameter = {
-                    key: category,
-                    values: [value]
-                };
-                this.urlParameters.push(newParameter);
-            }
+            this.addParameterToURL(category, value);
         } else {
             var categoryIndex = 0;
             for (let urlParameter of this.urlParameters) {
@@ -306,16 +281,16 @@ export class SearchComponent implements OnInit, OnDestroy {
 
     goToFirstPage() {
         var from: number = 0;
-        var to: number = 9;
+        // var to: number = 9;
         this.updatePagingURLParameters(from);
         return this.navigateUsingParameters();
     }
 
     goToPreviousPage() {
         var from: number = this.searchResults.from;
-        var to: number = this.searchResults.to;
+        // var to: number = this.searchResults.to;
         from -= this.pageSize;
-        to -= this.pageSize;
+        // to -= this.pageSize;
         this.updatePagingURLParameters(from);
         return this.navigateUsingParameters();
     }
@@ -353,7 +328,7 @@ export class SearchComponent implements OnInit, OnDestroy {
             }
         }
         if (!foundFromCategory) {
-            var newFromParameter: URLParameter = {
+            let newFromParameter: URLParameter = {
                 key: "from",
                 values: [from + ""]
             };
@@ -401,5 +376,26 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
 
     getIsFavourite(i:number) { return this.searchResults.results[i].isFavourite; }
+
+    private addParameterToURL(category: string, value: string) {
+        var foundCategory = false;
+        for (let urlParameter of this.urlParameters) {
+            if (urlParameter.key === category) {
+                foundCategory = true;
+                let valueIndex = urlParameter.values.indexOf(value, 0);
+                if (valueIndex < 0) {
+                    urlParameter.values.push(value);
+                }
+            }
+        }
+        if (!foundCategory) {
+            this.updatePagingURLParameters(0);
+            var newParameter: URLParameter = {
+                key: category,
+                values: [value]
+            };
+            this.urlParameters.push(newParameter);
+        }
+    }
 
 }
