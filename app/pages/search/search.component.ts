@@ -385,6 +385,7 @@ export class SearchComponent implements OnInit, OnDestroy {
                 let valueIndex = urlParameter.values.indexOf(value, 0);
                 if (valueIndex < 0) {
                     urlParameter.values.push(value);
+                    this.updatePagingURLParameters(0);
                 }
             }
         }
