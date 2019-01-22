@@ -113,6 +113,7 @@ export class ServiceProvidersListComponent implements OnInit {
     }
 
     statusChangeAction() {
+        console.log("Test");
         const active = this.pushedApprove && (this.newStatus === 'approved');
         this.serviceProviderService.verifyServiceProvider(this.selectedProvider.id, active, this.adminActionsMap[this.newStatus].statusId)
             .subscribe(
@@ -120,12 +121,11 @@ export class ServiceProvidersListComponent implements OnInit {
                     /*this.providers = [];
                     this.providers = res;*/
                     console.log(res);
-                },
-                err => console.log(err),
-                () => {
                     UIkit.modal('#actionModal').hide();
                     this.getProviders(this.from, this.itemsPerPage);
-                }
+                },
+                err => console.log(err),
+                () => {}
             );
     }
 
