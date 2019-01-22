@@ -378,7 +378,6 @@ export class SearchComponent implements OnInit, OnDestroy {
     getIsFavourite(i:number) { return this.searchResults.results[i].isFavourite; }
 
     private addParameterToURL(category: string, value: string) {
-        this.updatePagingURLParameters(0);
         var foundCategory = false;
         for (let urlParameter of this.urlParameters) {
             if (urlParameter.key === category) {
@@ -386,10 +385,12 @@ export class SearchComponent implements OnInit, OnDestroy {
                 let valueIndex = urlParameter.values.indexOf(value, 0);
                 if (valueIndex < 0) {
                     urlParameter.values.push(value);
+                    this.updatePagingURLParameters(0);
                 }
             }
         }
         if (!foundCategory) {
+            this.updatePagingURLParameters(0);
             var newParameter: URLParameter = {
                 key: category,
                 values: [value]
