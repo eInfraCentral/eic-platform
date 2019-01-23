@@ -162,7 +162,7 @@
                         <div *ngIf="urlParameters && urlParameters.length>0" class="uk-width-1-1 uk-row-first uk-margin-bottom">
                             <ul class="facets-selected cf">
                                 <ng-template ngFor let-urlParameter [ngForOf]="urlParameters">
-                                    <ng-template [ngIf]="urlParameter.key!='from' && urlParameter.key!='quantity'">
+                                    <ng-template [ngIf]="urlParameter.key!='from' && urlParameter.key!='quantity' && urlParameter.values!=''">
                                         <li *ngFor="let facet of urlParameter.values" class="search-tag">
                                             <span class="title">{{urlParameter.key}}:</span> {{facet | uppercase}}
                                             <a (click)="this.deselectFacet(urlParameter.key, facet)" data-role="remove"></a>
@@ -505,7 +505,7 @@
                         <div *ngIf="urlParameters && urlParameters.length>0" class="uk-width-1-1 uk-row-first uk-margin-bottom">
                             <ul class="facets-selected cf">
                                 <ng-template ngFor let-urlParameter [ngForOf]="urlParameters">
-                                    <ng-template [ngIf]="urlParameter.key!='from' && urlParameter.key!='quantity'">
+                                    <ng-template [ngIf]="urlParameter.key!='from' && urlParameter.key!='quantity' && urlParameter.values!=''">
                                         <li *ngFor="let facet of urlParameter.values" class="search-tag">
                                             <span class="title">{{urlParameter.key}}:</span> {{facet | uppercase}}
                                             <a (click)="this.deselectFacet(urlParameter.key, facet)" data-role="remove"></a>
