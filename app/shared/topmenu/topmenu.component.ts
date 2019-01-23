@@ -13,6 +13,7 @@ import { NavigationService } from "../../services/navigation.service";
 import { Subscription } from "rxjs/Subscription";
 import { URLParameter } from "../../domain/url-parameter";
 import {equal} from "assert";
+import {ResourceService} from "../../services/resource.service";
 
 @Component({
     selector: "top-menu",
@@ -35,14 +36,31 @@ export class TopMenuComponent implements OnInit, OnDestroy {
 
     constructor(public authenticationService: AuthenticationService, private renderer: Renderer2,
                 public router: Router, public fb: FormBuilder, public navigationService: NavigationService,
-                private activatedRoute: ActivatedRoute) {
+                private route: ActivatedRoute, public resourceService: ResourceService) {
         this.searchForm = fb.group({"query": [""]});
     }
 
     onSubmit(searchValue: string) {
         /*let params = Object.assign({},this.activatedRoute.children[0].snapshot.params);
         params['query'] = searchValue.query;*/
-        return this.navigationService.search({query: searchValue});
+        // console.log(this.route.snapshot.paramMap);
+        // console.log(window.location.href);
+        
+        let url = window.location.href;
+        let params:String[] = url.split(';');
+        if (params.length > 1) {
+            console.log(params.length);
+            let query:String[] = params[1].split('=');
+            query[1] = searchValue;
+            params[1] = query.join('=');
+            params = params.slice(1);
+            url = params.join(';');
+            // console.log(params);
+            // console.log(url);
+            window.location.href= "/search;" + url;
+        }
+        else
+            return this.navigationService.search({query: searchValue});
     }
 
     ngOnInit(): void {
