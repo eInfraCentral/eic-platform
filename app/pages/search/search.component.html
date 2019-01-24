@@ -53,7 +53,7 @@
                     <ng-template ngFor let-facet [ngForOf]="searchResults.facets">
                         <ng-template [ngIf]="facet.field=='category'">
                             <div *ngIf="facet.field!='resourceType'" class="refineCategory uk-grid-margin">
-                                <read-more [maxHeight]="235">
+                                <!--<read-more [maxHeight]="235">-->
                                     <!--<span>{{facet.label}}</span>-->
                                     <div class="refineOption" *ngFor="let facetValue of facet.values">
                                         <input type="checkbox" name="vehicle" value="Bike" data-md-icheck
@@ -62,7 +62,7 @@
                                         {{facetValue.label}}
                                         <span>({{facetValue.count}})</span>
                                     </div>
-                                </read-more>
+                                <!--</read-more>-->
                             </div>
                         </ng-template>
                     </ng-template>
