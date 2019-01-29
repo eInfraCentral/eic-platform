@@ -1,5 +1,5 @@
 
-import {Location} from "@angular/common";
+import {DatePipe, Location} from "@angular/common";
 import {Component, Injector, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs/Subscription";
@@ -18,7 +18,7 @@ export class ServiceEditComponent extends ServiceFormComponent implements OnInit
     private serviceID: string;
 
     constructor(public route: ActivatedRoute, public authenticationService: AuthenticationService,
-                public location: Location, protected injector: Injector) {
+                public location: Location, protected injector: Injector, public datePipe: DatePipe) {
         super(injector, authenticationService);
         this.editMode = true;
     }
@@ -32,15 +32,9 @@ export class ServiceEditComponent extends ServiceFormComponent implements OnInit
                 /*if (this.userService.canEditService(service)) {*/
                     ResourceService.removeNulls(service);
                     this.serviceForm.patchValue(this.toForms(service));
-                    let date = new Date(this.serviceForm.get('lastUpdate').value);
-                    // console.log(date.toString());
-                    // console.log(date);
-                    let day = date.getDate();
-                    let month = date.getMonth()+1;
-                    let year = date.getFullYear();
-                    // if input format changes this should change to match it
-                    // this.serviceForm.get('lastUpdate').setValue(day + '/' + month + '/' + year);
-                    this.serviceForm.get('lastUpdate').setValue(date.toLocaleDateString());
+                    let lastUpdate = new Date(this.serviceForm.get('lastUpdate').value);
+                    let date = this.datePipe.transform(lastUpdate, 'MM/dd/yyyy');
+                    this.serviceForm.get('lastUpdate').setValue(date);
                 /*} else {
                     this.location.back();
                 }*/

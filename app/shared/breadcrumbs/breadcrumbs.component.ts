@@ -44,7 +44,22 @@ export class BreadcrumbsComponent implements OnInit {
     onSubmit(searchValue: string) {
         /*let params = Object.assign({},this.activatedRoute.children[0].snapshot.params);
         params['query'] = searchValue.query;*/
-        return this.navigation.search({query: searchValue});
+        let url = window.location.href;
+        let params:String[] = url.split(';');
+        if (params.length > 1) {
+            console.log(params.length);
+            let query:String[] = params[1].split('=');
+            query[1] = searchValue;
+            params[1] = query.join('=');
+            params = params.slice(1);
+            url = params.join(';');
+            // console.log(params);
+            // console.log(url);
+            return window.location.href= "/search;" + url;
+        }
+        else {
+            return this.navigation.search({query: searchValue});
+        }
     }
 
     /**

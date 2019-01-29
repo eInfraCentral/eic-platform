@@ -137,6 +137,10 @@ export class ServiceProvidersListComponent implements OnInit {
         return '/service/' + this.pendingFirstServicePerProvider.filter(x => x.providerId === id)[0].serviceId;
     }
 
+    getLinkToEditFirstService(id: string) {
+        return '/edit/' + this.pendingFirstServicePerProvider.filter(x => x.providerId === id)[0].serviceId;
+    }
+
     paginationInit() {
         this.pages = [];
         for (let i = 0 ; i < Math.ceil(this.total/this.itemsPerPage); i++) {
