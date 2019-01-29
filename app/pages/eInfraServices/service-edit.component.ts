@@ -75,6 +75,22 @@ export class ServiceEditComponent extends ServiceFormComponent implements OnInit
 
     onSubmit(service: Service, isValid: boolean) {
         service.id = this.serviceID;
+
+        /** For feature use if admin changes the values **/
+        for( let i in this.serviceForm.controls) {
+            if (this.serviceForm.controls[i].dirty) {
+                console.log('There was a change in field ' + i);
+                if (this.serviceForm.controls[i].value.constructor === Array) {
+                    for (let j = 0; j < this.serviceForm.controls[i].value.length; j++) {
+                        let str = JSON.stringify(this.serviceForm.controls[i].value[j]).split(":", -1);
+                        str = str[1].split('"', -1);
+                        console.log(str[1]);
+                    }
+                }
+                else console.log(this.serviceForm.controls[i].value);
+            }
+        }
+        /** **/
         super.onSubmit(service, isValid);
     }
 }
