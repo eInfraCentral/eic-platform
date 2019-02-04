@@ -26,7 +26,9 @@ declare var UIkit: any;
     templateUrl: './new-service-provider.component.html'
 })
 export class NewServiceProviderComponent implements OnInit {
-    errorMessage: string;
+    errorMessage: string = '';
+    logoError: boolean = false;
+    logoUrlWorks: boolean = false;
     userInfo = { family_name: '', given_name: '', email: '' };
     newProviderForm: FormGroup;
     logoUrl: string = '';
@@ -69,24 +71,17 @@ export class NewServiceProviderComponent implements OnInit {
     }
 
     registerProvider() {
-        /*
-        * {"id":"serviceProvider1","name":"Test Provider 1","logo":"https://brandmark.io/logo-rank/random/beats.png","contactInformation":"321654654","website":"https://testProvider1.gr","catalogueOfResources":"https://testProvider1.gr","publicDescOfResources":"https://testProvider1.gr","additionalInfo":"Test Service Provider other info"}
-        * */
 
-        this.newProviderForm.get('logo').setValue(ServiceProviderService.checkUrl(this.newProviderForm.get('logo').value));
+        // this.newProviderForm.get('logo').setValue(ServiceProviderService.checkUrl(this.newProviderForm.get('logo').value));
+        this.newProviderForm.get('logo').setValue(this.logoCheckUrl(this.newProviderForm.get('logo').value));
         this.newProviderForm.get('website').setValue(ServiceProviderService.checkUrl(this.newProviderForm.get('website').value));
         this.newProviderForm.get('catalogueOfResources').setValue(ServiceProviderService.checkUrl(this.newProviderForm.get('catalogueOfResources').value));
         this.newProviderForm.get('publicDescOfResources').setValue(ServiceProviderService.checkUrl(this.newProviderForm.get('publicDescOfResources').value));
 
-        let url = this.newProviderForm.get('logo').value;
-        console.log(url);
-        console.log('The url is valid: ');
-        console.log(this.imageExists(url));
+        this.logoUrlWorks = this.imageExists(this.newProviderForm.get('logo').value);
 
-
-        // TODO: add the user id to post when it becomes available
         this.errorMessage = '';
-        if (this.newProviderForm.valid) {
+        if (this.newProviderForm.valid && !this.logoError && this.logoUrlWorks) {
 
             let newProvider = Object.assign(
                 this.newProviderForm.value
@@ -105,13 +100,24 @@ export class NewServiceProviderComponent implements OnInit {
                 }
             );
         } else {
-            this.errorMessage = "Please fill in all required fields (marked with an asterisk), and fix the data format in fields underlined with a red colour.";
             this.newProviderForm.markAsDirty();
             this.newProviderForm.updateValueAndValidity();
-            for (const i in this.newProviderForm.controls) {
+            for (let i in this.newProviderForm.controls) {
                 this.newProviderForm.controls[i].markAsDirty();
             }
             window.scrollTo(0, 0);
+            if (!this.newProviderForm.valid) {
+                this.errorMessage = "Please fill in all required fields (marked with an asterisk), and fix the data format in fields underlined with a red colour.";
+            }
+            if (this.logoError) {
+                this.newProviderForm.get('logo').setErrors({'incorrect': true});
+                this.logoError = false;
+                this.errorMessage += " Logo url must have https:// prefix"
+            }
+            if (!this.logoUrlWorks) {
+                this.newProviderForm.get('logo').setErrors({'incorrect': true});
+                this.errorMessage += " Logo url doesn't point to a valid image"
+            }
         }
     }
 
@@ -130,6 +136,9 @@ export class NewServiceProviderComponent implements OnInit {
     }
 
     imageExists(url) {
+        if (url === '') //image is not required for providers
+            return true;
+
         let image = new Image();
         image.src = url;
         if (!image.complete) {
@@ -140,6 +149,20 @@ export class NewServiceProviderComponent implements OnInit {
         }
 
         return true;
+    }
+
+    logoCheckUrl(url: string) {
+        if (url !== '') {
+            if (url.match(/^(http:\/\/.+)?$/)) {
+                this.newProviderForm.controls['logo'].setErrors({'incorrect': true});
+                this.newProviderForm.get('logo').setErrors({'incorrect': true});
+                this.logoError = true;
+            } else if (!url.match(/^(https:\/\/.+)?$/)) {
+                url = 'https://' + url;
+            }
+        }
+        console.log(url);
+        return url;
     }
 
 }
