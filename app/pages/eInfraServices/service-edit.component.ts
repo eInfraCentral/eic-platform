@@ -33,11 +33,11 @@ export class ServiceEditComponent extends ServiceFormComponent implements OnInit
                     ResourceService.removeNulls(service);
                     this.serviceForm.patchValue(this.toForms(service));
                     let lastUpdate = new Date(this.serviceForm.get('lastUpdate').value);
-                    let date = this.datePipe.transform(lastUpdate, 'MM/dd/yyyy');
+                    let date = this.datePipe.transform(lastUpdate, 'yyyy-MM-dd');
                     this.serviceForm.get('lastUpdate').setValue(date);
                     if (this.serviceForm.get('validFor').value) {
                         let validFor = new Date(this.serviceForm.get('validFor').value);
-                        let validForDate = this.datePipe.transform(validFor, 'MM/dd/yyyy');
+                        let validForDate = this.datePipe.transform(validFor, 'yyyy-MM-dd');
                         this.serviceForm.get('validFor').setValue(validForDate);
                     }
                     
