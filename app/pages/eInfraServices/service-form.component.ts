@@ -21,6 +21,7 @@ import { ActivatedRoute } from '@angular/router';
 import {priceDesc} from "./services.description";
 import {SearchResults} from "../../domain/search-results";
 import {MyArrayInline} from "../multiforms/my-array";
+import {error} from "util";
 
 @Component({
     selector: "service-form",
@@ -33,7 +34,9 @@ export class ServiceFormComponent {
     editMode: boolean;
     serviceForm: FormGroup;
     service: Service;
-    errorMessage: string = null;
+    errorMessage: string = '';
+    logoError: boolean = false;
+    logoUrlWorks: boolean = false;
     successMessage: string = null;
     submitted = false;
     readonly urlDesc: sd.Description = sd.urlDesc;
@@ -116,15 +119,6 @@ export class ServiceFormComponent {
     };
     providers: any = null;
     vocabularies: SearchResults<Vocabulary> = null;
-
-    // dp: any = {
-    //     options: {
-    //         dateFormat: "dd.mm.yyyy"
-    //     },
-    //     default: {
-    //         date: {year: 2018, month: 10, day: 9}
-    //     }
-    // };
     resourceService: ResourceService = this.injector.get(ResourceService);
     fb: FormBuilder = this.injector.get(FormBuilder);
     router: NavigationService = this.injector.get(NavigationService);
@@ -176,9 +170,11 @@ export class ServiceFormComponent {
     }
 
     onSubmit(service: Service, isValid: boolean) {
-
+        this.errorMessage = '';
         service.url = ServiceFormComponent.checkUrl(this.serviceForm.get('url').value);
-        service.symbol = ServiceFormComponent.checkUrl(this.serviceForm.get('symbol').value);
+        // service.symbol = ServiceFormComponent.checkUrl(this.serviceForm.get('symbol').value);
+        service.symbol = this.logoCheckUrl(this.serviceForm.get('symbol').value);
+        this.serviceForm.get('symbol').setValue(service.symbol); // update field in order for logo to display properly
         service.multimediaURL = ServiceFormComponent.checkUrl(this.serviceForm.get('multimediaURL').value);
         service.order = ServiceFormComponent.checkUrl(this.serviceForm.get('order').value);
         service.helpdesk = ServiceFormComponent.checkUrl(this.serviceForm.get('helpdesk').value);
@@ -190,23 +186,32 @@ export class ServiceFormComponent {
         for (let i = 0; i < service['termsOfUse'].length; i++) {
             service['termsOfUse'][i]['entry'] = ServiceFormComponent.checkUrl(service['termsOfUse'][i]['entry']);
         }
-
+        this.logoUrlWorks = this.imageExists(service.symbol);
 
         this.setAsTouched();
 
         //TODO: check if model is valid
-        if (isValid) {
-            console.log(service);
-
-            this.resourceService.uploadService(this.toServer(service), this.editMode)
-            .subscribe(service => {
-                setTimeout(() => this.router.service(service.id), 1000);
-            });
+        if (isValid && !this.logoError && this.logoUrlWorks) {
+            // console.log(service);
+            // this.resourceService.uploadService(this.toServer(service), this.editMode)
+            // .subscribe(service => {
+            //     setTimeout(() => this.router.service(service.id), 1000);
+            // });
         } else {
             window.scrollTo(0, 0);
             this.serviceForm.markAsDirty();
             this.serviceForm.updateValueAndValidity();
-            this.errorMessage = "Please fill in all required fields (marked with an asterisk), and fix the data format in fields underlined with a red colour.";
+            if (!isValid)
+                this.errorMessage = "Please fill in all required fields (marked with an asterisk), and fix the data format in fields underlined with a red colour.";
+            if (this.logoError) {
+                this.logoError = false;
+                this.serviceForm.controls['symbol'].setErrors({'incorrect': true});
+                this.errorMessage += " Logo url must have https:// prefix."
+            }
+            if (!this.logoUrlWorks) {
+                this.serviceForm.controls['symbol'].setErrors({'incorrect': true});
+                this.errorMessage += " Logo url doesn't point to a valid image."
+            }
         }
     }
 
@@ -268,6 +273,32 @@ export class ServiceFormComponent {
                 url = 'http://' + url;
             }
         }
+        return url;
+    }
+
+    imageExists(url) {
+        let image = new Image();
+        image.src = url;
+        if (!image.complete) {
+            return false;
+        }
+        else if (image.height === 0) {
+            return false;
+        }
+
+        return true;
+    }
+
+    logoCheckUrl(url: string) {
+        if (url !== '') {
+            if (url.match(/^(http:\/\/.+)?$/)) {
+                this.serviceForm.controls['symbol'].setErrors({'incorrect': true});
+                this.logoError = true;
+            } else if (!url.match(/^(https:\/\/.+)?$/)) {
+                url = 'https://' + url;
+            }
+        }
+        console.log(url);
         return url;
     }
 }
