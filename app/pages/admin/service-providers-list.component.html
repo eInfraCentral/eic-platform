@@ -3,8 +3,21 @@
         <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid="">
             <div class="uk-width-1-1@m uk-first-column">
 
-                <h1 class="uk-h3">Service Providers</h1>
-
+                <div class="uk-grid ">
+                <h1 class="uk-h3 uk-width-2-3@m">Service Providers</h1>
+                    <div class="uk-width-1-3@m">
+                        <div class="uk-inline uk-float-right">
+                            <button class="uk-button" type="button">Export to csv</button>
+                            <div uk-dropdown="mode: click">
+                                <ul class="uk-nav uk-dropdown-nav">
+                                    <li class="" (click)="DownloadProvidersCSV()"><a>Providers</a></li>
+                                    <!--<li class="uk-nav-divider"></li>-->
+                                    <li class="" (click)="DownloadServicesCSV()"><a>Services</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- TOP HELP CONTENT -->
                 <help-content #topHelperContent [position]="'top'"
                               [ngClass]="topHelperContent.isPresent()?'uk-margin-medium-top uk-margin-medium-bottom':'clear-style'">

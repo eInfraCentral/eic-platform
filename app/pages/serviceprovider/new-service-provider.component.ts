@@ -73,13 +73,20 @@ export class NewServiceProviderComponent implements OnInit {
         * {"id":"serviceProvider1","name":"Test Provider 1","logo":"https://brandmark.io/logo-rank/random/beats.png","contactInformation":"321654654","website":"https://testProvider1.gr","catalogueOfResources":"https://testProvider1.gr","publicDescOfResources":"https://testProvider1.gr","additionalInfo":"Test Service Provider other info"}
         * */
 
+        this.newProviderForm.get('logo').setValue(ServiceProviderService.checkUrl(this.newProviderForm.get('logo').value));
+        this.newProviderForm.get('website').setValue(ServiceProviderService.checkUrl(this.newProviderForm.get('website').value));
+        this.newProviderForm.get('catalogueOfResources').setValue(ServiceProviderService.checkUrl(this.newProviderForm.get('catalogueOfResources').value));
+        this.newProviderForm.get('publicDescOfResources').setValue(ServiceProviderService.checkUrl(this.newProviderForm.get('publicDescOfResources').value));
+
+        let url = this.newProviderForm.get('logo').value;
+        console.log(url);
+        console.log('The url is valid: ');
+        console.log(this.imageExists(url));
+
+
         // TODO: add the user id to post when it becomes available
         this.errorMessage = '';
         if (this.newProviderForm.valid) {
-            this.newProviderForm.get('logo').setValue(ServiceProviderService.checkUrl(this.newProviderForm.get('logo').value));
-            this.newProviderForm.get('website').setValue(ServiceProviderService.checkUrl(this.newProviderForm.get('website').value));
-            this.newProviderForm.get('catalogueOfResources').setValue(ServiceProviderService.checkUrl(this.newProviderForm.get('catalogueOfResources').value));
-            this.newProviderForm.get('publicDescOfResources').setValue(ServiceProviderService.checkUrl(this.newProviderForm.get('publicDescOfResources').value));
 
             let newProvider = Object.assign(
                 this.newProviderForm.value
@@ -120,6 +127,19 @@ export class NewServiceProviderComponent implements OnInit {
         this.logoUrl = logoUrl;
         this.newProviderForm.get('logo').setValue(logoUrl);
         this.newProviderForm.get('logo').updateValueAndValidity();
+    }
+
+    imageExists(url) {
+        let image = new Image();
+        image.src = url;
+        if (!image.complete) {
+            return false;
+        }
+        else if (image.height === 0) {
+            return false;
+        }
+
+        return true;
     }
 
 }
