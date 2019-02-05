@@ -80,8 +80,8 @@ export class NewServiceProviderComponent implements OnInit {
         this.newProviderForm.get('publicDescOfResources').setValue(ServiceProviderService.checkUrl(this.newProviderForm.get('publicDescOfResources').value));
 
         this.logoUrlWorks = this.imageExists(this.newProviderForm.get('logo').value);
-
         this.errorMessage = '';
+
         if (this.newProviderForm.valid && !this.logoError && this.logoUrlWorks) {
 
             let newProvider = Object.assign(
