@@ -90,7 +90,8 @@ export class UpdateServiceProviderComponent implements OnInit {
     }
 
     updateProvider() {
-        // TODO: add the user id to post when it becomes available
+        this.trimFormWhiteSpaces();
+
         this.errorMessage = '';
         if (!this.updateProviderForm.get('logo').value) {
             this.updateProviderForm.get('logo').setValue('');
@@ -105,17 +106,18 @@ export class UpdateServiceProviderComponent implements OnInit {
             this.updateProviderForm.get('catalogueOfResources').setValue('');
         }
 
+        this.updateProviderForm.get('logo').setValue(ServiceProviderService.checkUrl(this.updateProviderForm.get('logo').value));
+        this.updateProviderForm.get('logo').setValue(this.logoCheckUrl(this.updateProviderForm.get('logo').value));
+        this.updateProviderForm.get('website').setValue(ServiceProviderService.checkUrl(this.updateProviderForm.get('website').value));
+        this.updateProviderForm.get('catalogueOfResources').setValue(ServiceProviderService.checkUrl(this.updateProviderForm.get('catalogueOfResources').value));
+        this.updateProviderForm.get('publicDescOfResources').setValue(ServiceProviderService.checkUrl(this.updateProviderForm.get('publicDescOfResources').value));
+        this.updateProviderForm.get('id').enable();
+
         this.logoUrlWorks = this.imageExists(this.updateProviderForm.get('logo').value);
         this.errorMessage= '';
 
         if (this.updateProviderForm.valid && !this.logoError && this.logoUrlWorks) {
-            // this.updateProviderForm.get('logo').setValue(ServiceProviderService.checkUrl(this.updateProviderForm.get('logo').value));
-            this.updateProviderForm.get('logo').setValue(this.logoCheckUrl(this.updateProviderForm.get('logo').value));
-            this.updateProviderForm.get('website').setValue(ServiceProviderService.checkUrl(this.updateProviderForm.get('website').value));
-            this.updateProviderForm.get('catalogueOfResources').setValue(ServiceProviderService.checkUrl(this.updateProviderForm.get('catalogueOfResources').value));
-            this.updateProviderForm.get('publicDescOfResources').setValue(ServiceProviderService.checkUrl(this.updateProviderForm.get('publicDescOfResources').value));
 
-            this.updateProviderForm.get('id').enable();
             // console.log(JSON.stringify(this.updateProviderForm.value));
             let updatedProvider = Object.assign(
                 this.updateProviderForm.value
@@ -132,6 +134,7 @@ export class UpdateServiceProviderComponent implements OnInit {
                     this.router.navigate(['/myServiceProviders']);
                 }
             );
+            console.log('form is valid')
         } else {
             this.updateProviderForm.markAsDirty();
             this.updateProviderForm.updateValueAndValidity();
@@ -188,7 +191,7 @@ export class UpdateServiceProviderComponent implements OnInit {
                 // let users: User[] = [];
                 for (let i = 0; i < this.provider.users.length; i++) {
                     this.users.push(this.user(this.provider.users[i].email.trim(), this.provider.users[i].id,
-                    this.provider.users[i].name, this.provider.users[i].surname));
+                    this.provider.users[i].name.trim(), this.provider.users[i].surname.trim()));
                     // console.log(this.provider.users[i]);
 
                     // this.user.patchValue(this.provider.users[i]);
@@ -266,5 +269,13 @@ export class UpdateServiceProviderComponent implements OnInit {
         }
         console.log(url);
         return url;
+    }
+
+    trimFormWhiteSpaces(){
+        for( let i in this.updateProviderForm.controls) {
+            if (this.updateProviderForm.controls[i].value && this.updateProviderForm.controls[i].value.constructor !== Array) {
+                this.updateProviderForm.controls[i].setValue(this.updateProviderForm.controls[i].value.trim().replace(/\s\s+/g, ' '));
+            }
+        }
     }
 }
