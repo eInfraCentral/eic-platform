@@ -1,5 +1,5 @@
 
-import {Location} from "@angular/common";
+import {DatePipe, Location} from "@angular/common";
 import {Component, Injector, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs/Subscription";
@@ -18,7 +18,7 @@ export class ServiceEditComponent extends ServiceFormComponent implements OnInit
     private serviceID: string;
 
     constructor(public route: ActivatedRoute, public authenticationService: AuthenticationService,
-                public location: Location, protected injector: Injector) {
+                public location: Location, protected injector: Injector, public datePipe: DatePipe) {
         super(injector, authenticationService);
         this.editMode = true;
     }
@@ -32,15 +32,15 @@ export class ServiceEditComponent extends ServiceFormComponent implements OnInit
                 /*if (this.userService.canEditService(service)) {*/
                     ResourceService.removeNulls(service);
                     this.serviceForm.patchValue(this.toForms(service));
-                    let date = new Date(this.serviceForm.get('lastUpdate').value);
-                    // console.log(date.toString());
-                    // console.log(date);
-                    let day = date.getDate();
-                    let month = date.getMonth()+1;
-                    let year = date.getFullYear();
-                    // if input format changes this should change to match it
-                    // this.serviceForm.get('lastUpdate').setValue(day + '/' + month + '/' + year);
-                    this.serviceForm.get('lastUpdate').setValue(date.toLocaleDateString());
+                    let lastUpdate = new Date(this.serviceForm.get('lastUpdate').value);
+                    let date = this.datePipe.transform(lastUpdate, 'yyyy-MM-dd');
+                    this.serviceForm.get('lastUpdate').setValue(date);
+                    if (this.serviceForm.get('validFor').value) {
+                        let validFor = new Date(this.serviceForm.get('validFor').value);
+                        let validForDate = this.datePipe.transform(validFor, 'yyyy-MM-dd');
+                        this.serviceForm.get('validFor').setValue(validForDate);
+                    }
+
                 /*} else {
                     this.location.back();
                 }*/
@@ -75,6 +75,22 @@ export class ServiceEditComponent extends ServiceFormComponent implements OnInit
 
     onSubmit(service: Service, isValid: boolean) {
         service.id = this.serviceID;
+
+        /** For feature use if admin changes the values **/
+        for( let i in this.serviceForm.controls) {
+            if (this.serviceForm.controls[i].dirty) {
+                console.log('There was a change in field ' + i);
+                if (this.serviceForm.controls[i].value.constructor === Array) {
+                    for (let j = 0; j < this.serviceForm.controls[i].value.length; j++) {
+                        let str = JSON.stringify(this.serviceForm.controls[i].value[j]).split(":", -1);
+                        str = str[1].split('"', -1);
+                        console.log(str[1]);
+                    }
+                }
+                else console.log(this.serviceForm.controls[i].value);
+            }
+        }
+        /** **/
         super.onSubmit(service, isValid);
     }
 }

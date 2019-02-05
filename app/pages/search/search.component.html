@@ -53,7 +53,7 @@
                     <ng-template ngFor let-facet [ngForOf]="searchResults.facets">
                         <ng-template [ngIf]="facet.field=='category'">
                             <div *ngIf="facet.field!='resourceType'" class="refineCategory uk-grid-margin">
-                                <read-more [maxHeight]="235">
+                                <!--<read-more [maxHeight]="235">-->
                                     <!--<span>{{facet.label}}</span>-->
                                     <div class="refineOption" *ngFor="let facetValue of facet.values">
                                         <input type="checkbox" name="vehicle" value="Bike" data-md-icheck
@@ -62,7 +62,7 @@
                                         {{facetValue.label}}
                                         <span>({{facetValue.count}})</span>
                                     </div>
-                                </read-more>
+                                <!--</read-more>-->
                             </div>
                         </ng-template>
                     </ng-template>
@@ -162,7 +162,7 @@
                         <div *ngIf="urlParameters && urlParameters.length>0" class="uk-width-1-1 uk-row-first uk-margin-bottom">
                             <ul class="facets-selected cf">
                                 <ng-template ngFor let-urlParameter [ngForOf]="urlParameters">
-                                    <ng-template [ngIf]="urlParameter.key!='from' && urlParameter.key!='quantity'">
+                                    <ng-template [ngIf]="urlParameter.key!='from' && urlParameter.key!='quantity' && urlParameter.values!=''">
                                         <li *ngFor="let facet of urlParameter.values" class="search-tag">
                                             <span class="title">{{urlParameter.key}}:</span> {{facet | uppercase}}
                                             <a (click)="this.deselectFacet(urlParameter.key, facet)" data-role="remove"></a>
@@ -505,7 +505,7 @@
                         <div *ngIf="urlParameters && urlParameters.length>0" class="uk-width-1-1 uk-row-first uk-margin-bottom">
                             <ul class="facets-selected cf">
                                 <ng-template ngFor let-urlParameter [ngForOf]="urlParameters">
-                                    <ng-template [ngIf]="urlParameter.key!='from' && urlParameter.key!='quantity'">
+                                    <ng-template [ngIf]="urlParameter.key!='from' && urlParameter.key!='quantity' && urlParameter.values!=''">
                                         <li *ngFor="let facet of urlParameter.values" class="search-tag">
                                             <span class="title">{{urlParameter.key}}:</span> {{facet | uppercase}}
                                             <a (click)="this.deselectFacet(urlParameter.key, facet)" data-role="remove"></a>
@@ -524,9 +524,9 @@
                             </div>
                             <div class="uk-width-1-5">
                                 <select id="pageSizeList" [ngModel]="pageSize" (change)="onPageSizeChange($event)" style="height: auto">
-                                    <option value="10">10</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
+                                    <option value="9">9</option>
+                                    <option value="48">48</option>
+                                    <option value="99">99</option>
                                     <option value="10000">All</option>
                                 </select>
                             </div>
