@@ -6,7 +6,7 @@
                     <h1 class="uk-h3">
                         <img class="el-image uk-border-rounded"
                              src="{{ (provider.logo) ? provider.logo : 'http://fvtelibrary.com/img/user/NoLogo.png'}}"
-                             alt="LOGO" width="70">
+                             width="70">
                         <span class="uk-margin-small-left">{{provider.name}}
                             <a *ngIf="isUserAdmin" routerLink="/updateServiceProvider/{{provider.id}}">
                             <i class="fa fa-lg fa-edit"></i></a></span>

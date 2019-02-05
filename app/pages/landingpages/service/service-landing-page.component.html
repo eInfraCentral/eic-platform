@@ -51,7 +51,7 @@
                         <div class="uk-width-1-4@m">
 
                             <div class="uk-card uk-card-body uk-card-custom providerCard">
-                                <img src="{{service.symbol || 'http://fvtelibrary.com/img/user/NoLogo.png'}}"
+                                <img src="{{(service.symbol) ? service.symbol : 'http://fvtelibrary.com/img/user/NoLogo.png'}}"
                                      style="max-width: 67px;">
                                 <span class="provider" *ngFor="let provider of service.providers; let i = index">
                                     <br *ngIf="i > 0">{{ provider | uppercase }}

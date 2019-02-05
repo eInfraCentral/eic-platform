@@ -27,6 +27,8 @@ declare var UIkit: any;
 })
 export class UpdateServiceProviderComponent implements OnInit {
     errorMessage: string;
+    logoError: boolean = false;
+    logoUrlWorks: boolean = true;
     userInfo = {family_name: '', given_name: '', email: ''};
     updateProviderForm: FormGroup;
     newUserForm: FormGroup;
@@ -102,19 +104,23 @@ export class UpdateServiceProviderComponent implements OnInit {
         if (!this.updateProviderForm.get('catalogueOfResources').value) {
             this.updateProviderForm.get('catalogueOfResources').setValue('');
         }
-        if (this.updateProviderForm.valid) {
-            this.updateProviderForm.get('logo').setValue(ServiceProviderService.checkUrl(this.updateProviderForm.get('logo').value));
+
+        this.logoUrlWorks = this.imageExists(this.updateProviderForm.get('logo').value);
+        this.errorMessage= '';
+
+        if (this.updateProviderForm.valid && !this.logoError && this.logoUrlWorks) {
+            // this.updateProviderForm.get('logo').setValue(ServiceProviderService.checkUrl(this.updateProviderForm.get('logo').value));
+            this.updateProviderForm.get('logo').setValue(this.logoCheckUrl(this.updateProviderForm.get('logo').value));
             this.updateProviderForm.get('website').setValue(ServiceProviderService.checkUrl(this.updateProviderForm.get('website').value));
             this.updateProviderForm.get('catalogueOfResources').setValue(ServiceProviderService.checkUrl(this.updateProviderForm.get('catalogueOfResources').value));
             this.updateProviderForm.get('publicDescOfResources').setValue(ServiceProviderService.checkUrl(this.updateProviderForm.get('publicDescOfResources').value));
 
-
             this.updateProviderForm.get('id').enable();
-            console.log(JSON.stringify(this.updateProviderForm.value));
+            // console.log(JSON.stringify(this.updateProviderForm.value));
             let updatedProvider = Object.assign(
                 this.updateProviderForm.value
             );
-            console.log(JSON.stringify(updatedProvider));
+            // console.log(JSON.stringify(updatedProvider));
 
             this.serviceProviderService.updateServiceProvider(updatedProvider).subscribe(
                 res => console.log(res),
@@ -127,7 +133,6 @@ export class UpdateServiceProviderComponent implements OnInit {
                 }
             );
         } else {
-            this.errorMessage = "Please fill in all required fields (marked with an asterisk), and fix the data format in fields underlined with a red colour.";
             this.updateProviderForm.markAsDirty();
             this.updateProviderForm.updateValueAndValidity();
             for (const i in this.updateProviderForm.controls) {
@@ -148,6 +153,18 @@ export class UpdateServiceProviderComponent implements OnInit {
 
             }
             window.scrollTo(0, 0);
+            if (!this.updateProviderForm.valid) {
+                this.errorMessage = "Please fill in all required fields (marked with an asterisk), and fix the data format in fields underlined with a red colour.";
+            }
+            if (this.logoError) {
+                this.updateProviderForm.get('logo').setErrors({'incorrect': true});
+                this.logoError = false;
+                this.errorMessage += " Logo url must have https:// prefix"
+            }
+            if (!this.logoUrlWorks) {
+                this.updateProviderForm.get('logo').setErrors({'incorrect': true});
+                this.errorMessage += " Logo url doesn't point to a valid image"
+            }
         }
     }
 
@@ -219,5 +236,35 @@ export class UpdateServiceProviderComponent implements OnInit {
         this.logoUrl = logoUrl;
         this.updateProviderForm.get('logo').setValue(logoUrl);
         this.updateProviderForm.get('logo').updateValueAndValidity();
+    }
+
+    imageExists(url) {
+        if (url === '') //image is not required for providers
+            return true;
+
+        let image = new Image();
+        image.src = url;
+        if (!image.complete) {
+            return false;
+        }
+        else if (image.height === 0) {
+            return false;
+        }
+
+        return true;
+    }
+
+    logoCheckUrl(url: string) {
+        if (url !== '') {
+            if (url.match(/^(http:\/\/.+)?$/)) {
+                this.updateProviderForm.controls['logo'].setErrors({'incorrect': true});
+                this.updateProviderForm.get('logo').setErrors({'incorrect': true});
+                this.logoError = true;
+            } else if (!url.match(/^(https:\/\/.+)?$/)) {
+                url = 'https://' + url;
+            }
+        }
+        console.log(url);
+        return url;
     }
 }
