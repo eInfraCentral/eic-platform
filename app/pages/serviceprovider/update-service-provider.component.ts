@@ -92,7 +92,6 @@ export class UpdateServiceProviderComponent implements OnInit {
     updateProvider() {
         this.trimFormWhiteSpaces();
 
-        this.errorMessage = '';
         if (!this.updateProviderForm.get('logo').value) {
             this.updateProviderForm.get('logo').setValue('');
         }
@@ -106,7 +105,7 @@ export class UpdateServiceProviderComponent implements OnInit {
             this.updateProviderForm.get('catalogueOfResources').setValue('');
         }
 
-        this.updateProviderForm.get('logo').setValue(ServiceProviderService.checkUrl(this.updateProviderForm.get('logo').value));
+        // this.updateProviderForm.get('logo').setValue(ServiceProviderService.checkUrl(this.updateProviderForm.get('logo').value));
         this.updateProviderForm.get('logo').setValue(this.logoCheckUrl(this.updateProviderForm.get('logo').value));
         this.updateProviderForm.get('website').setValue(ServiceProviderService.checkUrl(this.updateProviderForm.get('website').value));
         this.updateProviderForm.get('catalogueOfResources').setValue(ServiceProviderService.checkUrl(this.updateProviderForm.get('catalogueOfResources').value));
@@ -162,11 +161,11 @@ export class UpdateServiceProviderComponent implements OnInit {
             if (this.logoError) {
                 this.updateProviderForm.get('logo').setErrors({'incorrect': true});
                 this.logoError = false;
-                this.errorMessage += " Logo url must have https:// prefix"
+                this.errorMessage += " Logo url must have https:// prefix."
             }
             if (!this.logoUrlWorks) {
                 this.updateProviderForm.get('logo').setErrors({'incorrect': true});
-                this.errorMessage += " Logo url doesn't point to a valid image"
+                this.errorMessage += " Logo url doesn't point to a valid image."
             }
         }
     }
@@ -248,9 +247,11 @@ export class UpdateServiceProviderComponent implements OnInit {
         let image = new Image();
         image.src = url;
         if (!image.complete) {
+            console.log("skata1");
             return false;
         }
         else if (image.height === 0) {
+            console.log("skata2");
             return false;
         }
 
