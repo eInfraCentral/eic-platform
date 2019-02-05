@@ -3,6 +3,8 @@ import { ResourceService } from '../../services/resource.service';
 import { Provider } from '../../domain/eic-model';
 import { statusChangeMap, statusList } from '../../domain/service-provider-status-list';
 import { ServiceProviderService } from '../../services/service-provider.service';
+import { Router } from "@angular/router";
+import {API_ENDPOINT} from "../../shared/environments";
 
 declare var UIkit: any;
 
@@ -28,7 +30,9 @@ export class ServiceProvidersListComponent implements OnInit {
     pendingFirstServicePerProvider: any[] = [];
     adminActionsMap = statusChangeMap;
 
-    constructor(private resourceService: ResourceService, private serviceProviderService: ServiceProviderService) {}
+    constructor(private resourceService: ResourceService,
+                private serviceProviderService: ServiceProviderService
+    ) {}
 
     ngOnInit() {
         this.getProviders(this.from, this.itemsPerPage);
@@ -137,6 +141,10 @@ export class ServiceProvidersListComponent implements OnInit {
         return '/service/' + this.pendingFirstServicePerProvider.filter(x => x.providerId === id)[0].serviceId;
     }
 
+    getLinkToEditFirstService(id: string) {
+        return '/edit/' + this.pendingFirstServicePerProvider.filter(x => x.providerId === id)[0].serviceId;
+    }
+
     paginationInit() {
         this.pages = [];
         for (let i = 0 ; i < Math.ceil(this.total/this.itemsPerPage); i++) {
@@ -166,4 +174,11 @@ export class ServiceProvidersListComponent implements OnInit {
         this.getProviders(this.from, this.itemsPerPage);
     }
 
+    DownloadProvidersCSV() {
+        window.open(API_ENDPOINT + "/exportToCSV/providers", "_blank");
+    }
+
+    DownloadServicesCSV() {
+        window.open(API_ENDPOINT + "/exportToCSV/services", "_blank");
+    }
 }

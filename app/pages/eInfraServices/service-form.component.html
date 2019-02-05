@@ -6,6 +6,9 @@
         <!--<h3 class="uk-h2">{{editMode ? "Edit":"Add"}} an eInfraCentral service</h3>-->
         <h2 class="uk-text-center uk-h2 uk-scrollspy-inview uk-animation-slide-bottom-small" uk-scrollspy-class=""
             style="">
+          <img class="el-image uk-border-rounded"
+               src="{{(serviceForm && serviceForm.get('symbol').value) ? serviceForm.get('symbol').value : 'http://fvtelibrary.com/img/user/NoLogo.png'}}"
+               width="50">
           {{editMode ? "Edit":"Add"}} an eInfraCentral service
         </h2>
         <!--<hr class="uk-divider-icon uk-scrollspy-inview uk-animation-slide-bottom-small" uk-scrollspy-class="" style="">-->
