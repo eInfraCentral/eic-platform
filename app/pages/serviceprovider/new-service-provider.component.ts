@@ -71,6 +71,7 @@ export class NewServiceProviderComponent implements OnInit {
     }
 
     registerProvider() {
+        this.trimFormWhiteSpaces();
 
         // this.newProviderForm.get('logo').setValue(ServiceProviderService.checkUrl(this.newProviderForm.get('logo').value));
         this.newProviderForm.get('logo').setValue(this.logoCheckUrl(this.newProviderForm.get('logo').value));
@@ -163,6 +164,14 @@ export class NewServiceProviderComponent implements OnInit {
         }
         console.log(url);
         return url;
+    }
+
+    trimFormWhiteSpaces(){
+        for( let i in this.newProviderForm.controls) {
+            if (this.newProviderForm.controls[i].value !== '') {
+                this.newProviderForm.controls[i].setValue(this.newProviderForm.controls[i].value.trim().replace(/\s\s+/g, ' '));
+            }
+        }
     }
 
 }
