@@ -36,7 +36,7 @@ export class ServiceFormComponent {
     service: Service;
     errorMessage: string = '';
     logoError: boolean = false;
-    logoUrlWorks: boolean = false;
+    logoUrlWorks: boolean = true;
     successMessage: string = null;
     submitted = false;
     readonly urlDesc: sd.Description = sd.urlDesc;
@@ -171,9 +171,11 @@ export class ServiceFormComponent {
 
     onSubmit(service: Service, isValid: boolean) {
         this.errorMessage = '';
+
+        /** Pre submit check and clean**/
         service.url = ServiceFormComponent.checkUrl(this.serviceForm.get('url').value);
-        // service.symbol = ServiceFormComponent.checkUrl(this.serviceForm.get('symbol').value);
-        service.symbol = this.logoCheckUrl(this.serviceForm.get('symbol').value);
+        service.symbol = ServiceFormComponent.checkUrl(this.serviceForm.get('symbol').value);
+        // service.symbol = this.logoCheckUrl(this.serviceForm.get('symbol').value);
         this.serviceForm.get('symbol').setValue(service.symbol); // update field in order for logo to display properly
         service.multimediaURL = ServiceFormComponent.checkUrl(this.serviceForm.get('multimediaURL').value);
         service.order = ServiceFormComponent.checkUrl(this.serviceForm.get('order').value);
@@ -186,7 +188,7 @@ export class ServiceFormComponent {
         for (let i = 0; i < service['termsOfUse'].length; i++) {
             service['termsOfUse'][i]['entry'] = ServiceFormComponent.checkUrl(service['termsOfUse'][i]['entry']);
         }
-        this.logoUrlWorks = this.imageExists(service.symbol);
+        // this.logoUrlWorks = this.imageExists(service.symbol);
 
         this.setAsTouched();
 
@@ -301,4 +303,5 @@ export class ServiceFormComponent {
         console.log(url);
         return url;
     }
+
 }
