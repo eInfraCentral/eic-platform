@@ -156,9 +156,11 @@ export class ServiceFormComponent {
                 newValues = [];
                 values.forEach(e => {
                     if (e.entry !== "") {
-                        newValues.push(e.entry);
+                        newValues.push(e.entry.trim().replace(/\s\s+/g, ' '));
                     }
                 });
+            } else {
+                newValues = newValues.trim().replace(/\s\s+/g, ' ');
             }
             ret[name] = newValues;
         });
@@ -171,6 +173,8 @@ export class ServiceFormComponent {
 
     onSubmit(service: Service, isValid: boolean) {
         this.errorMessage = '';
+
+        /** Pre submit check and clean **/
         service.url = ServiceFormComponent.checkUrl(this.serviceForm.get('url').value);
         // service.symbol = ServiceFormComponent.checkUrl(this.serviceForm.get('symbol').value);
         service.symbol = this.logoCheckUrl(this.serviceForm.get('symbol').value);
@@ -190,7 +194,9 @@ export class ServiceFormComponent {
 
         this.setAsTouched();
 
-        //TODO: check if model is valid
+
+
+        /** if valid submit **/
         if (isValid && !this.logoError && this.logoUrlWorks) {
             console.log(service);
             this.resourceService.uploadService(this.toServer(service), this.editMode)
@@ -220,7 +226,7 @@ export class ServiceFormComponent {
             this.resourceService.getProvidersNames(),
             this.resourceService.getVocabularies()
         ).subscribe(suc => {
-            console.log(priceDesc);
+            // console.log(priceDesc);
             this.providers = suc[0];
             this.vocabularies = suc[1];
 
