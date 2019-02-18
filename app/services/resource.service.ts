@@ -164,6 +164,10 @@ export class ResourceService {
         return this.get("stats/service/ratings", service);
     }
 
+    getLatestServiceMeasurement(id: string) {
+        return this.get("measurement/service/latest", id);
+    }
+
     groupServicesOfProviderPerPlace(id: string) {
         return this.getServicesOfferedByProvider(id).map(res => {
             let servicesGroupedByPlace = {};

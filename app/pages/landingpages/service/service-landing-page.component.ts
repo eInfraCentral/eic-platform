@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs/Observable";
 import {Subscription} from "rxjs/Subscription";
-import { Provider, RichService } from '../../../domain/eic-model';
+import {Measurement, Provider, RichService} from '../../../domain/eic-model';
 import {AuthenticationService} from "../../../services/authentication.service";
 import {NavigationService} from "../../../services/navigation.service";
 import {ResourceService} from "../../../services/resource.service";
@@ -21,6 +21,7 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
     public errorMessage: string;
     public EU: string[];
     public WW: string[];
+    public measurements: Measurement<any>[] = [];
     private sub: Subscription;
 
     serviceMapOptions: any = null;
@@ -43,12 +44,16 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
                     // this.resourceService.getSelectedServices([params["id"]]),
                     this.resourceService.getRichService(params["id"]),
                     this.providerService.getMyServiceProviders(),
-                    this.resourceService.recordEvent(params["id"], "INTERNAL")
+                    this.resourceService.recordEvent(params["id"], "INTERNAL"),
+                    this.resourceService.getLatestServiceMeasurement(params["id"])
                 ).subscribe(suc => {
+                    console.log(params["id"]);
                     this.EU = suc[0];
                     this.WW = suc[1];
                     this.service = suc[2];
                     this.myProviders = suc[3];
+                    this.measurements = suc[5].results;
+                    console.log(this.measurements);
                     this.router.breadcrumbs = this.service.name;
                     this.setCountriesForService(this.service.places);
 
@@ -69,11 +74,15 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
                     this.resourceService.getEU(),
                     this.resourceService.getWW(),
                     this.resourceService.getRichService(params["id"]),
-                    this.resourceService.recordEvent(params["id"], "INTERNAL")
+                    this.resourceService.recordEvent(params["id"], "INTERNAL"),
+                    this.resourceService.getLatestServiceMeasurement(params["id"])
                 ).subscribe(suc => {
                     this.EU = suc[0];
                     this.WW = suc[1];
                     this.service = suc[2];
+                    this.measurements = suc[4].results;
+
+                    console.log(this.measurements);
                     this.router.breadcrumbs = this.service.name;
                     this.setCountriesForService(this.service.places);
 

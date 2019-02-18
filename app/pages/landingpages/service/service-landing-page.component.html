@@ -119,46 +119,31 @@
                                     </ng-container>
                                 </dl>
                             </div>
-                            <!--REQUIRED / RELATED SERVICES-->
-                            <!--<div class="uk-card uk-card-body uk-card-basic-info">-->
-                                <!--<h2 class="uk-h2">Required / Related services</h2>-->
-                                <!--<dl class="uk-description-list">-->
-                                    <!--<ng-container *ngIf="service.requiredServices && (service.requiredServices.length > 0)">-->
-                                        <!--<dt class="uk-margin-small-bottom">Required services</dt>-->
-                                        <!--<dd *ngFor="let requiredService of service.requiredServices">-->
-                                            <!--<a (click)="this.router.service(getPrettyService(requiredService).id)">{{getPrettyService(requiredService).name}}</a>-->
-                                            <!--&lt;!&ndash;<ul>&ndash;&gt;-->
-                                                <!--&lt;!&ndash;<li *ngFor="let requiredService of service.requiredServices">&ndash;&gt;-->
-                                                    <!--&lt;!&ndash;<a (click)="this.router.service(getPrettyService(requiredService).id)">{{getPrettyService(requiredService).name}}</a>&ndash;&gt;-->
-                                                <!--&lt;!&ndash;</li>&ndash;&gt;-->
-                                            <!--&lt;!&ndash;</ul>&ndash;&gt;-->
-                                        <!--</dd>-->
-                                    <!--</ng-container>-->
-                                    <!--<ng-container *ngIf="!service.requiredServices || service.requiredServices.length == 0">-->
-                                        <!--<dt class="uk-margin-small-bottom">Required services</dt>-->
-                                        <!--<dd>-->
-                                            <!-- - -->
-                                        <!--</dd>-->
-                                    <!--</ng-container>-->
-                                    <!--<ng-container *ngIf="service.relatedServices && service.relatedServices.length>0">-->
-                                        <!--<dt class="uk-margin-small-bottom">Related services</dt>-->
-                                        <!--<dd *ngFor="let relatedService of service.relatedServices">-->
-                                            <!--<a (click)="this.router.service(getPrettyService(relatedService).id)">{{getPrettyService(relatedService).name}}</a>-->
-                                            <!--&lt;!&ndash;<ul>&ndash;&gt;-->
-                                                <!--&lt;!&ndash;<li *ngFor="let relatedService of service.relatedServices">&ndash;&gt;-->
-                                                    <!--&lt;!&ndash;<a (click)="this.router.service(getPrettyService(relatedService).id)">{{getPrettyService(relatedService).name}}</a>&ndash;&gt;-->
-                                                <!--&lt;!&ndash;</li>&ndash;&gt;-->
-                                            <!--&lt;!&ndash;</ul>&ndash;&gt;-->
-                                        <!--</dd>-->
-                                    <!--</ng-container>-->
-                                    <!--<ng-container *ngIf="!service.relatedServices || service.relatedServices.length == 0">-->
-                                        <!--<dt class="uk-margin-small-bottom">Related services</dt>-->
-                                        <!--<dd>-->
-                                            <!-- - -->
-                                        <!--</dd>-->
-                                    <!--</ng-container>-->
-                                <!--</dl>-->
-                            <!--</div>-->
+                            <!--INDICATORS-->
+                            <div class="uk-card uk-card-body uk-card-basic-info">
+                                <h2 class="uk-h2">INDICATORS</h2>
+                                <dl class="uk-description-list">
+                                    <ng-container *ngIf="measurements.length > 0">
+                                        <dt class="uk-margin-small-bottom">Measurements</dt>
+                                        <dd *ngFor="let measurement of measurements">
+                                            Id: {{measurement.id}}<br>
+                                            Indicator: {{measurement.indicatorId}}<br>
+                                            <!--{{measurement.serviceId}}-->
+                                            Locations: {{measurement.locations}}<br>
+                                            <!--<div *ngFor="let loc of measurement.locations">-->
+                                                <!--{{loc}}-->
+                                            <!--</div>-->
+                                            Value: {{measurement.value}}
+                                        </dd>
+                                    </ng-container>
+                                    <ng-container *ngIf="measurements.length == 0">
+                                        <dt class="uk-margin-small-bottom">Measurements</dt>
+                                        <dd>
+                                             -
+                                        </dd>
+                                    </ng-container>
+                                </dl>
+                            </div>
                         </div>
 
                         <div class="uk-width-expand@m">

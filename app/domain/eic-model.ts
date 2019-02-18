@@ -75,9 +75,11 @@ export class Manager implements Identifiable {
 
 export class Measurement<T> implements Identifiable {
     id: string;
-    indicator: Indicator;
-    location: string[];
+    // indicator: Indicator;
+    indicatorId: string;
+    serviceId: string;
     time: XMLGregorianCalendar;
+    locations: string[];
     value: any;
 }
 
