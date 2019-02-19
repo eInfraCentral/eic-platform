@@ -47,13 +47,11 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
                     this.resourceService.recordEvent(params["id"], "INTERNAL"),
                     this.resourceService.getLatestServiceMeasurement(params["id"])
                 ).subscribe(suc => {
-                    console.log(params["id"]);
                     this.EU = suc[0];
                     this.WW = suc[1];
                     this.service = suc[2];
                     this.myProviders = suc[3];
                     this.measurements = suc[5].results;
-                    console.log(this.measurements);
                     this.router.breadcrumbs = this.service.name;
                     this.setCountriesForService(this.service.places);
 
@@ -81,8 +79,6 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
                     this.WW = suc[1];
                     this.service = suc[2];
                     this.measurements = suc[4].results;
-
-                    console.log(this.measurements);
                     this.router.breadcrumbs = this.service.name;
                     this.setCountriesForService(this.service.places);
 
@@ -174,5 +170,9 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
 
     handleError(error) {
         this.errorMessage = "System error loading service (Server responded: " + error + ")";
+    }
+
+    isProvider() {
+        return this.authenticationService.getUserProperty('roles').some(x => x === "ROLE_PROVIDER");
     }
 }
