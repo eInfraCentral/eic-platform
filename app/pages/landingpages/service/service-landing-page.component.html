@@ -128,11 +128,8 @@
                                         <dd *ngFor="let measurement of measurements">
                                             Id: {{measurement.id}}<br>
                                             Indicator: {{measurement.indicatorId}}<br>
-                                            <!--{{measurement.serviceId}}-->
-                                            Locations: {{measurement.locations}}<br>
-                                            <!--<div *ngFor="let loc of measurement.locations">-->
-                                                <!--{{loc}}-->
-                                            <!--</div>-->
+                                            <!--ServiceId: {{measurement.serviceId}}-->
+                                            Locations: {{measurement.locations ?  measurement.locations : '-'}}<br>
                                             Value: {{measurement.value}}
                                         </dd>
                                     </ng-container>
@@ -140,6 +137,33 @@
                                         <dt class="uk-margin-small-bottom">Measurements</dt>
                                         <dd>
                                              -
+                                        </dd>
+                                    </ng-container>
+                                    <!--<ng-container *ngIf="authenticationService.isLoggedIn() && isProvider()">-->
+                                    <ng-container *ngIf="authenticationService.isLoggedIn()">
+                                        <dt class="uk-margin-small-bottom">Add Measurement</dt>
+                                        <dd>
+                                            <form class="uk-form-horizontal">
+                                                <div class="uk-margin">
+                                                    <label class="uk-form-label" for="indicatorId">IndicatorId: </label>
+                                                    <div class="uk-form-controls">
+                                                        <input class="uk-input" id="indicatorId" type="text">
+                                                    </div>
+                                                </div>
+                                                <div class="uk-margin">
+                                                    <label class="uk-form-label" for="locations">Locations: </label>
+                                                    <div class="uk-form-controls">
+                                                        <input class="uk-input" id="locations" type="text">
+                                                    </div>
+                                                </div>
+                                                <div class="uk-margin">
+                                                    <label class="uk-form-label" for="value">Value: </label>
+                                                    <div class="uk-form-controls">
+                                                        <input class="uk-input" id="value" type="text">
+                                                    </div>
+                                                </div>
+                                                <button class="uk-button-default">Submit</button>
+                                            </form>
                                         </dd>
                                     </ng-container>
                                 </dl>
