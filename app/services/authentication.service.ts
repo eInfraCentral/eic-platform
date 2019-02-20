@@ -17,6 +17,7 @@ export class AuthenticationService {
     redirectURL: string = "/myServiceProviders";
     cookieName: string = "info";
     user = null;
+    cookie;
 
     constructor(public router: NavigationService) {
         // this.user = JSON.parse(getCookie(this.cookieName));
@@ -46,7 +47,8 @@ export class AuthenticationService {
             this.user.id = this.user.eduperson_unique_id;
 
             sessionStorage.setItem('userInfo', JSON.stringify(this.user));
-            const expiresAt = moment().add(JSON.stringify(this.user.expireSec),'second');
+            // const expiresAt = moment().add(JSON.stringify(this.user.expireSec),'second');
+            const expiresAt = moment().add(30,'second');
             sessionStorage.setItem('expiresAt', JSON.stringify(expiresAt));
 
             let url = sessionStorage.getItem('redirect_url');
@@ -96,7 +98,12 @@ export class AuthenticationService {
     }
 
     public isLoggedIn(): boolean {
-        return getCookie(this.cookieName) != null && this.user != null && moment().isBefore(this.getExpiration());
+        // console.log('Monet call');
+        // console.log(moment());
+        // console.log('moment expiration');
+        // console.log(this.getExpiration());
+        // console.log((getCookie(this.cookieName) != null) + ' && ' + (this.user != null) + ' && ' + moment().isBefore(this.getExpiration()));
+        return (getCookie(this.cookieName) != null) && (this.user != null) && moment().isBefore(this.getExpiration());
     }
 
     getExpiration() {
