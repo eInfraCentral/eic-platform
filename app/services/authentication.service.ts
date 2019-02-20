@@ -47,8 +47,8 @@ export class AuthenticationService {
             this.user.id = this.user.eduperson_unique_id;
 
             sessionStorage.setItem('userInfo', JSON.stringify(this.user));
-            // const expiresAt = moment().add(JSON.stringify(this.user.expireSec),'second');
-            const expiresAt = moment().add(30,'second');
+            const expiresAt = moment().add(JSON.stringify(this.user.expireSec),'second');
+            // const expiresAt = moment().add(30,'second');
             sessionStorage.setItem('expiresAt', JSON.stringify(expiresAt));
 
             let url = sessionStorage.getItem('redirect_url');
@@ -57,7 +57,8 @@ export class AuthenticationService {
                 url = sessionStorage.getItem('forward_url');
                 sessionStorage.removeItem('forward_url');
             }
-            this.router.router.navigateByUrl(url);
+            if (url !== null)
+                this.router.router.navigateByUrl(url);
         }
     }
 
