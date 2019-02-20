@@ -1,133 +1,123 @@
-// Generated using typescript-generator version 1.27.339 on 2018-09-24 17:11:32.
-
-export class Dimension {
-}
+/* tslint:disable */
+// Generated using typescript-generator version 2.6.433 on 2019-02-18 16:03:02.
 
 export class Event implements Identifiable {
     id: string;
     instant: number;
-    service: string;
     type: string;
     user: string;
+    service: string;
     value: string;
 }
 
+export class Funder implements Identifiable {
+    id: string;
+    name: string;
+    logo: URL;
+    services: string[];
+}
+
 export interface Identifiable {
+    id: string;
 }
 
 export class Indicator implements Identifiable {
-    description: string;
-    dimensions: Dimension[];
     id: string;
-    unit: Unit;
+    description: string;
+    dimensions: string[];
+    unit: string;
 }
 
 export class Service implements Identifiable {
-    category: string;
-    changeLog: string;
-    description: string;
-    feedback: URL;
-    funding: string;
-    helpdesk: URL;
     id: string;
-    languages: string[];
-    lastUpdate: XMLGregorianCalendar;
-    lifeCycleStatus: string;
-    multimediaURL: URL;
-    name: string;
-    options: string;
-    order: URL;
-    places: string[];
-    price: URL;
-    providers: string[];
-    relatedServices: string[];
-    requiredServices: string[];
-    serviceLevelAgreement: URL;
-    subcategory: string;
-    symbol: URL;
-    tag: string[];
-    tagline: string;
-    targetUsers: string;
-    termOfUse: URL[];
-    trainingInformation: URL;
-    trl: string;
     url: URL;
-    userBase: string;
-    userManual: URL;
+    name: string;
+    tagline: string;
+    description: string;
+    options: string;
+    targetUsers: string;
     userValue: string;
-    validFor: XMLGregorianCalendar;
+    userBase: string;
+    symbol: URL;
+    multimediaURL: URL;
+    providers: string[];
     version: string;
+    lastUpdate: XMLGregorianCalendar;
+    changeLog: string;
+    validFor: XMLGregorianCalendar;
+    lifeCycleStatus: string;
+    trl: string;
+    category: string;
+    subcategory: string;
+    places: string[];
+    languages: string[];
+    tags: string[];
+    requiredServices: string[];
+    relatedServices: string[];
+    order: URL;
+    helpdesk: URL;
+    userManual: URL;
+    trainingInformation: URL;
+    feedback: URL;
+    price: URL;
+    serviceLevelAgreement: URL;
+    termsOfUse: string[];
+    funding: string;
 }
 
 export class InfraService extends Service {
-    active: boolean;
     serviceMetadata: ServiceMetadata;
+    active: boolean;
     status: string;
+    latest: boolean;
 }
 
-export class Manager implements Identifiable {
-    contactInformation: string;
+export class Measurement implements Identifiable {
     id: string;
-    name: string;
-    service: User[];
-    user: User[];
-}
-
-export class Measurement<T> implements Identifiable {
-    id: string;
-    // indicator: Indicator;
     indicatorId: string;
     serviceId: string;
     time: XMLGregorianCalendar;
     locations: string[];
-    value: any;
-}
-
-export class Membership implements Identifiable {
-    grant: string;
-    id: string;
-    provider: string;
-    user: string;
+    value: string;
 }
 
 export class Provider implements Identifiable {
-    active: boolean;
-    additionalInfo: string;
-    catalogueOfResources: URL;
-    contactInformation: string;
     id: string;
     name: string;
-    logo: string;
-    publicDescOfResources: URL;
-    status: string;
-    users: User[];
     website: URL;
+    catalogueOfResources: URL;
+    publicDescOfResources: URL;
+    logo: URL;
+    additionalInfo: string;
+    contactInformation: string;
+    users: User[];
+    active: boolean;
+    status: string;
 }
 
 export class RichService extends Service {
     categoryName: string;
-    favourites: number;
-    hasRate: number;
-    isFavourite: boolean;
-    languageNames: string[];
-    placeNames: string[];
-    lifeCycleStatusName: string;
-    ratings: number;
-    serviceMetadata: ServiceMetadata;
     subCategoryName: string;
     trlName: string;
-    userRate: number;
+    lifeCycleStatusName: string;
+    languageNames: string[];
+    placeNames: string[];
     views: number;
+    ratings: number;
+    userRate: number;
+    hasRate: number;
+    favourites: number;
+    isFavourite: boolean;
 }
 
 export class ServiceMetadata {
+    performanceData: Measurement[];
     featured: boolean;
-    modifiedAt: string;
-    modifiedBy: string;
-    performanceData: Measurement<any>[];
     published: boolean;
-    registeredAt: string;
     registeredBy: string;
+    registeredAt: string;
+    modifiedBy: string;
+    modifiedAt: string;
 }
 
 export class ServiceHistory extends ServiceMetadata {
@@ -135,38 +125,25 @@ export class ServiceHistory extends ServiceMetadata {
     versionChange: boolean;
 }
 
-export class Unit {
-}
-
 export class User implements Identifiable {
-    email: string;
     id: string;
+    email: string;
     name: string;
     surname: string;
 }
 
-// export class Vocabulary implements Identifiable {
-//     extras: string[];
-//     id: string;
-//     name: string;
-//     parent: string;
-//     type: string;
-// }
-
-// For the new Vocabularies
 export class Vocabulary implements Identifiable {
-    entries: { [index: string]: VocabularyEntry };
     id: string;
     name: string;
+    entries: { [index: string]: VocabularyEntry };
 }
 
 export class VocabularyEntry {
     children: VocabularyEntry[];
+    extras: { [index: string]: string };
     id: string;
     name: string;
-    extras: { [index: string]: string };
 }
-
 
 export class URL implements Serializable {
 }
@@ -174,8 +151,26 @@ export class URL implements Serializable {
 export class XMLGregorianCalendar implements Cloneable {
 }
 
+export class GenericMap {
+    entries: GenericMapEntry[];
+}
+
+export class ExtrasMap {
+    entries: Extras[];
+}
+
 export interface Serializable {
 }
 
 export interface Cloneable {
+}
+
+export class GenericMapEntry {
+    key: string;
+    value: VocabularyEntry;
+}
+
+export class Extras {
+    key: string;
+    value: string;
 }
