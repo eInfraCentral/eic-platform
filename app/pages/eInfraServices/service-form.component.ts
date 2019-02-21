@@ -199,9 +199,7 @@ export class ServiceFormComponent {
         if (isValid && !this.logoError && this.logoUrlWorks) {
             console.log(service);
             this.resourceService.uploadService(this.toServer(service), this.editMode)
-            .subscribe(service => {
-                setTimeout(() => this.router.service(service.id), 1000);
-            });
+            .subscribe(service => this.router.service(service.id));
         } else {
             window.scrollTo(0, 0);
             this.serviceForm.markAsDirty();
