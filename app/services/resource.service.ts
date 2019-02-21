@@ -168,7 +168,11 @@ export class ResourceService {
         return this.get("measurement/latest/service", id);
     }
 
-    postMeasurement(measurement: Measurement<any>) {
+    getIndicators(id: string) {
+        return this.get("indicator", id);
+    }
+
+    postMeasurement(measurement: Measurement) {
         return this.http.post("measurement", measurement);
     }
 
