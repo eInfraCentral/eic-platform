@@ -139,51 +139,51 @@
                                              -
                                         </dd>
                                     </ng-container>
-                                    <!--<ng-container *ngIf="authenticationService.isLoggedIn() && canEditService">-->
-                                    <!--&lt;!&ndash;<ng-container *ngIf="authenticationService.isLoggedIn()">&ndash;&gt;-->
-                                        <!--<dt class="uk-margin-small-bottom">Add Measurement</dt>-->
-                                        <!--<dd>-->
-                                            <!--<form class="uk-form-horizontal" role="form" [formGroup]="newMeasurementForm">-->
-                                                <!--<div class="uk-margin">-->
-                                                    <!--<label class="uk-form-label" for="indicatorId">IndicatorId: </label>-->
-                                                    <!--<div class="uk-form-controls">-->
-                                                        <!--<select class="uk-select" id="indicatorId" formControlName="indicatorId">-->
-                                                            <!--&lt;!&ndash;<option value="null" selected disabled hidden>Select indicator</option>&ndash;&gt;-->
-                                                            <!--<option *ngFor="let id of idArray">{{id}}</option>-->
-                                                        <!--</select>-->
-                                                    <!--</div>-->
-                                                <!--</div>-->
-                                                <!--<div formArrayName="locations">-->
-                                                    <!--<div class="uk-margin">-->
-                                                        <!--<label class="uk-form-label" for="locations">Locations: </label>-->
-                                                        <!--<div class="uk-form-controls">-->
-                                                            <!--<select class="uk-select" id="locations">-->
-                                                                <!--<ng-container *ngIf="placesVocabulary">-->
-                                                                    <!--<option *ngFor="let placeEntry of placesVocabulary.entries | values | premiumsort:weights" value="{{placeEntry}}">-->
-                                                                        <!--{{placesVocabulary.entries[placeEntry].name}}-->
-                                                                    <!--</option>-->
-                                                                <!--</ng-container>-->
-                                                            <!--</select>-->
-                                                        <!--</div>-->
-                                                    <!--</div>-->
-                                                <!--</div>-->
-                                                <!--<div class="uk-margin">-->
-                                                    <!--<label class="uk-form-label" for="date">Date: </label>-->
-                                                    <!--<div class="uk-form-controls">-->
-                                                        <!--<input class="uk-input" id="date" type="text">-->
-                                                    <!--</div>-->
-                                                <!--</div>-->
-                                                <!--<div class="uk-margin">-->
-                                                    <!--<label class="uk-form-label" for="value">Value: </label>-->
-                                                    <!--<div class="uk-form-controls">-->
-                                                        <!--<input class="uk-input" id="value" type="text">-->
-                                                    <!--</div>-->
-                                                <!--</div>-->
-                                                <!--<button class="uk-button-default">Submit</button>-->
-                                                <!--&lt;!&ndash;{{newMeasurementForm}}&ndash;&gt;-->
-                                            <!--</form>-->
-                                        <!--</dd>-->
-                                    <!--</ng-container>-->
+                                    <ng-container *ngIf="authenticationService.isLoggedIn() && canEditService">
+                                    <!--<ng-container *ngIf="authenticationService.isLoggedIn()">-->
+                                        <dt class="uk-margin-small-bottom">Add Measurement</dt>
+                                        <dd>
+                                            <form class="uk-form-horizontal" role="form" [formGroup]="newMeasurementForm">
+                                                <div class="uk-margin">
+                                                    <label class="uk-form-label" for="indicatorId">IndicatorId: </label>
+                                                    <div class="uk-form-controls">
+                                                        <select class="uk-select" id="indicatorId" formControlName="indicatorId">
+                                                            <!--<option value="null" selected disabled hidden>Select indicator</option>-->
+                                                            <option *ngFor="let id of idArray">{{id}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div formArrayName="locations">
+                                                    <div class="uk-margin">
+                                                        <label class="uk-form-label" for="locations">Locations: </label>
+                                                        <div class="uk-form-controls">
+                                                            <select class="uk-select" id="locations">
+                                                                <ng-container *ngIf="placesVocabulary">
+                                                                    <option *ngFor="let placeEntry of placesVocabulary.entries | values | premiumsort:weights" value="{{placeEntry}}">
+                                                                        {{placesVocabulary.entries[placeEntry].name}}
+                                                                    </option>
+                                                                </ng-container>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="uk-margin">
+                                                    <label class="uk-form-label" for="date">Date: </label>
+                                                    <div class="uk-form-controls">
+                                                        <input class="uk-input" id="date" type="text">
+                                                    </div>
+                                                </div>
+                                                <div class="uk-margin">
+                                                    <label class="uk-form-label" for="value">Value: </label>
+                                                    <div class="uk-form-controls">
+                                                        <input class="uk-input" id="value" type="text">
+                                                    </div>
+                                                </div>
+                                                <button class="uk-button-default">Submit</button>
+                                                <!--{{newMeasurementForm}}-->
+                                            </form>
+                                        </dd>
+                                    </ng-container>
                                 </dl>
                             </div>
                         </div>
