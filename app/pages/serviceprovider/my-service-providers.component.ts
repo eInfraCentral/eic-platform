@@ -27,38 +27,36 @@ export class MyServiceProvidersComponent implements OnInit {
     }
 
     getServiceProviders() {
-        setTimeout( () => {
-            this.serviceProviderService.getMyServiceProviders().subscribe(
-                res => this.myProviders = res,
-                err => {
-                    console.log(err);
-                    this.errorMessage = 'An error occurred!';
-                    console.log(err);
-                    if (err['status'] === 401) {
-                        this.authenticationService.login();
-                    }
-                },
-                () => {
-                    this.myProviders.forEach (
-                        p => {
-                            if ( (p.status === 'pending service template approval') ||
-                                 (p.status === 'rejected service template')) {
-                                this.serviceProviderService.getPendingServicesOfProvider(p.id).subscribe(
-                                    res => {
-                                        if (res && (res.length > 0) ) {
-                                            this.pendingFirstServicePerProvider.push({ providerId: p.id, serviceId: res[0].id })
-                                        }
-                                    }
-                                );
-                            }
-                        }
-                    );
-                    if (this.myProviders.length === 0) {
-                        this.noProvidersMessage = 'You have not yet registered any service providers.';
-                    }
+        this.serviceProviderService.getMyServiceProviders().subscribe(
+            res => this.myProviders = res,
+            err => {
+                console.log(err);
+                this.errorMessage = 'An error occurred!';
+                console.log(err);
+                if (err['status'] === 401) {
+                    this.authenticationService.login();
                 }
-            );
-        }, 1000);
+            },
+            () => {
+                this.myProviders.forEach (
+                    p => {
+                        if ( (p.status === 'pending service template approval') ||
+                             (p.status === 'rejected service template')) {
+                            this.serviceProviderService.getPendingServicesOfProvider(p.id).subscribe(
+                                res => {
+                                    if (res && (res.length > 0) ) {
+                                        this.pendingFirstServicePerProvider.push({ providerId: p.id, serviceId: res[0].id })
+                                    }
+                                }
+                            );
+                        }
+                    }
+                );
+                if (this.myProviders.length === 0) {
+                    this.noProvidersMessage = 'You have not yet registered any service providers.';
+                }
+            }
+        );
     }
 
     hasCreatedFirstService(id: string) {

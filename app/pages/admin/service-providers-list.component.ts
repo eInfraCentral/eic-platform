@@ -39,7 +39,6 @@ export class ServiceProvidersListComponent implements OnInit {
     }
 
     getProviders(from: number, itemsPerPage: number) {
-        /*setTimeout( () => {*/
         this.providers = [];
         this.resourceService.getProviders(`${from}`, `${itemsPerPage}`).subscribe(
             res => {
@@ -69,7 +68,6 @@ export class ServiceProvidersListComponent implements OnInit {
             }
 
         );
-        /*}, 1000);*/
     }
 
     approveStatusChange(provider: Provider) {
