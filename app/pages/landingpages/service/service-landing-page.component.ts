@@ -2,12 +2,15 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs/Observable";
 import {Subscription} from "rxjs/Subscription";
-import {Measurement, Provider, RichService} from '../../../domain/eic-model';
+import {Provider, RichService, Vocabulary} from '../../../domain/eic-model';
 import {AuthenticationService} from "../../../services/authentication.service";
 import {NavigationService} from "../../../services/navigation.service";
 import {ResourceService} from "../../../services/resource.service";
 import {UserService} from "../../../services/user.service";
 import { ServiceProviderService } from '../../../services/service-provider.service';
+import {IndicatorsPage, MeasurementsPage} from "../../../domain/indicators";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {SearchResults} from "../../../domain/search-results";
 
 @Component({
     selector: "service-landing-page",
@@ -21,15 +24,33 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
     public errorMessage: string;
     public EU: string[];
     public WW: string[];
-    public measurements: Measurement<any>[] = [];
+    public measurements: MeasurementsPage;
+    public indicators: IndicatorsPage;
+    public idArray :string[] = [];
     private sub: Subscription;
 
+    weights: string[] = ["EU", "WW"];
+    places: SearchResults<Vocabulary> = null;
+    placesVocabulary: Vocabulary = null;
     serviceMapOptions: any = null;
     myProviders: Provider[] = [];
     canEditService: boolean = false;
+    newMeasurementForm: FormGroup;
 
-    constructor(public route: ActivatedRoute, public router: NavigationService, public resourceService: ResourceService,
-                public authenticationService: AuthenticationService, public userService: UserService,
+    measurementForm = {
+        indicatorId: ['', Validators.required],
+        serviceId: ['', Validators.required],
+        time: [''],
+        locations: this.fb.array([]),
+        value: ['']
+    };
+
+    constructor(public route: ActivatedRoute,
+                public router: NavigationService,
+                public resourceService: ResourceService,
+                public authenticationService: AuthenticationService,
+                public userService: UserService,
+                private fb: FormBuilder,
                 private providerService: ServiceProviderService) {
     }
 
@@ -51,9 +72,14 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
                     this.WW = suc[1];
                     this.service = suc[2];
                     this.myProviders = suc[3];
-                    this.measurements = suc[5].results;
+                    this.measurements = suc[5];
+                    this.indicators = suc[6];
+                    this.getIndicatorIds();
+                    this.getLocations();
+                    this.router.breadcrumbs = this.service.name;
                     this.router.breadcrumbs = this.service.name;
                     this.setCountriesForService(this.service.places);
+                    this.newMeasurementForm = this.fb.group(this.measurementForm);
 
                     /* check if the current user can edit the service */
                     this.canEditService = this.myProviders.some(p => this.service.providers.some(x => x === p.id));
@@ -78,7 +104,7 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
                     this.EU = suc[0];
                     this.WW = suc[1];
                     this.service = suc[2];
-                    this.measurements = suc[4].results;
+                    this.measurements = suc[4];
                     this.router.breadcrumbs = this.service.name;
                     this.setCountriesForService(this.service.places);
 
@@ -172,7 +198,30 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
         this.errorMessage = "System error loading service (Server responded: " + error + ")";
     }
 
-    isProvider() {
-        return this.authenticationService.getUserProperty('roles').some(x => x === "ROLE_PROVIDER");
+    canEdit() {
+        return this.authenticationService.getUserProperty('roles').some(x => x === "ROLE_PROVIDER" || x === "ROLE_ADMIN");
+    }
+
+    getIndicatorIds() {
+        this.resourceService.getIndicators("all").subscribe(
+          indicatorPage => this.indicators = indicatorPage,
+          error => this.errorMessage = error,
+            () => {
+                this.idArray = [];
+                for (let i = 0; i < this.indicators.results.length; i++) {
+                    this.idArray.push(this.indicators.results[i].id);
+                }
+                this.idArray.sort((a, b) => 0 - (a > b ? -1 : 1));
+            }
+        );
+    }
+
+    getLocations() {
+        this.resourceService.getVocabulariesByType("PLACES").subscribe(
+            suc => {
+                this.places = suc;
+                this.placesVocabulary = this.places.results[0];
+            }
+        );
     }
 }
