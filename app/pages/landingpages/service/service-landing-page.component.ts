@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs/Observable";
 import {Subscription} from "rxjs/Subscription";
@@ -7,9 +7,9 @@ import {AuthenticationService} from "../../../services/authentication.service";
 import {NavigationService} from "../../../services/navigation.service";
 import {ResourceService} from "../../../services/resource.service";
 import {UserService} from "../../../services/user.service";
-import { ServiceProviderService } from '../../../services/service-provider.service';
+import {ServiceProviderService} from '../../../services/service-provider.service';
 import {IndicatorsPage, MeasurementsPage} from "../../../domain/indicators";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {SearchResults} from "../../../domain/search-results";
 
 @Component({
@@ -26,23 +26,26 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
     public WW: string[];
     public measurements: MeasurementsPage;
     public indicators: IndicatorsPage;
-    public idArray :string[] = [];
+    public idArray: string[] = [];
     private sub: Subscription;
 
     weights: string[] = ["EU", "WW"];
-    places: SearchResults<Vocabulary> = null;
-    placesVocabulary: Vocabulary = null;
     serviceMapOptions: any = null;
     myProviders: Provider[] = [];
+
+    formError: string = '';
     canEditService: boolean = false;
+    placesVocabulary: Vocabulary = null;
+    places: SearchResults<Vocabulary> = null;
     newMeasurementForm: FormGroup;
+    locationNameArray: string[] = [];
 
     measurementForm = {
         indicatorId: ['', Validators.required],
         serviceId: ['', Validators.required],
         time: [''],
         locations: this.fb.array([]),
-        value: ['']
+        value: ['', Validators.required]
     };
 
     constructor(public route: ActivatedRoute,
@@ -57,7 +60,7 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.canEditService = false;
 
-        if(this.authenticationService.isLoggedIn()) {
+        if (this.authenticationService.isLoggedIn()) {
             this.sub = this.route.params.subscribe(params => {
                 Observable.zip(
                     this.resourceService.getEU(),
@@ -77,9 +80,9 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
                     this.getIndicatorIds();
                     this.getLocations();
                     this.router.breadcrumbs = this.service.name;
-                    this.router.breadcrumbs = this.service.name;
                     this.setCountriesForService(this.service.places);
                     this.newMeasurementForm = this.fb.group(this.measurementForm);
+                    this.newMeasurementForm.get('serviceId').setValue(params["id"]);
 
                     /* check if the current user can edit the service */
                     this.canEditService = this.myProviders.some(p => this.service.providers.some(x => x === p.id));
@@ -164,9 +167,9 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
 
     addToFavourites() {
         this.userService.addFavourite(this.service.id, !this.service.isFavourite)
-            .flatMap( e => this.resourceService.getSelectedServices([e.service]) )
+            .flatMap(e => this.resourceService.getSelectedServices([e.service]))
             .subscribe(
-            res => {
+                res => {
                     Object.assign(this.service, res[0]);
                     console.log(this.service.isFavourite);
                 },
@@ -176,7 +179,7 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
 
     rateService(rating: number) {
         this.userService.rateService(this.service.id, rating)
-            .flatMap( e => this.resourceService.getSelectedServices([e.service]) )
+            .flatMap(e => this.resourceService.getSelectedServices([e.service]))
             .subscribe(
                 res => {
                     Object.assign(this.service, res[0]);
@@ -198,20 +201,59 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
         this.errorMessage = "System error loading service (Server responded: " + error + ")";
     }
 
-    canEdit() {
-        return this.authenticationService.getUserProperty('roles').some(x => x === "ROLE_PROVIDER" || x === "ROLE_ADMIN");
+    removeLocation(loc: string) {
+        // console.log(loc);
+        let locationKey :string = '';
+        for (let key in this.placesVocabulary.entries) {
+            if (this.placesVocabulary.entries[key].name == loc){
+                locationKey = key;
+                break;
+            }
+        }
+        for (let i = 0; i < this.locations.length; i++) {
+            // console.log(this.locations.value[i]);
+            if (this.locations.value[i] == locationKey) {
+                this.locations.removeAt(i);
+                break;
+            }
+        }
+        for (let i = 0; i < this.locationNameArray.length; i++) {
+            // console.log(this.locations.value[i]);
+            if (this.locationNameArray[i] == loc) {
+                this.locationNameArray.splice(i, 1);
+                break;
+            }
+        }
+    }
+
+    get locations() {
+        return this.newMeasurementForm.get('locations') as FormArray;
+    }
+
+    onLocationSelect(event) {
+        let exist = false;
+        for (let i = 0; i < this.locationNameArray.length; i++) {
+            if (this.locationNameArray[i] == this.placesVocabulary.entries[event.target.value].name)
+                exist = true;
+        }
+        if (event.target.value != 'null' && !exist) {
+            this.locations.push(this.fb.control(event.target.value));
+            this.locationNameArray.push(this.placesVocabulary.entries[event.target.value].name);
+        }
+        event.target.value = null;
     }
 
     getIndicatorIds() {
         this.resourceService.getIndicators("all").subscribe(
-          indicatorPage => this.indicators = indicatorPage,
-          error => this.errorMessage = error,
+            indicatorPage => this.indicators = indicatorPage,
+            error => this.errorMessage = error,
             () => {
                 this.idArray = [];
                 for (let i = 0; i < this.indicators.results.length; i++) {
                     this.idArray.push(this.indicators.results[i].id);
                 }
                 this.idArray.sort((a, b) => 0 - (a > b ? -1 : 1));
+                console.log(this.indicators);
             }
         );
     }
@@ -223,5 +265,51 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
                 this.placesVocabulary = this.places.results[0];
             }
         );
+    }
+
+    submitMeasurement() {
+        this.formError = '';
+        this.newMeasurementForm.updateValueAndValidity();
+        if (this.newMeasurementForm.valid) {
+            if (this.newMeasurementForm.get('time').value == '' && this.locations.length == 0) {
+                this.formError = 'Fields LOCATIONS and DATE cannot be both empty.';
+            } else {
+                if (this.locations.length == 0)
+                    this.newMeasurementForm.get('locations').disable();
+                else
+                    this.newMeasurementForm.get('locations').enable();
+                console.log(this.newMeasurementForm.value);
+                console.log(document.getElementById('locations'));
+                this.resourceService.postMeasurement(this.newMeasurementForm.value)
+                    .subscribe(
+                    res => console.log(res),
+                    err => this.errorMessage = 'Something went wrong',
+                    () => {
+                        this.resourceService.getLatestServiceMeasurement(this.newMeasurementForm.get('serviceId').value).subscribe(
+                            res => this.measurements = res
+                        );
+                        this.newMeasurementForm.get('indicatorId').setValue('');
+                        this.newMeasurementForm.get('indicatorId').reset();
+                        this.newMeasurementForm.get('serviceId').setValue('');
+                        this.newMeasurementForm.get('time').setValue('');
+                        this.newMeasurementForm.get('value').setValue('');
+                        this.newMeasurementForm.get('value').reset();
+                        let size = this.locationNameArray.length;
+                        while (this.locationNameArray.length > 0) {
+                            // console.log(this.locations.value[i]);
+                            this.removeLocation(this.locationNameArray[0]);
+                        }
+                        // window.location.reload();
+                    }
+                );
+                console.log(this.newMeasurementForm.value);
+            }
+        } else {
+            for (const i in this.newMeasurementForm.controls) {
+                this.newMeasurementForm.controls[i].markAsDirty();
+                this.newMeasurementForm.controls[i].updateValueAndValidity();
+            }
+            this.formError = 'Please fill the required fields.';
+        }
     }
 }

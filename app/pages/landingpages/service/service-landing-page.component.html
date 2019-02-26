@@ -128,7 +128,7 @@
                                         <dd *ngFor="let measurement of measurements.results">
                                             <!--Id: {{measurement.id}}<br>-->
                                             IndicatorId: {{measurement.indicatorId}}<br>
-                                            <!--ServiceId: {{measurement.serviceId}}-->
+                                            Date: {{measurement.time | date}}<br>
                                             Locations: {{measurement.locations ?  measurement.locations : '-'}}<br>
                                             Value: {{measurement.value}}
                                         </dd>
@@ -139,51 +139,67 @@
                                              -
                                         </dd>
                                     </ng-container>
-                                    <!--<ng-container *ngIf="authenticationService.isLoggedIn() && canEditService">-->
-                                    <!--&lt;!&ndash;<ng-container *ngIf="authenticationService.isLoggedIn()">&ndash;&gt;-->
-                                        <!--<dt class="uk-margin-small-bottom">Add Measurement</dt>-->
-                                        <!--<dd>-->
-                                            <!--<form class="uk-form-horizontal" role="form" [formGroup]="newMeasurementForm">-->
-                                                <!--<div class="uk-margin">-->
-                                                    <!--<label class="uk-form-label" for="indicatorId">IndicatorId: </label>-->
-                                                    <!--<div class="uk-form-controls">-->
-                                                        <!--<select class="uk-select" id="indicatorId" formControlName="indicatorId">-->
-                                                            <!--&lt;!&ndash;<option value="null" selected disabled hidden>Select indicator</option>&ndash;&gt;-->
-                                                            <!--<option *ngFor="let id of idArray">{{id}}</option>-->
-                                                        <!--</select>-->
-                                                    <!--</div>-->
-                                                <!--</div>-->
-                                                <!--<div formArrayName="locations">-->
-                                                    <!--<div class="uk-margin">-->
-                                                        <!--<label class="uk-form-label" for="locations">Locations: </label>-->
-                                                        <!--<div class="uk-form-controls">-->
-                                                            <!--<select class="uk-select" id="locations">-->
-                                                                <!--<ng-container *ngIf="placesVocabulary">-->
-                                                                    <!--<option *ngFor="let placeEntry of placesVocabulary.entries | values | premiumsort:weights" value="{{placeEntry}}">-->
-                                                                        <!--{{placesVocabulary.entries[placeEntry].name}}-->
-                                                                    <!--</option>-->
-                                                                <!--</ng-container>-->
-                                                            <!--</select>-->
-                                                        <!--</div>-->
-                                                    <!--</div>-->
-                                                <!--</div>-->
-                                                <!--<div class="uk-margin">-->
-                                                    <!--<label class="uk-form-label" for="date">Date: </label>-->
-                                                    <!--<div class="uk-form-controls">-->
-                                                        <!--<input class="uk-input" id="date" type="text">-->
-                                                    <!--</div>-->
-                                                <!--</div>-->
-                                                <!--<div class="uk-margin">-->
-                                                    <!--<label class="uk-form-label" for="value">Value: </label>-->
-                                                    <!--<div class="uk-form-controls">-->
-                                                        <!--<input class="uk-input" id="value" type="text">-->
-                                                    <!--</div>-->
-                                                <!--</div>-->
-                                                <!--<button class="uk-button-default">Submit</button>-->
-                                                <!--&lt;!&ndash;{{newMeasurementForm}}&ndash;&gt;-->
-                                            <!--</form>-->
-                                        <!--</dd>-->
-                                    <!--</ng-container>-->
+                                    <ng-container *ngIf="authenticationService.isLoggedIn() && canEditService">
+                                    <!--<ng-container *ngIf="authenticationService.isLoggedIn()">-->
+                                        <dt class="uk-margin-small-bottom">Add Measurement</dt>
+                                        <div *ngIf="formError" data-uk-alert="" class="uk-alert uk-alert-danger">
+                                            <p>{{formError}}</p>
+                                        </div>
+                                        <dd>
+                                            <form class="uk-form-horizontal" role="form" [formGroup]="newMeasurementForm">
+                                                <div class="uk-margin">
+                                                    <label class="uk-form-label" for="indicatorId">IndicatorId: </label>
+                                                    <div class="uk-form-controls">
+                                                        <select class="uk-select" id="indicatorId" formControlName="indicatorId"
+                                                                [ngClass]="{'uk-form-danger': !newMeasurementForm.get('indicatorId').valid && newMeasurementForm.get('indicatorId').dirty}">
+                                                            <option value="" selected >--select indicator--</option>
+                                                            <option *ngFor="let id of idArray">{{id}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div formArrayName="locations">
+                                                    <div class="uk-margin">
+                                                        <label class="uk-form-label" for="locations">Choose Locations: </label>
+                                                        <div class="uk-form-controls">
+                                                            <select class="uk-select" id="locations" (change)="onLocationSelect($event)">
+                                                                <ng-container *ngIf="placesVocabulary">
+                                                                    <option value="null" selected >--Select location--</option>
+                                                                    <option *ngFor="let placeEntry of placesVocabulary.entries | values | premiumsort:weights" value="{{placeEntry}}">
+                                                                            {{placesVocabulary.entries[placeEntry].name}}
+                                                                    </option>
+                                                                </ng-container>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div *ngIf="locationNameArray.length > 0" class="uk-margin">
+                                                    <label class="uk-form-label">Locations: </label>
+                                                    <!--{{locations.length > 0 ? locations.getRawValue() : []}}-->
+                                                    <div class="uk-form-controls">
+                                                        <div *ngFor="let loc of locationNameArray">
+                                                            {{loc + ' '}}<a (click)="removeLocation(loc)"><i class="fa fa-times text-error"></i></a>
+                                                        </div>
+                                                        <!--<input class="uk-input" id="locationNames" type="text">-->
+                                                    </div>
+                                                </div>
+                                                <div class="uk-margin">
+                                                    <label class="uk-form-label" for="date">Date: </label>
+                                                    <div class="uk-form-controls">
+                                                        <input class="uk-input" id="date" type="date" formControlName="time">
+                                                    </div>
+                                                </div>
+                                                <div class="uk-margin">
+                                                    <label class="uk-form-label" for="value">Value: </label>
+                                                    <div class="uk-form-controls">
+                                                        <input class="uk-input" id="value" type="text" formControlName="value"
+                                                        [ngClass]="{'uk-form-danger': !newMeasurementForm.get('value').valid && newMeasurementForm.get('value').dirty}">
+                                                    </div>
+                                                </div>
+                                                <button class="uk-button-default" (click)="submitMeasurement()">Submit</button>
+                                            </form>
+                                            <!--{{newMeasurementForm.value | json}}-->
+                                        </dd>
+                                    </ng-container>
                                 </dl>
                             </div>
                         </div>

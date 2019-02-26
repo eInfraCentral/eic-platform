@@ -41,11 +41,7 @@ export class TopMenuComponent implements OnInit, OnDestroy {
     }
 
     onSubmit(searchValue: string) {
-        /*let params = Object.assign({},this.activatedRoute.children[0].snapshot.params);
-        params['query'] = searchValue.query;*/
-        // console.log(this.route.snapshot.paramMap);
-        // console.log(window.location.href);
-        
+        searchValue = searchValue.replace(/[;=]/g, '');
         let url = window.location.href;
         let params:String[] = url.split(';');
         if (params.length > 1) {
@@ -55,18 +51,15 @@ export class TopMenuComponent implements OnInit, OnDestroy {
             params[1] = query.join('=');
             params = params.slice(1);
             url = params.join(';');
-            // console.log(params);
-            // console.log(url);
             window.location.href= "/search;" + url;
-        }
-        else
+        } else
             return this.navigationService.search({query: searchValue});
     }
 
     ngOnInit(): void {
-        this.isLoggedIn();
-        this.getUsername();
-        this.getUsersurname();
+        // this.isLoggedIn();
+        // this.getUsername();
+        // this.getUsersurname();
 
         this.navigationService.paramsObservable.subscribe(params => {
 
