@@ -1,4 +1,5 @@
-<div id="tm-main" class="tm-main uk-section uk-section-default" uk-height-viewport="expand: true" style="box-sizing: border-box;">
+<div id="tm-main" class="tm-main uk-section uk-section-default" uk-height-viewport="expand: true"
+     style="box-sizing: border-box;">
     <div class="uk-container uk-container-expand">
         <div class="uk-grid" uk-grid="">
 
@@ -21,7 +22,8 @@
                                     {{service.name || "Not Available"}}
 
                                     <span class="uk-margin-left" *ngIf="canEditService">
-                                        <a (click)="this.router.edit(service.id)" routerLinkActive="active"><i class="fa fa-pencil"></i></a>
+                                        <a (click)="this.router.edit(service.id)" routerLinkActive="active"><i
+                                                class="fa fa-pencil"></i></a>
                                     </span>
                                 </h2>
                                 <div *ngIf="service.tagline && (service.tagline.length>0)" class="tagLine">
@@ -30,9 +32,13 @@
                                 <div>
                                     <star-rating-comp #rating (click)="rateService(rating.rating)"
                                                       [starType]="'svg'" [rating]="service.hasRate" [step]="1"
-                                                      [showHalfStars]="true" [readOnly]=!this.authenticationService.isLoggedIn() [size]="'medium'"
-                                                      [staticColor]="'ok'" title="Rate this service" uk-tooltip="delay: 500" class="uk-inline starRating"
-                                                      labelText="{{service.hasRate}} ({{ service.ratings }})" [labelVisible]="true" [labelPosition]="'right'"
+                                                      [showHalfStars]="true"
+                                                      [readOnly]=!this.authenticationService.isLoggedIn()
+                                                      [size]="'medium'"
+                                                      [staticColor]="'ok'" title="Rate this service"
+                                                      uk-tooltip="delay: 500" class="uk-inline starRating"
+                                                      labelText="{{service.hasRate}} ({{ service.ratings }})"
+                                                      [labelVisible]="true" [labelPosition]="'right'"
                                                       [hoverEnabled]="true">
                                     </star-rating-comp>
                                     <span class="uk-margin-medium-left">
@@ -128,38 +134,48 @@
                                         <dd *ngFor="let measurement of measurements.results">
                                             <!--Id: {{measurement.id}}<br>-->
                                             IndicatorId: {{measurement.indicatorId}}<br>
-                                            <!--ServiceId: {{measurement.serviceId}}-->
-                                            Locations: {{measurement.locations ?  measurement.locations : '-'}}<br>
+                                            Date: {{measurement.time | date}}<br>
+                                            Locations: {{measurement.locations ? measurement.locations : '-'}}<br>
                                             Value: {{measurement.value}}
                                         </dd>
                                     </ng-container>
                                     <ng-container *ngIf="measurements.results.length == 0">
                                         <dt class="uk-margin-small-bottom">Measurements</dt>
                                         <dd>
-                                             -
+                                            -
                                         </dd>
                                     </ng-container>
                                     <ng-container *ngIf="authenticationService.isLoggedIn() && canEditService">
-                                    <!--<ng-container *ngIf="authenticationService.isLoggedIn()">-->
                                         <dt class="uk-margin-small-bottom">Add Measurement</dt>
+                                        <div *ngIf="formError" data-uk-alert="" class="uk-alert uk-alert-danger">
+                                            <p>{{formError}}</p>
+                                        </div>
                                         <dd>
-                                            <form class="uk-form-horizontal" role="form" [formGroup]="newMeasurementForm">
+                                            <form class="uk-form-horizontal" role="form"
+                                                  [formGroup]="newMeasurementForm">
                                                 <div class="uk-margin">
                                                     <label class="uk-form-label" for="indicatorId">IndicatorId: </label>
                                                     <div class="uk-form-controls">
-                                                        <select class="uk-select" id="indicatorId" formControlName="indicatorId">
-                                                            <!--<option value="null" selected disabled hidden>Select indicator</option>-->
+                                                        <select class="uk-select" id="indicatorId"
+                                                                formControlName="indicatorId"
+                                                                [ngClass]="{'uk-form-danger': !newMeasurementForm.get('indicatorId').valid && newMeasurementForm.get('indicatorId').dirty}">
+                                                            <option value="" selected>--select indicator--</option>
                                                             <option *ngFor="let id of idArray">{{id}}</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div formArrayName="locations">
                                                     <div class="uk-margin">
-                                                        <label class="uk-form-label" for="locations">Locations: </label>
+                                                        <label class="uk-form-label" for="locations">Choose
+                                                            Locations: </label>
                                                         <div class="uk-form-controls">
-                                                            <select class="uk-select" id="locations">
+                                                            <select class="uk-select" id="locations"
+                                                                    (change)="onLocationSelect($event)">
                                                                 <ng-container *ngIf="placesVocabulary">
-                                                                    <option *ngFor="let placeEntry of placesVocabulary.entries | values | premiumsort:weights" value="{{placeEntry}}">
+                                                                    <option value="null" selected>--Select location--
+                                                                    </option>
+                                                                    <option *ngFor="let placeEntry of placesVocabulary.entries | values | premiumsort:weights"
+                                                                            value="{{placeEntry}}">
                                                                         {{placesVocabulary.entries[placeEntry].name}}
                                                                     </option>
                                                                 </ng-container>
@@ -167,21 +183,36 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div *ngIf="locationNameArray.length > 0" class="uk-margin">
+                                                    <label class="uk-form-label">Locations: </label>
+                                                    <!--{{locations.length > 0 ? locations.getRawValue() : []}}-->
+                                                    <div class="uk-form-controls">
+                                                        <div *ngFor="let loc of locationNameArray">
+                                                            {{loc + ' '}}<a (click)="removeLocation(loc)"><i
+                                                                class="fa fa-times text-error"></i></a>
+                                                        </div>
+                                                        <!--<input class="uk-input" id="locationNames" type="text">-->
+                                                    </div>
+                                                </div>
                                                 <div class="uk-margin">
                                                     <label class="uk-form-label" for="date">Date: </label>
                                                     <div class="uk-form-controls">
-                                                        <input class="uk-input" id="date" type="text">
+                                                        <input class="uk-input" id="date" type="date"
+                                                               formControlName="time">
                                                     </div>
                                                 </div>
                                                 <div class="uk-margin">
                                                     <label class="uk-form-label" for="value">Value: </label>
                                                     <div class="uk-form-controls">
-                                                        <input class="uk-input" id="value" type="text">
+                                                        <input class="uk-input" id="value" type="text"
+                                                               formControlName="value"
+                                                               [ngClass]="{'uk-form-danger': !newMeasurementForm.get('value').valid && newMeasurementForm.get('value').dirty}">
                                                     </div>
                                                 </div>
-                                                <button class="uk-button-default">Submit</button>
-                                                <!--{{newMeasurementForm}}-->
+                                                <button class="uk-button-default" (click)="submitMeasurement()">Submit
+                                                </button>
                                             </form>
+                                            <!--{{newMeasurementForm.value | json}}-->
                                         </dd>
                                     </ng-container>
                                 </dl>
@@ -228,13 +259,14 @@
                 <div class="tm-sidebar uk-width-1-4@m">
 
                     <div>
-                        <a class="uk-width-1-1 uk-button uk-button-primary" href="{{service.url}}" target="_blank" routerLinkActive="active">
+                        <a class="uk-width-1-1 uk-button uk-button-primary" href="{{service.url}}" target="_blank"
+                           routerLinkActive="active">
                             <!--<a class="uk-width-1-1 uk-button uk-button-primary visitButton" href="{{service.url}}" target="_blank" routerLinkActive="active">-->
                             <strong>Service Homepage</strong>
                         </a>
                         <!--<a *ngIf="service.order" class="uk-width-1-1 uk-button uk-button-primary visitButton uk-margin-top"-->
                         <a *ngIf="service.order" class="uk-width-1-1 uk-button uk-button-primary uk-margin-top"
-                                href="{{service.order}}" routerLinkActive="active" target="_blank">
+                           href="{{service.order}}" routerLinkActive="active" target="_blank">
                             <strong>Service order</strong>
                         </a>
                     </div>
@@ -242,25 +274,29 @@
                     <h4 class="uk-h4 sidebarHeaders uk-margin-large-top">Contractual Info</h4>
                     <div class="uk-card uk-card-body uk-card-custom sideInfo">
                         <!--<div *ngIf="service.request" class="uk-margin-small-bottom">-->
-                            <!--<a class="uk-margin-small-right" target="_blank" href="{{service.request}}">Service order</a>-->
-                            <!--<img src="../../../../assets/images/icons/ic_link_arrow_right.svg">-->
+                        <!--<a class="uk-margin-small-right" target="_blank" href="{{service.request}}">Service order</a>-->
+                        <!--<img src="../../../../assets/images/icons/ic_link_arrow_right.svg">-->
                         <!--</div>-->
                         <div *ngIf="service.price" class="uk-margin-small-bottom">
                             <a class="uk-margin-small-right" target="_blank" href="{{service.price}}">Price</a>
                             <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
                         </div>
                         <div *ngIf="service.serviceLevelAgreement" class="uk-margin-small-bottom">
-                            <a class="uk-margin-small-right" target="_blank" href="{{service.serviceLevelAgreement}}">Service level agreement</a>
+                            <a class="uk-margin-small-right" target="_blank" href="{{service.serviceLevelAgreement}}">Service
+                                level agreement</a>
                             <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
                         </div>
                         <ng-container *ngIf="service.termsOfUse && service.termsOfUse.length > 0">
                             <div *ngIf="service.termsOfUse.length==1" class="uk-margin-small-bottom">
-                                <a class="uk-margin-small-right" target="_blank" href="{{service.termsOfUse[0]}}">Terms of use</a>
+                                <a class="uk-margin-small-right" target="_blank" href="{{service.termsOfUse[0]}}">Terms
+                                    of use</a>
                                 <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
                             </div>
                             <ng-container *ngIf="service.termsOfUse.length>1">
-                                <div *ngFor="let term of service.termsOfUse; let i = index;" class="uk-margin-small-bottom">
-                                    <a class="uk-margin-small-right" target="_blank" href="{{service.termsOfUse[i]}}">Terms of use {{i+1}}</a>
+                                <div *ngFor="let term of service.termsOfUse; let i = index;"
+                                     class="uk-margin-small-bottom">
+                                    <a class="uk-margin-small-right" target="_blank" href="{{service.termsOfUse[i]}}">Terms
+                                        of use {{i + 1}}</a>
                                     <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
                                 </div>
                             </ng-container>
@@ -274,7 +310,8 @@
                             <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
                         </div>
                         <div *ngIf="service.userManual" class="uk-margin-small-bottom">
-                            <a class="uk-margin-small-right" target="_blank" href="{{service.userManual}}">User manual</a>
+                            <a class="uk-margin-small-right" target="_blank" href="{{service.userManual}}">User
+                                manual</a>
                             <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
                         </div>
                         <div *ngIf="service.feedback" class="uk-margin-small-bottom">
@@ -282,11 +319,13 @@
                             <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
                         </div>
                         <div *ngIf="service.trainingInformation" class="uk-margin-small-bottom">
-                            <a class="uk-margin-small-right" target="_blank" href="{{service.trainingInformation}}">Training information</a>
+                            <a class="uk-margin-small-right" target="_blank" href="{{service.trainingInformation}}">Training
+                                information</a>
                             <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
                         </div>
                         <div *ngIf="service.multimediaURL" class="uk-margin-small-bottom">
-                            <a class="uk-margin-small-right" target="_blank" href="{{service.multimediaURL}}">Multimedia</a>
+                            <a class="uk-margin-small-right" target="_blank"
+                               href="{{service.multimediaURL}}">Multimedia</a>
                             <img src="../../../../assets/images/icons/ic_link_arrow_right.svg">
                         </div>
                     </div>
@@ -294,19 +333,19 @@
                     <!--TODO uncomment when we have KPIs-->
                     <!--<h4 class="uk-h4 sidebarHeaders uk-margin-medium-top">Performance Information</h4>-->
                     <!--<div class="uk-card uk-card-body uk-card-custom sideInfo">-->
-                        <!--&lt;!&ndash;<hr class="customDivider">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<div *ngIf="service.reliability" class="uk-margin-small-bottom">&ndash;&gt;-->
-                            <!--&lt;!&ndash;<span class="infoTitle uk-margin-small-right">Reliability</span>&ndash;&gt;-->
-                            <!--&lt;!&ndash;<span class="infoDescription">{{service.reliability}}</span>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<div *ngIf="service.reliability" class="uk-margin-small-bottom">&ndash;&gt;-->
-                            <!--&lt;!&ndash;<span class="infoTitle uk-margin-small-right">Durability</span>&ndash;&gt;-->
-                            <!--&lt;!&ndash;<span class="infoDescription">{{service.reliability}}</span>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<div *ngIf="service.reliability" class="uk-margin-small-bottom">&ndash;&gt;-->
-                            <!--&lt;!&ndash;<span class="infoTitle uk-margin-small-right">Performance</span>&ndash;&gt;-->
-                            <!--&lt;!&ndash;<span class="infoDescription">{{service.reliability}}</span>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<hr class="customDivider">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div *ngIf="service.reliability" class="uk-margin-small-bottom">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<span class="infoTitle uk-margin-small-right">Reliability</span>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<span class="infoDescription">{{service.reliability}}</span>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div *ngIf="service.reliability" class="uk-margin-small-bottom">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<span class="infoTitle uk-margin-small-right">Durability</span>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<span class="infoDescription">{{service.reliability}}</span>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div *ngIf="service.reliability" class="uk-margin-small-bottom">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<span class="infoTitle uk-margin-small-right">Performance</span>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<span class="infoDescription">{{service.reliability}}</span>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
                     <!--</div>-->
 
                     <h4 class="uk-h4 sidebarHeaders uk-margin-medium-top">Version</h4>
@@ -334,48 +373,48 @@
                         </div>
                         <!--TODO uncomment when we have KPIs-->
                         <!--<div *ngIf="service.availability" class="uk-margin-small-bottom">-->
-                            <!--<span class="infoTitle uk-margin-small-right">Measurement</span>-->
-                            <!--<span class="infoDescription">{{service.availability}}</span>-->
+                        <!--<span class="infoTitle uk-margin-small-right">Measurement</span>-->
+                        <!--<span class="infoDescription">{{service.availability}}</span>-->
                         <!--</div>-->
                     </div>
                     <h4 class="uk-h4 sidebarHeaders uk-margin-medium-top">See also</h4>
                     <hr class="customDivider">
                     <!--<dl class="uk-description-list">-->
-                        <ng-container *ngIf="service.requiredServices && (service.requiredServices.length > 0)">
-                            <dt class="infoTitle uk-margin-small-right">Required services</dt>
-                            <!--<dt class="uk-margin-small-bottom">Required services</dt>-->
-                            <dd *ngFor="let requiredService of service.requiredServices">
-                                <a (click)="this.router.service(getPrettyService(requiredService).id)">{{getPrettyService(requiredService).name}}</a>
-                                <!--<ul>-->
-                                <!--<li *ngFor="let requiredService of service.requiredServices">-->
-                                <!--<a (click)="this.router.service(getPrettyService(requiredService).id)">{{getPrettyService(requiredService).name}}</a>-->
-                                <!--</li>-->
-                                <!--</ul>-->
-                            </dd>
-                        </ng-container>
-                        <ng-container *ngIf="!service.requiredServices || service.requiredServices.length == 0">
-                            <dt class="infoTitle uk-margin-small-right">Required services</dt>
-                            <dd>
-                                -
-                            </dd>
-                        </ng-container>
-                        <ng-container *ngIf="service.relatedServices && service.relatedServices.length>0">
-                            <dt class="infoTitle uk-margin-small-right">Related services</dt>
-                            <dd *ngFor="let relatedService of service.relatedServices">
-                                <a (click)="this.router.service(getPrettyService(relatedService).id)">{{getPrettyService(relatedService).name}}</a>
-                                <!--<ul>-->
-                                <!--<li *ngFor="let relatedService of service.relatedServices">-->
-                                <!--<a (click)="this.router.service(getPrettyService(relatedService).id)">{{getPrettyService(relatedService).name}}</a>-->
-                                <!--</li>-->
-                                <!--</ul>-->
-                            </dd>
-                        </ng-container>
-                        <ng-container *ngIf="!service.relatedServices || service.relatedServices.length == 0">
-                            <dt class="infoTitle uk-margin-small-right">Related services</dt>
-                            <dd>
-                                -
-                            </dd>
-                        </ng-container>
+                    <ng-container *ngIf="service.requiredServices && (service.requiredServices.length > 0)">
+                        <dt class="infoTitle uk-margin-small-right">Required services</dt>
+                        <!--<dt class="uk-margin-small-bottom">Required services</dt>-->
+                        <dd *ngFor="let requiredService of service.requiredServices">
+                            <a (click)="this.router.service(getPrettyService(requiredService).id)">{{getPrettyService(requiredService).name}}</a>
+                            <!--<ul>-->
+                            <!--<li *ngFor="let requiredService of service.requiredServices">-->
+                            <!--<a (click)="this.router.service(getPrettyService(requiredService).id)">{{getPrettyService(requiredService).name}}</a>-->
+                            <!--</li>-->
+                            <!--</ul>-->
+                        </dd>
+                    </ng-container>
+                    <ng-container *ngIf="!service.requiredServices || service.requiredServices.length == 0">
+                        <dt class="infoTitle uk-margin-small-right">Required services</dt>
+                        <dd>
+                            -
+                        </dd>
+                    </ng-container>
+                    <ng-container *ngIf="service.relatedServices && service.relatedServices.length>0">
+                        <dt class="infoTitle uk-margin-small-right">Related services</dt>
+                        <dd *ngFor="let relatedService of service.relatedServices">
+                            <a (click)="this.router.service(getPrettyService(relatedService).id)">{{getPrettyService(relatedService).name}}</a>
+                            <!--<ul>-->
+                            <!--<li *ngFor="let relatedService of service.relatedServices">-->
+                            <!--<a (click)="this.router.service(getPrettyService(relatedService).id)">{{getPrettyService(relatedService).name}}</a>-->
+                            <!--</li>-->
+                            <!--</ul>-->
+                        </dd>
+                    </ng-container>
+                    <ng-container *ngIf="!service.relatedServices || service.relatedServices.length == 0">
+                        <dt class="infoTitle uk-margin-small-right">Related services</dt>
+                        <dd>
+                            -
+                        </dd>
+                    </ng-container>
                     <!--</dl>-->
 
                 </div>
