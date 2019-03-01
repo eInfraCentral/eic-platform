@@ -68,6 +68,8 @@ import {ServiceProviderInfoComponent} from "./pages/serviceprovider/service-prov
 import {BecomeAProviderComponent} from "./pages/serviceprovider/become-a-provider.component";
 import {MyFavouritesComponent} from "./pages/user/favourites/my-favourites.component";
 import {DatePipe} from "@angular/common";
+import {FundersDashboardComponent} from "./pages/funders/funders-dashboard.component";
+import {FunderService} from "./services/funder.service";
 
 const eicForms = [
     ProvidersComponent, PlacesComponent, LanguagesComponent, TagsComponent,
@@ -139,6 +141,8 @@ export function highchartsFactory() {
         BecomeAProviderComponent,
         //ADMIN
         ServiceProvidersListComponent,
+        //FUNDERS
+        FundersDashboardComponent,
         //FORMS
         ServiceEditComponent,
         ServiceFormComponent,
@@ -175,7 +179,8 @@ export function highchartsFactory() {
             provide: HighchartsStatic,
             useFactory: highchartsFactory
         },
-        DatePipe
+        DatePipe,
+        FunderService
     ],
     bootstrap: [AppComponent]
 })

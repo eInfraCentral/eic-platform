@@ -1,0 +1,116 @@
+<div class="uk-section-default uk-section uk-section-small uk-padding-remove-bottom" style="min-height: 325px">
+    <div class="uk-container">
+        <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid="">
+            <div class="uk-width-1-1@m uk-first-column">
+
+                <h1 class="uk-h3">
+                    <!--<img class="el-image uk-border-rounded" width="90"-->
+                    <!--src="{{ (provider && provider.logo) ? provider.logo : 'http://fvtelibrary.com/img/user/NoLogo.png' }}"-->
+                    <!--alt="Service Provider Logo">-->
+                    <!--{{provider ? provider.name : providerId }} -->
+                    Funders Dashboard
+                </h1>
+
+                <!-- TOP HELP CONTENT -->
+                <help-content #topHelperContent [position]="'top'"
+                              [ngClass]="topHelperContent.isPresent()?'uk-margin-medium-top uk-margin-medium-bottom':'clear-style'">
+                </help-content>
+
+                <div class="uk-container uk-margin-medium-top uk-margin-medium-bottom">
+                    <div class="uk-grid">
+
+                        <!-- LEFT HELP CONTENT -->
+                        <aside-help-content #leftHelperContent [position]="'left'"
+                                            [ngClass]="leftHelperContent.isPresent()?'tm-sidebar uk-width-1-4@m uk-first-column':'clear-style'">
+                        </aside-help-content>
+
+
+                        <!-- MIDDLE -->
+                        <div class=" uk-width-expand@m">
+
+                            <div *ngIf="errorMessage" class="uk-alert uk-alert-danger">{{errorMessage}}</div>
+
+                            <!--<div class="uk-grid">-->
+                            <!--<div class="uk-width-1-1">-->
+                            <!--<div *ngIf="provider && (provider.status === 'approved')" class="uk-float-right">-->
+                            <!--<button routerLink="/upload" class="uk-button uk-button-secondary">Add new service</button>-->
+                            <!--</div>-->
+                            <!--<div *ngIf="provider && (provider.status === 'pending service template approval')" class="uk-float-right">-->
+                            <!--<button routerLink="{{ '/newServiceProvider/' + providerId + '/addFirstService' }}" class="uk-button uk-button-secondary">Add first service</button>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--</div>-->
+
+                            <div class="uk-grid uk-grid-divider">
+
+                                <div *ngIf="funder"
+                                     class="uk-width-1-5@m uk-first-column uk-margin-remove uk-padding-remove-left">
+
+
+                                    <div *ngFor="let funder of funder.results"
+                                         class="uk-card uk-card-hover service"
+                                         [ngClass]="{'uk-card-default': marckSelection(funder.name)}">
+                                         <!--class="uk-card uk-card-default uk-card-hover uk-card-body service">-->
+                                        <a (click)="getFunder(funder)" class="el-link">
+                                            <div class="uk-margin uk-grid-match uk-child-width-1-1 uk-grid-small uk-grid-divider uk-grid uk-scrollspy-inview uk-animation-slide-top-medium uk-grid-stack">
+                                                <div class="uk-first-column">
+                                                    <div uk-scrollspy-class=""
+                                                         class="el-item uk-panel uk-scrollspy-inview uk-animation-slide-top-medium"
+                                                         style="">
+                                                        <div class="uk-child-width-expand uk-grid-medium uk-flex-middle uk-grid uk-grid-stack"
+                                                             uk-grid="">
+                                                            <div class="uk-width-1-2@m uk-first-column">
+                                                                <img src="{{funder.logo || 'http://fvtelibrary.com/img/user/NoLogo.png'}}"
+                                                                     class="el-image uk-border-rounded"
+                                                                     alt="">
+                                                            </div>
+                                                            <div class="uk-width-1-2@m uk-padding-remove serviceTitle">
+                                                                <h3 class="el-title uk-margin uk-h6 uk-margin-remove-adjacent">
+                                                                    {{funder.name}}
+                                                                </h3>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="uk-width-4-5@m uk-grid">
+
+                                    <div *ngIf="selected">
+                                        <div class="uk-grid uk-margin-bottom">
+                                            <div class="uk-width-1-2@m">
+                                                {{selectedFunder.id}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="!selected">
+                                        <div class="uk-grid uk-margin-bottom">
+                                            Coming soon...
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- RIGHT HELP CONTENT -->
+                            <aside-help-content #rightHelperContent [position]="'right'"
+                                                [ngClass]="rightHelperContent.isPresent()?'tm-sidebar uk-width-1-4@m uk-first-column':'clear-style'">
+                            </aside-help-content>
+
+                        </div>
+                    </div>
+
+
+                    <!-- BOTTOM HELP CONTENT -->
+                    <help-content #bottomHelperContent [position]="'bottom'"
+                                  [ngClass]="bottomHelperContent.isPresent()?'uk-margin-medium-top uk-margin-medium-bottom':'clear-style'">
+                    </help-content>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
