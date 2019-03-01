@@ -19,6 +19,7 @@ import { MyServiceProvidersComponent } from './pages/serviceprovider/my-service-
 import { UpdateServiceProviderComponent } from "./pages/serviceprovider/update-service-provider.component";
 import { ServiceProviderInfoComponent } from "./pages/serviceprovider/service-provider-info.component";
 import {MyFavouritesComponent} from "./pages/user/favourites/my-favourites.component";
+import {FundersDashboardComponent} from "./pages/funders/funders-dashboard.component";
 
 const appRoutes: Routes = [
     {
@@ -147,6 +148,10 @@ const appRoutes: Routes = [
         data: {
             breadcrumb : "Service Providers"
         }
+    },
+    {
+        path: "fundersDashboard",
+        component: FundersDashboardComponent
     }
 ];
 export const appRoutingProviders: any[] = [];
