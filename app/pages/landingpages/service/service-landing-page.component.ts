@@ -260,7 +260,7 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
                     this.idArray.push(this.indicators.results[i].id);
                 }
                 this.idArray.sort((a, b) => 0 - (a > b ? -1 : 1));
-                console.log(this.indicators);
+                // console.log(this.indicators);
             }
         );
     }
