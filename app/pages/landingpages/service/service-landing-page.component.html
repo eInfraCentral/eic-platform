@@ -389,43 +389,6 @@
                     <h4 class="uk-h4 sidebarHeaders uk-margin-medium-top">See also</h4>
                     <hr class="customDivider">
                     <!--<dl class="uk-description-list">-->
-<<<<<<< Updated upstream
-                    <ng-container *ngIf="service.requiredServices && (service.requiredServices.length > 0)">
-                        <dt class="infoTitle uk-margin-small-right">Required services</dt>
-                        <!--<dt class="uk-margin-small-bottom">Required services</dt>-->
-                        <dd *ngFor="let requiredService of service.requiredServices">
-                            <a (click)="this.router.service(getPrettyService(requiredService).id)">{{getPrettyService(requiredService).name}}</a>
-                            <!--<ul>-->
-                            <!--<li *ngFor="let requiredService of service.requiredServices">-->
-                            <!--<a (click)="this.router.service(getPrettyService(requiredService).id)">{{getPrettyService(requiredService).name}}</a>-->
-                            <!--</li>-->
-                            <!--</ul>-->
-                        </dd>
-                    </ng-container>
-                    <ng-container *ngIf="!service.requiredServices || service.requiredServices.length == 0">
-                        <dt class="infoTitle uk-margin-small-right">Required services</dt>
-                        <dd>
-                            -
-                        </dd>
-                    </ng-container>
-                    <ng-container *ngIf="service.relatedServices && service.relatedServices.length>0">
-                        <dt class="infoTitle uk-margin-small-right">Related services</dt>
-                        <dd *ngFor="let relatedService of service.relatedServices">
-                            <a (click)="this.router.service(getPrettyService(relatedService).id)">{{getPrettyService(relatedService).name}}</a>
-                            <!--<ul>-->
-                            <!--<li *ngFor="let relatedService of service.relatedServices">-->
-                            <!--<a (click)="this.router.service(getPrettyService(relatedService).id)">{{getPrettyService(relatedService).name}}</a>-->
-                            <!--</li>-->
-                            <!--</ul>-->
-                        </dd>
-                    </ng-container>
-                    <ng-container *ngIf="!service.relatedServices || service.relatedServices.length == 0">
-                        <dt class="infoTitle uk-margin-small-right">Related services</dt>
-                        <dd>
-                            -
-                        </dd>
-                    </ng-container>
-=======
                         <ng-container *ngIf="service.requiredServices && (service.requiredServices.length > 0)">
                             <dt class="infoTitle uk-margin-small-right">Required services</dt>
                             <!--<dt class="uk-margin-small-bottom">Required services</dt>-->
@@ -461,7 +424,6 @@
                                 None
                             </dd>
                         </ng-container>
->>>>>>> Stashed changes
                     <!--</dl>-->
 
                 </div>
