@@ -130,9 +130,16 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
         if (this.service) {
             let places = this.resourceService.expandRegion(JSON.parse(JSON.stringify(data || [])), this.EU, this.WW);
 
+            let map = 'custom/europe';
+            data.forEach(function(element) {
+                if (element == 'WW')
+                    map = 'custom/world-highres2';
+            });
+
             this.serviceMapOptions = {
                 chart: {
-                    map: 'custom/europe',
+                    map: map,
+                    // map: 'custom/europe',
                     // borderWidth: 1
                 },
                 title: {

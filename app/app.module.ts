@@ -83,6 +83,7 @@ export function highchartsFactory() {
     require('highcharts/modules/heatmap')(hc);
     require('highcharts/modules/map')(hc);
     require('../js/europe.js')(hc);
+    require('../js/world.js')(hc);
     require('highcharts/modules/drilldown')(hc);
     require('highcharts/modules/exporting')(hc);
     require('highcharts/modules/offline-exporting')(hc);
