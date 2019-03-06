@@ -164,8 +164,7 @@
                                                 <div class="uk-margin">
                                                     <label class="uk-form-label" for="indicatorId">Indicator: </label>
                                                     <div class="uk-form-controls">
-                                                        <select class="uk-select" id="indicatorId"
-                                                                formControlName="indicatorId"
+                                                        <select class="uk-select" id="indicatorId" (change)="onIndicatorSelect($event)" formControlName="indicatorId"
                                                                 [ngClass]="{'uk-form-danger': !newMeasurementForm.get('indicatorId').valid && newMeasurementForm.get('indicatorId').dirty}">
                                                             <option value="" selected >--select indicator--</option>
                                                             <!--<option *ngFor="let id of idArray">{{id}}</option>-->
@@ -173,7 +172,7 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div formArrayName="locations">
+                                                <div *ngIf="newMeasurementForm.get('locations').status != 'DISABLED'" formArrayName="locations">
                                                     <div class="uk-margin">
                                                         <label class="uk-form-label" for="locations">Choose
                                                             Locations: </label>
@@ -181,10 +180,8 @@
                                                             <select class="uk-select" id="locations"
                                                                     (change)="onLocationSelect($event)">
                                                                 <ng-container *ngIf="placesVocabulary">
-                                                                    <option value="null" selected>--Select location--
-                                                                    </option>
-                                                                    <option *ngFor="let placeEntry of placesVocabulary.entries | values | premiumsort:weights"
-                                                                            value="{{placeEntry}}">
+                                                                    <option value="null" selected >--Select location--</option>
+                                                                    <option *ngFor="let placeEntry of placesVocabulary.entries | values | premiumsort:weights" value="{{placeEntry}}">
                                                                         {{placesVocabulary.entries[placeEntry].name}}
                                                                     </option>
                                                                 </ng-container>
@@ -203,7 +200,7 @@
                                                         <!--<input class="uk-input" id="locationNames" type="text">-->
                                                     </div>
                                                 </div>
-                                                <div class="uk-margin">
+                                                <div *ngIf="newMeasurementForm.get('time').status != 'DISABLED'" class="uk-margin">
                                                     <label class="uk-form-label" for="date">Date: </label>
                                                     <div class="uk-form-controls">
                                                         <input class="uk-input" id="date" type="date"
@@ -213,8 +210,7 @@
                                                 <div class="uk-margin">
                                                     <label class="uk-form-label" for="value">Value: </label>
                                                     <div class="uk-form-controls">
-                                                        <input class="uk-input" id="value" type="text"
-                                                               formControlName="value"
+                                                        <input class="uk-input" id="value" type="text" formControlName="value"
                                                                [ngClass]="{'uk-form-danger': !newMeasurementForm.get('value').valid && newMeasurementForm.get('value').dirty}">
                                                     </div>
                                                 </div>
@@ -273,8 +269,7 @@
                             <!--<a class="uk-width-1-1 uk-button uk-button-primary visitButton" href="{{service.url}}" target="_blank" routerLinkActive="active">-->
                             <strong>Service Homepage</strong>
                         </a>
-                        <!--<a *ngIf="service.order" class="uk-width-1-1 uk-button uk-button-primary visitButton uk-margin-top"-->
-                        <a *ngIf="service.order" class="uk-width-1-1 uk-button uk-button-primary uk-margin-top"
+                        <a *ngIf="service.order" class="uk-width-1-1 uk-button uk-button-primary visitButton uk-margin-top"
                            href="{{service.order}}" routerLinkActive="active" target="_blank">
                             <strong>Service order</strong>
                         </a>
@@ -389,41 +384,41 @@
                     <h4 class="uk-h4 sidebarHeaders uk-margin-medium-top">See also</h4>
                     <hr class="customDivider">
                     <!--<dl class="uk-description-list">-->
-                        <ng-container *ngIf="service.requiredServices && (service.requiredServices.length > 0)">
-                            <dt class="infoTitle uk-margin-small-right">Required services</dt>
-                            <!--<dt class="uk-margin-small-bottom">Required services</dt>-->
-                            <dd *ngFor="let requiredService of service.requiredServices">
-                                <a (click)="this.router.service(getPrettyService(requiredService).id)">{{getPrettyService(requiredService).name}}</a>
-                                <!--<ul>-->
-                                <!--<li *ngFor="let requiredService of service.requiredServices">-->
-                                <!--<a (click)="this.router.service(getPrettyService(requiredService).id)">{{getPrettyService(requiredService).name}}</a>-->
-                                <!--</li>-->
-                                <!--</ul>-->
-                            </dd>
-                        </ng-container>
-                        <ng-container *ngIf="!service.requiredServices || service.requiredServices.length == 0">
-                            <dt class="infoTitle uk-margin-small-right">Required services</dt>
-                            <dd>
-                                None
-                            </dd>
-                        </ng-container>
-                        <ng-container *ngIf="service.relatedServices && service.relatedServices.length>0">
-                            <dt class="infoTitle uk-margin-small-right">Related services</dt>
-                            <dd *ngFor="let relatedService of service.relatedServices">
-                                <a (click)="this.router.service(getPrettyService(relatedService).id)">{{getPrettyService(relatedService).name}}</a>
-                                <!--<ul>-->
-                                <!--<li *ngFor="let relatedService of service.relatedServices">-->
-                                <!--<a (click)="this.router.service(getPrettyService(relatedService).id)">{{getPrettyService(relatedService).name}}</a>-->
-                                <!--</li>-->
-                                <!--</ul>-->
-                            </dd>
-                        </ng-container>
-                        <ng-container *ngIf="!service.relatedServices || service.relatedServices.length == 0">
-                            <dt class="infoTitle uk-margin-small-right">Related services</dt>
-                            <dd>
-                                None
-                            </dd>
-                        </ng-container>
+                    <ng-container *ngIf="service.requiredServices && (service.requiredServices.length > 0)">
+                        <dt class="infoTitle uk-margin-small-right">Required services</dt>
+                        <!--<dt class="uk-margin-small-bottom">Required services</dt>-->
+                        <dd *ngFor="let requiredService of service.requiredServices">
+                            <a (click)="this.router.service(getPrettyService(requiredService).id)">{{getPrettyService(requiredService).name}}</a>
+                            <!--<ul>-->
+                            <!--<li *ngFor="let requiredService of service.requiredServices">-->
+                            <!--<a (click)="this.router.service(getPrettyService(requiredService).id)">{{getPrettyService(requiredService).name}}</a>-->
+                            <!--</li>-->
+                            <!--</ul>-->
+                        </dd>
+                    </ng-container>
+                    <ng-container *ngIf="!service.requiredServices || service.requiredServices.length == 0">
+                        <dt class="infoTitle uk-margin-small-right">Required services</dt>
+                        <dd>
+                            None
+                        </dd>
+                    </ng-container>
+                    <ng-container *ngIf="service.relatedServices && service.relatedServices.length>0">
+                        <dt class="infoTitle uk-margin-small-right">Related services</dt>
+                        <dd *ngFor="let relatedService of service.relatedServices">
+                            <a (click)="this.router.service(getPrettyService(relatedService).id)">{{getPrettyService(relatedService).name}}</a>
+                            <!--<ul>-->
+                            <!--<li *ngFor="let relatedService of service.relatedServices">-->
+                            <!--<a (click)="this.router.service(getPrettyService(relatedService).id)">{{getPrettyService(relatedService).name}}</a>-->
+                            <!--</li>-->
+                            <!--</ul>-->
+                        </dd>
+                    </ng-container>
+                    <ng-container *ngIf="!service.relatedServices || service.relatedServices.length == 0">
+                        <dt class="infoTitle uk-margin-small-right">Related services</dt>
+                        <dd>
+                            None
+                        </dd>
+                    </ng-container>
                     <!--</dl>-->
 
                 </div>

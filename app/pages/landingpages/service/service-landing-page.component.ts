@@ -82,6 +82,8 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
                     this.router.breadcrumbs = this.service.name;
                     this.setCountriesForService(this.service.places);
                     this.newMeasurementForm = this.fb.group(this.measurementForm);
+                    this.newMeasurementForm.get('locations').disable();
+                    this.newMeasurementForm.get('time').disable();
                     this.newMeasurementForm.get('serviceId').setValue(params["id"]);
 
                     /* check if the current user can edit the service */
@@ -250,6 +252,21 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
         event.target.value = null;
     }
 
+    onIndicatorSelect(event) {
+        if (event.target.value != null) {
+            for (let i=0; i<this.indicators.results.length; i++){
+                if (this.indicators.results[i].id == event.target.value) {
+                    console.log(this.indicators.results[i].dimensions);
+                    for (let j = 0; j < this.indicators.results[i].dimensions.length; j++) {
+                        console.log(this.indicators.results[i].dimensions[j]);
+                        this.newMeasurementForm.get(this.indicators.results[i].dimensions[j]).enable();
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
     getIndicatorIds() {
         this.resourceService.getIndicators("all").subscribe(
             indicatorPage => this.indicators = indicatorPage,
@@ -289,26 +306,26 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
                 console.log(document.getElementById('locations'));
                 this.resourceService.postMeasurement(this.newMeasurementForm.value)
                     .subscribe(
-                    res => console.log(res),
-                    err => this.errorMessage = 'Something went wrong',
-                    () => {
-                        this.resourceService.getLatestServiceMeasurement(this.newMeasurementForm.get('serviceId').value).subscribe(
-                            res => this.measurements = res
-                        );
-                        this.newMeasurementForm.get('indicatorId').setValue('');
-                        this.newMeasurementForm.get('indicatorId').reset();
-                        this.newMeasurementForm.get('serviceId').setValue('');
-                        this.newMeasurementForm.get('time').setValue('');
-                        this.newMeasurementForm.get('value').setValue('');
-                        this.newMeasurementForm.get('value').reset();
-                        let size = this.locationNameArray.length;
-                        while (this.locationNameArray.length > 0) {
-                            // console.log(this.locations.value[i]);
-                            this.removeLocation(this.locationNameArray[0]);
+                        res => console.log(res),
+                        err => this.errorMessage = 'Something went wrong',
+                        () => {
+                            this.resourceService.getLatestServiceMeasurement(this.newMeasurementForm.get('serviceId').value).subscribe(
+                                res => this.measurements = res
+                            );
+                            this.newMeasurementForm.get('indicatorId').setValue('');
+                            this.newMeasurementForm.get('indicatorId').reset();
+                            this.newMeasurementForm.get('serviceId').setValue('');
+                            this.newMeasurementForm.get('time').setValue('');
+                            this.newMeasurementForm.get('value').setValue('');
+                            this.newMeasurementForm.get('value').reset();
+                            // let size = this.locationNameArray.length;
+                            while (this.locationNameArray.length > 0) {
+                                // console.log(this.locations.value[i]);
+                                this.removeLocation(this.locationNameArray[0]);
+                            }
+                            // window.location.reload();
                         }
-                        // window.location.reload();
-                    }
-                );
+                    );
                 console.log(this.newMeasurementForm.value);
             }
         } else {
