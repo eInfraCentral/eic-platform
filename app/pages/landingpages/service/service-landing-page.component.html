@@ -124,25 +124,32 @@
                                 <h2 class="uk-h2">INDICATORS</h2>
                                 <dl class="uk-description-list">
                                     <ng-container *ngIf="measurements.results.length > 0">
-                                        <dt class="uk-margin-small-bottom">Measurements</dt>
-                                        <dd *ngFor="let measurement of measurements.results" class="uk-grid uk-margin-remove-top">
-                                            <!--Id: {{measurement.id}}<br>-->
-                                            <!--IndicatorId: {{measurement.indicatorId}}-->
-                                            <div class="uk-width-1-2@m">
-                                                {{measurement.indicatorId}}: {{measurement.value}}
-                                            </div>
-                                            <div *ngIf="measurement.time" class="uk-width-1-2@m">
-                                                Date: {{measurement.time | date}}
-                                            </div>
-                                            <div *ngIf="!measurement.time" class="uk-width-1-2@m">
-                                                Date: -
-                                            </div>
-                                            <!--Locations: {{measurement.locations ?  measurement.locations : '-'}}<br>-->
-                                            <!--Value: {{measurement.value}}-->
+                                        <dt class="uk-margin-small-bottom">Measurements <a class="uk-float-right" (click)="showAddForm()">
+                                            <i class="fa fa-plus"></i></a>
+                                        </dt>
+                                        <dd class="uk-grid uk-padding uk-padding-remove-bottom uk-padding-remove-top">
+                                            <table *ngIf="indicators" class="uk-table uk-table-small uk-table-justify">
+                                                <thead>
+                                                <tr class="uk-text-center">
+                                                    <th class="uk-padding-remove-top uk-padding-remove-bottom">Indicator Name</th>
+                                                    <th class="uk-padding-remove-top uk-padding-remove-bottom">Value</th>
+                                                    <th class="uk-padding-remove-top uk-padding-remove-bottom">Date</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr *ngFor="let measurement of measurements.results">
+                                                    <td class="uk-padding-remove-bottom">{{measurement.indicatorId}}</td>
+                                                    <td class="uk-padding-remove-bottom">{{measurement.value + setUnit(measurement.indicatorId)}}</td>
+                                                    <td class="uk-padding-remove-bottom" *ngIf="measurement.time">{{measurement.time | date}}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
                                         </dd>
                                     </ng-container>
                                     <ng-container *ngIf="measurements.results.length == 0">
-                                        <dt class="uk-margin-small-bottom">Measurements</dt>
+                                        <dt class="uk-margin-small-bottom">Measurements <a class="uk-float-right" (click)="showAddForm()">
+                                            <i class="fa fa-plus"></i></a>
+                                        </dt>
                                         <dd>
                                             -
                                         </dd>
@@ -158,7 +165,7 @@
                                                 <div class="uk-margin">
                                                     <label class="uk-form-label" for="indicatorId">Indicator: </label>
                                                     <div class="uk-form-controls">
-                                                        <select class="uk-select" id="indicatorId" (change)="onIndicatorSelect($event)" formControlName="indicatorId"
+                                                        <select *ngIf="indicators" class="uk-select" id="indicatorId" (change)="onIndicatorSelect($event)" formControlName="indicatorId"
                                                                 [ngClass]="{'uk-form-danger': !newMeasurementForm.get('indicatorId').valid && newMeasurementForm.get('indicatorId').dirty}">
                                                             <option value="" selected >--select indicator--</option>
                                                             <!--<option *ngFor="let id of idArray">{{id}}</option>-->
@@ -170,7 +177,8 @@
                                                     <div class="uk-margin">
                                                         <label class="uk-form-label" for="locations">Choose Locations: </label>
                                                         <div class="uk-form-controls">
-                                                            <select class="uk-select" id="locations" (change)="onLocationSelect($event)">
+                                                            <select class="uk-select" id="locations" (change)="onLocationSelect($event)"
+                                                                    [ngClass]="{'uk-form-danger': !newMeasurementForm.get('locations').valid && newMeasurementForm.get('locations').dirty}">
                                                                 <ng-container *ngIf="placesVocabulary">
                                                                     <option value="null" selected >--Select location--</option>
                                                                     <option *ngFor="let placeEntry of placesVocabulary.entries | values | premiumsort:weights" value="{{placeEntry}}">
@@ -194,7 +202,8 @@
                                                 <div *ngIf="newMeasurementForm.get('time').status != 'DISABLED'" class="uk-margin">
                                                     <label class="uk-form-label" for="date">Date: </label>
                                                     <div class="uk-form-controls">
-                                                        <input class="uk-input" id="date" type="date" formControlName="time">
+                                                        <input class="uk-input" id="date" type="date" formControlName="time"
+                                                               [ngClass]="{'uk-form-danger': !newMeasurementForm.get('time').valid && newMeasurementForm.get('time').dirty}">
                                                     </div>
                                                 </div>
                                                 <div class="uk-margin">
@@ -204,7 +213,7 @@
                                                                [ngClass]="{'uk-form-danger': !newMeasurementForm.get('value').valid && newMeasurementForm.get('value').dirty}">
                                                     </div>
                                                 </div>
-                                                <button class="uk-button-default" (click)="submitMeasurement()">Submit</button>
+                                                <button class="uk-button uk-button-small uk-button-primary" (click)="submitMeasurement()">Submit</button>
                                             </form>
                                             <!--{{newMeasurementForm.value | json}}-->
                                         </dd>

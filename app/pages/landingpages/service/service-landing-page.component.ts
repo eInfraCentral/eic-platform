@@ -43,8 +43,8 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
     measurementForm = {
         indicatorId: ['', Validators.required],
         serviceId: ['', Validators.required],
-        time: [''],
-        locations: this.fb.array([]),
+        time: ['', Validators.required],
+        locations: this.fb.array([], Validators.required),
         value: ['', Validators.required]
     };
 
@@ -110,6 +110,7 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
                     this.WW = suc[1];
                     this.service = suc[2];
                     this.measurements = suc[4];
+                    this.getIndicatorIds();
                     this.router.breadcrumbs = this.service.name;
                     this.setCountriesForService(this.service.places);
 
@@ -253,6 +254,8 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
     }
 
     onIndicatorSelect(event) {
+        this.newMeasurementForm.get('locations').disable();
+        this.newMeasurementForm.get('time').disable();
         if (event.target.value != null) {
             for (let i=0; i<this.indicators.results.length; i++){
                 if (this.indicators.results[i].id == event.target.value) {
@@ -263,6 +266,16 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
                     }
                     break;
                 }
+            }
+        }
+    }
+
+    setUnit(indicatorName: string) : string {
+        for (let i=0; this.indicators.results.length; i++) {
+            if (this.indicators.results[i].id == indicatorName) {
+                if (this.indicators.results[i].unit == 'percentage')
+                    return '%';
+                else return ''
             }
         }
     }
@@ -313,9 +326,11 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
                                 res => this.measurements = res
                             );
                             this.newMeasurementForm.get('indicatorId').setValue('');
-                            this.newMeasurementForm.get('indicatorId').reset();
+                            this.newMeasurementForm.get('indicatorId').markAsUntouched();
+                            this.newMeasurementForm.get('indicatorId').markAsPristine();
                             this.newMeasurementForm.get('serviceId').setValue('');
-                            this.newMeasurementForm.get('time').setValue('');
+                            this.newMeasurementForm.get('locations').disable();
+                            this.newMeasurementForm.get('time').disable();
                             this.newMeasurementForm.get('value').setValue('');
                             this.newMeasurementForm.get('value').reset();
                             // let size = this.locationNameArray.length;
@@ -323,6 +338,7 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
                                 // console.log(this.locations.value[i]);
                                 this.removeLocation(this.locationNameArray[0]);
                             }
+                            console.log(this.newMeasurementForm.value);
                             // window.location.reload();
                         }
                     );
