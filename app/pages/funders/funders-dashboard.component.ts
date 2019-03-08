@@ -18,10 +18,20 @@ export class FundersDashboardComponent implements OnInit{
     selectedFunder: Funder;
     selection: boolean = false;
 
+    chartStats: any[] = [];
+    generalFunderServiceStats: any = null;
+    funderCategoryChart: any = null;
+    funderTrlChart: any = null;
+    providerChart3: any = null;
+    providerChart4: any = null;
+    providerChart5: any = null;
+    providerChart6: any = null;
+
     constructor(private funderService: FunderService) {}
 
     ngOnInit(): void {
         this.getAllFunders();
+        this.getChartData('all', 'services', 0);
     }
 
     getAllFunders() {
@@ -43,14 +53,95 @@ export class FundersDashboardComponent implements OnInit{
         } else {
             this.selected = true;
             this.selectedFunder = selection;
+            this.getChartData(this.selectedFunder.id, 'category', 1);
+            this.getChartData(this.selectedFunder.id, 'trl', 2);
         }
         // console.log(this.selectedFunder);
     }
 
-    marckSelection(name: string) :boolean {
+    marcSelection(name: string) :boolean {
         if (this.selectedFunder)
             return this.selectedFunder.name == name;
         else return false;
+    }
+
+    // getServiceChartData(funderId: string, field: string) {
+    //     this.funderService.getFunderStats(funderId, field).map(data => {
+    //         return Object.entries(data).map((d) => {
+    //             if (d[1] !== 'NaN') {
+    //                 return {name: d[0], y: d[1]};
+    //             }
+    //         });
+    //     }).subscribe(
+    //         data => {
+    //             console.log(data);
+    //             this.setGeneralStatsForProvider(data);
+    //         }
+    //     );
+    // }
+
+    getChartData(funderId: string, field: string, arrayPosition: number) {
+        this.funderService.getFunderStats(funderId, field).map(data => {
+            return Object.entries(data).map((d) => {
+                if (d[1] !== 'NaN') {
+                    return {name: d[0], y: d[1]};
+                }
+            });
+        }).subscribe(
+            data => {
+                console.log(data);
+                this.setChartStats(data, arrayPosition);
+            }
+        );
+    }
+
+    getDataForProvider() {
+
+    }
+
+    // setGeneralStatsForProvider(data : any) {
+    //     if (data) {
+    //         this.generalFunderServiceStats = {
+    //             chart: {
+    //                 plotBackgroundColor: null,
+    //                 plotBorderWidth: null,
+    //                 plotShadow: false,
+    //                 type: 'pie'
+    //             },
+    //             title:{
+    //                 text:''
+    //             },
+    //             series: [{
+    //                 name: "Number of funded services",
+    //                 data: data
+    //             }]
+    //         };
+    //     }
+    // }
+
+    setChartStats(data: any, position: number) {
+        if (data) {
+            this.chartStats[position] = {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                plotOptions: {
+                    pie: {
+                        size: '80%'
+                    }
+                },
+                title:{
+                    text:''
+                },
+                series: [{
+                    name: "Services' visitation percentage",
+                    data: data
+                }]
+            };
+        }
     }
 
 }

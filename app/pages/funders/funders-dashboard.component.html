@@ -49,7 +49,7 @@
 
                                     <div *ngFor="let funder of funder.results"
                                          class="uk-card uk-card-hover service"
-                                         [ngClass]="{'uk-card-default': marckSelection(funder.name)}">
+                                         [ngClass]="{'uk-card-default': marcSelection(funder.name)}">
                                          <!--class="uk-card uk-card-default uk-card-hover uk-card-body service">-->
                                         <a (click)="getFunder(funder)" class="el-link">
                                             <div class="uk-margin uk-grid-match uk-child-width-1-1 uk-grid-small uk-grid-divider uk-grid uk-scrollspy-inview uk-animation-slide-top-medium uk-grid-stack">
@@ -79,16 +79,28 @@
 
                                 <div class="uk-width-4-5@m uk-grid">
 
-                                    <div *ngIf="selected">
+                                    <div class="uk-width-1-1@m" *ngIf="selected">
+                                        {{selectedFunder.id}}
                                         <div class="uk-grid uk-margin-bottom">
                                             <div class="uk-width-1-2@m">
-                                                {{selectedFunder.id}}
+                                                <div style="width:100%" *ngIf="chartStats[1]">
+                                                    <chart [options]="chartStats[1]"></chart>
+                                                </div>
+                                            </div>
+                                            <div class="uk-width-1-2@m">
+                                                <div style="width:100%" *ngIf="chartStats[2]">
+                                                    <chart [options]="chartStats[2]"></chart>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div *ngIf="!selected">
                                         <div class="uk-grid uk-margin-bottom">
-                                            Coming soon...
+                                            <div class="uk-width-1-2@m">
+                                                <div style="width:100%" *ngIf="chartStats[0]">
+                                                    <chart [options]="chartStats[0]"></chart>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

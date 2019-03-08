@@ -34,6 +34,7 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
     myProviders: Provider[] = [];
 
     formError: string = '';
+    showForm: boolean = false;
     canEditService: boolean = false;
     placesVocabulary: Vocabulary = null;
     places: SearchResults<Vocabulary> = null;
@@ -240,6 +241,10 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
         return this.newMeasurementForm.get('locations') as FormArray;
     }
 
+    showFormFields() {
+        this.showForm =  !this.showForm;
+    }
+
     onLocationSelect(event) {
         let exist = false;
         for (let i = 0; i < this.locationNameArray.length; i++) {
@@ -338,7 +343,7 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
                                 // console.log(this.locations.value[i]);
                                 this.removeLocation(this.locationNameArray[0]);
                             }
-                            console.log(this.newMeasurementForm.value);
+                            this.showFormFields();
                             // window.location.reload();
                         }
                     );
