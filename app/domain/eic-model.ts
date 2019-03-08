@@ -23,6 +23,7 @@ export interface Identifiable {
 
 export class Indicator implements Identifiable {
     id: string;
+    name: string;
     description: string;
     dimensions: string[];
     unit: string;

@@ -44,10 +44,13 @@ export class TopMenuComponent implements OnInit, OnDestroy {
         searchValue = searchValue.replace(/[;=]/g, '');
         let url = window.location.href;
         let params:String[] = url.split(';');
+        // console.log(params);
         if (params.length > 1) {
-            console.log(params.length);
             let query:String[] = params[1].split('=');
-            query[1] = searchValue;
+            // console.log(query);
+            if (query[0] == 'query') {
+                query[1] = searchValue;
+            } else return this.navigationService.search({query: searchValue});
             params[1] = query.join('=');
             params = params.slice(1);
             url = params.join(';');
