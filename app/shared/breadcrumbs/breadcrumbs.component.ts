@@ -50,7 +50,9 @@ export class BreadcrumbsComponent implements OnInit {
         if (params.length > 1) {
             console.log(params.length);
             let query:String[] = params[1].split('=');
-            query[1] = searchValue;
+            if (query[0] == 'query') {
+                query[1] = searchValue;
+            } else return this.navigation.search({query: searchValue});
             params[1] = query.join('=');
             params = params.slice(1);
             url = params.join(';');

@@ -10,7 +10,7 @@ import {Funder} from "../../domain/eic-model";
     styleUrls: ['./funders-dashboard.component.css']
 })
 
-export class FundersDashboardComponent implements OnInit{
+export class FundersDashboardComponent implements OnInit {
 
     errorMessage: string;
     selected: boolean = false;
@@ -27,11 +27,12 @@ export class FundersDashboardComponent implements OnInit{
     providerChart5: any = null;
     providerChart6: any = null;
 
-    constructor(private funderService: FunderService) {}
+    constructor(private funderService: FunderService) {
+    }
 
     ngOnInit(): void {
         this.getAllFunders();
-        this.getChartData('all', 'services', 0);
+        this.getChartData('all');
     }
 
     getAllFunders() {
@@ -53,73 +54,45 @@ export class FundersDashboardComponent implements OnInit{
         } else {
             this.selected = true;
             this.selectedFunder = selection;
-            this.getChartData(this.selectedFunder.id, 'category', 1);
-            this.getChartData(this.selectedFunder.id, 'trl', 2);
+            this.getChartData(this.selectedFunder.id);
+            // this.getChartData(this.selectedFunder.id, 2);
         }
         // console.log(this.selectedFunder);
     }
 
-    marcSelection(name: string) :boolean {
+    marcSelection(name: string): boolean {
         if (this.selectedFunder)
             return this.selectedFunder.name == name;
         else return false;
     }
 
-    // getServiceChartData(funderId: string, field: string) {
-    //     this.funderService.getFunderStats(funderId, field).map(data => {
-    //         return Object.entries(data).map((d) => {
-    //             if (d[1] !== 'NaN') {
-    //                 return {name: d[0], y: d[1]};
-    //             }
-    //         });
-    //     }).subscribe(
-    //         data => {
-    //             console.log(data);
-    //             this.setGeneralStatsForProvider(data);
-    //         }
-    //     );
-    // }
-
-    getChartData(funderId: string, field: string, arrayPosition: number) {
-        this.funderService.getFunderStats(funderId, field).map(data => {
-            return Object.entries(data).map((d) => {
-                if (d[1] !== 'NaN') {
-                    return {name: d[0], y: d[1]};
-                }
+    getChartData(funderId: string) {
+        this.funderService.getFunderStats(funderId).map(data => {
+            return Object.entries(data).map((key) => {
+                Object.entries(key).map((innerKey) => {
+                    if (innerKey[1] !== 'NaN') {
+                        return {name: innerKey[0], y: innerKey[1]};
+                    }
+                });
+                return key;
             });
         }).subscribe(
             data => {
-                console.log(data);
-                this.setChartStats(data, arrayPosition);
+                for (let i = 0; i < data.length; i++) {
+                    let pieChartData: any[] = [];
+                    Object.entries(data[i][1]).forEach(entry => {
+                        pieChartData.push({name: entry[0], y: entry[1]});
+                    });
+                    // console.log(pieChartData);
+                    if (data.length > 1)
+                        this.setChartStats(pieChartData, i + 1, data[i][0]);
+                    else this.setChartStats(pieChartData, i, data[i][0]);
+                }
             }
         );
     }
 
-    getDataForProvider() {
-
-    }
-
-    // setGeneralStatsForProvider(data : any) {
-    //     if (data) {
-    //         this.generalFunderServiceStats = {
-    //             chart: {
-    //                 plotBackgroundColor: null,
-    //                 plotBorderWidth: null,
-    //                 plotShadow: false,
-    //                 type: 'pie'
-    //             },
-    //             title:{
-    //                 text:''
-    //             },
-    //             series: [{
-    //                 name: "Number of funded services",
-    //                 data: data
-    //             }]
-    //         };
-    //     }
-    // }
-
-    setChartStats(data: any, position: number) {
+    setChartStats(data: any, position: number, title: string) {
         if (data) {
             this.chartStats[position] = {
                 chart: {
@@ -130,14 +103,14 @@ export class FundersDashboardComponent implements OnInit{
                 },
                 plotOptions: {
                     pie: {
-                        size: '80%'
+                        size: '75%'
                     }
                 },
-                title:{
-                    text:''
+                title: {
+                    text: title
                 },
                 series: [{
-                    name: "Services' visitation percentage",
+                    name: 'Number of funded services',
                     data: data
                 }]
             };

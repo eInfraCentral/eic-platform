@@ -206,8 +206,8 @@
                                                 <tbody>
                                                 <tr *ngFor="let measurement of measurements.results">
                                                     <td class="uk-padding-remove-bottom">{{measurement.indicatorId}}</td>
-                                                    <td class="uk-padding-remove-bottom">{{(setUnit(measurement.indicatorId) == '%')? (measurement.value*100 + '%'): measurement.value}}</td>
-                                                    <td class="uk-padding-remove-bottom" *ngIf="measurement.time">{{measurement.time | date}}</td>
+                                                    <td class="uk-padding-remove-bottom">{{measurement.value}}</td>
+                                                    <td class="uk-padding-remove-bottom">{{measurement.time ? (measurement.time | date) : '-'}}</td>
                                                 </tr>
                                                 </tbody>
                                             </table>
@@ -216,6 +216,15 @@
                                             -
                                         </dd>
                                     </ng-container>
+                                    <!--<ng-container *ngIf="measurements.results.length == 0">-->
+                                        <!--<dt class="uk-margin-small-bottom">Measurements-->
+                                            <!--<a *ngIf="authenticationService.isLoggedIn() && canEditService" class="uk-float-right" (click)="showFormFields()">-->
+                                                <!--<i class="fa fa-{{showForm? 'minus':'plus'}}"></i></a>-->
+                                        <!--</dt>-->
+                                        <!--<dd>-->
+                                            <!-- - -->
+                                        <!--</dd>-->
+                                    <!--</ng-container>-->
                                 </dl>
                             </div>
                         </div>
