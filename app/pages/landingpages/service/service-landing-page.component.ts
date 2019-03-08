@@ -135,7 +135,7 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
             let places = this.resourceService.expandRegion(JSON.parse(JSON.stringify(data || [])), this.EU, this.WW);
 
             let map = 'custom/europe';
-            data.forEach(function(element) {
+            data.forEach(function (element) {
                 if (element == 'WW')
                     map = 'custom/world-highres2';
             });
@@ -214,9 +214,9 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
 
     removeLocation(loc: string) {
         // console.log(loc);
-        let locationKey :string = '';
+        let locationKey: string = '';
         for (let key in this.placesVocabulary.entries) {
-            if (this.placesVocabulary.entries[key].name == loc){
+            if (this.placesVocabulary.entries[key].name == loc) {
                 locationKey = key;
                 break;
             }
@@ -242,7 +242,7 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
     }
 
     showFormFields() {
-        this.showForm =  !this.showForm;
+        this.showForm = !this.showForm;
     }
 
     onLocationSelect(event) {
@@ -262,11 +262,11 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
         this.newMeasurementForm.get('locations').disable();
         this.newMeasurementForm.get('time').disable();
         if (event.target.value != null) {
-            for (let i=0; i<this.indicators.results.length; i++){
+            for (let i = 0; i < this.indicators.results.length; i++) {
                 if (this.indicators.results[i].id == event.target.value) {
-                    console.log(this.indicators.results[i].dimensions);
+                    // console.log(this.indicators.results[i].dimensions);
                     for (let j = 0; j < this.indicators.results[i].dimensions.length; j++) {
-                        console.log(this.indicators.results[i].dimensions[j]);
+                        // console.log(this.indicators.results[i].dimensions[j]);
                         this.newMeasurementForm.get(this.indicators.results[i].dimensions[j]).enable();
                     }
                     break;
@@ -275,8 +275,8 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
         }
     }
 
-    setUnit(indicatorName: string) : string {
-        for (let i=0; this.indicators.results.length; i++) {
+    setUnit(indicatorName: string): string {
+        for (let i = 0; this.indicators.results.length; i++) {
             if (this.indicators.results[i].id == indicatorName) {
                 if (this.indicators.results[i].unit == 'percentage')
                     return '%';
@@ -313,46 +313,41 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
         this.formError = '';
         this.newMeasurementForm.updateValueAndValidity();
         if (this.newMeasurementForm.valid) {
-            if (this.newMeasurementForm.get('time').value == '' && this.locations.length == 0) {
-                this.formError = 'Fields LOCATIONS and DATE cannot be both empty.';
-            } else {
-                if (this.locations.length == 0)
-                    this.newMeasurementForm.get('locations').disable();
-                else
-                    this.newMeasurementForm.get('locations').enable();
-                console.log(this.newMeasurementForm.value);
-                console.log(document.getElementById('locations'));
-                this.resourceService.postMeasurement(this.newMeasurementForm.value)
-                    .subscribe(
-                        res => console.log(res),
-                        err => this.errorMessage = 'Something went wrong',
-                        () => {
-                            this.resourceService.getLatestServiceMeasurement(this.newMeasurementForm.get('serviceId').value).subscribe(
-                                res => this.measurements = res
-                            );
-                            this.newMeasurementForm.get('indicatorId').setValue('');
-                            this.newMeasurementForm.get('indicatorId').markAsUntouched();
-                            this.newMeasurementForm.get('indicatorId').markAsPristine();
-                            this.newMeasurementForm.get('serviceId').setValue('');
-                            this.newMeasurementForm.get('locations').disable();
-                            this.newMeasurementForm.get('time').disable();
-                            this.newMeasurementForm.get('value').setValue('');
-                            this.newMeasurementForm.get('value').reset();
-                            // let size = this.locationNameArray.length;
-                            while (this.locationNameArray.length > 0) {
-                                // console.log(this.locations.value[i]);
-                                this.removeLocation(this.locationNameArray[0]);
-                            }
-                            this.showFormFields();
-                            // window.location.reload();
+            if (this.locations.length == 0)
+                this.newMeasurementForm.get('locations').disable();
+            else
+                this.newMeasurementForm.get('locations').enable();
+            // console.log(this.newMeasurementForm.value);
+            // console.log(document.getElementById('locations'));
+            this.resourceService.postMeasurement(this.newMeasurementForm.value)
+                .subscribe(
+                    res => {
+                    },
+                    err => this.errorMessage = 'Something went wrong',
+                    () => {
+                        this.resourceService.getLatestServiceMeasurement(this.newMeasurementForm.get('serviceId').value).subscribe(
+                            res => this.measurements = res
+                        );
+                        this.newMeasurementForm.get('indicatorId').setValue('');
+                        this.newMeasurementForm.get('indicatorId').markAsUntouched();
+                        this.newMeasurementForm.get('indicatorId').markAsPristine();
+                        this.newMeasurementForm.get('locations').disable();
+                        this.newMeasurementForm.get('time').disable();
+                        this.newMeasurementForm.get('value').setValue('');
+                        this.newMeasurementForm.get('value').reset();
+                        while (this.locationNameArray.length > 0) {
+                            // console.log(this.locations.value[i]);
+                            this.removeLocation(this.locationNameArray[0]);
                         }
-                    );
-                console.log(this.newMeasurementForm.value);
-            }
+                        this.showFormFields();
+                    }
+                );
+            // console.log(this.newMeasurementForm.value);
         } else {
             for (const i in this.newMeasurementForm.controls) {
                 this.newMeasurementForm.controls[i].markAsDirty();
                 this.newMeasurementForm.controls[i].updateValueAndValidity();
+                // console.log(this.newMeasurementForm.controls[i].status);
             }
             this.formError = 'Please fill the required fields.';
         }

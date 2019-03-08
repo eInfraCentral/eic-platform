@@ -123,7 +123,7 @@
                             <div class="uk-card uk-card-body uk-card-basic-info">
                                 <h2 class="uk-h2">INDICATORS</h2>
                                 <dl class="uk-description-list">
-                                    <ng-container *ngIf="measurements.results.length > 0">
+                                    <ng-container *ngIf="measurements.results">
                                         <dt class="uk-margin-small-bottom">Measurements
                                             <a *ngIf="authenticationService.isLoggedIn() && canEditService" class="uk-float-right" (click)="showFormFields()">
                                                 <i class="fa fa-{{showForm? 'minus':'plus'}}"></i></a>
@@ -185,10 +185,10 @@
                                                     </div>
                                                     <button class="uk-button uk-button-small uk-button-primary" (click)="submitMeasurement()">Submit</button>
                                                 </form>
-                                                {{newMeasurementForm.value | json}}
+                                                <!--{{newMeasurementForm.value | json}}-->
                                             </dd>
                                         </ng-container>
-                                        <dd class="uk-grid uk-padding uk-padding-remove-bottom uk-padding-remove-top">
+                                        <dd *ngIf="measurements.results.length > 0" class="uk-grid uk-padding uk-padding-remove-bottom uk-padding-remove-top">
                                             <table *ngIf="indicators" class="uk-table uk-table-small uk-table-justify">
                                                 <thead>
                                                 <tr class="uk-text-center">
@@ -200,22 +200,25 @@
                                                 <tbody>
                                                 <tr *ngFor="let measurement of measurements.results">
                                                     <td class="uk-padding-remove-bottom">{{measurement.indicatorId}}</td>
-                                                    <td class="uk-padding-remove-bottom">{{(setUnit(measurement.indicatorId) == '%')? (measurement.value*100 + '%'): measurement.value}}</td>
-                                                    <td class="uk-padding-remove-bottom" *ngIf="measurement.time">{{measurement.time | date}}</td>
+                                                    <td class="uk-padding-remove-bottom">{{measurement.value}}</td>
+                                                    <td class="uk-padding-remove-bottom">{{measurement.time ? (measurement.time | date) : '-'}}</td>
                                                 </tr>
                                                 </tbody>
                                             </table>
                                         </dd>
-                                    </ng-container>
-                                    <ng-container *ngIf="measurements.results.length == 0">
-                                        <dt class="uk-margin-small-bottom">Measurements
-                                            <a *ngIf="authenticationService.isLoggedIn() && canEditService" class="uk-float-right" (click)="showFormFields()">
-                                                <i class="fa fa-{{showForm? 'minus':'plus'}}"></i></a>
-                                        </dt>
-                                        <dd>
+                                        <dd *ngIf="measurements.results.length == 0">
                                             -
                                         </dd>
                                     </ng-container>
+                                    <!--<ng-container *ngIf="measurements.results.length == 0">-->
+                                        <!--<dt class="uk-margin-small-bottom">Measurements-->
+                                            <!--<a *ngIf="authenticationService.isLoggedIn() && canEditService" class="uk-float-right" (click)="showFormFields()">-->
+                                                <!--<i class="fa fa-{{showForm? 'minus':'plus'}}"></i></a>-->
+                                        <!--</dt>-->
+                                        <!--<dd>-->
+                                            <!-- - -->
+                                        <!--</dd>-->
+                                    <!--</ng-container>-->
                                 </dl>
                             </div>
                         </div>
