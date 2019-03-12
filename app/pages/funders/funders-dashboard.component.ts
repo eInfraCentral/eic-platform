@@ -19,13 +19,6 @@ export class FundersDashboardComponent implements OnInit {
     selection: boolean = false;
 
     chartStats: any[] = [];
-    generalFunderServiceStats: any = null;
-    funderCategoryChart: any = null;
-    funderTrlChart: any = null;
-    providerChart3: any = null;
-    providerChart4: any = null;
-    providerChart5: any = null;
-    providerChart6: any = null;
 
     constructor(private funderService: FunderService) {
     }
@@ -46,15 +39,19 @@ export class FundersDashboardComponent implements OnInit {
         );
     }
 
-    getFunder(selection: Funder) {
+    getFunder(selection?: Funder) {
         // console.log(selection);
-        if (selection == this.selectedFunder) {
-            this.selected = false;
-            this.selectedFunder = null;
+        this.chartStats = [];
+        if (selection) {
+            // this.selected = true;
+            // this.selectedFunder = selection;
+            this.getChartData(selection.id);
+            // console.log('its a funder!')
+            // this.selected = false;
+            // this.selectedFunder = null;
         } else {
-            this.selected = true;
-            this.selectedFunder = selection;
-            this.getChartData(this.selectedFunder.id);
+            // console.log('General stats');
+            this.getChartData('all');
             // this.getChartData(this.selectedFunder.id, 2);
         }
         // console.log(this.selectedFunder);
@@ -84,9 +81,10 @@ export class FundersDashboardComponent implements OnInit {
                         pieChartData.push({name: entry[0], y: entry[1]});
                     });
                     // console.log(pieChartData);
-                    if (data.length > 1)
-                        this.setChartStats(pieChartData, i + 1, data[i][0]);
-                    else this.setChartStats(pieChartData, i, data[i][0]);
+                    // if (data.length > 1)
+                    //     this.setChartStats(pieChartData, i + 1, data[i][0]);
+                    // else
+                        this.setChartStats(pieChartData, i, data[i][0]);
                 }
             }
         );
