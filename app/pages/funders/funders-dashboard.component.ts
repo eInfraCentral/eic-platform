@@ -13,10 +13,8 @@ import {Funder} from "../../domain/eic-model";
 export class FundersDashboardComponent implements OnInit {
 
     errorMessage: string;
-    selected: boolean = false;
     funder: FundersPage;
     selectedFunder: Funder;
-    selection: boolean = false;
 
     chartStats: any[] = [];
 
@@ -40,24 +38,17 @@ export class FundersDashboardComponent implements OnInit {
     }
 
     getFunder(selection?: Funder) {
-        // console.log(selection);
         this.chartStats = [];
         if (selection) {
-            // this.selected = true;
-            // this.selectedFunder = selection;
+            this.selectedFunder = selection;
             this.getChartData(selection.id);
-            // console.log('its a funder!')
-            // this.selected = false;
-            // this.selectedFunder = null;
         } else {
-            // console.log('General stats');
+            this.selectedFunder = null;
             this.getChartData('all');
-            // this.getChartData(this.selectedFunder.id, 2);
         }
-        // console.log(this.selectedFunder);
     }
 
-    marcSelection(name: string): boolean {
+    marcSelection(name: string) {
         if (this.selectedFunder)
             return this.selectedFunder.name == name;
         else return false;
@@ -80,11 +71,7 @@ export class FundersDashboardComponent implements OnInit {
                     Object.entries(data[i][1]).forEach(entry => {
                         pieChartData.push({name: entry[0], y: entry[1]});
                     });
-                    // console.log(pieChartData);
-                    // if (data.length > 1)
-                    //     this.setChartStats(pieChartData, i + 1, data[i][0]);
-                    // else
-                        this.setChartStats(pieChartData, i, data[i][0]);
+                    this.setChartStats(pieChartData, i, data[i][0]);
                 }
             }
         );
@@ -108,7 +95,7 @@ export class FundersDashboardComponent implements OnInit {
                     text: title
                 },
                 series: [{
-                    name: 'Number of funded services',
+                    name: title + ' of funded services',
                     data: data
                 }]
             };
