@@ -151,7 +151,10 @@ const appRoutes: Routes = [
     },
     {
         path: "fundersDashboard",
-        component: FundersDashboardComponent
+        component: FundersDashboardComponent,
+        data: {
+            breadcrumb : "Funders Dashboard"
+        }
     }
 ];
 export const appRoutingProviders: any[] = [];
