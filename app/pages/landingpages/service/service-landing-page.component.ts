@@ -12,6 +12,8 @@ import {IndicatorsPage, MeasurementsPage} from "../../../domain/indicators";
 import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {SearchResults} from "../../../domain/search-results";
 
+declare var UIkit: any;
+
 @Component({
     selector: "service-landing-page",
     templateUrl: "./service-landing-page.component.html",
@@ -285,6 +287,13 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
         }
     }
 
+    getIndicatorName(id: string) :string {
+        for (let i = 0; i < this.indicators.results.length; i++) {
+            if (this.indicators.results[i].id == id)
+                return this.indicators.results[i].name;
+        }
+    }
+
     getIndicatorIds() {
         this.resourceService.getIndicators("all").subscribe(
             indicatorPage => this.indicators = indicatorPage,
@@ -340,6 +349,7 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
                             this.removeLocation(this.locationNameArray[0]);
                         }
                         this.showFormFields();
+                        UIkit.modal('#add-measurement').hide();
                     }
                 );
             // console.log(this.newMeasurementForm.value);
