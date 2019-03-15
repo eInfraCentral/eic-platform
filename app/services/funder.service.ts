@@ -16,6 +16,6 @@ export class FunderService {
     }
 
     getFunderStats(funderId: string) {
-        return this.http.get(`/funder/funderServices/${funderId}`);
+        return this.http.get(`/funder/funderStats/${funderId}`);
     }
 }
