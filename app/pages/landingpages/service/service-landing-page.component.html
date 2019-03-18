@@ -168,7 +168,7 @@
                                             <p>{{formError}}</p>
                                         </div>
                                         <dd>
-                                            <form class="uk-form-horizontal uk-margin-small-bottom" role="form" [formGroup]="newMeasurementForm">
+                                            <form *ngIf="authenticationService.isLoggedIn() && canEditService" class="uk-form-horizontal uk-margin-small-bottom" role="form" [formGroup]="newMeasurementForm">
                                                 <div class="uk-margin">
                                                     <label class="uk-form-label" for="indicatorId">Indicator name: </label>
                                                     <div class="uk-form-controls">
@@ -222,7 +222,7 @@
                                         </dd>
                                     </ng-container>
                                     <p class="uk-text-right">
-                                        <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+                                        <button class="uk-button uk-button-primary uk-modal-close" type="button">Cancel</button>
                                         <button class="uk-button uk-button-primary" type="button" (click)="submitMeasurement()">Submit</button>
                                     </p>
                                 </div>
