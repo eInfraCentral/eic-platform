@@ -41,13 +41,14 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
     placesVocabulary: Vocabulary = null;
     places: SearchResults<Vocabulary> = null;
     newMeasurementForm: FormGroup;
-    locationNameArray: string[] = [];
 
     measurementForm = {
         indicatorId: ['', Validators.required],
         serviceId: ['', Validators.required],
         time: ['', Validators.required],
-        locations: this.fb.array([], Validators.required),
+        locations: this.fb.array([
+            this.fb.control('')
+        ], Validators.required),
         value: ['', Validators.required]
     };
 
@@ -214,50 +215,20 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
         this.errorMessage = "System error loading service (Server responded: " + error + ")";
     }
 
-    removeLocation(loc: string) {
-        // console.log(loc);
-        let locationKey: string = '';
-        for (let key in this.placesVocabulary.entries) {
-            if (this.placesVocabulary.entries[key].name == loc) {
-                locationKey = key;
-                break;
-            }
-        }
-        for (let i = 0; i < this.locations.length; i++) {
-            // console.log(this.locations.value[i]);
-            if (this.locations.value[i] == locationKey) {
-                this.locations.removeAt(i);
-                break;
-            }
-        }
-        for (let i = 0; i < this.locationNameArray.length; i++) {
-            // console.log(this.locations.value[i]);
-            if (this.locationNameArray[i] == loc) {
-                this.locationNameArray.splice(i, 1);
-                break;
-            }
-        }
-    }
-
     get locations() {
         return this.newMeasurementForm.get('locations') as FormArray;
     }
 
-    showFormFields() {
-        this.showForm = !this.showForm;
+    pushToLocations() {
+        this.locations.push(this.fb.control(''));
     }
 
-    onLocationSelect(event) {
-        let exist = false;
-        for (let i = 0; i < this.locationNameArray.length; i++) {
-            if (this.locationNameArray[i] == this.placesVocabulary.entries[event.target.value].name)
-                exist = true;
-        }
-        if (event.target.value != 'null' && !exist) {
-            this.locations.push(this.fb.control(event.target.value));
-            this.locationNameArray.push(this.placesVocabulary.entries[event.target.value].name);
-        }
-        event.target.value = null;
+    removeFromLocations(i: number) {
+        this.locations.removeAt(i);
+    }
+
+    showFormFields() {
+        this.showForm = !this.showForm;
     }
 
     onIndicatorSelect(event) {
@@ -273,16 +244,6 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
                     }
                     break;
                 }
-            }
-        }
-    }
-
-    setUnit(indicatorName: string): string {
-        for (let i = 0; this.indicators.results.length; i++) {
-            if (this.indicators.results[i].id == indicatorName) {
-                if (this.indicators.results[i].unit == 'percentage')
-                    return '%';
-                else return ''
             }
         }
     }
@@ -327,7 +288,6 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
             else
                 this.newMeasurementForm.get('locations').enable();
             // console.log(this.newMeasurementForm.value);
-            // console.log(document.getElementById('locations'));
             this.resourceService.postMeasurement(this.newMeasurementForm.value)
                 .subscribe(
                     res => {
@@ -344,10 +304,10 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
                         this.newMeasurementForm.get('time').disable();
                         this.newMeasurementForm.get('value').setValue('');
                         this.newMeasurementForm.get('value').reset();
-                        while (this.locationNameArray.length > 0) {
-                            // console.log(this.locations.value[i]);
-                            this.removeLocation(this.locationNameArray[0]);
+                        while (this.locations.length > 0) {
+                            this.removeFromLocations(0);
                         }
+                        this.pushToLocations();
                         this.showFormFields();
                         UIkit.modal('#add-measurement').hide();
                     }

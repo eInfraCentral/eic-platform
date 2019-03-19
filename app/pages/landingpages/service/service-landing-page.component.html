@@ -124,11 +124,10 @@
                                 <h2 class="uk-h2">INDICATORS</h2>
                                 <dl class="uk-description-list">
                                     <ng-container *ngIf="measurements.results">
-                                        <dt>Measurements</dt>
-                                        <div class="uk-text-right">
-                                            <a href="#add-measurement" uk-toggle *ngIf="authenticationService.isLoggedIn() && canEditService" style="font-size: 12px">
+                                        <dt class="uk-margin-small-bottom">Measurements
+                                            <a class="uk-float-right" href="#add-measurement" uk-toggle *ngIf="authenticationService.isLoggedIn() && canEditService" style="font-size: 11px">
                                             <i class="fa fa-plus"></i> Add new measurement</a>
-                                        </div>
+                                        </dt>
                                         <dd *ngIf="measurements.results.length > 0" class="uk-grid uk-padding uk-padding-remove-bottom uk-padding-remove-top uk-padding-remove-right">
                                             <table *ngIf="indicators" class="uk-table uk-table-small uk-table-justify">
                                                 <thead>
@@ -157,7 +156,7 @@
                             <div id="add-measurement" uk-modal="bg-close: false">
                                 <div class="uk-modal-dialog uk-modal-body">
                                     <ng-container>
-                                        <dt class="uk-margin-remove">New Measurement</dt>
+                                        <dt class="uk-margin-bottom">New Measurement</dt>
                                         <div *ngIf="formError" data-uk-alert="" class="uk-alert uk-alert-danger">
                                             <p>{{formError}}</p>
                                         </div>
@@ -175,26 +174,23 @@
                                                 </div>
                                                 <div *ngIf="newMeasurementForm.get('locations').status != 'DISABLED'" formArrayName="locations">
                                                     <div class="uk-margin">
-                                                        <label class="uk-form-label" for="locations">Choose Locations: </label>
-                                                        <div class="uk-form-controls">
-                                                            <select class="uk-select" id="locations" (change)="onLocationSelect($event)"
+                                                        <label class="uk-form-label" >Choose Locations: </label>
+                                                        <div *ngFor="let location of locations.controls; let i=index" class="uk-form-controls">
+                                                            <select class="uk-select uk-width-5-6@m" [formControlName]="i"
                                                                     [ngClass]="{'uk-form-danger': !newMeasurementForm.get('locations').valid && newMeasurementForm.get('locations').dirty}">
                                                                 <ng-container *ngIf="placesVocabulary">
-                                                                    <option value="null" selected >--Select location--</option>
                                                                     <option *ngFor="let placeEntry of placesVocabulary.entries | values | premiumsort:weights" value="{{placeEntry}}">
                                                                         {{placesVocabulary.entries[placeEntry].name}}
                                                                     </option>
                                                                 </ng-container>
                                                             </select>
+                                                            <a *ngIf="locations.length > 1" class="uk-padding-small" (click)="removeFromLocations(i)">
+                                                                <i class="fa fa-times" aria-hidden="true"></i>
+                                                            </a>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div *ngIf="locationNameArray.length > 0" class="uk-margin">
-                                                    <label class="uk-form-label">Locations: </label>
-                                                    <div class="uk-form-controls">
-                                                        <div *ngFor="let loc of locationNameArray">
-                                                            {{loc + ' '}}<a (click)="removeLocation(loc)"><i class="fa fa-times text-error"></i></a>
-                                                        </div>
+                                                        <a class="" (click)="pushToLocations()">
+                                                            <i class="fa fa-plus" aria-hidden="true"></i> Add location
+                                                        </a>
                                                     </div>
                                                 </div>
                                                 <div *ngIf="newMeasurementForm.get('time').status != 'DISABLED'" class="uk-margin">
