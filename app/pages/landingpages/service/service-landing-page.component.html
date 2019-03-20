@@ -125,7 +125,7 @@
                                 <dl class="uk-description-list">
                                     <ng-container *ngIf="measurements.results">
                                         <dt class="uk-margin-small-bottom">Measurements
-                                            <a class="uk-float-right" href="#add-measurement" uk-toggle *ngIf="authenticationService.isLoggedIn() && canEditService" style="font-size: 11px">
+                                            <a class="uk-float-right" href="#add-measurement" uk-toggle *ngIf="authenticationService.isLoggedIn() && canEditService" style="font-size: 11px; text-transform: none">
                                             <i class="fa fa-plus"></i> Add new measurement</a>
                                         </dt>
                                         <dd *ngIf="measurements.results.length > 0" class="uk-grid uk-padding uk-padding-remove-bottom uk-padding-remove-top uk-padding-remove-right">
@@ -188,9 +188,11 @@
                                                                 <i class="fa fa-times" aria-hidden="true"></i>
                                                             </a>
                                                         </div>
-                                                        <a class="" (click)="pushToLocations()">
-                                                            <i class="fa fa-plus" aria-hidden="true"></i> Add location
-                                                        </a>
+                                                        <div class="uk-text-center">
+                                                            <a class="" (click)="pushToLocations()" style="font-weight: unset">
+                                                                <i class="fa fa-plus" aria-hidden="true"></i> Add location
+                                                            </a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div *ngIf="newMeasurementForm.get('time').status != 'DISABLED'" class="uk-margin">
