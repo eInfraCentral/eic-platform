@@ -37,6 +37,7 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
 
     formError: string = '';
     showForm: boolean = false;
+    rangeValue: boolean = false;
     canEditService: boolean = false;
     placesVocabulary: Vocabulary = null;
     places: SearchResults<Vocabulary> = null;
@@ -49,7 +50,12 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
         locations: this.fb.array([
             this.fb.control('')
         ], Validators.required),
-        value: ['', Validators.required]
+        valueIsRange: ['false', Validators.required],
+        value: ['', Validators.required],
+        rangeValue: this.fb.group({
+            fromValue: ['', Validators.required],
+            toValue: ['', Validators.required]
+        })
     };
 
     constructor(public route: ActivatedRoute,
@@ -72,15 +78,15 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
                     // this.resourceService.getSelectedServices([params["id"]]),
                     this.resourceService.getRichService(params["id"]),
                     this.providerService.getMyServiceProviders(),
-                    this.resourceService.recordEvent(params["id"], "INTERNAL"),
                     this.resourceService.getLatestServiceMeasurement(params["id"])
+                    // this.resourceService.recordEvent(params["id"], "INTERNAL"),
                 ).subscribe(suc => {
                     this.EU = suc[0];
                     this.WW = suc[1];
                     this.service = suc[2];
                     this.myProviders = suc[3];
-                    this.measurements = suc[5];
-                    this.indicators = suc[6];
+                    this.measurements = suc[4];
+                    this.indicators = suc[5];
                     this.getIndicatorIds();
                     this.getLocations();
                     this.router.breadcrumbs = this.service.name;
@@ -88,6 +94,7 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
                     this.newMeasurementForm = this.fb.group(this.measurementForm);
                     this.newMeasurementForm.get('locations').disable();
                     this.newMeasurementForm.get('time').disable();
+                    this.newMeasurementForm.get('rangeValue').disable();
                     this.newMeasurementForm.get('serviceId').setValue(params["id"]);
 
                     /* check if the current user can edit the service */
@@ -107,13 +114,13 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
                     this.resourceService.getEU(),
                     this.resourceService.getWW(),
                     this.resourceService.getRichService(params["id"]),
-                    this.resourceService.recordEvent(params["id"], "INTERNAL"),
                     this.resourceService.getLatestServiceMeasurement(params["id"])
+                    // this.resourceService.recordEvent(params["id"], "INTERNAL"),
                 ).subscribe(suc => {
                     this.EU = suc[0];
                     this.WW = suc[1];
                     this.service = suc[2];
-                    this.measurements = suc[4];
+                    this.measurements = suc[3];
                     this.getIndicatorIds();
                     this.router.breadcrumbs = this.service.name;
                     this.setCountriesForService(this.service.places);
@@ -248,6 +255,16 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
         }
     }
 
+    setUnit(indicatorId: string): string {
+        for (let i = 0; this.indicators.results.length; i++) {
+            if (this.indicators.results[i].id == indicatorId) {
+                if (this.indicators.results[i].unit == 'percentage')
+                    return '%';
+                else return ''
+            }
+        }
+    }
+
     getIndicatorName(id: string) :string {
         for (let i = 0; i < this.indicators.results.length; i++) {
             if (this.indicators.results[i].id == id)
@@ -279,19 +296,33 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
         );
     }
 
+    handleChange(event) {
+        console.log(event.target.value);
+        if (event.target.value == 'single') {
+            this.newMeasurementForm.get('rangeValue').disable();
+            this.newMeasurementForm.get('value').enable();
+            this.rangeValue = false;
+            this.newMeasurementForm.get('valueIsRange').setValue('false');
+        } else {
+            this.newMeasurementForm.get('rangeValue').enable();
+            this.newMeasurementForm.get('value').disable();
+            this.rangeValue = true;
+            this.newMeasurementForm.get('valueIsRange').setValue('true');
+        }
+    }
+
     submitMeasurement() {
         this.formError = '';
         this.newMeasurementForm.updateValueAndValidity();
         if (this.newMeasurementForm.valid) {
-            if (this.locations.length == 0)
-                this.newMeasurementForm.get('locations').disable();
-            else
-                this.newMeasurementForm.get('locations').enable();
+            // if (this.locations.length == 0)
+            //     this.newMeasurementForm.get('locations').disable();
+            // else
+            //     this.newMeasurementForm.get('locations').enable();
             // console.log(this.newMeasurementForm.value);
             this.resourceService.postMeasurement(this.newMeasurementForm.value)
                 .subscribe(
-                    res => {
-                    },
+                    res => {},
                     err => this.errorMessage = 'Something went wrong',
                     () => {
                         this.resourceService.getLatestServiceMeasurement(this.newMeasurementForm.get('serviceId').value).subscribe(
