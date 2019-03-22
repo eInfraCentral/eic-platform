@@ -146,7 +146,7 @@
                                                 <tbody>
                                                 <tr class="" *ngFor="let measurement of measurements.results">
                                                     <td class="uk-padding-remove-bottom">{{getIndicatorName(measurement.indicatorId)}}</td>
-                                                    <td class="uk-padding-remove-bottom">{{measurement.value}}</td>
+                                                    <td class="uk-padding-remove-bottom">{{measurement.valueIsRange ? (measurement.rangeValue.fromValue + setUnit(measurement.indicatorId) + ' - ' + measurement.rangeValue.toValue + setUnit(measurement.indicatorId)) : (measurement.value + setUnit(measurement.indicatorId))}}</td>
                                                     <td class="uk-padding-remove-bottom">{{measurement.time ? (measurement.time | date) : '-'}}</td>
                                                 </tr>
                                                 </tbody>
@@ -209,14 +209,37 @@
                                                     </div>
                                                 </div>
                                                 <div class="uk-margin">
+                                                    <div class="uk-form-label">Value Type: </div>
+                                                    <div class="uk-form-controls uk-form-controls-text">
+                                                        <label><input class="uk-radio" type="radio" name="radio" value="single" checked="checked" (change)="handleChange($event)"> Single</label><br>
+                                                        <label><input class="uk-radio" type="radio" name="radio" value="range" (change)="handleChange($event)"> Range</label>
+                                                    </div>
+                                                </div>
+                                                <div *ngIf="this.newMeasurementForm.get('valueIsRange').value == 'false'" class="uk-margin">
                                                     <label class="uk-form-label" for="value">Value: </label>
                                                     <div class="uk-form-controls">
                                                         <input class="uk-input" id="value" type="text" formControlName="value"
                                                                [ngClass]="{'uk-form-danger': !newMeasurementForm.get('value').valid && newMeasurementForm.get('value').dirty}">
                                                     </div>
                                                 </div>
+                                                <div *ngIf="newMeasurementForm.get('valueIsRange').value == 'true'" formGroupName="rangeValue">
+                                                    <div class="uk-margin">
+                                                        <label class="uk-form-label" for="from">From: </label>
+                                                        <div class="uk-form-controls">
+                                                            <input class="uk-input" id="from" type="text" formControlName="fromValue"
+                                                                   [ngClass]="{'uk-form-danger': !newMeasurementForm.get('value').valid && newMeasurementForm.get('value').dirty}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="uk-margin">
+                                                        <label class="uk-form-label" for="to">To: </label>
+                                                        <div class="uk-form-controls">
+                                                            <input class="uk-input" id="to" type="text" formControlName="toValue"
+                                                                   [ngClass]="{'uk-form-danger': !newMeasurementForm.get('value').valid && newMeasurementForm.get('value').dirty}">
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </form>
-                                            <!--{{newMeasurementForm.value | json}}-->
+                                            {{newMeasurementForm.value | json}}
                                         </dd>
                                     </ng-container>
                                     <p class="uk-text-right">

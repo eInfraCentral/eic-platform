@@ -73,13 +73,20 @@ export class InfraService extends Service {
     latest: boolean;
 }
 
+export class RangeValue {
+    fromValue: string;
+    toValue: string;
+}
+
 export class Measurement implements Identifiable {
     id: string;
     indicatorId: string;
     serviceId: string;
     time: XMLGregorianCalendar;
     locations: string[];
+    valueIsRange: boolean;
     value: string;
+    rangeValue: RangeValue;
 }
 
 export class Provider implements Identifiable {
