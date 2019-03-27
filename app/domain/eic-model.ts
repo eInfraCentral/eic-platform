@@ -27,6 +27,7 @@ export class Indicator implements Identifiable {
     description: string;
     dimensions: string[];
     unit: string;
+    unitName: string;
 }
 
 export class Service implements Identifiable {

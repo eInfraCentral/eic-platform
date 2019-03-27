@@ -258,11 +258,10 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
     setUnit(indicatorId: string): string {
         for (let i = 0; this.indicators.results.length; i++) {
             if (this.indicators.results[i].id == indicatorId) {
-                if (this.indicators.results[i].unit == 'percentage')
-                    return '%';
-                else return ''
+                return this.indicators.results[i].unitName;
             }
         }
+        return '';
     }
 
     getIndicatorName(id: string) :string {
@@ -273,7 +272,7 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
     }
 
     getIndicatorIds() {
-        this.resourceService.getIndicators("all").subscribe(
+        this.resourceService.getAll('indicator').subscribe(
             indicatorPage => this.indicators = indicatorPage,
             error => this.errorMessage = error,
             () => {
