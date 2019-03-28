@@ -177,7 +177,7 @@
                                                         <label class="uk-form-label" >Choose Locations: </label>
                                                         <div *ngFor="let location of locations.controls; let i=index" class="uk-form-controls">
                                                             <select class="uk-select uk-width-5-6@m" [formControlName]="i"
-                                                                    [ngClass]="{'uk-form-danger': !newMeasurementForm.get('locations').valid && newMeasurementForm.get('locations').dirty}">
+                                                                    [ngClass]="{'uk-form-danger': !locations.get([i]).valid && locations.get([i]).dirty}">
                                                                 <ng-container *ngIf="placesVocabulary">
                                                                     <option *ngFor="let placeEntry of placesVocabulary.entries | values | premiumsort:weights" value="{{placeEntry}}">
                                                                         {{placesVocabulary.entries[placeEntry].name}}
@@ -221,14 +221,14 @@
                                                         <label class="uk-form-label" for="from">From: </label>
                                                         <div class="uk-form-controls">
                                                             <input class="uk-input" id="from" type="text" formControlName="fromValue"
-                                                                   [ngClass]="{'uk-form-danger': !newMeasurementForm.get('value').valid && newMeasurementForm.get('value').dirty}">
+                                                                   [ngClass]="{'uk-form-danger': !newMeasurementForm.get('rangeValue.fromValue').valid && newMeasurementForm.get('rangeValue.fromValue').dirty}">
                                                         </div>
                                                     </div>
                                                     <div class="uk-margin">
                                                         <label class="uk-form-label" for="to">To: </label>
                                                         <div class="uk-form-controls">
                                                             <input class="uk-input" id="to" type="text" formControlName="toValue"
-                                                                   [ngClass]="{'uk-form-danger': !newMeasurementForm.get('value').valid && newMeasurementForm.get('value').dirty}">
+                                                                   [ngClass]="{'uk-form-danger': !newMeasurementForm.get('rangeValue.toValue').valid && newMeasurementForm.get('rangeValue.toValue').dirty}">
                                                         </div>
                                                     </div>
                                                 </div>
