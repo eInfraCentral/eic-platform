@@ -37,7 +37,7 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
 
     formError: string = '';
     showForm: boolean = false;
-    rangeValue: boolean = false;
+    // rangeValue: boolean = false;
     canEditService: boolean = false;
     placesVocabulary: Vocabulary = null;
     places: SearchResults<Vocabulary> = null;
@@ -48,7 +48,7 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
         serviceId: ['', Validators.required],
         time: ['', Validators.required],
         locations: this.fb.array([
-            this.fb.control('')
+            this.fb.control('', Validators.required)
         ], Validators.required),
         valueIsRange: ['false', Validators.required],
         value: ['', Validators.required],
@@ -227,7 +227,7 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
     }
 
     pushToLocations() {
-        this.locations.push(this.fb.control(''));
+        this.locations.push(this.fb.control('', Validators.required));
     }
 
     removeFromLocations(i: number) {
@@ -264,7 +264,7 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
         return '';
     }
 
-    getIndicatorName(id: string) :string {
+    getIndicatorName(id: string): string {
         for (let i = 0; i < this.indicators.results.length; i++) {
             if (this.indicators.results[i].id == id)
                 return this.indicators.results[i].name;
@@ -296,16 +296,13 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
     }
 
     handleChange(event) {
-        console.log(event.target.value);
         if (event.target.value == 'single') {
             this.newMeasurementForm.get('rangeValue').disable();
             this.newMeasurementForm.get('value').enable();
-            this.rangeValue = false;
             this.newMeasurementForm.get('valueIsRange').setValue('false');
         } else {
             this.newMeasurementForm.get('rangeValue').enable();
             this.newMeasurementForm.get('value').disable();
-            this.rangeValue = true;
             this.newMeasurementForm.get('valueIsRange').setValue('true');
         }
     }
@@ -314,41 +311,47 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
         this.formError = '';
         this.newMeasurementForm.updateValueAndValidity();
         if (this.newMeasurementForm.valid) {
-            // if (this.locations.length == 0)
-            //     this.newMeasurementForm.get('locations').disable();
-            // else
-            //     this.newMeasurementForm.get('locations').enable();
-            // console.log(this.newMeasurementForm.value);
-            this.resourceService.postMeasurement(this.newMeasurementForm.value)
-                .subscribe(
-                    res => {},
-                    err => this.errorMessage = 'Something went wrong',
-                    () => {
-                        this.resourceService.getLatestServiceMeasurement(this.newMeasurementForm.get('serviceId').value).subscribe(
-                            res => this.measurements = res
-                        );
-                        this.newMeasurementForm.get('indicatorId').setValue('');
-                        this.newMeasurementForm.get('indicatorId').markAsUntouched();
-                        this.newMeasurementForm.get('indicatorId').markAsPristine();
-                        this.newMeasurementForm.get('locations').disable();
-                        this.newMeasurementForm.get('time').disable();
-                        this.newMeasurementForm.get('value').setValue('');
-                        this.newMeasurementForm.get('value').reset();
-                        while (this.locations.length > 0) {
-                            this.removeFromLocations(0);
-                        }
-                        this.pushToLocations();
-                        this.showFormFields();
-                        UIkit.modal('#add-measurement').hide();
+            this.resourceService.postMeasurement(this.newMeasurementForm.value).subscribe(
+                res => {},
+                err => this.errorMessage = 'Something went wrong',
+                () => {
+                    this.resourceService.getLatestServiceMeasurement(this.newMeasurementForm.get('serviceId').value).subscribe(
+                        res => this.measurements = res
+                    );
+                    this.newMeasurementForm.get('indicatorId').setValue('');
+                    this.newMeasurementForm.get('indicatorId').markAsUntouched();
+                    this.newMeasurementForm.get('indicatorId').markAsPristine();
+                    this.newMeasurementForm.get('locations').disable();
+                    this.newMeasurementForm.get('time').disable();
+                    this.newMeasurementForm.get('value').setValue('');
+                    this.newMeasurementForm.get('value').reset();
+                    this.newMeasurementForm.get('rangeValue.fromValue').setValue('');
+                    this.newMeasurementForm.get('rangeValue.fromValue').reset();
+                    this.newMeasurementForm.get('rangeValue.toValue').setValue('');
+                    this.newMeasurementForm.get('rangeValue.toValue').reset();
+                    while (this.locations.length > 0) {
+                        this.removeFromLocations(0);
                     }
-                );
+                    this.pushToLocations();
+                    this.showFormFields();
+                    UIkit.modal('#add-measurement').hide();
+                }
+            );
             // console.log(this.newMeasurementForm.value);
         } else {
             for (const i in this.newMeasurementForm.controls) {
                 this.newMeasurementForm.controls[i].markAsDirty();
                 this.newMeasurementForm.controls[i].updateValueAndValidity();
-                // console.log(this.newMeasurementForm.controls[i].status);
+                // console.log(this.newMeasurementForm.controls[i]);
             }
+            for (let i in this.locations.controls) {
+                this.locations.controls[i].markAsDirty();
+                this.locations.controls[i].updateValueAndValidity();
+            }
+            this.newMeasurementForm.controls['rangeValue'].get('toValue').markAsDirty();
+            this.newMeasurementForm.controls['rangeValue'].get('toValue').updateValueAndValidity();
+            this.newMeasurementForm.controls['rangeValue'].get('fromValue').markAsDirty();
+            this.newMeasurementForm.controls['rangeValue'].get('fromValue').updateValueAndValidity();
             this.formError = 'Please fill the required fields.';
         }
     }

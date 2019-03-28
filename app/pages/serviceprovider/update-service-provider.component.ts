@@ -133,7 +133,7 @@ export class UpdateServiceProviderComponent implements OnInit {
                     this.router.navigate(['/myServiceProviders']);
                 }
             );
-            console.log('form is valid')
+            // console.log('form is valid')
         } else {
             this.updateProviderForm.markAsDirty();
             this.updateProviderForm.updateValueAndValidity();
