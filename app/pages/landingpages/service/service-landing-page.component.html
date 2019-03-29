@@ -140,7 +140,7 @@
                                                 <tbody>
                                                 <tr class="" *ngFor="let measurement of measurements.results">
                                                     <td class="uk-padding-remove-bottom">{{getIndicatorName(measurement.indicatorId)}}</td>
-                                                    <td class="uk-padding-remove-bottom">{{measurement.valueIsRange ? (measurement.rangeValue.fromValue + setUnit(measurement.indicatorId) + ' - ' + measurement.rangeValue.toValue + setUnit(measurement.indicatorId)) : (measurement.value + setUnit(measurement.indicatorId))}}</td>
+                                                    <td class="uk-padding-remove-bottom">{{measurement.valueIsRange ? (measurement.rangeValue.fromValue + ' - ' + measurement.rangeValue.toValue + ' ' + setUnit(measurement.indicatorId)) : (measurement.value + ' ' + setUnit(measurement.indicatorId))}}</td>
                                                     <td class="uk-padding-remove-bottom">{{measurement.time ? (measurement.time | date) : '-'}}</td>
                                                 </tr>
                                                 </tbody>
