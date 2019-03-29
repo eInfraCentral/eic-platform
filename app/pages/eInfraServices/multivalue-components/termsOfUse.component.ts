@@ -13,7 +13,7 @@ import * as sd from "../services.description";
     `
 })
 export class TermsOfUseComponent extends MyGroup {
-    readonly groupDefinition = {entry: ["", ]};
+    readonly groupDefinition = {entry: ["", URLValidator]};
     readonly termsOfUseDesc: sd.Description = sd.termsOfUseDesc;
 
     ngOnInit() {

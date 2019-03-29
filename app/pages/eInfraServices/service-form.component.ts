@@ -36,7 +36,7 @@ export class ServiceFormComponent {
     service: Service;
     errorMessage: string = '';
     logoError: boolean = false;
-    logoUrlWorks: boolean = false;
+    logoUrlWorks: boolean = true;
     successMessage: string = null;
     submitted = false;
     readonly urlDesc: sd.Description = sd.urlDesc;
@@ -81,7 +81,7 @@ export class ServiceFormComponent {
     relatedServicesComponent: Type<RelatedServicesComponent> = RelatedServicesComponent;
     termsOfUseComponent: Type<TermsOfUseComponent> = TermsOfUseComponent;
     formGroupMeta = {
-        "url": ["", Validators.compose([Validators.required, ])],
+        "url": ["", Validators.compose([Validators.required, URLValidator])],
         "name": ["", Validators.required],
         "tagline": [""],
         "description": ["", Validators.required],
@@ -89,8 +89,8 @@ export class ServiceFormComponent {
         "targetUsers": [""],
         "userValue": [""],
         "userBase": [""],
-        "symbol": ["", Validators.compose([Validators.required, ])],
-        "multimediaURL": ["", ],
+        "symbol": ["", Validators.compose([Validators.required, URLValidator])],
+        "multimediaURL": ["", URLValidator],
         //providers is defined in component
         "version": ["", Validators.required],
         "lastUpdate": ["", Validators.required],
@@ -107,13 +107,13 @@ export class ServiceFormComponent {
         //tags is defined in component
         //requiredServices is defined in component
         //relatedServices is defined in component
-        "order": ["", Validators.compose([Validators.required, ])],
-        "helpdesk": ["", ],
-        "userManual": ["", ],
-        "trainingInformation": ["", ],
-        "feedback": ["", ],
-        "price": [""],
-        "serviceLevelAgreement": ["", Validators.compose([Validators.required, ])],
+        "order": ["", Validators.compose([Validators.required, URLValidator])],
+        "helpdesk": ["", URLValidator],
+        "userManual": ["", URLValidator],
+        "trainingInformation": ["", URLValidator],
+        "feedback": ["", URLValidator],
+        "price": ["", URLValidator],
+        "serviceLevelAgreement": ["", Validators.compose([Validators.required, URLValidator])],
         //TOS is defined in component
         "funding": [""]
     };
@@ -156,9 +156,11 @@ export class ServiceFormComponent {
                 newValues = [];
                 values.forEach(e => {
                     if (e.entry !== "") {
-                        newValues.push(e.entry);
+                        newValues.push(e.entry.trim().replace(/\s\s+/g, ' '));
                     }
                 });
+            } else {
+                newValues = newValues.trim().replace(/\s\s+/g, ' ');
             }
             ret[name] = newValues;
         });
@@ -171,38 +173,43 @@ export class ServiceFormComponent {
 
     onSubmit(service: Service, isValid: boolean) {
         this.errorMessage = '';
-        service.url = ServiceFormComponent.checkUrl(this.serviceForm.get('url').value);
-        // service.symbol = ServiceFormComponent.checkUrl(this.serviceForm.get('symbol').value);
-        service.symbol = this.logoCheckUrl(this.serviceForm.get('symbol').value);
-        this.serviceForm.get('symbol').setValue(service.symbol); // update field in order for logo to display properly
-        service.multimediaURL = ServiceFormComponent.checkUrl(this.serviceForm.get('multimediaURL').value);
-        service.order = ServiceFormComponent.checkUrl(this.serviceForm.get('order').value);
-        service.helpdesk = ServiceFormComponent.checkUrl(this.serviceForm.get('helpdesk').value);
-        service.userManual = ServiceFormComponent.checkUrl(this.serviceForm.get('userManual').value);
-        service.trainingInformation = ServiceFormComponent.checkUrl(this.serviceForm.get('trainingInformation').value);
-        service.feedback = ServiceFormComponent.checkUrl(this.serviceForm.get('feedback').value);
-        service.serviceLevelAgreement = ServiceFormComponent.checkUrl(this.serviceForm.get('serviceLevelAgreement').value);
-        service.price = ServiceFormComponent.checkUrl(this.serviceForm.get('price').value);
-        for (let i = 0; i < service['termsOfUse'].length; i++) {
-            service['termsOfUse'][i]['entry'] = ServiceFormComponent.checkUrl(service['termsOfUse'][i]['entry']);
-        }
-        this.logoUrlWorks = this.imageExists(service.symbol);
+
+        /** Pre submit check and clean **/
+        // service.url = ServiceFormComponent.checkUrl(this.serviceForm.get('url').value);
+        // service.symbol = this.logoCheckUrl(this.serviceForm.get('symbol').value);
+        // this.serviceForm.get('symbol').setValue(service.symbol); // update field in order for logo to display properly
+        // service.multimediaURL = ServiceFormComponent.checkUrl(this.serviceForm.get('multimediaURL').value);
+        // service.order = ServiceFormComponent.checkUrl(this.serviceForm.get('order').value);
+        // service.helpdesk = ServiceFormComponent.checkUrl(this.serviceForm.get('helpdesk').value);
+        // service.userManual = ServiceFormComponent.checkUrl(this.serviceForm.get('userManual').value);
+        // service.trainingInformation = ServiceFormComponent.checkUrl(this.serviceForm.get('trainingInformation').value);
+        // service.feedback = ServiceFormComponent.checkUrl(this.serviceForm.get('feedback').value);
+        // service.serviceLevelAgreement = ServiceFormComponent.checkUrl(this.serviceForm.get('serviceLevelAgreement').value);
+        // service.price = ServiceFormComponent.checkUrl(this.serviceForm.get('price').value);
+        // for (let i = 0; i < service['termsOfUse'].length; i++) {
+        //     service['termsOfUse'][i]['entry'] = ServiceFormComponent.checkUrl(service['termsOfUse'][i]['entry']);
+        // }
+        // this.logoUrlWorks = this.imageExists(service.symbol);
 
         this.setAsTouched();
 
-        //TODO: check if model is valid
+        console.log('description validity '+this.serviceForm.controls['description'].valid);
+
+        /** if valid submit **/
         if (isValid && !this.logoError && this.logoUrlWorks) {
             console.log(service);
             this.resourceService.uploadService(this.toServer(service), this.editMode)
-            .subscribe(service => {
-                setTimeout(() => this.router.service(service.id), 1000);
-            });
+            .subscribe(service => this.router.service(service.id));
         } else {
             window.scrollTo(0, 0);
             this.serviceForm.markAsDirty();
             this.serviceForm.updateValueAndValidity();
-            if (!isValid)
+            if (!isValid) {
                 this.errorMessage = "Please fill in all required fields (marked with an asterisk), and fix the data format in fields underlined with a red colour.";
+                if (!this.serviceForm.controls['description'].valid) {
+                    this.errorMessage += " Description is an mandatory field."
+                }
+            }
             if (this.logoError) {
                 this.logoError = false;
                 this.serviceForm.controls['symbol'].setErrors({'incorrect': true});
@@ -220,7 +227,7 @@ export class ServiceFormComponent {
             this.resourceService.getProvidersNames(),
             this.resourceService.getVocabularies()
         ).subscribe(suc => {
-            console.log(priceDesc);
+            // console.log(priceDesc);
             this.providers = suc[0];
             this.vocabularies = suc[1];
 
@@ -301,4 +308,5 @@ export class ServiceFormComponent {
         console.log(url);
         return url;
     }
+
 }

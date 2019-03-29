@@ -39,7 +39,6 @@ export class ServiceProvidersListComponent implements OnInit {
     }
 
     getProviders(from: number, itemsPerPage: number) {
-        /*setTimeout( () => {*/
         this.providers = [];
         this.resourceService.getProviders(`${from}`, `${itemsPerPage}`).subscribe(
             res => {
@@ -69,7 +68,6 @@ export class ServiceProvidersListComponent implements OnInit {
             }
 
         );
-        /*}, 1000);*/
     }
 
     approveStatusChange(provider: Provider) {
@@ -117,14 +115,13 @@ export class ServiceProvidersListComponent implements OnInit {
     }
 
     statusChangeAction() {
-        console.log("Test");
         const active = this.pushedApprove && (this.newStatus === 'approved');
         this.serviceProviderService.verifyServiceProvider(this.selectedProvider.id, active, this.adminActionsMap[this.newStatus].statusId)
             .subscribe(
                 res => {
                     /*this.providers = [];
                     this.providers = res;*/
-                    console.log(res);
+                    // console.log(res);
                     UIkit.modal('#actionModal').hide();
                     this.getProviders(this.from, this.itemsPerPage);
                 },

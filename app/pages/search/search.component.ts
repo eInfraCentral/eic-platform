@@ -79,6 +79,8 @@ export class SearchComponent implements OnInit, OnDestroy {
                         this.urlParameters.push(urlParameter);
                         if (urlParameter.key === 'quantity') {
                             this.pageSize = +urlParameter.values;
+                            if (this.pageSize%3 == 0)
+                                this.listViewActive = false;
                         }
                     }
                 }
@@ -100,6 +102,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
 
     toggleListGrid(show: string) {
+        console.log('boom');
         if(show == 'list') {
             this.listViewActive = true;
             this.pageSize = 10;
@@ -276,6 +279,7 @@ export class SearchComponent implements OnInit, OnDestroy {
             }
             map[urlParameter.key] = concatValue;
         }
+        console.log(map);
         return this.router.search(map);
     }
 

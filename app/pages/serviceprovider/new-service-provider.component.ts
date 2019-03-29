@@ -33,16 +33,15 @@ export class NewServiceProviderComponent implements OnInit {
     newProviderForm: FormGroup;
     logoUrl: string = '';
 
-    /* TODO: add logo field to the form */
     readonly formDefinition = {
         id: ['', Validators.compose([Validators.required, Validators.pattern(/^[a-zA-z][a-zA-Z0-9-_]{1,}$/)])],
         // id: ['', Validators.required],
         name: ['', Validators.required],
-        logo: [''],
+        logo: ['', URLValidator],
         contactInformation: [''],
-        website: ['', [Validators.required]],
-        catalogueOfResources: [''],
-        publicDescOfResources: [''],
+        website: ['', Validators.compose([Validators.required, URLValidator])],
+        catalogueOfResources: ['', URLValidator],
+        publicDescOfResources: ['', URLValidator],
         additionalInfo: ['', Validators.required]
     };
     organizationIdDesc: Description = organizationIdDesc;
@@ -73,11 +72,10 @@ export class NewServiceProviderComponent implements OnInit {
     registerProvider() {
         this.trimFormWhiteSpaces();
 
-        // this.newProviderForm.get('logo').setValue(ServiceProviderService.checkUrl(this.newProviderForm.get('logo').value));
-        this.newProviderForm.get('logo').setValue(this.logoCheckUrl(this.newProviderForm.get('logo').value));
-        this.newProviderForm.get('website').setValue(ServiceProviderService.checkUrl(this.newProviderForm.get('website').value));
-        this.newProviderForm.get('catalogueOfResources').setValue(ServiceProviderService.checkUrl(this.newProviderForm.get('catalogueOfResources').value));
-        this.newProviderForm.get('publicDescOfResources').setValue(ServiceProviderService.checkUrl(this.newProviderForm.get('publicDescOfResources').value));
+        // this.newProviderForm.get('logo').setValue(this.logoCheckUrl(this.newProviderForm.get('logo').value));
+        // this.newProviderForm.get('website').setValue(ServiceProviderService.checkUrl(this.newProviderForm.get('website').value));
+        // this.newProviderForm.get('catalogueOfResources').setValue(ServiceProviderService.checkUrl(this.newProviderForm.get('catalogueOfResources').value));
+        // this.newProviderForm.get('publicDescOfResources').setValue(ServiceProviderService.checkUrl(this.newProviderForm.get('publicDescOfResources').value));
 
         this.logoUrlWorks = this.imageExists(this.newProviderForm.get('logo').value);
         this.errorMessage = '';

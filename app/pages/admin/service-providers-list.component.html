@@ -55,12 +55,12 @@
                                     <table class="uk-table uk-table-small uk-table-striped uk-table-middle">
                                         <thead>
                                             <tr>
-                                                <th class="">Logo</th>
+                                                <th class="uk-text-center">Logo</th>
                                                 <th class="uk-text-center">Name</th>
-                                                <th>Current Status</th>
-                                                <th>Info</th>
+                                                <th class="uk-text-center">Current Status</th>
+                                                <th class="uk-text-center">Info</th>
                                                 <th class="uk-text-center">Active</th>
-                                                <th class="uk-text-center uk-text-nowrap">service template</th>
+                                                <th class="uk-text-center">service template</th>
                                                 <th class="uk-text-center">Actions</th>
                                             </tr>
                                         </thead>
@@ -70,7 +70,7 @@
                                                     <img class="el-image uk-border-rounded"
                                                          src="{{ provider.logo ? provider.logo : 'http://fvtelibrary.com/img/user/NoLogo.png' }}">
                                                 </td>
-                                                <td class="uk-width-1-5@m">
+                                                <td class="uk-width-1-5@m uk-text-center">
                                                     <span data-uk-tooltip
                                                           title="{{(provider.status !== 'approved') ?
                                                                 'The service provider is not yet active, therefore you cannot access its monitoring dashboard':
@@ -83,7 +83,7 @@
                                                         </a>
                                                     </span>
                                                 </td>
-                                                <td class="uk-width-1-5@m">
+                                                <td class="uk-width-1-5@m uk-text-center">
                                                     <!--<span class="{{ (provider.status === 'pending initial approval') ? 'uk-badge uk-badge-danger' :
                                                                    ((provider.status === 'pending service template approval') ? 'uk-badge uk-badge-warning' : 'uk-badge uk-badge-success') }}">-->
                                                         <!--<i class="fa {{ (provider.status === 'pending initial approval') ? 'fa-times' :
@@ -110,7 +110,7 @@
                                                         <i class="fa fa-pencil"></i> Edit
                                                     </a>
                                                 </td>
-                                                <td class="uk-text-nowrap uk-grid">
+                                                <td class="uk-grid">
                                                     <!--<button *ngIf="(provider.status === 'pending initial approval') ||
                                                                    ((provider.status === 'pending service template approval') &&
                                                                      hasCreatedFirstService(provider.id))"

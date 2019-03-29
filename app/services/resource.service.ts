@@ -5,7 +5,7 @@ import {Injectable} from "@angular/core";
 import {RequestOptions, URLSearchParams} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import {BrowseResults} from "../domain/browse-results";
-import { RichService, Service, ServiceHistory, Vocabulary } from '../domain/eic-model';
+import {Measurement, RichService, Service, ServiceHistory, Vocabulary} from '../domain/eic-model';
 import {SearchResults} from "../domain/search-results";
 import {URLParameter} from "../domain/url-parameter";
 import {AuthenticationService} from "./authentication.service";
@@ -162,6 +162,18 @@ export class ResourceService {
 
     getRatingsForService(service: string) {
         return this.get("stats/service/ratings", service);
+    }
+
+    getLatestServiceMeasurement(id: string) {
+        return this.get("measurement/latest/service", id);
+    }
+
+    getIndicators(id: string) {
+        return this.get("indicator", id);
+    }
+
+    postMeasurement(measurement: Measurement) {
+        return this.http.post("/measurement", measurement);
     }
 
     groupServicesOfProviderPerPlace(id: string) {
