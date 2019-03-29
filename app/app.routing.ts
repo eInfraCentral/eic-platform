@@ -20,6 +20,7 @@ import { UpdateServiceProviderComponent } from "./pages/serviceprovider/update-s
 import { ServiceProviderInfoComponent } from "./pages/serviceprovider/service-provider-info.component";
 import {BecomeAProviderComponent} from "./pages/serviceprovider/become-a-provider.component";
 import {MyFavouritesComponent} from "./pages/user/favourites/my-favourites.component";
+import {FundersDashboardComponent} from "./pages/funders/funders-dashboard.component";
 
 const appRoutes: Routes = [
     {
@@ -155,6 +156,13 @@ const appRoutes: Routes = [
         canActivate: [CanActivateViaAuthGuard],
         data: {
             breadcrumb : "Service Providers"
+        }
+    },
+    {
+        path: "fundersDashboard",
+        component: FundersDashboardComponent,
+        data: {
+            breadcrumb : "Funders Dashboard"
         }
     }
 ];

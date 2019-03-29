@@ -173,7 +173,7 @@ export class ResourceService {
     }
 
     postMeasurement(measurement: Measurement) {
-        return this.http.post("measurement", measurement);
+        return this.http.post("/measurement", measurement);
     }
 
     groupServicesOfProviderPerPlace(id: string) {

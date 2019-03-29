@@ -578,8 +578,8 @@
                                                 </star-rating-comp>
                                             </div>
                                         </div>
-                                        <div style="margin-top: 30px;">
-                                            <h2 class="uk-margin-remove uk-h3 uk-scrollspy-inview uk-animation-fade uk-inline" uk-scrollspy-class="">
+                                        <div style="margin-top: 20px;">
+                                            <h2 class="uk-margin-remove uk-h3 uk-scrollspy-inview uk-animation-fade uk-inline serviceName" uk-scrollspy-class="">
                                                 <a [routerLink]="['/service/' + resourceInfo.id]">
                                                     {{resourceInfo.name || "Not Available"}}
                                                 </a>
@@ -597,10 +597,13 @@
                                         <!--)-->
                                         <!--</em>-->
                                         <!--</div>-->
-                                        <div class="uk-margin-small-top uk-scrollspy-inview uk-animation-fade serviceDescription" uk-scrollspy-class="" style="">
-                                            <read-more-text [text]="resourceInfo.description" [maxHeight]="45">
-                                            </read-more-text>
+                                        <div class="uk-margin-small-top uk-scrollspy-inview uk-animation-fade" uk-scrollspy-class="">
+                                            <!--<read-more-text [text]="resourceInfo.description" [maxHeight]="38">-->
+                                            <!--</read-more-text>-->
+                                            <div class="serviceDescription" [innerHTML]="resourceInfo.description"></div>
+                                            <a [routerLink]="['/service/' + resourceInfo.id]">View more...</a>
                                         </div>
+
 
                                         <div class="addenda uk-margin-small-top">
                                             <span class="uk-margin-medium-right">
