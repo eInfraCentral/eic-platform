@@ -38,8 +38,8 @@ var webpackConfig = {
             "process.env": {
                 PRODUCTION: JSON.stringify(true),
                 FAQ_ENDPOINT: JSON.stringify(process.env.FAQ_ENDPOINT || "http://beta.einfracentral.eu/faq/api"),
-                // API_ENDPOINT: JSON.stringify(process.env.API_ENDPOINT || "http://localhost:8080/eic-registry")
-                API_ENDPOINT: JSON.stringify(process.env.API_ENDPOINT || "/api")
+                API_ENDPOINT: JSON.stringify(process.env.API_ENDPOINT || "http://localhost:8080/eic-registry")
+                // API_ENDPOINT: JSON.stringify(process.env.API_ENDPOINT || "/api")
             }
         })
     ],
