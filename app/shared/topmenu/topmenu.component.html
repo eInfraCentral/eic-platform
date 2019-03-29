@@ -117,6 +117,8 @@
                                     <li *ngIf="isProvider() || isAdmin()"><a [routerLink]="['/myServiceProviders']" routerLinkActive="uk-active" class="uk-offcanvas-close offcanvas-close">My Providers</a></li>
                                     <!-- If user is admin -->
                                     <li *ngIf="isAdmin()"><a [routerLink]="['/serviceProvidersList']" routerLinkActive="uk-active" >View Providers</a></li>
+                                    <li *ngIf="isLoggedIn()" class="uk-nav-divider"></li>
+                                    <li *ngIf="isLoggedIn()"><a [routerLink]="['/developers']" routerLinkActive="uk-active">Public API</a></li>
                                 </ul>
                             </li>
 
@@ -455,6 +457,8 @@
                                             <li *ngIf="isProvider() || isAdmin()"><a [routerLink]="['/myServiceProviders']" routerLinkActive="uk-active">My Providers</a></li>
                                             <!-- If user is admin -->
                                             <li *ngIf="isAdmin()"><a [routerLink]="['/serviceProvidersList']" routerLinkActive="uk-active">View Providers</a></li>
+                                            <li *ngIf="isLoggedIn()" class="uk-nav-divider"></li>
+                                            <li *ngIf="isLoggedIn()"><a [routerLink]="['/developers']" routerLinkActive="uk-active">Public API</a></li>
                                         </ul>
                                     </div>
                                 </div>
