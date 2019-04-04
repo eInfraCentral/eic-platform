@@ -169,6 +169,9 @@
                                                             <option *ngFor="let indicator of indicators.results" title="{{indicator.description}}" value="{{indicator.id}}">{{indicator.name}}</option>
                                                         </select>
                                                     </div>
+                                                    <div class="uk-width-3-5@m uk-align-right">
+                                                        <i>{{indicatorDesc}}</i>
+                                                    </div>
                                                 </div>
                                                 <div *ngIf="newMeasurementForm.get('locations').status != 'DISABLED'" formArrayName="locations">
                                                     <div class="uk-margin">
