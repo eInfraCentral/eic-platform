@@ -28,6 +28,7 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
     public WW: string[];
     public measurements: MeasurementsPage;
     public indicators: IndicatorsPage;
+    public indicatorDesc: string = '';
     public idArray: string[] = [];
     private sub: Subscription;
 
@@ -245,13 +246,15 @@ export class ServiceLandingPageComponent implements OnInit, OnDestroy {
             for (let i = 0; i < this.indicators.results.length; i++) {
                 if (this.indicators.results[i].id == event.target.value) {
                     // console.log(this.indicators.results[i].dimensions);
+                    this.indicatorDesc = this.indicators.results[i].description;
                     for (let j = 0; j < this.indicators.results[i].dimensions.length; j++) {
                         // console.log(this.indicators.results[i].dimensions[j]);
                         this.newMeasurementForm.get(this.indicators.results[i].dimensions[j]).enable();
                     }
-                    break;
+                    return;
                 }
             }
+            this.indicatorDesc = '';
         }
     }
 
