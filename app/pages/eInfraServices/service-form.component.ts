@@ -36,7 +36,7 @@ export class ServiceFormComponent {
     service: Service;
     errorMessage: string = '';
     logoError: boolean = false;
-    logoUrlWorks: boolean = false;
+    logoUrlWorks: boolean = true;
     successMessage: string = null;
     submitted = false;
     readonly urlDesc: sd.Description = sd.urlDesc;
@@ -193,10 +193,9 @@ export class ServiceFormComponent {
 
         this.setAsTouched();
 
-        console.log('description validity '+this.serviceForm.controls['description'].valid);
-
         /** if valid submit **/
-        if (isValid && !this.logoError && this.logoUrlWorks) {
+        // if (isValid && !this.logoError && this.logoUrlWorks) {
+        if (isValid) {
             console.log(service);
             this.resourceService.uploadService(this.toServer(service), this.editMode)
             .subscribe(service => this.router.service(service.id));
@@ -248,15 +247,16 @@ export class ServiceFormComponent {
 
     public setAsTouched() {
         let ret = {};
-        console.log(this.serviceForm);
+        // console.log(this.serviceForm);
         this.setAsTouched_(this.serviceForm, ret);
-        console.log(ret);
+        // console.log(ret);
     }
 
     private setAsTouched_(form : FormGroup, ret : any) {
         Object.keys(form.controls).forEach(control =>{
             let control_ = form.controls[control];
-            console.log(control,control_);
+            // for debug
+            // console.log(control,control_);
             if( !control_.valid) {
                 ret[control] = {};
                 if (control_.hasOwnProperty('controls')) {
@@ -267,7 +267,8 @@ export class ServiceFormComponent {
                         ret[control] = control_.valid;
                         (control_ as FormGroup).markAsDirty();
                         (control_ as FormGroup).markAsTouched();
-                        console.log(control, form.controls[control].valid);
+                        // for debug
+                        // console.log(control, form.controls[control].valid);
                     }
                 }
             }
